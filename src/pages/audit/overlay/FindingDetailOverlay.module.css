@@ -1,0 +1,364 @@
+/* ── Scrim (covers table area) ── */
+.scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 200;
+}
+
+/* ── Right-side panel ── */
+.panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 520px;
+  background: var(--bg-white);
+  border-left: 1px solid var(--border-default);
+  z-index: 201;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ── Panel header ── */
+.panelHeader {
+  border-bottom: 1px solid var(--border-default);
+  padding: 14px 16px 12px;
+  flex-shrink: 0;
+  background: var(--bg-white);
+}
+
+.panelHeaderTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.panelContext {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.closeBtn {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-table-header);
+  border: none;
+  cursor: pointer;
+  font-size: var(--text-lg);
+  color: var(--text-secondary);
+  border-radius: 2px;
+  font-family: inherit;
+  transition: background 0.1s;
+}
+.closeBtn:hover { background: var(--border-default); }
+
+.findingTitle {
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--text-primary);
+  display: block;
+  line-height: 1.3;
+}
+
+/* ── Navigation ── */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--border-default);
+  background: var(--bg-table-header);
+  flex-shrink: 0;
+}
+
+.navCounter {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.navControls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navBtn {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0;
+}
+.navBtn:disabled { color: var(--text-secondary); cursor: default; }
+
+/* ── Scrollable body ── */
+.panelBody {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+}
+
+/* ── Metadata grid ── */
+.metaGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 20px;
+  margin-bottom: 20px;
+}
+
+.metaItem {}
+
+.metaLabel {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.metaValue {
+  font-size: var(--text-base);
+  font-weight: 400;
+  color: var(--text-primary);
+}
+
+.discrepancyValue {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.confRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.confBar {
+  width: 80px;
+  height: 4px;
+  background: var(--border-default);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.confFill {
+  height: 100%;
+  background: #161616;
+  border-radius: 2px;
+}
+
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  min-width: 80px;
+  padding: 0 10px;
+  border-radius: 100px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+.statusNew { background: var(--bg-table-header); color: var(--text-primary); }
+.statusRecovery { background: #FFF4D5; color: var(--status-pending-text); }
+.statusRecovered { background: var(--status-live-bg); color: var(--status-live-text); }
+.statusDismissed { background: var(--bg-table-header); color: var(--text-secondary); }
+.statusDisputed { background: var(--banner-error-bg); color: var(--status-fix-text); }
+
+/* ── Document panels ── */
+.sectionLabel {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.docPanels {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.docBox {
+  background: var(--bg-table-header);
+  border: 1px solid var(--border-default);
+  border-radius: 4px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.docBoxLabel {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.docBoxId {
+  font-size: var(--text-base);
+  font-weight: 400;
+  color: var(--text-primary);
+}
+
+/* ── Recovery action ── */
+.recoverySection {
+  border: 1px solid var(--border-default);
+  position: relative;
+  overflow: hidden;
+  padding: 12px 14px 14px 16px;
+}
+
+.recoverySection::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--type-badge-text);
+}
+
+.recoveryTitle {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.emailPreviewLabel {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.emailPreview {
+  background: var(--bg-table-header);
+  padding: 10px 12px;
+  margin-bottom: 12px;
+}
+
+.emailLine {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-secondary);
+  display: block;
+}
+
+.emailSubject {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-primary);
+  display: block;
+}
+
+.emailDivider {
+  border: none;
+  border-top: 1px solid var(--border-default);
+  margin: 6px 0;
+}
+
+.emailBody {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-secondary);
+  display: block;
+  line-height: 1.5;
+}
+
+.recoveryActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.sendBtn {
+  height: 32px;
+  padding: 0 16px;
+  background: var(--btn-primary-bg);
+  color: #fff;
+  font-size: var(--text-base);
+  font-weight: 600;
+  border-radius: var(--radius-btn);
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.editBtn {
+  height: 32px;
+  padding: 0 16px;
+  background: #fff;
+  color: var(--text-primary);
+  font-size: var(--text-base);
+  font-weight: 400;
+  border-radius: var(--radius-btn);
+  border: 1px solid var(--border-default);
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.botBtn {
+  height: 32px;
+  padding: 0 16px;
+  background: #fff;
+  color: var(--text-secondary);
+  font-size: var(--text-base);
+  font-weight: 400;
+  border-radius: var(--radius-btn);
+  border: 1px solid var(--border-default);
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.cancelBtn {
+  font-size: var(--text-base);
+  font-weight: 400;
+  color: var(--status-fix-text);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0;
+}
+
+.toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  background: var(--text-primary);
+  color: #fff;
+  font-size: var(--text-base);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  z-index: 400;
+  max-width: min(420px, 92vw);
+  text-align: center;
+}

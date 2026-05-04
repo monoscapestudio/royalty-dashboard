@@ -1,0 +1,295 @@
+/* ── Toolbar ── */
+.tableWrap {
+  margin: 0 var(--content-px);
+  padding-top: 16px;
+}
+
+.tableHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.tableTitle {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.tableMeta {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.filterSelect {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0;
+  appearance: none;
+}
+
+/* ── Bulk actions bar ── */
+.bulkBar {
+  background: var(--bg-table-header);
+  padding: 0 16px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-top: 1px solid var(--border-default);
+}
+
+.selectAll {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.bulkLabel {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.bulkBtn {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0;
+}
+
+.bulkBtnSecondary {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0;
+}
+
+/* ── Column headers ── */
+.colHeader {
+  background: var(--bg-table-header);
+  padding: 0 20px;
+  height: 32px;
+  display: grid;
+  grid-template-columns: 24px minmax(160px, 2fr) minmax(120px, 1.5fr) 110px 100px 130px minmax(140px, 1fr);
+  column-gap: 16px;
+  align-items: center;
+}
+
+.colLabel {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+/* ── Table rows ── */
+.tableBody { border-top: 1px solid var(--border-default); }
+
+.tableRow {
+  display: grid;
+  grid-template-columns: 24px minmax(160px, 2fr) minmax(120px, 1.5fr) 110px 100px 130px minmax(140px, 1fr);
+  column-gap: 16px;
+  align-items: center;
+  padding: 0 20px;
+  height: 48px;
+  background: #fff;
+  border-bottom: 1px solid var(--border-default);
+  cursor: pointer;
+  transition: background 0.1s;
+}
+.tableRow:hover { background: #F9F9F9; }
+
+.rowCheck {
+  font-size: 11px;
+  color: var(--border-default);
+}
+
+.contract {
+  font-size: var(--text-base);
+  font-weight: 400;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 8px;
+}
+
+.billing {
+  font-size: var(--text-base);
+  font-weight: 400;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.discrepancy {
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.confidenceCell {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.confBar {
+  width: 60px;
+  height: 4px;
+  background: var(--border-default);
+  border-radius: 2px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.confFill {
+  height: 100%;
+  background: #717171;
+  border-radius: 2px;
+}
+
+.confPct {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+/* ── Status badges ── */
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: start;
+  height: 24px;
+  min-width: 72px;
+  padding: 0 12px;
+  border-radius: 100px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.statusNew { background: var(--bg-table-header); color: var(--text-primary); }
+.statusRecovery { background: #FFF4D5; color: var(--status-pending-text); }
+.statusRecovered { background: var(--status-live-bg); color: var(--status-live-text); }
+.statusDismissed { background: var(--bg-table-header); color: var(--text-secondary); }
+.statusDisputed { background: var(--banner-error-bg); color: var(--status-fix-text); }
+
+/* ── Row actions ── */
+.actions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+}
+
+.actionLink {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0;
+  text-align: left;
+}
+
+.actionLinkBlue {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--type-badge-text);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0;
+  text-align: left;
+}
+
+.actionLinkRed {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--status-fix-text);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0;
+  text-align: left;
+}
+
+/* ── Pagination ── */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0 0;
+}
+
+.paginationInfo {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.paginationControls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pageBtn {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0;
+}
+
+.pageBtn:disabled {
+  color: var(--text-secondary);
+  cursor: default;
+}
+
+.pageNumbers {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}

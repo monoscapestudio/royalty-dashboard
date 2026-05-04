@@ -1,0 +1,24 @@
+.metaTable {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.metaRow {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: var(--text-sm);
+}
+
+.metaKey {
+  color: var(--text-secondary);
+  flex-shrink: 0;
+  width: 48px;
+}
+
+.metaValue {
+  font-weight: 600;
+  color: var(--text-primary);
+}

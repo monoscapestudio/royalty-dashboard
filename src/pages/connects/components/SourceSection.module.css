@@ -1,0 +1,216 @@
+.section {
+  margin-bottom: 0;
+}
+
+/* ── Section label row ── */
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.sectionLabel {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.sectionCount {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+/* ── Table wrapper ── */
+.table {
+  border-top: 1px solid var(--border-default);
+}
+
+/* ── Column header row ── */
+.colHeader {
+  display: grid;
+  grid-template-columns: var(--col-grid);
+  column-gap: 20px;
+  align-items: center;
+  height: var(--table-header-height);
+  background: var(--bg-table-header);
+  padding: 0 20px;
+  border-bottom: 1px solid var(--border-default);
+}
+
+.colHeaderCell {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* ── Data row ── */
+.row {
+  display: grid;
+  grid-template-columns: var(--col-grid);
+  column-gap: 20px;
+  align-items: center;
+  height: var(--table-row-height);
+  background: var(--bg-white);
+  padding: 0 20px;
+  border-bottom: 1px solid var(--border-default);
+}
+
+.cellSource {
+  font-size: var(--text-md);
+  font-weight: 400;
+  color: var(--text-primary);
+}
+
+.cellType {
+  font-size: var(--text-base);
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.cellSync {
+  font-size: var(--text-base);
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.cellSyncFailed {
+  color: var(--status-fix-text);
+  font-weight: 400;
+}
+
+.cellActions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.actionLink {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-primary);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  text-decoration: none;
+  transition: color 0.1s;
+}
+
+.actionLink:hover {
+  color: var(--btn-primary-bg);
+}
+
+.actionLinkMuted {
+  color: var(--text-secondary);
+}
+
+.actionLinkMuted:hover {
+  color: var(--status-fix-text);
+}
+
+.reconnectBtn {
+  height: 28px;
+  padding: 0 14px;
+  background: var(--btn-primary-bg);
+  color: #ffffff;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  border-radius: var(--radius-btn);
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.1s;
+}
+
+.reconnectBtn:hover {
+  background: #0047a8;
+}
+
+/* ── Add-source dashed row ── */
+.addRow {
+  height: var(--table-row-height);
+  border: 1px dashed var(--border-default);
+  border-top: none;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  cursor: pointer;
+  background: transparent;
+  width: 100%;
+  transition: background 0.1s;
+}
+
+.addRow:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.addRowLabel {
+  font-size: var(--text-md);
+  font-weight: 400;
+  color: var(--text-primary);
+}
+
+/* ── Request integration link ── */
+.requestRow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 16px 0;
+}
+
+.requestText {
+  font-size: var(--text-base);
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.requestLink {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--text-primary);
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+}
+
+.requestLink:hover {
+  color: var(--btn-primary-bg);
+}
+
+/* ── Recovery disclaimer banner ── */
+.recoveryDisclaimer {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 16px 0 14px;
+  background: var(--bg-table-header);
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--border-default);
+}
+
+.recoveryDisclaimer::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--text-primary);
+}
+
+.recoveryDisclaimerText {
+  font-size: var(--text-base);
+  font-weight: 400;
+  color: var(--text-primary);
+}

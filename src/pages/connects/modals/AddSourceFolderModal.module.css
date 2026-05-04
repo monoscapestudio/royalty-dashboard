@@ -1,0 +1,89 @@
+.typeMeta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.typeBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  padding: 0 10px;
+  background: var(--type-badge-bg);
+  color: var(--type-badge-text);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  border-radius: var(--radius-badge);
+}
+
+.typeHint {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pathRow {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.pathInput {
+  flex: 1;
+}
+
+.browseBtn {
+  height: 40px;
+  padding: 0 14px;
+  background: var(--bg-table-header);
+  border: 1px solid var(--border-default);
+  border-radius: 4px;
+  font-size: var(--text-base);
+  color: var(--text-primary);
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: inherit;
+  flex-shrink: 0;
+  align-self: flex-end;
+  transition: background 0.1s;
+}
+
+.browseBtn:hover {
+  background: #E8E8E8;
+}
+
+.disclaimer {
+  display: flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 6px 12px 6px 14px;
+  background: var(--bg-table-header);
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  margin-top: 16px;
+}
+
+.disclaimer::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--text-primary);
+}
+
+.disclaimerText {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-secondary);
+}

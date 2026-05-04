@@ -1,0 +1,69 @@
+.typeMeta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.typeBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  padding: 0 10px;
+  background: var(--type-badge-bg);
+  color: var(--type-badge-text);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  border-radius: var(--radius-badge);
+}
+
+.typeHint {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.instruction {
+  font-size: var(--text-base);
+  font-weight: 400;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 16px 0 12px;
+}
+
+.permissionsBlock {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8px 12px 8px 14px;
+  background: var(--bg-table-header);
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  margin-bottom: 4px;
+  min-height: 48px;
+}
+
+.permissionsBlock::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--text-primary);
+}
+
+.permissionsTitle {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.permissionsBody {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}

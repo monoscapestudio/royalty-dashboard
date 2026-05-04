@@ -1,0 +1,53 @@
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.syncInfo {
+  margin-top: -4px;
+}
+
+.syncLabel {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.syncValue {
+  font-size: var(--text-base);
+  font-weight: 400;
+  color: var(--text-primary);
+}
+
+.syncHistory {
+  margin-top: 4px;
+}
+
+.syncHistoryLabel {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.syncHistoryLog {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.syncLogRow {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+  white-space: pre;
+}

@@ -1,0 +1,105 @@
+.emptyRoot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 48px;
+}
+
+.heading {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 8px;
+  text-align: center;
+}
+
+.subheading {
+  font-size: var(--text-md);
+  font-weight: 400;
+  color: var(--text-secondary);
+  text-align: center;
+  max-width: 520px;
+  line-height: 1.5;
+  margin: 0 0 32px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid var(--border-default);
+  border-radius: 8px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.cardLabel {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 10px;
+}
+
+.cardQuestion {
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.cardDescription {
+  font-size: var(--text-base);
+  font-weight: 400;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  flex: 1;
+  margin-bottom: 20px;
+}
+
+.cardCta {
+  height: 36px;
+  padding: 0 14px;
+  background: var(--btn-primary-bg);
+  color: #fff;
+  font-size: var(--text-base);
+  font-weight: 600;
+  border-radius: var(--radius-btn);
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: inherit;
+  align-self: flex-start;
+  transition: background 0.1s;
+}
+
+.cardCta:hover {
+  background: #0047a8;
+}
+
+.requestLink {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.requestLink strong {
+  color: var(--text-primary);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.requestLink strong:hover {
+  color: var(--btn-primary-bg);
+}

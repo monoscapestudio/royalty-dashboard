@@ -1,0 +1,98 @@
+:root {
+  /* ── Typography ── */
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --text-xs:   10px;
+  --text-sm:   11px;
+  --text-base: 12px;
+  --text-md:   13px;
+  --text-lg:   14px;
+  --text-xl:   15px;
+  --text-2xl:  28px;
+
+  /* ── Backgrounds ── */
+  --bg-page:         #F5F5F5;
+  --bg-nav:          #161616;
+  --bg-white:        #FFFFFF;
+  --bg-table-header: #F4F4F4;
+
+  /* ── Text ── */
+  --text-primary:      #161616;
+  --text-secondary:    #525252;
+  --text-muted:        #A6A6A6;
+  --text-nav-active:   #FFFFFF;
+  --text-nav-inactive: #C6C6C6;
+
+  /* ── Borders ── */
+  --border-default: #E0E0E0;
+  --border-card:    #D9D9D9;
+
+  /* ── Status: Live ── */
+  --status-live-bg:   #E0F2E2;
+  --status-live-text: #1A732E;
+
+  /* ── Status: Fix ── */
+  --status-fix-bg:   #FCE3E3;
+  --status-fix-text: #B22121;
+
+  /* ── Status: Pending ── */
+  --status-pending-bg:   #FFF4D5;
+  --status-pending-text: #8C660D;
+
+  /* ── Status: Inactive ── */
+  --status-inactive-bg:   #F4F4F4;
+  --status-inactive-text: #525252;
+
+  /* ── Banners ── */
+  --banner-error-bg:      #FFEDED;
+  --banner-error-text:    #B22121;
+  --banner-error-body:    #801A1A;
+  --banner-error-accent:  #B22121;
+  --banner-info-bg:       #F2F7FF;
+  --banner-info-border:   #CCDEFF;
+  --banner-info-accent:   #0054C4;
+  --banner-warning-bg:    #FFF5EB;
+  --banner-warning-accent:#CC8510;
+  --banner-success-bg:    #E8F7ED;
+  --banner-success-border:#CCE5D1;
+  --banner-success-accent:#219718;
+
+  /* ── Buttons ── */
+  --btn-primary-bg:    #0054C4;
+  --btn-success-bg:    #21962E;
+  --btn-success-hover: #1a7a25;
+  --btn-secondary-border: #0054C4;
+  --btn-disabled-bg:   #BFBFBF;
+
+  /* ── Type-badge (modal option cards) ── */
+  --type-badge-bg:   #E0EBFA;
+  --type-badge-text: #1A4DA6;
+
+  /* ── Silo dropdown (dark) ── */
+  --silo-dropdown-bg:    #262626;
+  --silo-dropdown-border:#E0E0E0;
+  --silo-header-bg:      #333333;
+  --silo-active-row-bg:  #585858;
+  --silo-row-bg:         #404040;
+  --silo-row-divider:    #404040;
+  --silo-footer-divider: #9D9D9D;
+  --silo-name-active:    #FFFFFF;
+  --silo-name-inactive:  #C6C6C6;
+  --silo-sub-active:     #999999;
+  --silo-sub-inactive:   #808080;
+  --silo-label:          #999999;
+
+  /* ── Shell dimensions ── */
+  --nav-height:          48px;
+  --subheader-height:    32px;
+  --page-header-height:  64px;
+  --content-px:          32px;
+  --table-row-height:    48px;
+  --table-header-height: 32px;
+
+  /* ── Border radii ── */
+  --radius-btn:    8px;
+  --radius-card:   12px;
+  --radius-badge:  100px;
+  --radius-option: 8px;
+  --radius-banner: 6px;
+}
