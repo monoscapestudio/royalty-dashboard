@@ -1,0 +1,102 @@
+.banner {
+  display: flex;
+  align-items: stretch;
+  min-height: 44px;
+  border-radius: 0;
+  border: 1px solid transparent;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.accent {
+  width: 3px;
+  flex-shrink: 0;
+  align-self: stretch;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6px 12px;
+  gap: 2px;
+}
+
+.title {
+  font-size: 12px;
+  font-weight: 600;
+  display: block;
+}
+
+.body {
+  font-size: 11px;
+  font-weight: 400;
+  color: #525252;
+  display: block;
+}
+
+.dismissBtn {
+  align-self: center;
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 400;
+  color: #525252;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 16px;
+  font-family: var(--font);
+  white-space: nowrap;
+  transition: color 0.1s;
+}
+
+.dismissBtn:hover {
+  color: #161616;
+}
+
+/* ── Variants ── */
+.banner_green {
+  background: #e8f7ed;
+  border-color: #cce5d1;
+}
+.accent_green {
+  background: #1a732e;
+}
+.title_green {
+  color: #1a732e;
+}
+
+.banner_red {
+  background: #ffeded;
+  border-color: transparent;
+}
+.accent_red {
+  background: #b22121;
+}
+.title_red {
+  color: #b22121;
+}
+
+.banner_blue {
+  background: #f2f7ff;
+  border-color: #ccdeff;
+}
+.accent_blue {
+  background: #1a4da6;
+}
+.title_blue {
+  color: #1a4da6;
+}
+
+.banner_amber {
+  background: #fff5eb;
+  border-color: transparent;
+}
+.accent_amber {
+  background: #8c660d;
+}
+.title_amber {
+  color: #8c660d;
+}

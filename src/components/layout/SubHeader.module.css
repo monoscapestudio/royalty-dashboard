@@ -1,0 +1,52 @@
+.subHeader {
+  position: fixed;
+  top: var(--nav-height);
+  left: 0;
+  right: 0;
+  z-index: 90;
+  height: var(--subheader-height);
+  background: var(--bg-white);
+  border-bottom: 1px solid var(--border-default);
+  display: flex;
+  align-items: center;
+  padding: 0 32px;
+  gap: 0;
+}
+
+.segment {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.divider {
+  margin: 0 16px;
+  color: var(--border-default);
+  font-size: var(--text-sm);
+  font-weight: 400;
+  user-select: none;
+}
+
+.label {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.value {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.valueGreen {
+  color: var(--status-live-text);
+}
+
+.valueRed {
+  color: var(--status-fix-text);
+}
+
+.valueAmber {
+  color: var(--status-pending-text);
+}

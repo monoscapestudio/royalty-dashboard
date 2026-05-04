@@ -1,0 +1,156 @@
+.libraryCta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 16px 16px 16px 20px;
+  background: var(--bg-table-header);
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-banner);
+  margin-bottom: 24px;
+  min-height: 100px;
+}
+
+.libraryCta::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--text-primary);
+}
+
+.libraryCtaTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.libraryCtaDesc {
+  font-size: var(--text-md);
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+
+.libraryCtaActions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.btnLoadLibrary {
+  height: 28px;
+  padding: 0 14px;
+  background: var(--btn-primary-bg);
+  color: #fff;
+  font-size: var(--text-base);
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-btn);
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.1s;
+}
+
+.btnLoadLibrary:hover {
+  background: #0047a8;
+}
+
+.orScratch {
+  font-size: var(--text-base);
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.customRuleLabel {
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--text-primary);
+  display: block;
+  margin-bottom: 10px;
+}
+
+.emptyRulesLabel {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: block;
+  margin-top: 24px;
+  margin-bottom: 12px;
+}
+
+.emptyRulesBox {
+  border: 1px dashed var(--border-default);
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.emptyRulesTitle {
+  font-size: var(--text-lg);
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.emptyRulesHint {
+  font-size: var(--text-base);
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+/* ── input row (same as AddRulesSection but used standalone here) ── */
+.inputRow {
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+}
+
+.ruleInput {
+  flex: 1;
+  height: 48px;
+  background: var(--bg-table-header);
+  border: none;
+  border-bottom: 1px solid #8D8D8D;
+  border-radius: 4px 4px 0 0;
+  padding: 0 16px;
+  font-size: var(--text-md);
+  font-family: var(--font);
+  color: var(--text-primary);
+}
+
+.ruleInput::placeholder {
+  color: #A8A8A8;
+}
+
+.ruleInput:focus {
+  outline: none;
+  border-bottom-color: var(--btn-primary-bg);
+}
+
+.addBtn {
+  height: 48px;
+  width: 90px;
+  background: var(--btn-primary-bg);
+  color: #fff;
+  font-size: var(--text-md);
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-btn);
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.1s;
+}
+
+.addBtn:disabled {
+  background: var(--btn-disabled-bg);
+  cursor: not-allowed;
+}

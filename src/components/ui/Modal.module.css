@@ -1,0 +1,204 @@
+.scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: var(--modal-z, 300);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 80px;
+  overflow-y: auto;
+}
+
+.card {
+  background: var(--bg-white);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-card);
+  width: 480px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+/* ── Modal header ── */
+.header {
+  padding: 16px 20px 12px;
+  border-bottom: 1px solid var(--border-default);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.headerMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.headerContext {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.headerTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.headerTitle {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* ── Modal footer ── */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-default);
+  margin-top: 20px;
+}
+
+.footerRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ── Shared modal buttons ── */
+.btnCancel {
+  font-size: var(--text-md);
+  font-weight: 400;
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+  transition: color 0.1s;
+}
+
+.btnCancel:hover {
+  color: var(--text-primary);
+}
+
+.btnPrimary {
+  height: 40px;
+  padding: 0 20px;
+  background: var(--btn-primary-bg);
+  color: #fff;
+  font-size: var(--text-md);
+  font-weight: 600;
+  border-radius: var(--radius-btn);
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: inherit;
+  transition: background 0.1s;
+}
+
+.btnPrimary:hover {
+  background: #0047a8;
+}
+
+.btnPrimary:disabled {
+  background: var(--btn-disabled-bg);
+  cursor: not-allowed;
+}
+
+.btnSecondary {
+  height: 40px;
+  padding: 0 20px;
+  background: #fff;
+  color: var(--btn-primary-bg);
+  font-size: var(--text-md);
+  font-weight: 600;
+  border-radius: var(--radius-btn);
+  border: 1.5px solid var(--btn-primary-bg);
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: inherit;
+  transition: background 0.1s;
+}
+
+.btnSecondary:hover {
+  background: #f0f5ff;
+}
+
+.btnDanger {
+  height: 36px;
+  padding: 0 20px;
+  background: var(--status-fix-text);
+  color: #fff;
+  font-size: var(--text-base);
+  font-weight: 600;
+  border-radius: var(--radius-btn);
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: inherit;
+  transition: background 0.1s;
+}
+
+.btnDanger:hover {
+  background: #9e1c1c;
+}
+
+/* Danger outlined — white bg, red border, red text (Delete rule) */
+.btnDangerOutlined {
+  height: 40px;
+  padding: 0 20px;
+  background: #fff;
+  color: var(--status-fix-text);
+  font-size: var(--text-md);
+  font-weight: 400;
+  border-radius: var(--radius-btn);
+  border: 1px solid var(--border-default);
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: inherit;
+  transition: background 0.1s, border-color 0.1s;
+}
+
+.btnDangerOutlined:hover {
+  background: #fff5f5;
+  border-color: var(--status-fix-text);
+}
+
+/* Large title variant (16px, for Implications modal) */
+.headerTitleLarge {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.closeBtn {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-table-header);
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-size: var(--text-lg);
+  color: var(--text-secondary);
+  border-radius: 2px;
+  transition: background 0.1s;
+}
+
+.closeBtn:hover {
+  background: var(--border-default);
+}
+
+/* ── Modal body ── */
+.body {
+  padding: 20px;
+}

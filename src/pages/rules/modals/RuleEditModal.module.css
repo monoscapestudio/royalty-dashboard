@@ -1,0 +1,230 @@
+/* ── Source metadata row ── */
+.sourceMeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.sourceLabel {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+
+.sourceValueUser {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--status-pending-text);
+}
+
+.sourceValueAi {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--type-badge-text);
+}
+
+.sourceTimestamp {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+/* ── Textarea field ── */
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.fieldLabel {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.textarea {
+  height: 56px;
+  width: 100%;
+  background: var(--bg-table-header);
+  border: none;
+  border-bottom: 1px solid #8D8D8D;
+  border-radius: 4px 4px 0 0;
+  padding: 8px 12px;
+  font-size: var(--text-md);
+  font-family: var(--font);
+  color: var(--text-primary);
+  resize: none;
+  box-sizing: border-box;
+  transition: border-color 0.15s;
+}
+
+.textarea:focus {
+  outline: none;
+  border-bottom-color: var(--btn-primary-bg);
+}
+
+/* ── System interpretation panel ── */
+.interpretationGroup {
+  margin-bottom: 8px;
+}
+
+.interpretationPanel {
+  background: #F7F7FF;
+  position: relative;
+  overflow: hidden;
+  padding: 10px 12px 10px 16px;
+  min-height: 80px;
+  border-radius: 2px;
+}
+
+.interpretationPanel::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--type-badge-text);
+}
+
+.interpRuleLine {
+  font-size: var(--text-base);
+  font-weight: 400;
+  color: var(--text-primary);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.interpMeta {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-secondary);
+  display: block;
+  line-height: 1.6;
+}
+
+.reinterpretNote {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--text-secondary);
+  display: block;
+  margin-top: 6px;
+  margin-bottom: 18px;
+}
+
+/* ── Status toggle ── */
+.statusGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.statusRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.toggle {
+  position: relative;
+  width: 44px;
+  height: 22px;
+  cursor: pointer;
+}
+
+.toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.toggleTrack {
+  position: absolute;
+  inset: 0;
+  border-radius: 100px;
+  background: #E0E0E0;
+  transition: background 0.2s;
+}
+
+.toggle input:checked + .toggleTrack {
+  background: var(--btn-success-bg);
+}
+
+.toggleKnob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s;
+}
+
+.toggle input:checked ~ .toggleKnob {
+  transform: translateX(22px);
+}
+
+.statusActive {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--status-live-text);
+}
+
+.statusInactive {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+/* ── Delete confirm block (inline) ── */
+.deleteConfirm {
+  margin-bottom: 16px;
+  padding: 12px 14px 12px 16px;
+  background: var(--banner-error-bg);
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-banner);
+}
+
+.deleteConfirm::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--status-fix-text);
+}
+
+.deleteConfirmTitle {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--status-fix-text);
+  display: block;
+  margin-bottom: 4px;
+}
+
+.deleteConfirmBody {
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--banner-error-body);
+  display: block;
+  margin-bottom: 12px;
+}
+
+.deleteConfirmActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}

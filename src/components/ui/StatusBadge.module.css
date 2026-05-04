@@ -1,0 +1,38 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  justify-self: start;
+  height: 24px;
+  min-width: 72px;
+  padding: 0 12px;
+  border-radius: var(--radius-badge);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.live {
+  background: var(--status-live-bg);
+  color: var(--status-live-text);
+}
+
+.fix {
+  background: var(--status-fix-bg);
+  color: var(--status-fix-text);
+}
+
+.pending {
+  background: var(--status-pending-bg);
+  color: var(--status-pending-text);
+}
+
+.inactive {
+  background: var(--status-inactive-bg);
+  color: var(--status-inactive-text);
+}
+
+.never-connected {
+  background: transparent;
+  color: var(--text-muted);
+}

@@ -1,0 +1,70 @@
+.shell {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Offset the fixed nav (48px) + fixed subheader (32px) */
+.main {
+  margin-top: calc(var(--nav-height) + var(--subheader-height));
+  flex: 1;
+  overflow-y: auto;
+  background: var(--bg-page);
+  display: flex;
+  flex-direction: column;
+}
+
+.mainSwitching {
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Dev-only reviewer shortcuts */
+.demoSkipBanner {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 12px;
+  background: rgba(22, 22, 22, 0.88);
+  color: #f4f4f4;
+  font-size: 11px;
+  border-radius: 8px;
+  z-index: 500;
+  flex-wrap: wrap;
+}
+
+.demoSkipLabel {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #c6c6c6;
+  margin-right: 4px;
+}
+
+.demoSkipLink {
+  color: #78a9ff;
+  text-decoration: none;
+}
+
+.demoSkipLink:hover {
+  text-decoration: underline;
+}
+
+.demoSkipButton {
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  color: #78a9ff;
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.demoSkipButton:hover {
+  color: #b0c7ff;
+}

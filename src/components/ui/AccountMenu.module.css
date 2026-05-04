@@ -1,0 +1,143 @@
+.menu {
+  position: absolute;
+  top: var(--nav-height);
+  right: 0;
+  width: 240px;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-top: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  z-index: 300;
+  overflow: hidden;
+}
+
+/* ── User info ── */
+.userInfo {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 12px;
+  background: white;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #525252;
+  flex-shrink: 0;
+}
+
+.userText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.userName {
+  font-size: 13px;
+  font-weight: 600;
+  color: #161616;
+  display: block;
+}
+
+.userEmail {
+  font-size: 11px;
+  font-weight: 400;
+  color: #525252;
+  display: block;
+}
+
+/* ── Role row ── */
+.roleRow {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  background: #f4f4f4;
+}
+
+.roleText {
+  font-size: 11px;
+  font-weight: 600;
+  color: #161616;
+}
+
+/* ── Section labels ── */
+.sectionLabel {
+  height: 28px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  background: #f4f4f4;
+  font-size: 10px;
+  font-weight: 600;
+  color: #525252;
+  letter-spacing: 0.04em;
+}
+
+/* ── Divider ── */
+.divider {
+  height: 1px;
+  background: #e0e0e0;
+}
+
+/* ── Menu items ── */
+.menuItem {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 36px;
+  padding: 0 16px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #161616;
+  background: white;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font);
+  text-align: left;
+  transition: background 0.1s;
+}
+
+.menuItem:hover {
+  background: #f4f4f4;
+}
+
+.menuItemDanger {
+  font-weight: 600;
+  color: #b22121;
+}
+
+.menuItemDanger:hover {
+  background: #fff0f0;
+}
+
+/* ── Toast ── */
+.toast {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--text-primary);
+  color: #fff;
+  font-size: var(--text-base);
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  white-space: nowrap;
+  animation: toastIn 0.2s ease;
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(8px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}

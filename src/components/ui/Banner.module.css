@@ -1,0 +1,98 @@
+.banner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 16px 0 14px;
+  border-radius: var(--radius-banner);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Left-border accent strip */
+.banner::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+}
+
+/* ── Sizes ── */
+.sizeCompact {
+  height: 40px;
+}
+
+.sizeDefault {
+  min-height: 48px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+/* ── Variants ── */
+.error {
+  background: var(--banner-error-bg);
+}
+.error::before {
+  background: var(--banner-error-accent);
+}
+
+.info {
+  background: var(--banner-info-bg);
+  border: 1px solid var(--banner-info-border);
+}
+.info::before {
+  background: var(--banner-info-accent);
+}
+
+.warning {
+  background: var(--banner-warning-bg);
+}
+.warning::before {
+  background: var(--banner-warning-accent);
+}
+
+.success {
+  background: var(--banner-success-bg);
+  border: 1px solid var(--banner-success-border);
+}
+.success::before {
+  background: var(--banner-success-accent);
+}
+
+/* neutral = recovery-section disclaimer (dark left accent) */
+.neutral {
+  background: var(--bg-table-header);
+}
+.neutral::before {
+  background: var(--text-primary);
+}
+
+/* ── Typography ── */
+.title {
+  font-size: var(--text-md);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.body {
+  font-size: var(--text-base);
+  font-weight: 400;
+  margin-top: 2px;
+  line-height: 1.4;
+}
+
+.error .title  { color: var(--banner-error-text); }
+.error .body   { color: var(--banner-error-body); }
+
+.info .title,
+.info .body    { color: var(--banner-info-accent); }
+
+.warning .title,
+.warning .body { color: var(--banner-warning-accent); }
+
+.success .title,
+.success .body { color: var(--banner-success-accent); }
+
+.neutral .title,
+.neutral .body { color: var(--text-primary); }
