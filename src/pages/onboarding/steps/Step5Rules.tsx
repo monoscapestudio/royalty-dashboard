@@ -126,16 +126,17 @@ export default function Step5Rules() {
           <button className={styles.continueBtn} onClick={handleContinue}>Continue</button>
         </div>
 
-        {import.meta.env.DEV && (
-          <div className={styles.devSkip}>
-            Skip to:{' '}
-            {[1,2,3,4,6,7].map(n => (
-              <button key={n} className={styles.devSkipLink} onClick={() => { setOnboardingStep(n); navigate(`/onboard/step-${n}`); }}>
-                Step {n}
-              </button>
-            ))}
-          </div>
-        )}
+        <div className={styles.devSkip}>
+          Skip to:{' '}
+          {[1, 2, 3, 4, 6, 7].map((n) => (
+            <button key={n} className={styles.devSkipLink} onClick={() => {
+              setOnboardingStep(n);
+              navigate(`/onboard/step-${n}`);
+            }}>
+              Step {n}
+            </button>
+          ))}
+        </div>
       </div>
 
       {toast && <div className={styles.toast}>{toast}</div>}

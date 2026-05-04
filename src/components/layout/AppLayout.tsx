@@ -26,27 +26,25 @@ export default function AppLayout() {
         {siloSwitching && <SiloTransitionBanner />}
         <Outlet />
       </main>
-      {import.meta.env.DEV && (
-        <div className={styles.demoSkipBanner}>
-          <span className={styles.demoSkipLabel}>Dev</span>
-          <Link className={styles.demoSkipLink} to="/app/connects?skip-guard=1" replace={false}>
-            Skip onboarding →
-          </Link>
-          <Link className={styles.demoSkipLink} to="/onboard/step-1">
-            Open wizard
-          </Link>
-          <button
-            type="button"
-            className={styles.demoSkipButton}
-            onClick={() => {
-              resetOnboardingDemo();
-              navigate('/onboard/step-1');
-            }}
-          >
-            Reset &amp; enter onboarding
-          </button>
-        </div>
-      )}
+      <div className={styles.demoSkipBanner}>
+        <span className={styles.demoSkipLabel}>Dev</span>
+        <Link className={styles.demoSkipLink} to="/app/connects?skip-guard=1" replace={false}>
+          Skip onboarding →
+        </Link>
+        <Link className={styles.demoSkipLink} to="/onboard/step-1">
+          Open wizard
+        </Link>
+        <button
+          type="button"
+          className={styles.demoSkipButton}
+          onClick={() => {
+            resetOnboardingDemo();
+            navigate('/onboard/step-1');
+          }}
+        >
+          Reset &amp; enter onboarding
+        </button>
+      </div>
     </div>
   );
 }

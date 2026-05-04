@@ -95,16 +95,17 @@ export default function Step1Welcome() {
 
         {toast && <div className={styles.toast}>{toast}</div>}
 
-        {import.meta.env.DEV && (
-          <div className={styles.devSkip}>
-            Skip to:{' '}
-            {[2,3,4,5,6,7].map(n => (
-              <button key={n} className={styles.devSkipLink} onClick={() => { setOnboardingStep(n); navigate(`/onboard/step-${n}`); }}>
-                Step {n}
-              </button>
-            ))}
-          </div>
-        )}
+        <div className={styles.devSkip}>
+          Skip to:{' '}
+          {[2, 3, 4, 5, 6, 7].map((n) => (
+            <button key={n} className={styles.devSkipLink} onClick={() => {
+              setOnboardingStep(n);
+              navigate(`/onboard/step-${n}`);
+            }}>
+              Step {n}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );

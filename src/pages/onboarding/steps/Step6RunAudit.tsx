@@ -106,16 +106,17 @@ export default function Step6RunAudit() {
           </div>
         )}
 
-        {import.meta.env.DEV && (
-          <div className={styles.devSkip}>
-            Skip to:{' '}
-            {[1,2,3,4,5,7].map(n => (
-              <button key={n} className={styles.devSkipLink} onClick={() => { setOnboardingStep(n); navigate(`/onboard/step-${n}`); }}>
-                Step {n}
-              </button>
-            ))}
-          </div>
-        )}
+        <div className={styles.devSkip}>
+          Skip to:{' '}
+          {[1, 2, 3, 4, 5, 7].map((n) => (
+            <button key={n} className={styles.devSkipLink} onClick={() => {
+              setOnboardingStep(n);
+              navigate(`/onboard/step-${n}`);
+            }}>
+              Step {n}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
