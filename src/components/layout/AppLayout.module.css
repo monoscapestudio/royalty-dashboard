@@ -23,7 +23,9 @@
 .demoSkipBanner {
   position: fixed;
   bottom: 12px;
-  right: 12px;
+  left: 12px;
+  right: auto;
+  max-width: min(560px, calc(100vw - 24px));
   display: flex;
   align-items: center;
   gap: 12px;
