@@ -62,8 +62,3 @@ export const MOCK_AUDIT_RESULT = {
   maxConfidence: 98,
 };
 
-/* Staged findings for the Running simulation: released in batches */
-export const RUNNING_BATCH_SIZE = 3;
-export function getNextBatch(currentCount: number): Finding[] {
-  return ALL_FINDINGS.slice(currentCount, currentCount + RUNNING_BATCH_SIZE);
-}

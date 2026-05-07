@@ -423,9 +423,9 @@ export default function ReportingPage() {
           </button>
         </div>
 
-        {/* Dev toggle */}
+        {/* Simulate state toggle */}
         <div className={styles.devToggle}>
-          <span>DEV</span>
+          <span>SIMULATE STATE</span>
           <select
             value={devParam ?? ''}
             onChange={(e) => handleDevChange(e.target.value)}
@@ -758,9 +758,9 @@ export default function ReportingPage() {
       {/* Toast */}
       {toast && <div className={styles.toast}>{toast}</div>}
 
-      {/* Dev toggle */}
+      {/* Simulate state toggle */}
       <div className={styles.devToggle}>
-        <span>DEV</span>
+        <span>SIMULATE STATE</span>
         <select
           value={devParam ?? ''}
           onChange={(e) => handleDevChange(e.target.value)}

@@ -27,7 +27,7 @@ export default function AuditPage() {
   /* Running simulation state */
   const [progress, setProgress] = useState(0);
   const [visibleFindings, setVisibleFindings] = useState<Finding[]>([]);
-  const [tickCount, setTickCount] = useState(0);
+  const tickRef = useRef(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   /* Inline banners — dismissed state is session-only */
@@ -51,33 +51,30 @@ export default function AuditPage() {
     }
     setProgress(0);
     setVisibleFindings([]);
-    setTickCount(0);
+    tickRef.current = 0;
 
     intervalRef.current = setInterval(() => {
-      setTickCount((prev) => {
-        const next = prev + 1;
+      tickRef.current += 1;
+      const tick = tickRef.current;
 
-        setProgress((p) => {
-          const inc = INCREMENT_MIN + Math.random() * (INCREMENT_MAX - INCREMENT_MIN);
-          const newP = Math.min(100, p + inc);
+      setProgress((p) => {
+        const inc = INCREMENT_MIN + Math.random() * (INCREMENT_MAX - INCREMENT_MIN);
+        const newP = Math.min(100, p + inc);
 
-          if (newP >= 100) {
-            clearInterval(intervalRef.current!);
-            setAuditState(activeSiloId, 'COMPLETE');
-            showToast('Audit complete. 1,390 findings identified.');
-          }
-          return newP;
-        });
-
-        if (next % FINDINGS_TICK_EVERY === 0) {
-          setVisibleFindings((prev) => {
-            const nextCount = prev.length + FINDINGS_PER_TICK;
-            return ALL_FINDINGS.slice(0, nextCount);
-          });
+        if (newP >= 100) {
+          clearInterval(intervalRef.current!);
+          setAuditState(activeSiloId, 'COMPLETE');
+          showToast('Audit complete. 1,390 findings identified.');
         }
-
-        return next;
+        return newP;
       });
+
+      if (tick % FINDINGS_TICK_EVERY === 0) {
+        setVisibleFindings((prev) => {
+          const nextCount = prev.length + FINDINGS_PER_TICK;
+          return ALL_FINDINGS.slice(0, nextCount);
+        });
+      }
     }, TICK_MS);
 
     return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
@@ -87,7 +84,7 @@ export default function AuditPage() {
   useEffect(() => {
     setProgress(0);
     setVisibleFindings([]);
-    setTickCount(0);
+    tickRef.current = 0;
   }, [activeSiloId]);
 
   const startAudit = () => {
@@ -319,9 +316,9 @@ export default function AuditPage() {
       {/* Toast */}
       {toast && <div className={styles.toast}>{toast}</div>}
 
-      {/* Dev state toggle (always visible) */}
+      {/* Simulate state toggle */}
       <div className={styles.devToggle}>
-        <span>DEV</span>
+        <span>SIMULATE STATE</span>
         <select
           value={devParam ?? 'reset'}
           onChange={(e) => setDevState(e.target.value)}

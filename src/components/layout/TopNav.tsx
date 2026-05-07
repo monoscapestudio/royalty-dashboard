@@ -1,19 +1,12 @@
-import { useState, useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Notification } from '@carbon/icons-react';
-import { useAppStore, useActiveSilo } from '../../store/app';
+import { useAppStore } from '../../store/app';
 import NotificationsPanel from '../ui/NotificationsPanel';
 import AccountMenu from '../ui/AccountMenu';
 import styles from './TopNav.module.css';
 
 export default function TopNav() {
   const {
-    silos,
-    activeSiloId,
-    siloSelectorOpen,
-    setSilo,
-    toggleSiloSelector,
-    setSiloSelectorOpen,
     notificationPanelOpen,
     toggleNotificationPanel,
     setNotificationPanelOpen,
@@ -22,87 +15,15 @@ export default function TopNav() {
     setAccountMenuOpen,
     notifications,
   } = useAppStore();
-  const activeSilo = useActiveSilo();
 
   const unreadCount = notifications.filter((n) => !n.read).length;
 
-  const [industryToast, setIndustryToast] = useState<string | null>(null);
-  const industryToastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    return () => {
-      if (industryToastTimer.current) clearTimeout(industryToastTimer.current);
-    };
-  }, []);
-
-  function flashIndustryToast(msg: string) {
-    setIndustryToast(msg);
-    if (industryToastTimer.current) clearTimeout(industryToastTimer.current);
-    industryToastTimer.current = setTimeout(() => setIndustryToast(null), 3000);
-  }
-
   return (
     <nav className={styles.nav}>
-      {/* Left: logo + silo */}
+      {/* Left: logo + industry label */}
       <div className={styles.left}>
         <span className={styles.logo}>AuditGraph</span>
-
-        <div className={styles.siloWrapper}>
-          <button
-            className={`${styles.siloButton} ${siloSelectorOpen ? styles.siloOpen : ''}`}
-            onClick={toggleSiloSelector}
-            aria-haspopup="listbox"
-            aria-expanded={siloSelectorOpen}
-          >
-            Industry: {activeSilo.name}&nbsp;▾
-          </button>
-
-          {siloSelectorOpen && (
-            <>
-              <div className={styles.scrim} onClick={() => setSiloSelectorOpen(false)} />
-              <div className={styles.siloDropdown} role="listbox">
-                <div className={styles.siloDropdownHeader}>
-                  <span className={styles.siloDropdownHeaderLabel}>Current Industry</span>
-                </div>
-
-                {silos.map((silo) => {
-                  const isActive = silo.id === activeSiloId;
-                  return (
-                    <div
-                      key={silo.id}
-                      className={`${styles.siloRow} ${isActive ? styles.siloRowActive : ''}`}
-                      role="option"
-                      aria-selected={isActive}
-                      onClick={() => setSilo(silo.id)}
-                    >
-                      <span className={`${styles.siloRowName} ${isActive ? styles.siloRowNameActive : ''}`}>
-                        {silo.name}
-                      </span>
-                      <span className={`${styles.siloRowSub} ${isActive ? styles.siloRowSubActive : ''}`}>
-                        {silo.configured && silo.sources != null
-                          ? `${silo.sources} sources  |  ${silo.rules} rules  |  Last audit: ${silo.lastAudit}`
-                          : 'Not configured'}
-                      </span>
-                    </div>
-                  );
-                })}
-
-                <div className={styles.siloFooterDivider} />
-                <button
-                  type="button"
-                  className={`${styles.siloFooter} ${styles.siloFooterBtn}`}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setSiloSelectorOpen(false);
-                    flashIndustryToast('Industry management is out of scope for this wireframe.');
-                  }}
-                >
-                  <span className={styles.siloFooterLabel}>Manage industries</span>
-                </button>
-              </div>
-            </>
-          )}
-        </div>
+        <span className={styles.industryLabel}>Industry: Music &amp; Royalty</span>
       </div>
 
       {/* Center: nav tabs */}
@@ -125,7 +46,6 @@ export default function TopNav() {
 
       {/* Right: bell + account */}
       <div className={styles.right}>
-        {/* Bell button + panel */}
         <div className={styles.bellWrapper}>
           <button
             className={`${styles.bellButton} ${notificationPanelOpen ? styles.bellActive : ''}`}
@@ -144,7 +64,6 @@ export default function TopNav() {
           )}
         </div>
 
-        {/* Account button + menu */}
         <div className={styles.accountWrapper}>
           <button
             className={`${styles.account} ${accountMenuOpen ? styles.accountActive : ''}`}
@@ -162,9 +81,6 @@ export default function TopNav() {
           )}
         </div>
       </div>
-      {industryToast && (
-        <div className={styles.globalToast}>{industryToast}</div>
-      )}
     </nav>
   );
 }

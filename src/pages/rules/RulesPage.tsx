@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useAppStore, useActiveSilo } from '../../store/app';
+import { useAppStore } from '../../store/app';
 import type { Rule, AiSuggestion } from '../../types';
 import {
   mockRulesBySilo,
@@ -19,7 +19,6 @@ let _newId = 4000;
 
 export default function RulesPage() {
   const activeSiloId = useAppStore((s) => s.activeSiloId);
-  const silo = useActiveSilo();
 
   const [rules, setRules] = useState<Rule[]>(() => mockRulesBySilo[activeSiloId] ?? []);
   const [suggestions, setSuggestions] = useState<AiSuggestion[]>(
@@ -148,7 +147,7 @@ export default function RulesPage() {
   };
 
   const libraryRules = rules.filter((r) => r.source === 'Library');
-  const siloLabel = silo.name.replace(/\s*\(.*\)/, '');
+  const siloLabel = 'Music & Royalty';
 
   return (
     <>

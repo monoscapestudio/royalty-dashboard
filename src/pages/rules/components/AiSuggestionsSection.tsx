@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { AiSuggestion, Rule } from '../../../types';
+import type { AiSuggestion } from '../../../types';
 import styles from './AiSuggestionsSection.module.css';
 
 interface Props {

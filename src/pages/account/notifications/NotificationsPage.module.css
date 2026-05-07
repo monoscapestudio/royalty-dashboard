@@ -1,0 +1,126 @@
+.page { max-width: 640px; }
+
+.pageTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 4px;
+}
+
+.pageSubtitle {
+  font-size: var(--text-md);
+  color: var(--text-secondary);
+  margin: 0 0 28px;
+}
+
+.card {
+  background: var(--bg-white);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-card);
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.cardTitle {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 6px;
+}
+
+.cardSubtitle {
+  font-size: var(--text-md);
+  color: var(--text-secondary);
+  margin: 0 0 20px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border-default);
+}
+
+.row:last-child { border-bottom: none; }
+
+.rowLeft {}
+
+.rowLabel {
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--text-primary);
+  display: block;
+  margin-bottom: 2px;
+}
+
+.rowDesc {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+}
+
+/* Toggle */
+.toggle {
+  position: relative;
+  width: 40px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.slider {
+  position: absolute;
+  inset: 0;
+  background: #c6c6c6;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.slider::before {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  left: 3px;
+  top: 3px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+
+.toggle input:checked + .slider {
+  background: var(--btn-primary-bg);
+}
+
+.toggle input:checked + .slider::before {
+  transform: translateX(18px);
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.btnPrimary {
+  height: 36px;
+  padding: 0 20px;
+  background: var(--btn-primary-bg);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-btn);
+  font-size: var(--text-md);
+  font-weight: 600;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: opacity 0.1s;
+}
+
+.btnPrimary:hover { opacity: 0.88; }

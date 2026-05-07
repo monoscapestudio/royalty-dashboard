@@ -1,12 +1,3 @@
-export interface Silo {
-  id: string;
-  name: string;
-  configured: boolean;
-  sources?: number;
-  rules?: number;
-  lastAudit?: string;
-}
-
 export type ConnectionStatus = 'live' | 'fix' | 'pending' | 'inactive' | 'never-connected';
 
 export type ConnectionType = 'API' | 'OAuth' | 'Folder';
@@ -65,15 +56,6 @@ export interface AuditResult {
   coverage: number;
   maxConfidence: number;
 }
-
-export type ConnectionModalType =
-  | 'connection-type-selector'
-  | 'add-api'
-  | 'add-oauth'
-  | 'add-folder'
-  | 'configure'
-  | 'request-integration'
-  | null;
 
 export interface SubHeaderStats {
   connectsLabel: string;
