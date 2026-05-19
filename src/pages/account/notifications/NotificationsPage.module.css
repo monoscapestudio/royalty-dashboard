@@ -8,7 +8,7 @@
 }
 
 .pageSubtitle {
-  font-size: var(--text-md);
+  font-size: var(--type-body-sm);
   color: var(--text-secondary);
   margin: 0 0 28px;
 }
@@ -22,14 +22,14 @@
 }
 
 .cardTitle {
-  font-size: var(--text-lg);
+  font-size: var(--type-body-sm);
   font-weight: 600;
   color: var(--text-primary);
   margin: 0 0 6px;
 }
 
 .cardSubtitle {
-  font-size: var(--text-md);
+  font-size: var(--type-body-sm);
   color: var(--text-secondary);
   margin: 0 0 20px;
 }
@@ -47,7 +47,7 @@
 .rowLeft {}
 
 .rowLabel {
-  font-size: var(--text-md);
+  font-size: var(--type-body-sm);
   font-weight: 600;
   color: var(--text-primary);
   display: block;
@@ -55,7 +55,8 @@
 }
 
 .rowDesc {
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   color: var(--text-secondary);
 }
 
@@ -116,9 +117,9 @@
   color: #fff;
   border: none;
   border-radius: var(--radius-btn);
-  font-size: var(--text-md);
+  font-size: var(--type-body-sm);
   font-weight: 600;
-  font-family: var(--font);
+  font-family: var(--font-display);
   cursor: pointer;
   transition: opacity 0.1s;
 }

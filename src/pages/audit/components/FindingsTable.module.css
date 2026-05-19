@@ -12,7 +12,8 @@
 }
 
 .tableTitle {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 600;
   color: var(--text-secondary);
   text-transform: uppercase;
@@ -20,7 +21,8 @@
 }
 
 .tableMeta {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 400;
   color: var(--text-secondary);
 }
@@ -32,7 +34,8 @@
 }
 
 .filterSelect {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 400;
   color: var(--text-primary);
   background: none;
@@ -55,7 +58,8 @@
 }
 
 .selectAll {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 400;
   color: var(--text-primary);
   display: flex;
@@ -66,13 +70,15 @@
 }
 
 .bulkLabel {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 400;
   color: var(--text-secondary);
 }
 
 .bulkBtn {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 600;
   color: var(--text-primary);
   background: none;
@@ -83,7 +89,8 @@
 }
 
 .bulkBtnSecondary {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 400;
   color: var(--text-secondary);
   background: none;
@@ -105,7 +112,8 @@
 }
 
 .colLabel {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 600;
   color: var(--text-secondary);
   text-transform: uppercase;
@@ -136,7 +144,8 @@
 }
 
 .contract {
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   font-weight: 400;
   color: var(--text-primary);
   overflow: hidden;
@@ -146,14 +155,15 @@
 }
 
 .billing {
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   font-weight: 400;
   color: var(--text-secondary);
   white-space: nowrap;
 }
 
 .discrepancy {
-  font-size: var(--text-md);
+  font-size: var(--type-body-sm);
   font-weight: 600;
   color: var(--text-primary);
 }
@@ -180,7 +190,8 @@
 }
 
 .confPct {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 400;
   color: var(--text-secondary);
   white-space: nowrap;
@@ -196,7 +207,8 @@
   min-width: 72px;
   padding: 0 12px;
   border-radius: 100px;
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 600;
   white-space: nowrap;
 }
@@ -215,7 +227,8 @@
 }
 
 .actionLink {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 400;
   color: var(--text-primary);
   background: none;
@@ -227,7 +240,8 @@
 }
 
 .actionLinkBlue {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 600;
   color: var(--type-badge-text);
   background: none;
@@ -239,7 +253,8 @@
 }
 
 .actionLinkRed {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 400;
   color: var(--status-fix-text);
   background: none;
@@ -259,7 +274,8 @@
 }
 
 .paginationInfo {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 400;
   color: var(--text-secondary);
 }
@@ -271,7 +287,8 @@
 }
 
 .pageBtn {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 400;
   color: var(--text-primary);
   background: none;
@@ -290,6 +307,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   color: var(--text-primary);
 }

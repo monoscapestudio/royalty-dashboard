@@ -9,7 +9,8 @@
 }
 
 .syncLabel {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 600;
   color: var(--text-secondary);
   text-transform: uppercase;
@@ -19,7 +20,8 @@
 }
 
 .syncValue {
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   font-weight: 400;
   color: var(--text-primary);
 }
@@ -29,7 +31,8 @@
 }
 
 .syncHistoryLabel {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 600;
   color: var(--text-secondary);
   text-transform: uppercase;
@@ -45,7 +48,8 @@
 }
 
 .syncLogRow {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 400;
   color: var(--text-secondary);
   font-variant-numeric: tabular-nums;

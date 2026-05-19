@@ -7,7 +7,8 @@
   min-width: 72px;
   padding: 0 12px;
   border-radius: var(--radius-badge);
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 600;
   white-space: nowrap;
 }

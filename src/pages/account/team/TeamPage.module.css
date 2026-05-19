@@ -17,7 +17,7 @@
 }
 
 .pageSubtitle {
-  font-size: var(--text-md);
+  font-size: var(--type-body-sm);
   color: var(--text-secondary);
   margin: 0;
 }
@@ -29,9 +29,9 @@
   color: #fff;
   border: none;
   border-radius: var(--radius-btn);
-  font-size: var(--text-md);
+  font-size: var(--type-body-sm);
   font-weight: 600;
-  font-family: var(--font);
+  font-family: var(--font-display);
   cursor: pointer;
   transition: opacity 0.1s;
   white-space: nowrap;
@@ -58,7 +58,8 @@
 }
 
 .th {
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   font-weight: 600;
   color: var(--text-secondary);
   text-transform: uppercase;
@@ -93,21 +94,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: var(--text-md);
+  font-size: var(--type-body-sm);
   font-weight: 600;
   color: #525252;
   flex-shrink: 0;
 }
 
 .memberName {
-  font-size: var(--text-md);
+  font-size: var(--type-body-sm);
   font-weight: 600;
   color: var(--text-primary);
   display: block;
 }
 
 .memberEmail {
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   color: var(--text-secondary);
   display: block;
 }
@@ -118,7 +120,8 @@
   height: 22px;
   padding: 0 10px;
   border-radius: var(--radius-badge);
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   font-weight: 600;
 }
 
@@ -143,7 +146,8 @@
   height: 22px;
   padding: 0 10px;
   border-radius: var(--radius-badge);
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   font-weight: 600;
 }
 
@@ -151,12 +155,13 @@
 .statusPending { background: var(--status-pending-bg); color: var(--status-pending-text); }
 
 .actionBtn {
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   color: var(--text-secondary);
   background: none;
   border: none;
   cursor: pointer;
-  font-family: var(--font);
+  font-family: var(--font-display);
   padding: 4px 8px;
   border-radius: 4px;
   transition: background 0.1s, color 0.1s;
@@ -184,14 +189,14 @@
 }
 
 .modalTitle {
-  font-size: var(--text-xl);
+  font-size: var(--type-body);
   font-weight: 600;
   color: var(--text-primary);
   margin: 0 0 4px;
 }
 
 .modalSubtitle {
-  font-size: var(--text-md);
+  font-size: var(--type-body-sm);
   color: var(--text-secondary);
   margin: 0 0 24px;
 }
@@ -201,7 +206,8 @@
 .field { display: flex; flex-direction: column; gap: 6px; }
 
 .label {
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   font-weight: 600;
   color: var(--text-primary);
 }
@@ -211,8 +217,8 @@
   padding: 0 12px;
   border: 1px solid var(--border-default);
   border-radius: 4px;
-  font-size: var(--text-md);
-  font-family: var(--font);
+  font-size: var(--type-body-sm);
+  font-family: var(--font-display);
   color: var(--text-primary);
   background: var(--bg-white);
   outline: none;
@@ -225,8 +231,8 @@
   padding: 0 12px;
   border: 1px solid var(--border-default);
   border-radius: 4px;
-  font-size: var(--text-md);
-  font-family: var(--font);
+  font-size: var(--type-body-sm);
+  font-family: var(--font-display);
   color: var(--text-primary);
   background: var(--bg-white);
   outline: none;
@@ -247,9 +253,9 @@
   color: var(--btn-primary-bg);
   border: 1px solid var(--btn-primary-bg);
   border-radius: var(--radius-btn);
-  font-size: var(--text-md);
+  font-size: var(--type-body-sm);
   font-weight: 600;
-  font-family: var(--font);
+  font-family: var(--font-display);
   cursor: pointer;
 }
 

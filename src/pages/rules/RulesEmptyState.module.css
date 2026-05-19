@@ -29,7 +29,7 @@
 }
 
 .libraryCtaDesc {
-  font-size: var(--text-md);
+  font-size: var(--type-body-sm);
   font-weight: 400;
   color: var(--text-secondary);
   margin-bottom: 14px;
@@ -47,7 +47,8 @@
   padding: 0 14px;
   background: var(--btn-primary-bg);
   color: #fff;
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   font-weight: 600;
   border: none;
   border-radius: var(--radius-btn);
@@ -61,13 +62,14 @@
 }
 
 .orScratch {
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   font-weight: 400;
   color: var(--text-secondary);
 }
 
 .customRuleLabel {
-  font-size: var(--text-md);
+  font-size: var(--type-body-sm);
   font-weight: 600;
   color: var(--text-primary);
   display: block;
@@ -75,7 +77,8 @@
 }
 
 .emptyRulesLabel {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 600;
   color: var(--text-secondary);
   text-transform: uppercase;
@@ -96,13 +99,14 @@
 }
 
 .emptyRulesTitle {
-  font-size: var(--text-lg);
+  font-size: var(--type-body-sm);
   font-weight: 400;
   color: var(--text-secondary);
 }
 
 .emptyRulesHint {
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   font-weight: 400;
   color: var(--text-secondary);
 }
@@ -122,8 +126,8 @@
   border-bottom: 1px solid #8D8D8D;
   border-radius: 4px 4px 0 0;
   padding: 0 16px;
-  font-size: var(--text-md);
-  font-family: var(--font);
+  font-size: var(--type-body-sm);
+  font-family: var(--font-display);
   color: var(--text-primary);
 }
 
@@ -141,7 +145,7 @@
   width: 90px;
   background: var(--btn-primary-bg);
   color: #fff;
-  font-size: var(--text-md);
+  font-size: var(--type-body-sm);
   font-weight: 600;
   border: none;
   border-radius: var(--radius-btn);

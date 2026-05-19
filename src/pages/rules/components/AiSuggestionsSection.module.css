@@ -22,20 +22,22 @@
   padding: 0 8px;
   background: var(--type-badge-bg);
   color: var(--type-badge-text);
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 700;
   border-radius: var(--radius-badge);
   letter-spacing: 0.04em;
 }
 
 .summaryText {
-  font-size: var(--text-md);
+  font-size: var(--type-body-sm);
   color: var(--text-primary);
   font-weight: 400;
 }
 
 .reviewBtn {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 600;
   color: var(--btn-primary-bg);
   background: none;

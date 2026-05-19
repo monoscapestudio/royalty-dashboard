@@ -14,7 +14,7 @@
 }
 
 .subheading {
-  font-size: var(--text-md);
+  font-size: var(--type-body-sm);
   font-weight: 400;
   color: var(--text-secondary);
   text-align: center;
@@ -42,7 +42,8 @@
 }
 
 .cardLabel {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 600;
   color: var(--text-secondary);
   text-transform: uppercase;
@@ -51,14 +52,15 @@
 }
 
 .cardQuestion {
-  font-size: var(--text-md);
+  font-size: var(--type-body-sm);
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 8px;
 }
 
 .cardDescription {
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   font-weight: 400;
   color: var(--text-secondary);
   line-height: 1.5;
@@ -71,7 +73,8 @@
   padding: 0 14px;
   background: var(--btn-primary-bg);
   color: #fff;
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   font-weight: 600;
   border-radius: var(--radius-btn);
   border: none;
@@ -87,7 +90,8 @@
 }
 
 .requestLink {
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   color: var(--text-secondary);
   text-align: center;
 }

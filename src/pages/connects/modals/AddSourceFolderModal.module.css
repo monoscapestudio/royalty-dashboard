@@ -13,13 +13,15 @@
   padding: 0 10px;
   background: var(--type-badge-bg);
   color: var(--type-badge-text);
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 600;
   border-radius: var(--radius-badge);
 }
 
 .typeHint {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 400;
   color: var(--text-secondary);
 }
@@ -46,7 +48,8 @@
   background: var(--bg-table-header);
   border: 1px solid var(--border-default);
   border-radius: 4px;
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   color: var(--text-primary);
   cursor: pointer;
   white-space: nowrap;
@@ -83,7 +86,8 @@
 }
 
 .disclaimerText {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 400;
   color: var(--text-secondary);
 }

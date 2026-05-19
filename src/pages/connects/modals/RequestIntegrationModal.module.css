@@ -1,5 +1,6 @@
 .stepIndicator {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 600;
   color: var(--type-badge-text);
   margin-bottom: 20px;
@@ -40,7 +41,8 @@
 }
 
 .disclaimerText {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 400;
   color: var(--text-secondary);
 }
@@ -68,13 +70,15 @@
 }
 
 .slaBannerTitle {
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   font-weight: 600;
   color: var(--banner-success-accent);
 }
 
 .slaBannerBody {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 400;
   color: #266633;
   margin-top: 2px;
@@ -93,14 +97,14 @@
 }
 
 .successTitle {
-  font-size: var(--text-lg);
+  font-size: var(--type-body-sm);
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 8px;
 }
 
 .successBody {
-  font-size: var(--text-md);
+  font-size: var(--type-body-sm);
   font-weight: 400;
   color: var(--text-secondary);
   line-height: 1.5;
@@ -116,8 +120,8 @@
   border-bottom: 1px solid #8D8D8D;
   border-radius: 6px;
   padding: 8px 12px;
-  font-size: var(--text-md);
-  font-family: var(--font);
+  font-size: var(--type-body-sm);
+  font-family: var(--font-display);
   color: var(--text-primary);
   resize: none;
   transition: border-color 0.15s;
@@ -133,7 +137,8 @@
 }
 
 .textareaLabel {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 600;
   color: var(--text-secondary);
   text-transform: uppercase;

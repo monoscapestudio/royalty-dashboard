@@ -9,7 +9,10 @@
 }
 
 .pageTitle {
-  font-size: var(--text-2xl);
+  font-size: var(--type-title);
+  font-weight: var(--type-title-weight);
+  letter-spacing: var(--type-title-tracking);
+  font-family: var(--font-display);
   font-weight: 400;
   color: var(--text-primary);
   margin: 0;
@@ -17,7 +20,7 @@
 }
 
 .pageSubtitle {
-  font-size: var(--text-lg);
+  font-size: var(--type-body-sm);
   font-weight: 400;
   color: var(--text-secondary);
 }
@@ -44,7 +47,7 @@
 }
 
 .panelTitle {
-  font-size: var(--text-md);
+  font-size: var(--type-body-sm);
   font-weight: 600;
   color: var(--text-primary);
   text-transform: uppercase;
@@ -52,7 +55,7 @@
 }
 
 .panelCount {
-  font-size: var(--text-md);
+  font-size: var(--type-body-sm);
   color: var(--text-secondary);
   font-weight: 600;
   font-variant-numeric: tabular-nums;
@@ -71,7 +74,8 @@
   transform: translateX(-50%);
   background: var(--text-primary);
   color: #fff;
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   font-weight: 400;
   padding: 10px 20px;
   border-radius: var(--radius-btn);

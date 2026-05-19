@@ -47,7 +47,7 @@
   border: none;
   cursor: pointer;
   padding: 0 16px;
-  font-family: var(--font);
+  font-family: var(--font-display);
   white-space: nowrap;
   transition: color 0.1s;
 }
