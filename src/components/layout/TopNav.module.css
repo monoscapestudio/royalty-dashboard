@@ -5,36 +5,71 @@
   right: 0;
   z-index: 100;
   display: flex;
-  align-items: stretch;
+  flex-direction: column;
   height: var(--nav-height);
-  background: var(--bg-nav);
-  padding: 0 16px;
+  background: var(--bg-white);
+  border-bottom: 1px solid var(--border-default);
 }
 
-/* ── Left group: logo + silo ── */
-.left {
+/* ── Upper logo row ── */
+.logoRow {
   display: flex;
   align-items: center;
+  gap: 16px;
+  padding: 24px 32px 0;
+  flex: 1;
+}
+
+.logoMark {
+  width: 44px;
+  height: 44px;
+  background: #161616;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
 }
 
-.logo {
-  font-size: var(--type-body-sm);
-  font-weight: 600;
-  color: var(--text-nav-active);
-  white-space: nowrap;
-  margin-right: 20px;
-  letter-spacing: -0.01em;
+.logoMarkText {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.03em;
+  line-height: 1;
 }
 
-/* ── Industry static label ── */
-.industryLabel {
-  font-size: var(--type-data);
-  font-family: var(--font-mono);
-  color: var(--text-nav-inactive);
-  font-weight: 400;
+.logoText {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 300;
+  color: var(--text-primary);
+  letter-spacing: -0.04em;
+  line-height: 1;
   white-space: nowrap;
-  margin-right: 80px;
+}
+
+/* ── Lower nav row ── */
+.navRow {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 32px;
+  border-top: 1px solid var(--border-default);
+  flex-shrink: 0;
+}
+
+/* ── Industry label ── */
+.industryLabel {
+  font-family: var(--font-mono);
+  font-size: var(--type-caption);
+  font-weight: 400;
+  color: var(--text-secondary);
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
+  white-space: nowrap;
+  margin-right: 48px;
 }
 
 /* ── Nav tabs ── */
@@ -42,7 +77,7 @@
   display: flex;
   align-items: stretch;
   gap: 0;
-  flex-shrink: 0;
+  flex: 1;
 }
 
 .tab {
@@ -50,22 +85,24 @@
   align-items: center;
   position: relative;
   padding: 0 20px;
-  font-size: var(--type-body-sm);
-  font-weight: 400;
-  color: var(--text-nav-inactive);
+  font-family: var(--font-mono);
+  font-size: var(--type-caption);
+  font-weight: 700;
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
+  color: var(--text-primary);
   text-decoration: none;
   white-space: nowrap;
-  transition: color 0.1s;
   cursor: pointer;
+  transition: opacity 0.1s;
 }
 
 .tab:hover {
-  color: #e0e0e0;
+  opacity: 0.65;
 }
 
 .tabActive {
-  font-weight: 600;
-  color: var(--text-nav-active);
+  color: #ff3d04;
 }
 
 .tabActive::after {
@@ -74,8 +111,8 @@
   bottom: 0;
   left: 20px;
   right: 20px;
-  height: 3px;
-  background: #ffffff;
+  height: 2px;
+  background: #ff3d04;
 }
 
 /* ── Right group ── */
@@ -87,7 +124,7 @@
   flex-shrink: 0;
 }
 
-/* Bell wrapper (positions NotificationsPanel) */
+/* Bell */
 .bellWrapper {
   position: relative;
 }
@@ -98,58 +135,58 @@
   justify-content: center;
   width: 32px;
   height: 32px;
-  color: var(--text-nav-inactive);
+  color: var(--text-primary);
   background: none;
   border: none;
   cursor: pointer;
   border-radius: 4px;
-  transition: color 0.1s, background 0.1s;
+  transition: background 0.1s;
   position: relative;
 }
 
 .bellButton:hover,
 .bellActive {
-  color: var(--text-nav-active);
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--bg-table-header);
 }
 
 .bellBadge {
   position: absolute;
   top: 4px;
   right: 4px;
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: #da1e28;
-  border: 1.5px solid var(--bg-nav);
+  border: 1.5px solid var(--bg-white);
   display: block;
 }
 
-/* Account wrapper (positions AccountMenu) */
+/* Account */
 .accountWrapper {
   position: relative;
 }
 
 .account {
-  font-size: var(--type-data);
   font-family: var(--font-mono);
+  font-size: var(--type-caption);
   font-weight: 400;
-  color: var(--text-nav-inactive);
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
+  color: var(--text-primary);
   cursor: pointer;
-  transition: color 0.1s;
   background: none;
   border: none;
-  font-family: var(--font-display);
   padding: 0;
-  height: var(--nav-height);
+  height: 48px;
   display: flex;
   align-items: center;
   position: relative;
+  transition: opacity 0.1s;
 }
 
 .account:hover,
 .accountActive {
-  color: var(--text-nav-active);
+  opacity: 0.65;
 }
 
 .accountUnderline {
@@ -157,12 +194,12 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 3px;
-  background: white;
+  height: 2px;
+  background: var(--text-primary);
   display: block;
 }
 
-/* ── Click-outside scrim (invisible) ── */
+/* ── Click-outside scrim ── */
 .scrim {
   position: fixed;
   inset: 0;
