@@ -25,13 +25,18 @@ export const LIBRARY_RULES_VISIBLE: Rule[] = [
 ];
 
 /* Generates a full set of 134 library rules (3 visible above + 131 generated) */
-const EXTRA_LIBRARY: Rule[] = Array.from({ length: 131 }, (_, i) => ({
-  id: `lib-extra-${i + 4}`,
-  text: `Library rule ${i + 4}: Compliance check ${i + 4}`,
-  source: 'Library' as const,
-  status: 'Active' as const,
-  lastModified: 'Library default',
-}));
+const EXTRA_LIBRARY: Rule[] = Array.from({ length: 131 }, (_, i) => {
+  const ruleNumber = i + 4;
+  const inactivePattern = i % 4 === 1 || i % 7 === 0;
+
+  return {
+    id: `lib-extra-${ruleNumber}`,
+    text: `Library rule ${ruleNumber}: Compliance check ${ruleNumber}`,
+    source: 'Library' as const,
+    status: inactivePattern ? ('Inactive' as const) : ('Active' as const),
+    lastModified: 'Library default',
+  };
+});
 
 export const ALL_LIBRARY_RULES: Rule[] = [...LIBRARY_RULES_VISIBLE, ...EXTRA_LIBRARY];
 

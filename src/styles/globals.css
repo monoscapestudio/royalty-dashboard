@@ -13,6 +13,7 @@ body {
   height: 100%;
   font-family: var(--font-display);
   font-size: var(--type-body);
+  line-height: var(--type-body-lh);
   color: var(--text-primary);
   background: var(--bg-page);
   -webkit-font-smoothing: antialiased;
@@ -38,10 +39,28 @@ a {
   text-decoration: none;
 }
 
+button,
 input,
+select,
 textarea {
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    color 120ms ease,
+    box-shadow 120ms ease,
+    opacity 120ms ease;
+}
+
+input,
+textarea,
+select {
   font-family: inherit;
   font-size: inherit;
+}
+
+::selection {
+  background: rgba(165, 173, 139, 0.28);
+  color: var(--text-primary);
 }
 
 /* ── Editorial numbers — apply to all hero metrics across the project ── */
@@ -49,7 +68,7 @@ textarea {
   font-variant-numeric: tabular-nums;
   font-feature-settings: 'tnum';
   letter-spacing: -0.02em;
-  font-weight: 700;
+  font-weight: 400;
 }
 
 /* Hero scale — primary metric (e.g. $12.4M findings) */
@@ -57,7 +76,7 @@ textarea {
   font-variant-numeric: tabular-nums;
   font-feature-settings: 'tnum';
   letter-spacing: -0.03em;
-  font-weight: 700;
+  font-weight: 300;
   line-height: 0.95;
 }
 
@@ -66,5 +85,5 @@ textarea {
   font-variant-numeric: tabular-nums;
   font-feature-settings: 'tnum';
   letter-spacing: -0.01em;
-  font-weight: 600;
+  font-weight: 400;
 }

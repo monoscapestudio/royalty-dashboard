@@ -36,7 +36,7 @@ export default function RolesPage() {
 
         <div className={styles.permGrid}>
           {/* Header row */}
-          <div className={styles.gridHeadCell} style={{ textAlign: 'left' }}>Permission</div>
+          <div className={styles.gridHeadCell}>Permission</div>
           <div className={styles.gridHeadCell}>Admin</div>
           <div className={styles.gridHeadCell}>Rev Ops</div>
           <div className={styles.gridHeadCell}>Analyst</div>

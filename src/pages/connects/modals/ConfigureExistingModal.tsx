@@ -64,7 +64,7 @@ export default function ConfigureExistingModal({ source, onSave, onClose }: Prop
                 style={{
                   background: 'none',
                   border: 'none',
-                  fontSize: '11px',
+                  fontSize: '16px',
                   fontWeight: 600,
                   color: 'var(--type-badge-text)',
                   cursor: 'pointer',

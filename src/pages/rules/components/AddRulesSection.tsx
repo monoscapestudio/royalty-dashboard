@@ -14,6 +14,8 @@ interface Props {
   libraryCount: number;
   existingRules: Rule[];
   onAddRule: (rule: Rule) => void;
+  onReviewLibrary: () => void;
+  onLoadLibrary: () => void;
 }
 
 /* Generates a mock NL interpretation from free text input */
@@ -59,6 +61,8 @@ export default function AddRulesSection({
   libraryCount,
   existingRules,
   onAddRule,
+  onReviewLibrary,
+  onLoadLibrary,
 }: Props) {
   const [inputValue, setInputValue] = useState('');
   const [interpretation, setInterpretation] = useState<Interpretation | null>(null);
@@ -104,39 +108,56 @@ export default function AddRulesSection({
 
   return (
     <div className={styles.section}>
-      <span className={styles.sectionLabel}>Add Rules</span>
+      <div className={styles.sectionHeader}>
+        <span className={styles.sectionLabel}>Add Rules</span>
+        <span className={styles.sectionHint}>Write a rule in plain language and confirm the interpretation.</span>
+      </div>
 
-      {showLibraryBanner && (
-        <div className={styles.libraryBanner}>
-          <span className={styles.libraryBannerText}>
-            Started with {libraryCount} rules from the {siloLabel} industry library. You can toggle individual library rules on or off below.
-          </span>
+      <div className={styles.methodCard}>
+        <div className={styles.methodTop}>
+          <div className={styles.methodTitleRow}>
+            <span className={styles.methodLabel}>Library Rules</span>
+            {showLibraryBanner && <span className={styles.methodCount}>{libraryCount}</span>}
+          </div>
+          <button
+            className={styles.methodAction}
+            onClick={showLibraryBanner ? onReviewLibrary : onLoadLibrary}
+          >
+            {showLibraryBanner ? 'Review library rules' : 'Load industry library'}
+          </button>
         </div>
-      )}
+        <span className={styles.methodBody}>
+          {showLibraryBanner
+            ? `Started with ${libraryCount} rules from the ${siloLabel} industry library. Review the mix of active and inactive checks in Current Rules and keep only what you want applied.`
+            : `Load and review a starting set of rules from the ${siloLabel} industry library.`}
+        </span>
+      </div>
 
-      <label className={styles.inputLabel}>Add a rule in plain language</label>
-      <div className={styles.inputRow}>
-        <input
-          className={styles.ruleInput}
-          type="text"
-          value={inputValue}
-          onChange={(e) => {
-            setInputValue(e.target.value);
-            if (interpretation) {
-              setInterpretation(null);
-              setDuplicate(null);
-            }
-          }}
-          onKeyDown={(e) => e.key === 'Enter' && handleAdd()}
-          placeholder={`e.g. "Spotify recoupment rate must be minimum 0.005 per stream"`}
-        />
-        <button
-          className={styles.addBtn}
-          onClick={handleAdd}
-          disabled={inputValue.length < 5 || !!interpretation}
-        >
-          Add
-        </button>
+      <div className={styles.composer}>
+        <label className={styles.inputLabel}>Add a rule in plain language</label>
+        <div className={styles.inputRow}>
+          <input
+            className={styles.ruleInput}
+            type="text"
+            value={inputValue}
+            onChange={(e) => {
+              setInputValue(e.target.value);
+              if (interpretation) {
+                setInterpretation(null);
+                setDuplicate(null);
+              }
+            }}
+            onKeyDown={(e) => e.key === 'Enter' && handleAdd()}
+            placeholder={`e.g. "Spotify recoupment rate must be minimum 0.005 per stream"`}
+          />
+          <button
+            className={styles.addBtn}
+            onClick={handleAdd}
+            disabled={inputValue.length < 5 || !!interpretation}
+          >
+            Add
+          </button>
+        </div>
       </div>
 
       {interpretation && !duplicate && (

@@ -210,7 +210,7 @@ export default function FindingDetailOverlay() {
             {finding.status === 'Recovered' && (
               <div className={styles.statusInfo}>
                 <span className={styles.statusInfoTitle}>Recovered successfully</span>
-                <span className={styles.statusInfoBody} style={{ color: 'var(--status-live-text)' }}>
+                <span className={`${styles.statusInfoBody} ${styles.statusInfoBodyPositive}`}>
                   Payment received. Finding resolved.
                 </span>
               </div>
@@ -228,7 +228,7 @@ export default function FindingDetailOverlay() {
             {finding.status === 'Disputed' && (
               <div className={styles.statusInfo}>
                 <span className={styles.statusInfoTitle}>Counterparty dispute</span>
-                <span className={styles.statusInfoBody} style={{ color: 'var(--status-fix-text)' }}>
+                <span className={`${styles.statusInfoBody} ${styles.statusInfoBodyNegative}`}>
                   Counterparty has contested the discrepancy. Requires manual review.
                 </span>
               </div>

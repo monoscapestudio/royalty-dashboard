@@ -1,53 +1,86 @@
 .summaryBar {
   display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 24px;
+  background: var(--bg-white);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-panel);
+}
+
+.summaryTop {
+  display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 16px;
-  background: var(--bg-table-header);
-  border: 1px solid var(--border-default);
-  border-radius: 6px;
-  margin-top: 12px;
+  gap: 20px;
+}
+
+.summaryMiddle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
 }
 
 .summaryLeft {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .aiBadge {
   display: inline-flex;
   align-items: center;
-  height: 20px;
-  padding: 0 8px;
-  background: var(--type-badge-bg);
-  color: var(--type-badge-text);
-  font-size: var(--type-caption);
-  letter-spacing: var(--type-caption-tracking);
-  font-weight: 700;
+  height: 26px;
+  padding: 0 12px;
+  background: var(--bg-ink);
+  color: #FFFFFF;
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
   border-radius: var(--radius-badge);
-  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.summaryCount {
+  font-family: var(--font-display);
+  font-size: var(--type-subtitle);
+  font-weight: var(--type-subtitle-weight);
+  letter-spacing: var(--type-subtitle-tracking);
+  color: var(--text-primary);
+}
+
+.summaryLabel {
+  font-family: var(--font-display);
+  font-size: var(--type-subtitle);
+  font-weight: var(--type-subtitle-weight);
+  letter-spacing: var(--type-subtitle-tracking);
+  color: var(--text-primary);
 }
 
 .summaryText {
-  font-size: var(--type-body-sm);
-  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: var(--type-data);
   font-weight: 400;
+  color: var(--text-secondary);
+  line-height: 1.6;
 }
 
 .reviewBtn {
-  font-size: var(--type-caption);
-  letter-spacing: var(--type-caption-tracking);
-  font-weight: 600;
-  color: var(--btn-primary-bg);
+  font-family: var(--font-display);
+  font-size: var(--type-body);
+  font-weight: 400;
+  color: var(--text-primary);
   background: none;
   border: none;
   cursor: pointer;
-  font-family: inherit;
   padding: 0;
-  transition: opacity 0.1s;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: color 0.15s;
 }
 
-.reviewBtn:hover {
-  opacity: 0.7;
-}
+.reviewBtn:hover { color: var(--btn-primary-hover); }

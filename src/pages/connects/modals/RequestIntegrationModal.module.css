@@ -1,22 +1,24 @@
 .stepIndicator {
-  font-size: var(--type-caption);
-  letter-spacing: var(--type-caption-tracking);
-  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  letter-spacing: var(--type-label-tracking);
+  font-weight: var(--type-label-weight);
   color: var(--type-badge-text);
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   display: block;
+  text-transform: uppercase;
 }
 
 .fields {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
 }
 
 .credentialsRow {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 16px;
 }
 
 .disclaimer {
@@ -24,10 +26,10 @@
   align-items: center;
   min-height: 36px;
   padding: 8px 12px 8px 14px;
-  background: var(--bg-table-header);
+  background: var(--bg-panel-muted);
   position: relative;
   overflow: hidden;
-  border-radius: 6px;
+  border-radius: var(--radius-banner);
 }
 
 .disclaimer::before {
@@ -41,8 +43,8 @@
 }
 
 .disclaimerText {
-  font-size: var(--type-caption);
-  letter-spacing: var(--type-caption-tracking);
+  font-family: var(--font-mono);
+  font-size: var(--type-data);
   font-weight: 400;
   color: var(--text-secondary);
 }
@@ -54,7 +56,7 @@
   padding: 10px 12px 10px 14px;
   background: var(--banner-success-bg);
   border: 1px solid var(--banner-success-border);
-  border-radius: 6px;
+  border-radius: var(--radius-banner);
   position: relative;
   overflow: hidden;
 }
@@ -70,41 +72,47 @@
 }
 
 .slaBannerTitle {
-  font-size: var(--type-data);
-  font-family: var(--font-mono);
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: var(--type-subtitle);
+  font-weight: var(--type-subtitle-weight);
+  letter-spacing: var(--type-subtitle-tracking);
+  line-height: var(--type-subtitle-lh);
   color: var(--banner-success-accent);
 }
 
 .slaBannerBody {
-  font-size: var(--type-caption);
-  letter-spacing: var(--type-caption-tracking);
+  font-family: var(--font-display);
+  font-size: var(--type-body);
   font-weight: 400;
-  color: #266633;
+  color: var(--banner-success-accent);
   margin-top: 2px;
 }
 
 /* ── Success state ── */
 .successState {
   text-align: center;
-  padding: 32px 0 24px;
+  padding: 36px 0 28px;
 }
 
 .successIcon {
-  font-size: 32px;
+  font-size: var(--type-metric);
   display: block;
   margin-bottom: 12px;
 }
 
 .successTitle {
-  font-size: var(--type-body-sm);
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: var(--type-subtitle);
+  font-weight: var(--type-subtitle-weight);
+  letter-spacing: var(--type-subtitle-tracking);
+  line-height: var(--type-subtitle-lh);
   color: var(--text-primary);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .successBody {
-  font-size: var(--type-body-sm);
+  font-family: var(--font-display);
+  font-size: var(--type-body);
   font-weight: 400;
   color: var(--text-secondary);
   line-height: 1.5;
@@ -113,14 +121,14 @@
 }
 
 .textarea {
-  height: 56px;
+  height: 72px;
   width: 100%;
-  background: var(--bg-table-header);
+  background: var(--field-bg);
   border: none;
-  border-bottom: 1px solid #8D8D8D;
-  border-radius: 6px;
-  padding: 8px 12px;
-  font-size: var(--type-body-sm);
+  border-bottom: 1px solid var(--field-border);
+  border-radius: var(--radius-btn);
+  padding: 10px 14px;
+  font-size: var(--type-body);
   font-family: var(--font-display);
   color: var(--text-primary);
   resize: none;
@@ -128,23 +136,24 @@
 }
 
 .textarea::placeholder {
-  color: #A8A8A8;
+  color: var(--field-placeholder);
 }
 
 .textarea:focus {
   outline: none;
-  border-bottom-color: var(--btn-primary-bg);
+  background: #fff;
+  border-bottom-color: var(--field-border-focus);
 }
 
 .textareaLabel {
-  font-size: var(--type-caption);
-  letter-spacing: var(--type-caption-tracking);
-  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  letter-spacing: var(--type-label-tracking);
+  font-weight: var(--type-label-weight);
   color: var(--text-secondary);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .textareaGroup {

@@ -2,12 +2,12 @@ import { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import Modal from '../../components/ui/Modal';
 import InlineBanner from '../../components/ui/InlineBanner';
+import FormSelect from '../../components/ui/FormSelect';
 import { useAppStore } from '../../store/app';
 import styles from './ReportingPage.module.css';
 
 /* ── Constants ── */
 const ALL_BLOCKS = [
-  'Summary Metrics',
   'Findings Table',
   'Variance Chart',
   'Coverage Stats',
@@ -22,9 +22,8 @@ type BlockName = (typeof ALL_BLOCKS)[number];
 type TemplateKey = 'executive' | 'technical' | 'blank';
 
 const TEMPLATE_BLOCKS: Record<TemplateKey, BlockName[]> = {
-  executive: ['Summary Metrics', 'Findings Table', 'Variance Chart', 'Custom Text'],
+  executive: ['Findings Table', 'Variance Chart', 'Custom Text'],
   technical: [
-    'Summary Metrics',
     'Findings Table',
     'Variance Chart',
     'Coverage Stats',
@@ -41,30 +40,41 @@ const TEMPLATE_LABELS: Record<TemplateKey, string> = {
   blank: 'Blank Canvas',
 };
 
+const TEMPLATE_OPTIONS = [
+  { value: 'executive', label: 'Executive Summary' },
+  { value: 'technical', label: 'Detailed Technical' },
+  { value: 'blank', label: 'Blank Canvas' },
+] as const;
+
+const PAGE_FORMAT_OPTIONS = [
+  { value: 'US Letter', label: 'US Letter' },
+  { value: 'A4', label: 'A4' },
+  { value: 'Custom', label: 'Custom' },
+];
+
+const SHARE_ACCESS_OPTIONS = [
+  { value: 'anyone', label: 'Anyone with link' },
+];
+
+const SHARE_EXPIRATION_OPTIONS = [
+  { value: '24 hours', label: '24 hours' },
+  { value: '7 days', label: '7 days' },
+  { value: '30 days', label: '30 days' },
+  { value: 'No expiration', label: 'No expiration' },
+];
+
+const REPORT_HISTORY = [
+  { id: 'REV-2026-0004', label: 'REV-2026-0004', meta: 'Draft', isCurrent: true },
+  { id: 'REV-2026-0003', label: 'REV-2026-0003', meta: 'Apr 15', isCurrent: false },
+  { id: 'REV-2026-0002', label: 'REV-2026-0002', meta: 'Mar 28', isCurrent: false },
+  { id: 'REV-2026-0001', label: 'REV-2026-0001', meta: 'Mar 12', isCurrent: false },
+] as const;
+
+const SHARE_URL = 'https://audit.revorion.ai/reports/REV-2026-0004/s/a8f2...';
+
 /* ── Block content renderer ── */
 function BlockContent({ name }: { name: BlockName }) {
   switch (name) {
-    case 'Summary Metrics':
-      return (
-        <div className={styles.metricsGrid}>
-          <div className={styles.metricItem}>
-            <span className={styles.metricLabel}>Total Variance</span>
-            <span className={`${styles.metricValue} ${styles.metricValueAmber}`}>$12,450</span>
-            <span className={styles.metricSub}>Recoupment shortfall detected</span>
-          </div>
-          <div className={styles.metricItem}>
-            <span className={styles.metricLabel}>Findings</span>
-            <span className={`${styles.metricValue} ${styles.metricValueDefault}`}>347</span>
-            <span className={styles.metricSub}>24 high, 89 medium, 234 low</span>
-          </div>
-          <div className={styles.metricItem}>
-            <span className={styles.metricLabel}>Coverage</span>
-            <span className={`${styles.metricValue} ${styles.metricValueDefault}`}>98.4%</span>
-            <span className={styles.metricSub}>Of 1.41M eligible records</span>
-          </div>
-        </div>
-      );
-
     case 'Findings Table':
       return (
         <>
@@ -161,10 +171,14 @@ function ShareLinkModal({
   onDisable: () => void;
 }) {
   const [copied, setCopied] = useState(false);
+  const [access, setAccess] = useState('anyone');
   const [expiration, setExpiration] = useState('30 days');
   const [password, setPassword] = useState('');
 
   function handleCopy() {
+    if (navigator.clipboard?.writeText) {
+      void navigator.clipboard.writeText(SHARE_URL);
+    }
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   }
@@ -176,47 +190,42 @@ function ShareLinkModal({
       onClose={onClose}
       width={480}
     >
-      <div>
-        <p className={styles.propLabel}>Shareable Link</p>
+      <div className={styles.modalBodyStack}>
+        <div className={styles.modalField}>
+          <span className={styles.modalFieldLabel}>Shareable Link</span>
+          <span className={styles.modalFieldHint}>
+            Anyone with this link can view the report. No login required.
+          </span>
+        </div>
         <div className={styles.linkFieldRow}>
           <input
             className={styles.linkInput}
             readOnly
-            value="https://audit.revorion.ai/reports/REV-2026-0004/s/a8f2..."
+            value={SHARE_URL}
           />
           <button className={styles.copyBtn} onClick={handleCopy}>
             {copied ? 'Copied!' : 'Copy'}
           </button>
         </div>
-        <span className={styles.linkHelper}>
-          Anyone with this link can view the report. No login required.
-        </span>
+        <FormSelect
+          label="Access"
+          value={access}
+          onChange={setAccess}
+          options={SHARE_ACCESS_OPTIONS.map((option) => ({ ...option }))}
+          className={styles.modalSelect}
+        />
+        <FormSelect
+          label="Link expiration"
+          value={expiration}
+          onChange={setExpiration}
+          options={SHARE_EXPIRATION_OPTIONS.map((option) => ({ ...option }))}
+          className={styles.modalSelect}
+        />
 
-        <div className={styles.shareField}>
-          <span className={styles.shareFieldLabel}>Access</span>
-          <select className={styles.shareFieldInput}>
-            <option>Anyone with link</option>
-          </select>
-        </div>
-
-        <div className={styles.shareField}>
-          <span className={styles.shareFieldLabel}>Link Expiration</span>
-          <select
-            className={styles.shareFieldInput}
-            value={expiration}
-            onChange={(e) => setExpiration(e.target.value)}
-          >
-            <option>24 hours</option>
-            <option>7 days</option>
-            <option>30 days</option>
-            <option>No expiration</option>
-          </select>
-        </div>
-
-        <div className={styles.shareField}>
-          <span className={styles.shareFieldLabel}>Password Protection (optional)</span>
+        <div className={styles.modalField}>
+          <span className={styles.modalFieldLabel}>Password protection (optional)</span>
           <input
-            className={styles.shareFieldInputText}
+            className={styles.modalTextInput}
             type="text"
             placeholder="No password"
             value={password}
@@ -224,17 +233,18 @@ function ShareLinkModal({
           />
         </div>
 
-        <div className={styles.shareFooter}>
+        <div className={styles.modalFooter}>
           <button className={styles.disableLink} onClick={onDisable}>
-            Disable link
+            Disable Link
           </button>
-          <button
-            className={`${styles.actionBtn} ${styles.actionBtnPrimary}`}
-            style={{ width: 140, marginBottom: 0 }}
-            onClick={onSave}
-          >
-            Save settings
-          </button>
+          <div className={styles.modalFooterRight}>
+            <button className={styles.modalCancelBtn} onClick={onClose}>
+              Cancel
+            </button>
+            <button className={styles.modalPrimaryBtn} onClick={onSave}>
+              Save Settings
+            </button>
+          </div>
         </div>
       </div>
     </Modal>
@@ -251,11 +261,12 @@ function RevertToDraftDialog({
 }) {
   return (
     <Modal
+      contextLabel="REPORT STATUS"
       title="Revert to draft"
       onClose={onClose}
       width={440}
     >
-      <div>
+      <div className={styles.modalBodyStack}>
         <div className={styles.revertBanner}>
           <span className={styles.revertBannerBold}>This report has been finalized.</span>
           <span className={styles.revertBannerText}>
@@ -263,25 +274,21 @@ function RevertToDraftDialog({
           </span>
         </div>
 
-        <div className={styles.revertMeta} style={{ marginBottom: 24 }}>
+        <div className={styles.revertMeta}>
           <span>Finalized by:</span>
           <span className={styles.revertMetaValue}>Sarah Cone on April 21, 2026 at 15:04 UTC</span>
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: 16, borderTop: '1px solid var(--border-default)', paddingTop: 16 }}>
-          <button
-            onClick={onClose}
-            style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 'var(--type-data)', fontFamily: 'var(--font-mono)', color: 'var(--text-secondary)' }}
-          >
-            Cancel
-          </button>
-          <button
-            className={`${styles.actionBtn} ${styles.actionBtnPrimary}`}
-            style={{ width: 130, marginBottom: 0 }}
-            onClick={onRevert}
-          >
-            Revert to draft
-          </button>
+        <div className={styles.modalFooter}>
+          <span />
+          <div className={styles.modalFooterRight}>
+            <button className={styles.modalCancelBtn} onClick={onClose}>
+              Cancel
+            </button>
+            <button className={styles.modalPrimaryBtn} onClick={onRevert}>
+              Revert to Draft
+            </button>
+          </div>
         </div>
       </div>
     </Modal>
@@ -409,18 +416,38 @@ export default function ReportingPage() {
   /* ── Render: EMPTY ── */
   if (!effectiveHasAudit) {
     return (
-      <div>
-        <div className={styles.emptyHeader}>
-          <h1 className={styles.emptyTitle}>Reporting</h1>
-          <span className={styles.emptySubtitle}>Generate and export audit reports.</span>
+      <div className={styles.page}>
+        <div className={styles.pageHeader}>
+          <div className={styles.pageHeaderText}>
+            <h1 className={styles.pageTitle}>Reporting</h1>
+            <span className={styles.pageSubtitle}>Generate, finalize, and share audit reports.</span>
+          </div>
         </div>
-        <div className={styles.emptyBody}>
-          <p className={styles.emptyHeading}>No reports yet</p>
-          <p className={styles.emptyText}>Reports are generated automatically when an audit completes.</p>
-          <p className={styles.emptyText}>Run your first audit to generate a report.</p>
-          <button className={styles.goToAuditBtn} onClick={() => navigate('/app/audit')}>
-            Go to Audit
-          </button>
+
+        <div className={styles.emptyStage}>
+          <div className={styles.emptyIntro}>
+            <span className={styles.emptyEyebrow}>First report</span>
+            <span className={styles.emptyHeroTitle}>Reporting starts when the first audit completes.</span>
+            <p className={styles.emptyHeroBody}>
+              AuditGraph assembles the first draft automatically from findings, recovery status,
+              coverage, and the active rule set. Review it here once the run is done.
+            </p>
+            <div className={styles.emptyActionRow}>
+              <button className={styles.goToAuditBtn} onClick={() => navigate('/app/audit')}>
+                Go to Audit
+              </button>
+              <span className={styles.emptyActionNote}>No manual setup required before that.</span>
+            </div>
+          </div>
+
+          <div className={styles.emptyMetaCard}>
+            <span className={styles.emptyMetaLabel}>What appears here</span>
+            <span className={styles.emptyMetaTitle}>Executive summary, findings, exports, and share links.</span>
+            <span className={styles.emptyMetaBody}>
+              Draft and finalized states will both live in this workspace, alongside report history
+              and delivery controls for your stakeholders.
+            </span>
+          </div>
         </div>
 
         {/* Simulate state toggle */}
@@ -469,12 +496,14 @@ export default function ReportingPage() {
 
   /* ── Render: POPULATED ── */
   return (
-    <div className={styles.threePanelWrapper}>
+    <div className={styles.page}>
       {reportingBanner}
       {/* Page header */}
       <div className={styles.pageHeader}>
-        <h1 className={styles.pageTitle}>Reporting</h1>
-        <span className={styles.pageSubtitle}>Generate and export audit reports.</span>
+        <div className={styles.pageHeaderText}>
+          <h1 className={styles.pageTitle}>Reporting</h1>
+          <span className={styles.pageSubtitle}>Generate, finalize, and share audit reports.</span>
+        </div>
       </div>
 
       <div className={styles.panels}>
@@ -482,25 +511,27 @@ export default function ReportingPage() {
         <div className={styles.leftPanel}>
           <div className={styles.leftHeader}>
             <span className={styles.leftHeaderTitle}>Report Builder</span>
-            <span className={styles.leftHeaderSub}>Drag blocks to canvas</span>
+            <span className={styles.leftHeaderSub}>Build the document structure and choose what appears on the page.</span>
           </div>
 
           {/* Template selector */}
           <div className={styles.leftSection}>
-            <span className={styles.sectionLabel}>Template</span>
-            <select
-              className={styles.templateSelect}
+            <FormSelect
+              label="Template"
               value={pendingTemplate ?? activeTemplate}
-              onChange={(e) => handleTemplateChange(e.target.value as TemplateKey)}
-            >
-              <option value="executive">Executive Summary ▾</option>
-              <option value="technical">Detailed Technical ▾</option>
-              <option value="blank">Blank Canvas ▾</option>
-            </select>
+              onChange={(value) => {
+                if (!isFinalized) handleTemplateChange(value as TemplateKey);
+              }}
+              options={TEMPLATE_OPTIONS.map((option) => ({ ...option }))}
+              className={`${styles.controlSelect} ${isFinalized ? styles.controlSelectDisabled : ''}`}
+            />
 
             {pendingTemplate && (
               <div className={styles.templateConfirm}>
-                Replace current layout with {TEMPLATE_LABELS[pendingTemplate]}? Your current blocks will be removed.
+                <span className={styles.templateConfirmTitle}>Switch template?</span>
+                <span className={styles.templateConfirmBody}>
+                  Replace the current layout with {TEMPLATE_LABELS[pendingTemplate]}. Existing blocks on the canvas will be removed.
+                </span>
                 <div className={styles.templateConfirmActions}>
                   <button className={styles.confirmReplaceBtn} onClick={() => applyTemplate(pendingTemplate)}>Replace</button>
                   <button className={styles.confirmCancelBtn} onClick={() => setPendingTemplate(null)}>Cancel</button>
@@ -510,7 +541,7 @@ export default function ReportingPage() {
           </div>
 
           {/* Available blocks */}
-          <div className={styles.leftSection} style={{ marginTop: 12 }}>
+          <div className={`${styles.leftSection} ${styles.sectionBreak}`}>
             <span className={styles.sectionLabel}>Available Blocks</span>
             {ALL_BLOCKS.map((block) => {
               const onCanvas = canvasBlocks.includes(block);
@@ -518,35 +549,33 @@ export default function ReportingPage() {
                 <button
                   key={block}
                   className={`${styles.blockItem} ${onCanvas ? styles.blockItemOnCanvas : ''}`}
-                  onClick={() => !onCanvas && addBlock(block)}
+                  onClick={() => !isFinalized && !onCanvas && addBlock(block)}
+                  disabled={isFinalized || onCanvas}
                   title={onCanvas ? 'Already on canvas' : `Add ${block} to canvas`}
                 >
-                  ≡&nbsp;&nbsp;{block}
+                  <span className={styles.blockItemHandle}>≡</span>
+                  <span>{block}</span>
                 </button>
               );
             })}
           </div>
 
           {/* Report history */}
-          <div className={styles.leftSection} style={{ marginTop: 12, paddingBottom: 16 }}>
+          <div className={`${styles.leftSection} ${styles.sectionBreak} ${styles.historySection}`}>
             <span className={styles.sectionLabel}>Report History</span>
-            {[
-              { id: 'REV-2026-0004', label: 'REV-2026-0004  Draft', isCurrent: true },
-              { id: 'REV-2026-0003', label: 'REV-2026-0003  Apr 15', isCurrent: false },
-              { id: 'REV-2026-0002', label: 'REV-2026-0002  Mar 28', isCurrent: false },
-              { id: 'REV-2026-0001', label: 'REV-2026-0001  Mar 12', isCurrent: false },
-            ].map((item) => (
+            {REPORT_HISTORY.map((item) => (
               <div
                 key={item.id}
-                className={styles.historyItem}
+                className={`${styles.historyItem} ${selectedHistory === item.id ? styles.historyItemActive : ''}`}
                 onClick={() => setSelectedHistory(item.id)}
               >
-                <span className={selectedHistory === item.id ? styles.historyId : styles.historyIdInactive}>
-                  {item.label}
-                </span>
-                {selectedHistory === item.id && (
-                  <span className={styles.currentBadge}>Current</span>
-                )}
+                <div className={styles.historyText}>
+                  <span className={selectedHistory === item.id ? styles.historyId : styles.historyIdInactive}>
+                    {item.label}
+                  </span>
+                  <span className={styles.historyMeta}>{item.meta}</span>
+                </div>
+                {(selectedHistory === item.id || item.isCurrent) && <span className={styles.currentBadge}>Current</span>}
               </div>
             ))}
           </div>
@@ -556,7 +585,7 @@ export default function ReportingPage() {
         <div className={styles.centerPanel}>
           <div className={styles.canvasTopBar}>
             <span className={styles.canvasTopLabel}>Report Canvas</span>
-            <span className={styles.canvasTopMeta}>US Letter · 216×279</span>
+            <span className={styles.canvasTopMeta}>{pageFormat} · 216 × 279</span>
             <span className={isFinalized ? styles.canvasStatusFinal : styles.canvasStatusDraft}>
               {isFinalized ? 'Final' : 'Draft'}
             </span>
@@ -576,15 +605,37 @@ export default function ReportingPage() {
               )}
 
               <div className={styles.reportContent}>
-                {/* Page document header */}
+                {/* Page document header (permanent — not removable) */}
                 <div className={styles.docHeader}>
                   <div className={styles.docLogoRow}>
                     <div className={styles.docLogoSquare} />
                     <span className={styles.docBrand}>REVORION</span>
                   </div>
                   <span className={styles.docReportLabel}>Audit Execution Report</span>
-                  <span className={styles.docTitle}>Q3 Royalties Analytics</span>
+                  <span className={styles.docTitle}>{reportName}</span>
                   <span className={styles.docMeta}>Batch: 8482-A9B | Silo: Music &amp; Royalty | Generated: 2026-04-21</span>
+                  <hr className={styles.docDivider} />
+
+                  {/* Permanent summary metrics — synced with MOCK_AUDIT_RESULT */}
+                  <div className={styles.docSummary}>
+                    <div className={styles.docSummaryHero}>
+                      <span className={styles.docSummaryLabel}>Potential Recovery</span>
+                      <span className={styles.docSummaryHeroValue}>$12.45M</span>
+                      <span className={styles.docSummarySub}>Total variance across all findings</span>
+                    </div>
+                    <div className={styles.docSummaryRow}>
+                      <div className={styles.docSummaryItem}>
+                        <span className={styles.docSummaryLabel}>Findings</span>
+                        <span className={styles.docSummaryValue}>1,390</span>
+                        <span className={styles.docSummarySub}>Across 9 contract sources</span>
+                      </div>
+                      <div className={styles.docSummaryItem}>
+                        <span className={styles.docSummaryLabel}>Coverage</span>
+                        <span className={styles.docSummaryValue}>96%</span>
+                        <span className={styles.docSummarySub}>Of 1,412,308 eligible records</span>
+                      </div>
+                    </div>
+                  </div>
                   <hr className={styles.docDivider} />
                 </div>
 
@@ -646,17 +697,15 @@ export default function ReportingPage() {
               disabled={isFinalized}
             />
 
-            <span className={styles.propLabel}>Page Format</span>
-            <select
-              className={styles.propSelect}
+            <FormSelect
+              label="Page Format"
               value={pageFormat}
-              onChange={(e) => setPageFormat(e.target.value)}
-              disabled={isFinalized}
-            >
-              <option>US Letter</option>
-              <option>A4</option>
-              <option>Custom</option>
-            </select>
+              onChange={(value) => {
+                if (!isFinalized) setPageFormat(value);
+              }}
+              options={PAGE_FORMAT_OPTIONS}
+              className={`${styles.controlSelect} ${isFinalized ? styles.controlSelectDisabled : ''}`}
+            />
 
             <span className={styles.propLabel}>Status</span>
             <span className={isFinalized ? styles.statusBadgeFinal : styles.statusBadgeDraft}>
@@ -676,19 +725,19 @@ export default function ReportingPage() {
             )}
           </div>
 
-          <hr className={styles.rightDivider} style={{ margin: '4px 16px 12px' }} />
+          <hr className={styles.rightDivider} />
 
-          <div className={styles.rightSection}>
+          <div className={`${styles.rightSection} ${styles.rightSectionCompact}`}>
             <span className={styles.propLabel}>Rule Set Version</span>
-            <span className={styles.propValue} style={{ marginBottom: 12 }}>v321 (April 21, 2026)</span>
+            <span className={`${styles.propValue} ${styles.propValueTight}`}>v321 (April 21, 2026)</span>
 
             <span className={styles.propLabel}>Silo</span>
-            <span className={styles.propValue} style={{ marginBottom: 12 }}>Music &amp; Royalty</span>
+            <span className={`${styles.propValue} ${styles.propValueTight}`}>Music &amp; Royalty</span>
           </div>
 
-          <hr className={styles.rightDivider} style={{ margin: '4px 16px 12px' }} />
+          <hr className={styles.rightDivider} />
 
-          <div className={styles.rightSection} style={{ paddingBottom: 24 }}>
+          <div className={`${styles.rightSection} ${styles.rightSectionActions}`}>
             <span className={styles.propLabel}>Actions</span>
 
             <button

@@ -1,5 +1,16 @@
 import { useState } from 'react';
+import FormSelect from '../../../components/ui/FormSelect';
 import styles from './SupportPage.module.css';
+
+const TOPIC_OPTIONS = [
+  { value: '', label: 'Select a topic...' },
+  { value: 'connection', label: 'Data connection issue' },
+  { value: 'audit', label: 'Audit not running' },
+  { value: 'recovery', label: 'Recovery email problem' },
+  { value: 'rules', label: 'Rules question' },
+  { value: 'billing', label: 'Billing or subscription' },
+  { value: 'other', label: 'Other' },
+];
 
 const FAQS = [
   {
@@ -43,61 +54,61 @@ export default function SupportPage() {
   return (
     <div className={styles.page}>
       <h1 className={styles.pageTitle}>Contact support</h1>
-      <p className={styles.pageSubtitle}>
-        Our team typically responds within one business day.
-      </p>
+      <p className={styles.pageSubtitle}>Our team typically responds within one business day.</p>
 
       <div className={styles.card}>
-        <h2 className={styles.cardTitle}>Send a message</h2>
-        {sent ? (
-          <p style={{ color: 'var(--status-live-text)', fontWeight: 600 }}>
-            ✓ Message sent. We'll get back to you at sarah@revorion.ai.
-          </p>
-        ) : (
-          <>
-            <div className={styles.fields}>
-              <div className={styles.field}>
-                <label className={styles.label}>Topic</label>
-                <select className={styles.select} value={topic} onChange={(e) => setTopic(e.target.value)}>
-                  <option value="">Select a topic...</option>
-                  <option>Data connection issue</option>
-                  <option>Audit not running</option>
-                  <option>Recovery email problem</option>
-                  <option>Rules question</option>
-                  <option>Billing or subscription</option>
-                  <option>Other</option>
-                </select>
+        <div className={styles.cardHeader}>
+          <h2 className={styles.cardTitle}>Send a message</h2>
+        </div>
+        <div className={styles.cardBody}>
+          {sent ? (
+            <p style={{ fontFamily: 'var(--font-display)', fontSize: 'var(--type-body)', color: 'var(--status-live-bg)', margin: 0 }}>
+              Message sent. We'll get back to you at sarah@revorion.ai.
+            </p>
+          ) : (
+            <>
+              <div className={styles.fields}>
+                <div className={styles.field}>
+                  <FormSelect
+                    label="Topic"
+                    value={topic}
+                    onChange={setTopic}
+                    options={TOPIC_OPTIONS}
+                  />
+                </div>
+                <div className={styles.field}>
+                  <label className={styles.label}>Subject</label>
+                  <input
+                    className={styles.input}
+                    placeholder="Brief summary of your issue"
+                    value={subject}
+                    onChange={(e) => setSubject(e.target.value)}
+                  />
+                </div>
+                <div className={styles.field}>
+                  <label className={styles.label}>Message</label>
+                  <textarea
+                    className={styles.textarea}
+                    placeholder="Describe your issue in detail..."
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                  />
+                </div>
               </div>
-              <div className={styles.field}>
-                <label className={styles.label}>Subject</label>
-                <input
-                  className={styles.input}
-                  placeholder="Brief summary of your issue"
-                  value={subject}
-                  onChange={(e) => setSubject(e.target.value)}
-                />
+              <div className={styles.actions}>
+                <button className={styles.btnPrimary} onClick={handleSubmit}>
+                  Send message
+                </button>
               </div>
-              <div className={styles.field}>
-                <label className={styles.label}>Message</label>
-                <textarea
-                  className={styles.textarea}
-                  placeholder="Describe your issue in detail..."
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                />
-              </div>
-            </div>
-            <div className={styles.actions}>
-              <button className={styles.btnPrimary} onClick={handleSubmit}>
-                Send message
-              </button>
-            </div>
-          </>
-        )}
+            </>
+          )}
+        </div>
       </div>
 
       <div className={styles.card}>
-        <h2 className={styles.cardTitle}>Frequently asked questions</h2>
+        <div className={styles.cardHeader}>
+          <h2 className={styles.cardTitle}>Frequently asked questions</h2>
+        </div>
         {FAQS.map((faq, i) => (
           <div
             key={i}

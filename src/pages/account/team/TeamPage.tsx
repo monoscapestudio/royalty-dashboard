@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import FormSelect from '../../../components/ui/FormSelect';
 import styles from './TeamPage.module.css';
 
 interface Member {
@@ -15,6 +16,12 @@ const INITIAL_MEMBERS: Member[] = [
   { id: '2', name: 'James Park', email: 'james@revorion.ai', role: 'Revenue Ops', status: 'Active', initials: 'JP' },
   { id: '3', name: 'Anika Torres', email: 'anika@revorion.ai', role: 'Analyst', status: 'Active', initials: 'AT' },
   { id: '4', name: 'Marcus Webb', email: 'marcus@revorion.ai', role: 'Analyst', status: 'Pending', initials: 'MW' },
+];
+
+const ROLE_OPTIONS = [
+  { value: 'Admin', label: 'Admin' },
+  { value: 'Revenue Ops', label: 'Revenue Ops' },
+  { value: 'Analyst', label: 'Analyst' },
 ];
 
 export default function TeamPage() {
@@ -98,9 +105,10 @@ export default function TeamPage() {
       {showInvite && (
         <div className={styles.modalBackdrop} onClick={() => setShowInvite(false)}>
           <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-            <h2 className={styles.modalTitle}>Invite user</h2>
-            <p className={styles.modalSubtitle}>Send an invitation to join your organization.</p>
-            <div className={styles.fields}>
+            <div className={styles.modalHeader}>
+              <h2 className={styles.modalTitle}>Invite user</h2>
+            </div>
+            <div className={styles.modalBody}>
               <div className={styles.field}>
                 <label className={styles.label}>Email address</label>
                 <input
@@ -113,19 +121,15 @@ export default function TeamPage() {
                 />
               </div>
               <div className={styles.field}>
-                <label className={styles.label}>Role</label>
-                <select
-                  className={styles.select}
+                <FormSelect
+                  label="Role"
                   value={inviteRole}
-                  onChange={(e) => setInviteRole(e.target.value)}
-                >
-                  <option>Admin</option>
-                  <option>Revenue Ops</option>
-                  <option>Analyst</option>
-                </select>
+                  onChange={setInviteRole}
+                  options={ROLE_OPTIONS}
+                />
               </div>
             </div>
-            <div className={styles.modalActions}>
+            <div className={styles.modalFooter}>
               <button className={styles.btnSecondary} onClick={() => setShowInvite(false)}>
                 Cancel
               </button>

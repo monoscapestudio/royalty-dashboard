@@ -1,70 +1,93 @@
-.page { max-width: 640px; }
+.page { max-width: 720px; }
 
 .pageTitle {
-  font-size: 20px;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: var(--type-hero);
+  font-weight: 500;
+  letter-spacing: var(--type-hero-tracking);
+  line-height: var(--type-hero-lh);
   color: var(--text-primary);
-  margin: 0 0 4px;
+  margin: 0;
 }
 
 .pageSubtitle {
-  font-size: var(--type-body-sm);
+  font-family: var(--font-display);
+  font-size: var(--type-subtitle);
+  font-weight: var(--type-subtitle-weight);
+  letter-spacing: var(--type-subtitle-tracking);
   color: var(--text-secondary);
-  margin: 0 0 28px;
+  margin: 12px 0 56px;
 }
 
+/* ── Card ── */
 .card {
   background: var(--bg-white);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-card);
-  padding: 24px;
-  margin-bottom: 20px;
+  overflow: hidden;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-panel);
+}
+
+.cardHeader {
+  padding: 20px 28px 18px;
+  border-bottom: 1px solid var(--border-default);
+  background: var(--bg-panel);
 }
 
 .cardTitle {
-  font-size: var(--type-body-sm);
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: var(--type-subtitle);
+  font-weight: var(--type-subtitle-weight);
+  letter-spacing: var(--type-subtitle-tracking);
   color: var(--text-primary);
-  margin: 0 0 6px;
+  margin: 0 0 4px;
 }
 
 .cardSubtitle {
-  font-size: var(--type-body-sm);
+  font-family: var(--font-display);
+  font-size: var(--type-body);
   color: var(--text-secondary);
-  margin: 0 0 20px;
+  margin: 0;
 }
 
+/* ── Notification rows ── */
 .row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 0;
+  padding: 20px 28px;
   border-bottom: 1px solid var(--border-default);
+  gap: 24px;
+  transition: background 0.15s;
 }
 
 .row:last-child { border-bottom: none; }
+.row:hover { background: var(--row-hover); }
 
-.rowLeft {}
+.rowLeft { flex: 1; min-width: 0; }
 
 .rowLabel {
-  font-size: var(--type-body-sm);
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: var(--type-body);
+  font-weight: 400;
   color: var(--text-primary);
   display: block;
-  margin-bottom: 2px;
+  margin-bottom: 3px;
 }
 
 .rowDesc {
-  font-size: var(--type-data);
   font-family: var(--font-mono);
+  font-size: var(--type-data);
   color: var(--text-secondary);
+  display: block;
 }
 
-/* Toggle */
+/* ── Toggle ── */
 .toggle {
   position: relative;
-  width: 40px;
-  height: 22px;
+  width: 44px;
+  height: 24px;
   flex-shrink: 0;
 }
 
@@ -78,10 +101,11 @@
 .slider {
   position: absolute;
   inset: 0;
-  background: #c6c6c6;
+  background: var(--bg-panel-muted);
   border-radius: 100px;
   cursor: pointer;
   transition: background 0.2s;
+  border: 1px solid var(--border-default);
 }
 
 .slider::before {
@@ -91,37 +115,43 @@
   height: 16px;
   left: 3px;
   top: 3px;
-  background: white;
+  background: var(--text-secondary);
   border-radius: 50%;
-  transition: transform 0.2s;
+  transition: transform 0.2s, background 0.2s;
 }
 
 .toggle input:checked + .slider {
   background: var(--btn-primary-bg);
+  border-color: var(--btn-primary-bg);
 }
 
 .toggle input:checked + .slider::before {
-  transform: translateX(18px);
+  background: #ffffff;
+  transform: translateX(20px);
 }
 
+/* ── Actions ── */
 .actions {
   display: flex;
   justify-content: flex-end;
-  margin-top: 24px;
+  padding: 20px 28px;
+  border-top: 1px solid var(--border-default);
 }
 
 .btnPrimary {
-  height: 36px;
-  padding: 0 20px;
+  height: 44px;
+  padding: 0 28px;
   background: var(--btn-primary-bg);
-  color: #fff;
+  color: var(--btn-primary-text);
   border: none;
   border-radius: var(--radius-btn);
-  font-size: var(--type-body-sm);
-  font-weight: 600;
-  font-family: var(--font-display);
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  letter-spacing: var(--type-label-tracking);
+  font-weight: var(--type-label-weight);
+  text-transform: uppercase;
   cursor: pointer;
-  transition: opacity 0.1s;
+  transition: background 0.15s;
 }
 
-.btnPrimary:hover { opacity: 0.88; }
+.btnPrimary:hover { background: var(--btn-primary-hover); }

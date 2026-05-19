@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Outlet, useSearchParams, Link } from 'react-router-dom';
+import { Outlet, useSearchParams, useNavigate, Link } from 'react-router-dom';
 import { useAppStore } from '../../store/app';
 import type { AuditState, Finding } from '../../types';
 import { ALL_FINDINGS, MOCK_AUDIT_RESULT } from '../../data/mockAudit';
@@ -14,6 +14,7 @@ const FINDINGS_PER_TICK = 3;
 const FINDINGS_TICK_EVERY = 2;
 
 export default function AuditPage() {
+  const navigate = useNavigate();
   const activeSiloId = useAppStore((s) => s.activeSiloId);
   const auditStateBySilo = useAppStore((s) => s.auditStateBySilo);
   const setAuditState = useAppStore((s) => s.setAuditState);
@@ -167,254 +168,280 @@ export default function AuditPage() {
 
   return (
     <>
-      {auditBanner}
-      {/* Page header */}
-      <div className={styles.pageHeader}>
-        <h1 className={styles.pageTitle}>Audit</h1>
-        <span className={styles.pageSubtitle}>Review readiness, run audit, inspect findings.</span>
-        {effectiveState === 'NOT_YET_RUN' && null}
-        {effectiveState === 'RUNNING' && (
-          <button className={styles.runBtn} disabled style={{ opacity: 0.5 }}>Run Audit</button>
-        )}
-        {(effectiveState === 'COMPLETE' || effectiveState === 'STOPPED' || effectiveState === 'FAILED') && (
-          <button className={styles.runBtn} onClick={startAudit}>Run Audit</button>
-        )}
-      </div>
-
-      {effectiveState !== 'NOT_YET_RUN' && effectiveState !== 'COMPLETE' && (
-        <>
-      {/* PRE-AUDIT READINESS section label */}
-      <span className={styles.sectionLabel} style={{ paddingTop: 16 }}>Pre-Audit Readiness</span>
-
-      {/* Readiness cards */}
-      <div className={styles.readinessRow}>
-        <div className={styles.readinessCard}>
-          <span className={`${styles.readinessBadge} ${styles.badgeReady}`}>Ready</span>
-          <span className={styles.readinessDesc}>Data Sources: 6 connected, 5 live, 1 needs fix</span>
-        </div>
-        <div className={styles.readinessCard}>
-          <span className={`${styles.readinessBadge} ${styles.badgeReady}`}>Ready</span>
-          <span className={styles.readinessDesc}>Rules: 321 active across 3 sources</span>
-        </div>
-        <div className={styles.readinessCard}>
-          <span className={`${styles.readinessBadge} ${styles.badgeReady}`}>96%</span>
-          <span className={styles.readinessDesc}>Coverage: 1,412,308 eligible records</span>
-        </div>
-      </div>
-        </>
-      )}
-
-      {/* ── State-specific content ── */}
-
-      {/* NOT_YET_RUN: to-do checklist */}
-      {effectiveState === 'NOT_YET_RUN' && (
-        <>
-          <div className={styles.todoChecklist}>
-            <span className={styles.todoTitle}>To run your first audit, complete these steps:</span>
-            <p className={styles.todoHint}>You can do them in any order.</p>
-            <div className={styles.todoItems}>
-              <div
-                className={`${styles.todoItem} ${contractStepDone ? styles.todoItemDone : styles.todoItemPending}`}
-              >
-                <span
-                  className={`${styles.todoCheck} ${contractStepDone ? styles.todoCheckDone : styles.todoCheckPending}`}
-                  aria-hidden
-                >
-                  {contractStepDone ? '✓' : ''}
-                </span>
-                <span className={`${styles.todoText} ${contractStepDone ? styles.todoTextDone : ''}`}>
-                  Connect a data source for contract
-                </span>
-                {!contractStepDone && (
-                  <Link to="/app/connects" className={styles.todoStepBtn}>
-                    Go to Connects
-                  </Link>
-                )}
-              </div>
-              <div
-                className={`${styles.todoItem} ${rulesStepDone ? styles.todoItemDone : styles.todoItemPending}`}
-              >
-                <span
-                  className={`${styles.todoCheck} ${rulesStepDone ? styles.todoCheckDone : styles.todoCheckPending}`}
-                  aria-hidden
-                >
-                  {rulesStepDone ? '✓' : ''}
-                </span>
-                <span className={`${styles.todoText} ${rulesStepDone ? styles.todoTextDone : ''}`}>
-                  Apply audit rules
-                </span>
-                {!rulesStepDone && (
-                  <Link to="/app/rules" className={styles.todoStepBtn}>
-                    Go to Rules
-                  </Link>
-                )}
-              </div>
-            </div>
-            <div className={styles.todoAction}>
-              {allStepsDone ? (
-                <>
-                  <span className={styles.todoReady}>You&apos;re all set.</span>
-                  <button type="button" className={styles.runAuditBtn} onClick={startAudit}>
-                    Run Audit
-                  </button>
-                </>
-              ) : (
-                <p className={styles.todoBlocked}>Complete both steps first.</p>
-              )}
-            </div>
+      <div className={styles.page}>
+        {auditBanner}
+        {/* Page header */}
+        <div className={styles.pageHeader}>
+          <div className={styles.pageHeaderText}>
+            <h1 className={styles.pageTitle}>Audit</h1>
+          <span className={styles.pageSubtitle}>Review readiness, run audit, inspect findings.</span>
           </div>
-          <div className={styles.emptyFindings} style={{ marginTop: 16 }}>
-            <span className={styles.emptyFindingsText}>No findings yet. Run an audit to begin.</span>
-          </div>
-        </>
-      )}
-
-      {/* RUNNING: hero progress + partial findings */}
-      {effectiveState === 'RUNNING' && (
-        <>
-          <div className={styles.runningHero}>
-            <div className={styles.runningTop}>
-              <div className={styles.runningLeft}>
-                <span className={styles.runningLabel}>Audit in progress</span>
-                <span className={styles.runningHint}>Hold tight — we're going through your records.</span>
-              </div>
-              <div className={styles.runningRight}>
-                <span className={styles.runningPercent}>{Math.round(progress)}%</span>
-                <span className={styles.runningEta}>
-                  {estimatedMinutes > 0
-                    ? `~${estimatedMinutes} minute${estimatedMinutes !== 1 ? 's' : ''} remaining`
-                    : 'Almost done…'}
-                </span>
-              </div>
-            </div>
-            <div className={styles.runningTrack}>
-              <div className={styles.runningFill} style={{ width: `${progress}%` }} />
-            </div>
-            <div className={styles.runningBottom}>
-              {visibleFindings.length > 0 && (
-                <span className={styles.runningFindings}>
-                  {visibleFindings.length} finding{visibleFindings.length !== 1 ? 's' : ''} identified so far
-                </span>
-              )}
-              <button className={styles.stopBtn} onClick={stopAudit}>Stop audit</button>
-            </div>
-          </div>
-          {visibleFindings.length > 0 ? (
-            <>
-              <FindingsSummary findings={visibleFindings} />
-              <FindingsTable findings={visibleFindings} onToast={showToast} />
-            </>
-          ) : (
-            <div className={styles.emptyFindings} style={{ marginTop: 16 }}>
-              <span className={styles.emptyFindingsText}>Scanning records… findings will appear as they are identified.</span>
-            </div>
+          {effectiveState === 'NOT_YET_RUN' && null}
+          {effectiveState === 'RUNNING' && (
+            <button className={styles.runBtn} disabled style={{ opacity: 0.5 }}>Run Audit</button>
           )}
-        </>
-      )}
+          {(effectiveState === 'COMPLETE' || effectiveState === 'STOPPED' || effectiveState === 'FAILED') && (
+            <button className={styles.runBtn} onClick={startAudit}>Run Audit</button>
+          )}
+        </div>
 
-            {/* COMPLETE: hero findings + table */}
-      {effectiveState === 'COMPLETE' && (
-        <>
-          <FindingsSummary findings={findingsToShow} onRerun={startAudit} />
-          
-          <div style={{ padding: '0 var(--content-px)', marginBottom: 32 }}>
-            <button 
-              onClick={() => setShowReadiness(!showReadiness)}
-              style={{
-                background: 'none', border: 'none', cursor: 'pointer',
-                fontFamily: 'var(--font-mono)', fontSize: 'var(--type-caption)',
-                color: 'var(--text-secondary)', textDecoration: 'underline'
-              }}
-            >
-              {showReadiness ? 'Hide readiness details' : 'View readiness details'}
-            </button>
-            
-            {showReadiness && (
-              <div style={{ marginTop: 16 }}>
-                <span className={styles.sectionLabel} style={{ padding: '0 0 8px 0' }}>Pre-Audit Readiness</span>
-                <div className={styles.readinessRow} style={{ padding: 0 }}>
-                  <div className={styles.readinessCard}>
-                    <span className={`${styles.readinessBadge} ${styles.badgeReady}`}>Ready</span>
-                    <span className={styles.readinessDesc}>Data Sources: 6 connected, 5 live, 1 needs fix</span>
+        {effectiveState !== 'NOT_YET_RUN' && effectiveState !== 'COMPLETE' && (
+          <>
+        {/* PRE-AUDIT READINESS section label */}
+        <span className={styles.sectionLabel} style={{ paddingTop: 16 }}>Pre-Audit Readiness</span>
+
+        {/* Readiness cards */}
+        <div className={styles.readinessRow}>
+          <div className={styles.readinessCard}>
+            <span className={`${styles.readinessBadge} ${styles.badgeReady}`}>Ready</span>
+            <span className={styles.readinessDesc}>Data Sources: 6 connected, 5 live, 1 needs fix</span>
+          </div>
+          <div className={styles.readinessCard}>
+            <span className={`${styles.readinessBadge} ${styles.badgeReady}`}>Ready</span>
+            <span className={styles.readinessDesc}>Rules: 321 active across 3 sources</span>
+          </div>
+          <div className={styles.readinessCard}>
+            <span className={`${styles.readinessBadge} ${styles.badgeReady}`}>96%</span>
+            <span className={styles.readinessDesc}>Coverage: 1,412,308 eligible records</span>
+          </div>
+        </div>
+          </>
+        )}
+
+        {/* ── State-specific content ── */}
+
+        {/* NOT_YET_RUN: to-do checklist */}
+        {effectiveState === 'NOT_YET_RUN' && (
+          <>
+            <div className={styles.todoStage}>
+              <div className={styles.todoIntro}>
+                <span className={styles.todoEyebrow}>First audit</span>
+                <span className={styles.todoHeroTitle}>Two steps to first findings.</span>
+                <p className={styles.todoHeroBody}>
+                  Connect contract data and apply rules. That is all you need before AuditGraph
+                  can start reviewing your records.
+                </p>
+                <span className={styles.todoOrderNote}>You can do them in any order.</span>
+              </div>
+
+              <div className={styles.todoGrid}>
+                <div
+                  className={`${styles.todoCard} ${contractStepDone ? styles.todoCardDone : styles.todoCardPending}`}
+                >
+                  <div className={styles.todoCardTop}>
+                    <span className={styles.todoStepIndex}>01</span>
+                    <span
+                      className={`${styles.todoCheck} ${contractStepDone ? styles.todoCheckDone : styles.todoCheckPending}`}
+                      aria-hidden
+                    >
+                    {contractStepDone ? '✓' : null}
+                    </span>
                   </div>
-                  <div className={styles.readinessCard}>
-                    <span className={`${styles.readinessBadge} ${styles.badgeReady}`}>Ready</span>
-                    <span className={styles.readinessDesc}>Rules: 321 active across 3 sources</span>
+                  <span className={styles.todoCardTitle}>Connect a contract source</span>
+                  <span className={styles.todoCardBody}>
+                    Add the contract system you want the audit to read from.
+                  </span>
+                  <div className={styles.todoCardAction}>
+                    {contractStepDone ? (
+                      <span className={styles.todoCardDoneText}>Complete</span>
+                    ) : (
+                      <Link to="/app/connects" className={styles.todoStepBtn}>
+                        Go to Connects
+                      </Link>
+                    )}
                   </div>
-                  <div className={styles.readinessCard}>
-                    <span className={`${styles.readinessBadge} ${styles.badgeReady}`}>96%</span>
-                    <span className={styles.readinessDesc}>Coverage: 1,412,308 eligible records</span>
+                </div>
+
+                <div
+                  className={`${styles.todoCard} ${rulesStepDone ? styles.todoCardDone : styles.todoCardPending}`}
+                >
+                  <div className={styles.todoCardTop}>
+                    <span className={styles.todoStepIndex}>02</span>
+                    <span
+                      className={`${styles.todoCheck} ${rulesStepDone ? styles.todoCheckDone : styles.todoCheckPending}`}
+                      aria-hidden
+                    >
+                    {rulesStepDone ? '✓' : null}
+                    </span>
+                  </div>
+                  <span className={styles.todoCardTitle}>Apply audit rules</span>
+                  <span className={styles.todoCardBody}>
+                    Review library, AI, or plain-language rules for this audit run.
+                  </span>
+                  <div className={styles.todoCardAction}>
+                    {rulesStepDone ? (
+                      <span className={styles.todoCardDoneText}>Complete</span>
+                    ) : (
+                      <Link to="/app/rules" className={styles.todoStepBtn}>
+                        Go to Rules
+                      </Link>
+                    )}
                   </div>
                 </div>
               </div>
+
+              <div className={styles.todoAction}>
+                {allStepsDone ? (
+                  <>
+                    <span className={styles.todoReady}>You&apos;re all set.</span>
+                    <button type="button" className={styles.runAuditBtn} onClick={startAudit}>
+                      Run Audit
+                    </button>
+                  </>
+                ) : (
+                  <p className={styles.todoBlocked}>Complete both steps first.</p>
+                )}
+              </div>
+            </div>
+            <div className={styles.emptyFindings} style={{ marginTop: 24 }}>
+              <span className={styles.emptyFindingsText}>No findings yet. Your first audit will populate this workspace.</span>
+            </div>
+          </>
+        )}
+
+        {/* RUNNING: hero progress + partial findings */}
+        {effectiveState === 'RUNNING' && (
+          <>
+            <div className={styles.runningHero}>
+              <div className={styles.runningTop}>
+                <div className={styles.runningLeft}>
+                  <span className={styles.runningLabel}>Audit in progress</span>
+                  <span className={styles.runningHint}>Hold tight — we're going through your records.</span>
+                </div>
+                <div className={styles.runningRight}>
+                  <span className={styles.runningPercent}>{Math.round(progress)}%</span>
+                  <span className={styles.runningEta}>
+                    {estimatedMinutes > 0
+                      ? `~${estimatedMinutes} minute${estimatedMinutes !== 1 ? 's' : ''} remaining`
+                      : 'Almost done…'}
+                  </span>
+                </div>
+              </div>
+              <div className={styles.runningTrack}>
+                <div className={styles.runningFill} style={{ width: `${progress}%` }} />
+              </div>
+              <div className={styles.runningBottom}>
+                {visibleFindings.length > 0 && (
+                  <span className={styles.runningFindings}>
+                    {visibleFindings.length} finding{visibleFindings.length !== 1 ? 's' : ''} identified so far
+                  </span>
+                )}
+                <button className={styles.stopBtn} onClick={stopAudit}>Stop audit</button>
+              </div>
+            </div>
+            {visibleFindings.length > 0 ? (
+              <>
+                <FindingsSummary findings={visibleFindings} />
+                <FindingsTable findings={visibleFindings} onToast={showToast} />
+              </>
+            ) : (
+              <div className={styles.emptyFindings} style={{ marginTop: 16 }}>
+                <span className={styles.emptyFindingsText}>Scanning records… findings will appear as they are identified.</span>
+              </div>
             )}
-          </div>
+          </>
+        )}
 
-          <FindingsTable findings={findingsToShow} onToast={showToast} />
-        </>
-      )}
-
-      {/* FAILED */}
-      {effectiveState === 'FAILED' && (
-        <>
-          <div className={styles.stateCard} data-variant="failed">
-            <span className={styles.stateCardTitle}>Something went wrong.</span>
-            <span className={styles.stateCardBody}>
-              The connection to SoundExchange dropped mid-audit. No findings were saved from this run.
-            </span>
-            <div className={styles.stateCardActions}>
-              <button className={styles.stateCardBtnPrimary} onClick={startAudit}>Fix connection</button>
-              <button className={styles.stateCardBtnSecondary} onClick={startAudit}>Re-run Audit</button>
+              {/* COMPLETE: hero findings + table */}
+        {effectiveState === 'COMPLETE' && (
+          <>
+            <FindingsSummary findings={findingsToShow} onRerun={startAudit} />
+            
+            <div className={styles.readinessToggleWrap}>
+              <button 
+                onClick={() => setShowReadiness(!showReadiness)}
+                className={styles.readinessToggleBtn}
+              >
+                {showReadiness ? 'Hide readiness details' : 'View readiness details'}
+              </button>
+              
+              {showReadiness && (
+                <div className={styles.readinessInlineSection}>
+                  <span className={styles.readinessInlineLabel}>Pre-Audit Readiness</span>
+                  <div className={styles.readinessRowInline}>
+                    <div className={styles.readinessCard}>
+                      <span className={`${styles.readinessBadge} ${styles.badgeReady}`}>Ready</span>
+                      <span className={styles.readinessDesc}>Data Sources: 6 connected, 5 live, 1 needs fix</span>
+                    </div>
+                    <div className={styles.readinessCard}>
+                      <span className={`${styles.readinessBadge} ${styles.badgeReady}`}>Ready</span>
+                      <span className={styles.readinessDesc}>Rules: 321 active across 3 sources</span>
+                    </div>
+                    <div className={styles.readinessCard}>
+                      <span className={`${styles.readinessBadge} ${styles.badgeReady}`}>96%</span>
+                      <span className={styles.readinessDesc}>Coverage: 1,412,308 eligible records</span>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
-            <details className={styles.stateCardDetails}>
-              <summary>Technical details</summary>
-              <span>Connection to SoundExchange dropped at 43% completion. 607,292 of 1,412,308 records processed.</span>
-            </details>
-          </div>
-        </>
-      )}
 
-      {/* STOPPED */}
-      {effectiveState === 'STOPPED' && (
-        <>
-          <div className={styles.stateCard} data-variant="stopped">
-            <span className={styles.stateCardTitle}>Audit was stopped.</span>
-            <span className={styles.stateCardBody}>
-              Stopped at {Math.round(progress) || 67}% — partial results are shown below. They may not reflect the full picture.
-            </span>
-            <div className={styles.stateCardActions}>
-              <button className={styles.stateCardBtnPrimary} onClick={resumeAudit}>Resume Audit</button>
-              <button className={styles.stateCardBtnSecondary} onClick={startAudit}>Start new run</button>
+            <FindingsTable findings={findingsToShow} onToast={showToast} />
+          </>
+        )}
+
+        {/* FAILED */}
+        {effectiveState === 'FAILED' && (
+          <>
+            <div className={styles.stateCard} data-variant="failed">
+              <span className={styles.stateCardTitle}>Something went wrong.</span>
+              <span className={styles.stateCardBody}>
+                The connection to SoundExchange dropped mid-audit. No findings were saved from this run.
+              </span>
+              <div className={styles.stateCardActions}>
+                <button className={styles.stateCardBtnPrimary} onClick={() => navigate('/app/connects')}>Fix connection</button>
+                <button className={styles.stateCardBtnSecondary} onClick={startAudit}>Re-run Audit</button>
+              </div>
+              <details className={styles.stateCardDetails}>
+                <summary>Technical details</summary>
+                <span>Connection to SoundExchange dropped at 43% completion. 607,292 of 1,412,308 records processed.</span>
+              </details>
+            </div>
+          </>
+        )}
+
+        {/* STOPPED */}
+        {effectiveState === 'STOPPED' && (
+          <>
+            <div className={styles.stateCard} data-variant="stopped">
+              <span className={styles.stateCardTitle}>Audit was stopped.</span>
+              <span className={styles.stateCardBody}>
+                Stopped at {Math.round(progress) || 67}% — partial results are shown below. They may not reflect the full picture.
+              </span>
+              <div className={styles.stateCardActions}>
+                <button className={styles.stateCardBtnPrimary} onClick={resumeAudit}>Resume Audit</button>
+                <button className={styles.stateCardBtnSecondary} onClick={startAudit}>Start new run</button>
+              </div>
+            </div>
+            {visibleFindings.length > 0 ? (
+              <>
+                <FindingsSummary findings={visibleFindings} />
+                <FindingsTable findings={visibleFindings} onToast={showToast} />
+              </>
+            ) : (
+              <div className={styles.emptyFindings} style={{ marginTop: 16 }}>
+                <span className={styles.emptyFindingsText}>No findings captured before audit was stopped.</span>
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Status widget after first audit */}
+        {(effectiveState === 'COMPLETE' || effectiveState === 'STOPPED' || effectiveState === 'FAILED') && (
+          <div className={styles.statusWidget}>
+            <div className={styles.widgetRow}>
+              <span className={styles.widgetDot} data-ok="true" />
+              <span className={styles.widgetLabel}>Sources</span>
+              <span className={styles.widgetValue}>5 live / 1 fix</span>
+            </div>
+            <div className={styles.widgetRow}>
+              <span className={styles.widgetDot} data-ok="true" />
+              <span className={styles.widgetLabel}>Rules</span>
+              <span className={styles.widgetValue}>321 active</span>
             </div>
           </div>
-          {visibleFindings.length > 0 ? (
-            <>
-              <FindingsSummary findings={visibleFindings} />
-              <FindingsTable findings={visibleFindings} onToast={showToast} />
-            </>
-          ) : (
-            <div className={styles.emptyFindings} style={{ marginTop: 16 }}>
-              <span className={styles.emptyFindingsText}>No findings captured before audit was stopped.</span>
-            </div>
-          )}
-        </>
-      )}
-
-      {/* Status widget after first audit */}
-      {(effectiveState === 'COMPLETE' || effectiveState === 'STOPPED' || effectiveState === 'FAILED') && (
-        <div className={styles.statusWidget}>
-          <div className={styles.widgetRow}>
-            <span className={styles.widgetDot} data-ok="true" />
-            <span className={styles.widgetLabel}>Sources</span>
-            <span className={styles.widgetValue}>5 live / 1 fix</span>
-          </div>
-          <div className={styles.widgetRow}>
-            <span className={styles.widgetDot} data-ok="true" />
-            <span className={styles.widgetLabel}>Rules</span>
-            <span className={styles.widgetValue}>321 active</span>
-          </div>
-        </div>
-      )}
+        )}
+      </div>
 
       {/* FindingDetailOverlay renders here as nested route */}
       <Outlet />
@@ -451,21 +478,25 @@ function FindingsSummary({ findings, onRerun }: { findings: Finding[]; onRerun?:
 
   return (
     <div className={styles.findingsSummary}>
-      <div className={styles.summaryHero}>
-        <span className={styles.summaryHeroLabel}>Potential recovery found</span>
-        <span className={styles.summaryHeroValue}>{fmtValue}</span>
-        <span className={styles.summaryHeroSub}>
-          Audit complete · April 21, 2026 · 1,412,308 records processed
-        </span>
+      <div className={styles.summaryTop}>
+        <div className={styles.summaryHeroRow}>
+          <div className={styles.summaryHero}>
+            <span className={styles.summaryHeroLabel}>Findings identified</span>
+            <span className={styles.summaryHeroValue}>{findings.length.toLocaleString()}</span>
+          </div>
+          <div className={styles.summaryHero}>
+            <span className={styles.summaryHeroLabel}>Potential recovery</span>
+            <span className={styles.summaryHeroValue}>{fmtValue}</span>
+          </div>
+        </div>
         {onRerun && (
-          <button className={styles.rerunBtn} onClick={onRerun} style={{ marginTop: 32 }}>RE-RUN AUDIT</button>
+          <button className={styles.rerunBtn} onClick={onRerun}>Re-run audit</button>
         )}
       </div>
+      <span className={styles.summaryHeroSub}>
+        Audit complete · April 21, 2026 · 1,412,308 records processed
+      </span>
       <div className={styles.summaryMeta}>
-        <div className={styles.statItem}>
-          <span className={styles.statLabel}>Findings</span>
-          <span className={styles.statValue}>{findings.length.toLocaleString()}</span>
-        </div>
         <div className={styles.statItem}>
           <span className={styles.statLabel}>Coverage</span>
           <span className={styles.statValue}>96%</span>

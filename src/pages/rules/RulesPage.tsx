@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useAppStore } from '../../store/app';
-import type { Rule, AiSuggestion } from '../../types';
+import type { Rule, AiSuggestion, RuleSource } from '../../types';
 import {
   mockRulesBySilo,
   mockAiSuggestionsBySilo,
@@ -31,8 +31,10 @@ export default function RulesPage() {
   const [pendingUpdate, setPendingUpdate] = useState<Rule | null>(null);
   const [showImplications, setShowImplications] = useState(false);
 
-  /* ── AI panel ── */
-  const [aiPanelOpen, setAiPanelOpen] = useState(false);
+  /* ── AI review flow ── */
+  const [aiReviewMode, setAiReviewMode] = useState(false);
+  const [currentRulesFilter, setCurrentRulesFilter] = useState<'all' | RuleSource>('all');
+  const currentRulesRef = useRef<HTMLDivElement | null>(null);
 
   /* ── Toast ── */
   const [toast, setToast] = useState<string | null>(null);
@@ -50,6 +52,8 @@ export default function RulesPage() {
   useEffect(() => {
     setRules(mockRulesBySilo[activeSiloId] ?? []);
     setSuggestions(mockAiSuggestionsBySilo[activeSiloId] ?? []);
+    setAiReviewMode(false);
+    setCurrentRulesFilter('all');
   }, [activeSiloId]);
 
   useEffect(() => {
@@ -161,19 +165,36 @@ export default function RulesPage() {
   const libraryRules = rules.filter((r) => r.source === 'Library');
   const siloLabel = 'Music & Royalty';
 
+  const handleReviewLibrary = () => {
+    setCurrentRulesFilter('Library');
+    currentRulesRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   return (
     <>
       <div className={styles.pageHeader}>
-        <h1 className={styles.pageTitle}>Rules</h1>
+        <div className={styles.pageHeaderText}>
+          <h1 className={styles.pageTitle}>Rules</h1>
         <span className={styles.pageSubtitle}>
-          {isEmpty
+          {aiReviewMode
+            ? 'Review AI-identified rules and decide what joins the active rule set.'
+            : isEmpty
             ? 'Define what the audit looks for.'
             : 'Define what the audit looks for. Add rules, review AI suggestions, manage your rule set.'}
         </span>
+        </div>
       </div>
 
       <div className={styles.content}>
-        {isEmpty ? (
+        {aiReviewMode ? (
+          <AiSuggestionsPanel
+            suggestions={suggestions}
+            onApprove={handleApprove}
+            onDismiss={(id) => setSuggestions((prev) => prev.filter((s) => s.id !== id))}
+            onClose={() => setAiReviewMode(false)}
+            mode="page"
+          />
+        ) : isEmpty ? (
           <RulesEmptyState
             siloLabel={siloLabel}
             libraryCount={134}
@@ -194,16 +215,18 @@ export default function RulesPage() {
                   libraryCount={libraryRules.length}
                   existingRules={rules}
                   onAddRule={handleAddRule}
+                  onReviewLibrary={handleReviewLibrary}
+                  onLoadLibrary={handleLoadLibrary}
                 />
                 <AiSuggestionsSection
                   suggestions={suggestions}
-                  onReview={() => setAiPanelOpen(true)}
+                  onReview={() => setAiReviewMode(true)}
                 />
               </div>
             </div>
 
             {/* Current Rules panel */}
-            <div className={styles.panel} style={{ marginTop: 20 }}>
+            <div className={styles.panel} ref={currentRulesRef}>
               <div className={styles.panelHeader}>
                 <span className={styles.panelTitle}>Current Rules</span>
                 <span className={styles.panelCount}>{rules.length} rule{rules.length !== 1 ? 's' : ''}</span>
@@ -214,21 +237,13 @@ export default function RulesPage() {
                 onDuplicate={handleDuplicate}
                 onEdit={handleEdit}
                 onRemove={(r) => setRulePendingDelete(r)}
+                filter={currentRulesFilter}
+                onFilterChange={setCurrentRulesFilter}
               />
             </div>
           </>
         )}
       </div>
-
-      {/* AI Suggestions Panel */}
-      {aiPanelOpen && (
-        <AiSuggestionsPanel
-          suggestions={suggestions}
-          onApprove={handleApprove}
-          onDismiss={(id) => setSuggestions((prev) => prev.filter((s) => s.id !== id))}
-          onClose={() => setAiPanelOpen(false)}
-        />
-      )}
 
       {/* Toast */}
       {toast && (

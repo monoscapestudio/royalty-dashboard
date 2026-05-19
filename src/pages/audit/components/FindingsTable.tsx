@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { Finding, FindingStatus } from '../../../types';
 import styles from './FindingsTable.module.css';
@@ -35,12 +35,79 @@ function sourceBucket(contract: string): string {
 type ConfidenceFilter = '' | '90' | '80' | '70';
 type RuleFilter = 'all' | 'recoupment' | 'licensing';
 
+type FilterOption = {
+  value: string;
+  label: string;
+};
+
 function matchesRuleGroup(f: Finding, rule: RuleFilter): boolean {
   if (rule === 'all') return true;
   const t = `${f.contract} ${f.discrepancy}`.toLowerCase();
   if (rule === 'recoupment') return t.includes('recoupment');
   if (rule === 'licensing') return t.includes('license') || t.includes('master') || t.includes('publishing');
   return true;
+}
+
+function FilterSelect({
+  value,
+  onChange,
+  options,
+  ariaLabel,
+}: {
+  value: string;
+  onChange: (value: string) => void;
+  options: FilterOption[];
+  ariaLabel: string;
+}) {
+  const [open, setOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const selectedLabel = options.find((option) => option.value === value)?.label ?? options[0].label;
+
+  return (
+    <div className={styles.filterSelectWrap} ref={containerRef}>
+      <button
+        type="button"
+        className={`${styles.filterTrigger} ${open ? styles.filterTriggerOpen : ''}`}
+        onClick={() => setOpen((prev) => !prev)}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-label={ariaLabel}
+      >
+        <span className={styles.filterTriggerValue}>{selectedLabel}</span>
+        <span className={styles.filterChevron}>▼</span>
+      </button>
+
+      {open && (
+        <div className={styles.filterMenu} role="listbox">
+          {options.map((option) => (
+            <button
+              key={option.value}
+              type="button"
+              className={`${styles.filterOption} ${option.value === value ? styles.filterOptionSelected : ''}`}
+              onClick={() => {
+                onChange(option.value);
+                setOpen(false);
+              }}
+            >
+              {option.label}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default function FindingsTable({ findings, onToast }: Props) {
@@ -57,6 +124,33 @@ export default function FindingsTable({ findings, onToast }: Props) {
     uniq.sort((a, b) => a.localeCompare(b));
     return ['All', ...uniq];
   }, [findings]);
+
+  const statusOptions: FilterOption[] = [
+    { value: 'All', label: 'Status: All' },
+    { value: 'New', label: 'Status: New' },
+    { value: 'Recovery', label: 'Status: Recovery' },
+    { value: 'Recovered', label: 'Status: Recovered' },
+    { value: 'Dismissed', label: 'Status: Dismissed' },
+    { value: 'Disputed', label: 'Status: Disputed' },
+  ];
+
+  const confidenceOptions: FilterOption[] = [
+    { value: 'all', label: 'Confidence: All' },
+    { value: '90', label: 'Confidence: >= 90%' },
+    { value: '80', label: 'Confidence: >= 80%' },
+    { value: '70', label: 'Confidence: >= 70%' },
+  ];
+
+  const sourceFilterOptions: FilterOption[] = sourceOptions.map((source) => ({
+    value: source,
+    label: source === 'All' ? 'Source: All' : `Source: ${source}`,
+  }));
+
+  const ruleOptions: FilterOption[] = [
+    { value: 'all', label: 'Rule: All' },
+    { value: 'recoupment', label: 'Rule: Recoupment-related' },
+    { value: 'licensing', label: 'Rule: Licensing / master' },
+  ];
 
   const filtered = useMemo(() => {
     let list = findings;
@@ -134,50 +228,37 @@ export default function FindingsTable({ findings, onToast }: Props) {
           <span className={styles.tableMeta}>{filtered.length.toLocaleString()} found, ranked by discrepancy size</span>
         </div>
         <div className={styles.filters}>
-          <select
-            className={styles.filterSelect}
+          <FilterSelect
             value={statusFilter}
-            onChange={(e) => { setStatusFilter(e.target.value); setPage(0); }}
-          >
-            {['All', 'New', 'Recovery', 'Recovered', 'Dismissed', 'Disputed'].map((s) => (
-              <option key={s} value={s}>Status: {s} ▾</option>
-            ))}
-          </select>
-          <select
-            className={styles.filterSelect}
+            onChange={(value) => { setStatusFilter(value); setPage(0); }}
+            options={statusOptions}
+            ariaLabel="Filter findings by status"
+          />
+          <FilterSelect
             value={confidenceFilter || 'all'}
-            onChange={(e) => {
-              const v = e.target.value === 'all' ? '' : (e.target.value as ConfidenceFilter);
+            onChange={(value) => {
+              const v = value === 'all' ? '' : (value as ConfidenceFilter);
               setConfidenceFilter(v);
               setPage(0);
             }}
-          >
-            <option value="all">Confidence: All ▾</option>
-            <option value="90">≥ 90%</option>
-            <option value="80">≥ 80%</option>
-            <option value="70">≥ 70%</option>
-          </select>
-          <select
-            className={styles.filterSelect}
+            options={confidenceOptions}
+            ariaLabel="Filter findings by confidence"
+          />
+          <FilterSelect
             value={sourceFilter}
-            onChange={(e) => { setSourceFilter(e.target.value); setPage(0); }}
-          >
-            {sourceOptions.map((s) => (
-              <option key={s} value={s}>{s === 'All' ? 'Source: All ▾' : `Source: ${s} ▾`}</option>
-            ))}
-          </select>
-          <select
-            className={styles.filterSelect}
+            onChange={(value) => { setSourceFilter(value); setPage(0); }}
+            options={sourceFilterOptions}
+            ariaLabel="Filter findings by source"
+          />
+          <FilterSelect
             value={ruleFilter}
-            onChange={(e) => {
-              setRuleFilter(e.target.value as RuleFilter);
+            onChange={(value) => {
+              setRuleFilter(value as RuleFilter);
               setPage(0);
             }}
-          >
-            <option value="all">Rule: All ▾</option>
-            <option value="recoupment">Recoupment-related</option>
-            <option value="licensing">Licensing / master</option>
-          </select>
+            options={ruleOptions}
+            ariaLabel="Filter findings by rule group"
+          />
         </div>
       </div>
 
@@ -232,77 +313,81 @@ export default function FindingsTable({ findings, onToast }: Props) {
         </button>
       </div>
 
-      {/* Column headers */}
-      <div className={styles.colHeader}>
-        <span className={styles.colLabel}>☐</span>
-        <span className={styles.colLabel}>Contract</span>
-        <span className={styles.colLabel}>Billing Record</span>
-        <span className={styles.colLabel}>Discrepancy</span>
-        <span className={styles.colLabel}>Confidence</span>
-        <span className={styles.colLabel}>Status</span>
-        <span className={styles.colLabel}>Actions</span>
-      </div>
-
-      {/* Rows */}
-      <div className={styles.tableBody}>
+      {/* Cards */}
+      <div className={styles.list}>
         {pageRows.map((row) => (
           <div
             key={row.id}
-            className={styles.tableRow}
+            className={`${styles.findingCard} ${selectedIds.has(row.id) ? styles.findingCardSelected : ''}`}
             onClick={() => openFinding(row.id)}
           >
-            <span className={styles.rowCheck}>
-              <input
-                type="checkbox"
-                checked={selectedIds.has(row.id)}
-                onChange={(e) => {
-                  e.stopPropagation();
-                  setSelectedIds((prev) => {
-                    const next = new Set(prev);
-                    next.has(row.id) ? next.delete(row.id) : next.add(row.id);
-                    return next;
-                  });
-                }}
-                onClick={(e) => e.stopPropagation()}
-              />
-            </span>
-            <span className={styles.contract}>{row.contract}</span>
-            <span className={styles.billing}>{row.billingRecord}</span>
-            <span className={styles.discrepancy}>{row.discrepancy}</span>
-            <div className={styles.confidenceCell}>
-              <div className={styles.confBar}>
-                <div className={styles.confFill} style={{ width: `${row.confidence}%` }} />
-              </div>
-              <span className={styles.confPct}>{row.confidence}%</span>
-            </div>
-            <span className={`${styles.statusBadge} ${statusClass(row.status)}`}>
-              {row.status}
-            </span>
-            <div className={styles.actions} onClick={(e) => e.stopPropagation()}>
-              <button type="button" className={styles.actionLink} onClick={() => openFinding(row.id)}>
-                Audit Trail
-              </button>
-              {row.status === 'New' && (
-                <button
-                  type="button"
-                  className={styles.actionLinkBlue}
-                  onClick={() => {
-                    onToast('Recovery email draft opened from finding (wireframe).');
-                    openFinding(row.id);
+            <div className={styles.cardTop}>
+              <label className={styles.rowCheck} onClick={(e) => e.stopPropagation()}>
+                <input
+                  type="checkbox"
+                  checked={selectedIds.has(row.id)}
+                  onChange={(e) => {
+                    e.stopPropagation();
+                    setSelectedIds((prev) => {
+                      const next = new Set(prev);
+                      next.has(row.id) ? next.delete(row.id) : next.add(row.id);
+                      return next;
+                    });
                   }}
-                >
-                  Send Recovery
-                </button>
-              )}
-              {row.status === 'Recovery' && (
-                <button
-                  type="button"
-                  className={styles.actionLinkRed}
-                  onClick={() => onToast('Recovery cancelled for this finding (wireframe).')}
-                >
-                  Cancel
-                </button>
-              )}
+                />
+              </label>
+
+              <div className={styles.cardMain}>
+                <div className={styles.cardHeader}>
+                  <span className={styles.contract}>{row.contract}</span>
+                  <div className={styles.cardHeaderRight}>
+                    <span className={styles.discrepancy}>{row.discrepancy}</span>
+                    <span className={`${styles.statusBadge} ${statusClass(row.status)}`}>
+                      {row.status}
+                    </span>
+                  </div>
+                </div>
+
+                <div className={styles.cardMeta}>
+                  <span className={styles.billing}>{row.billingRecord}</span>
+                  <span className={styles.metaDot}>·</span>
+                  <span className={styles.source}>{sourceBucket(row.contract)}</span>
+                  <span className={styles.metaDot}>·</span>
+                  <div className={styles.confidenceCell}>
+                    <div className={styles.confBar}>
+                      <div className={styles.confFill} style={{ width: `${row.confidence}%` }} />
+                    </div>
+                    <span className={styles.confPct}>{row.confidence}% confidence</span>
+                  </div>
+                </div>
+
+                <div className={styles.actions} onClick={(e) => e.stopPropagation()}>
+                  <button type="button" className={styles.actionLink} onClick={() => openFinding(row.id)}>
+                    Audit Trail
+                  </button>
+                  {row.status === 'New' && (
+                    <button
+                      type="button"
+                      className={styles.actionLinkBlue}
+                      onClick={() => {
+                        onToast('Recovery email draft opened from finding (wireframe).');
+                        openFinding(row.id);
+                      }}
+                    >
+                      Send Recovery
+                    </button>
+                  )}
+                  {row.status === 'Recovery' && (
+                    <button
+                      type="button"
+                      className={styles.actionLinkRed}
+                      onClick={() => onToast('Recovery cancelled for this finding (wireframe).')}
+                    >
+                      Cancel
+                    </button>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         ))}
@@ -324,26 +409,24 @@ export default function FindingsTable({ findings, onToast }: Props) {
           </button>
           <div className={styles.pageNumbers}>
             {[0, 1, 2].map((i) => (
-              <span
+              <button
+                type="button"
                 key={i}
-                style={{
-                  fontWeight: safePage === i ? 600 : 400,
-                  cursor: 'pointer',
-                  color: safePage === i ? 'var(--text-primary)' : 'var(--text-secondary)',
-                }}
+                className={`${styles.pageNumber} ${safePage === i ? styles.pageNumberActive : ''}`}
                 onClick={() => setPage(i)}
               >
                 {i + 1}
-              </span>
+              </button>
             ))}
-            {totalPages > 3 && <span style={{ color: 'var(--text-secondary)' }}>...</span>}
+            {totalPages > 3 && <span className={styles.pageEllipsis}>...</span>}
             {totalPages > 3 && (
-              <span
-                style={{ cursor: 'pointer' }}
+              <button
+                type="button"
+                className={styles.pageNumber}
                 onClick={() => setPage(totalPages - 1)}
               >
                 {totalPages}
-              </span>
+              </button>
             )}
           </div>
           <button

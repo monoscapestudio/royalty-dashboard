@@ -1,20 +1,20 @@
 .group {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .label {
-  font-size: var(--type-caption);
-  letter-spacing: var(--type-caption-tracking);
-  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  letter-spacing: var(--type-label-tracking);
+  font-weight: var(--type-label-weight);
   color: var(--text-secondary);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
 }
 
 .labelError {
-  color: var(--status-fix-text);
+  color: var(--status-fix-bg);
 }
 
 .inputWrap {
@@ -24,32 +24,37 @@
 }
 
 .input {
-  height: 40px;
+  height: 44px;
   width: 100%;
-  background: var(--bg-table-header);
+  background: var(--field-bg);
   border: none;
-  border-bottom: 1px solid #8D8D8D;
-  border-radius: 6px;
-  padding: 0 12px;
-  font-size: var(--type-body-sm);
+  border-bottom: 1px solid var(--field-border);
+  border-radius: var(--radius-btn);
+  padding: 0 14px;
+  font-size: var(--type-body);
   font-family: var(--font-display);
   color: var(--text-primary);
   transition: border-color 0.15s, background 0.15s;
 }
 
 .input::placeholder {
-  color: #A8A8A8;
+  color: var(--field-placeholder);
+}
+
+.input:hover {
+  background: var(--field-bg-hover);
 }
 
 .input:focus {
   outline: none;
-  border-bottom-color: var(--btn-primary-bg);
+  background: #fff;
+  border-bottom-color: var(--field-border-focus);
 }
 
 .inputError {
-  background: #FFF2F2;
-  border-bottom: 2px solid var(--status-fix-text);
-  color: var(--status-fix-text);
+  background: var(--field-error-bg);
+  border-bottom: 2px solid var(--status-fix-bg);
+  color: var(--status-fix-bg);
 }
 
 .inputError::placeholder {
@@ -59,21 +64,22 @@
 .rightAction {
   position: absolute;
   right: 12px;
-  font-size: var(--type-caption);
-  letter-spacing: var(--type-caption-tracking);
-  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  letter-spacing: var(--type-label-tracking);
+  font-weight: var(--type-label-weight);
   color: var(--type-badge-text);
   background: none;
   border: none;
   cursor: pointer;
   padding: 0;
-  font-family: var(--font-display);
+  text-transform: uppercase;
 }
 
 .errorMsg {
-  font-size: var(--type-caption);
-  letter-spacing: var(--type-caption-tracking);
+  font-family: var(--font-display);
+  font-size: var(--type-body);
   font-weight: 400;
-  color: var(--status-fix-text);
+  color: var(--status-fix-bg);
   margin-top: 2px;
 }

@@ -9,8 +9,8 @@
   display: flex;
   align-items: baseline;
   gap: 8px;
-  font-size: var(--type-caption);
-  letter-spacing: var(--type-caption-tracking);
+  font-size: var(--type-body);
+  letter-spacing: var(--type-data-tracking);
 }
 
 .metaKey {

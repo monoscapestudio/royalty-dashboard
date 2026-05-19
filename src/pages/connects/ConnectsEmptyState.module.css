@@ -2,60 +2,70 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 48px;
+  padding-top: 64px;
 }
 
 .heading {
-  font-size: 20px;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: var(--type-hero);
+  font-weight: var(--type-hero-weight);
+  letter-spacing: var(--type-hero-tracking);
+  line-height: var(--type-hero-lh);
   color: var(--text-primary);
-  margin: 0 0 8px;
+  margin: 0 0 18px;
   text-align: center;
+  max-width: 680px;
 }
 
 .subheading {
-  font-size: var(--type-body-sm);
+  font-family: var(--font-mono);
+  font-size: var(--type-data);
   font-weight: 400;
   color: var(--text-secondary);
   text-align: center;
-  max-width: 520px;
+  max-width: 640px;
   line-height: 1.5;
-  margin: 0 0 32px;
+  margin: 0 0 40px;
 }
 
 .cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 24px;
   width: 100%;
-  margin-bottom: 24px;
+  margin-bottom: 32px;
 }
 
 .card {
-  background: #fff;
+  background: var(--bg-panel);
   border: 1px solid var(--border-default);
-  border-radius: 8px;
-  padding: 16px 20px;
+  border-radius: var(--radius-card);
+  padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 0;
+  min-height: 280px;
+  box-shadow: var(--shadow-panel);
 }
 
 .cardLabel {
-  font-size: var(--type-caption);
-  letter-spacing: var(--type-caption-tracking);
-  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  letter-spacing: var(--type-label-tracking);
+  font-weight: var(--type-label-weight);
   color: var(--text-secondary);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
 }
 
 .cardQuestion {
-  font-size: var(--type-body-sm);
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: var(--type-body);
+  font-weight: 400;
+  letter-spacing: var(--type-body-tracking);
+  line-height: var(--type-body-lh);
   color: var(--text-primary);
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .cardDescription {
@@ -65,28 +75,29 @@
   color: var(--text-secondary);
   line-height: 1.5;
   flex: 1;
-  margin-bottom: 20px;
+  margin-bottom: 28px;
 }
 
 .cardCta {
-  height: 36px;
-  padding: 0 14px;
+  height: 44px;
+  padding: 0 18px;
   background: var(--btn-primary-bg);
-  color: #fff;
-  font-size: var(--type-data);
+  color: var(--btn-primary-text);
+  font-size: var(--type-label);
   font-family: var(--font-mono);
-  font-weight: 600;
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
   border-radius: var(--radius-btn);
   border: none;
   cursor: pointer;
   white-space: nowrap;
-  font-family: inherit;
   align-self: flex-start;
-  transition: background 0.1s;
+  transition: background 0.15s;
 }
 
 .cardCta:hover {
-  background: #0047a8;
+  background: var(--btn-primary-hover);
 }
 
 .requestLink {
@@ -94,6 +105,7 @@
   font-family: var(--font-mono);
   color: var(--text-secondary);
   text-align: center;
+  line-height: 1.5;
 }
 
 .requestLink strong {
@@ -101,9 +113,12 @@
   font-weight: 600;
   cursor: pointer;
   text-decoration: underline;
-  text-underline-offset: 2px;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  transition: color 0.15s, text-decoration-color 0.15s;
 }
 
 .requestLink strong:hover {
-  color: var(--btn-primary-bg);
+  color: var(--btn-primary-hover);
+  text-decoration-color: var(--btn-primary-hover);
 }

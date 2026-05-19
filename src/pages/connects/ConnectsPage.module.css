@@ -1,37 +1,100 @@
 .pageHeader {
-  background: var(--bg-white);
-  border-bottom: 1px solid var(--border-default);
-  padding: 0 32px;
-  height: var(--page-header-height);
+  padding: 40px var(--content-px) 24px;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
+  justify-content: space-between;
   gap: 24px;
+  background: transparent;
+  border-bottom: none;
+}
+
+.pageHeaderText {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .pageTitle {
-  font-size: var(--type-title);
-  font-weight: var(--type-title-weight);
-  letter-spacing: var(--type-title-tracking);
   font-family: var(--font-display);
-  font-weight: 400;
+  font-size: var(--type-hero);
+  font-weight: 500;
+  letter-spacing: var(--type-hero-tracking);
+  line-height: var(--type-hero-lh);
   color: var(--text-primary);
   flex-shrink: 0;
 }
 
 .pageSubtitle {
-  font-size: var(--type-body-sm);
-  font-weight: 400;
+  font-family: var(--font-display);
+  font-size: var(--type-subtitle);
+  font-weight: var(--type-subtitle-weight);
+  letter-spacing: var(--type-subtitle-tracking);
+  line-height: var(--type-subtitle-lh);
   color: var(--text-secondary);
 }
 
 .content {
-  padding: 32px var(--content-px) 40px;
+  padding: 40px var(--content-px) 56px;
   flex: 1;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
 
 .threeCol {
-  display: flex;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
   gap: 24px;
+}
+
+/* ── Reconnect modal ── */
+.reconnectBody {
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.reconnectMessage {
+  font-family: var(--font-display);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.reconnectMessage strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.reconnectMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  background: var(--bg-subtle, #f7f7f7);
+  border-radius: 6px;
+}
+
+.reconnectMetaRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reconnectMetaLabel {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-tertiary);
+}
+
+.reconnectMetaValue {
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: var(--text-primary);
+  font-weight: 500;
 }

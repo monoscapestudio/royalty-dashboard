@@ -3,13 +3,14 @@
   align-items: center;
   justify-content: center;
   justify-self: start;
-  height: 24px;
-  min-width: 72px;
-  padding: 0 12px;
+  height: 26px;
+  padding: 0 16px;
   border-radius: var(--radius-badge);
-  font-size: var(--type-caption);
-  letter-spacing: var(--type-caption-tracking);
-  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  letter-spacing: var(--type-label-tracking);
+  font-weight: var(--type-label-weight);
+  text-transform: uppercase;
   white-space: nowrap;
 }
 
