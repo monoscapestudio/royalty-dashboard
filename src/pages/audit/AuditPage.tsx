@@ -489,9 +489,14 @@ function FindingsSummary({ findings, onRerun }: { findings: Finding[]; onRerun?:
             <span className={styles.summaryHeroValue}>{fmtValue}</span>
           </div>
         </div>
-        {onRerun && (
-          <button className={styles.rerunBtn} onClick={onRerun}>Re-run audit</button>
-        )}
+        <div className={styles.summaryActions}>
+          {onRerun && (
+            <Link to="/app/reporting" className={styles.viewReportBtn}>View Report</Link>
+          )}
+          {onRerun && (
+            <button className={styles.rerunBtn} onClick={onRerun}>Re-run audit</button>
+          )}
+        </div>
       </div>
       <span className={styles.summaryHeroSub}>
         Audit complete · April 21, 2026 · 1,412,308 records processed

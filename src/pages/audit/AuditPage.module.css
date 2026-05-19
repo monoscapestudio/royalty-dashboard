@@ -59,6 +59,36 @@
 }
 .runBtn:hover { background: var(--btn-primary-hover); }
 
+.summaryActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.viewReportBtn {
+  height: 44px;
+  padding: 0 24px;
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
+  border-radius: var(--radius-btn);
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.viewReportBtn:hover {
+  background: var(--btn-primary-hover);
+}
+
 .rerunBtn {
   height: 44px;
   padding: 0 22px;
@@ -73,7 +103,6 @@
   border: 1px solid var(--btn-secondary-border);
   cursor: pointer;
   transition: background 0.15s ease;
-  align-self: flex-start;
   flex-shrink: 0;
 }
 .rerunBtn:hover {
