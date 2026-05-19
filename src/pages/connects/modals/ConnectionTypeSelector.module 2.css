@@ -1,0 +1,88 @@
+.question {
+  font-family: var(--font-display);
+  font-size: var(--type-body);
+  font-weight: 400;
+  color: var(--text-primary);
+  letter-spacing: var(--type-body-tracking);
+  line-height: 1.35;
+  margin-bottom: 20px;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ── Option card ── */
+.optionCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-card);
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+  gap: 24px;
+}
+
+.optionCard:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-strong);
+  box-shadow: 0 0 0 1px var(--border-strong);
+}
+
+.optionLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.typeBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  padding: 0 12px;
+  background: var(--type-badge-bg);
+  color: var(--type-badge-text);
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  letter-spacing: var(--type-label-tracking);
+  font-weight: var(--type-label-weight);
+  text-transform: uppercase;
+  border-radius: var(--radius-badge);
+  align-self: flex-start;
+}
+
+.optionDesc {
+  font-family: var(--font-display);
+  font-size: var(--type-body);
+  font-weight: 400;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.optionHint {
+  font-family: var(--font-mono);
+  font-size: var(--type-data);
+  font-weight: 400;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.selectCta {
+  font-size: var(--type-label);
+  font-family: var(--font-mono);
+  letter-spacing: var(--type-label-tracking);
+  font-weight: var(--type-label-weight);
+  text-transform: uppercase;
+  color: var(--text-primary);
+  flex-shrink: 0;
+  white-space: nowrap;
+}

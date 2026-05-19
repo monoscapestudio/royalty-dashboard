@@ -1,0 +1,58 @@
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.syncInfo {
+  margin-top: -4px;
+}
+
+.syncLabel {
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  letter-spacing: var(--type-label-tracking);
+  font-weight: var(--type-label-weight);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.syncValue {
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
+  font-weight: 400;
+  color: var(--text-primary);
+}
+
+.syncHistory {
+  margin-top: 4px;
+}
+
+.syncHistoryLabel {
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  letter-spacing: var(--type-label-tracking);
+  font-weight: var(--type-label-weight);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.syncHistoryLog {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.syncLogRow {
+  font-family: var(--font-mono);
+  font-size: var(--type-data);
+  letter-spacing: var(--type-data-tracking);
+  font-weight: 400;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+  white-space: pre;
+}

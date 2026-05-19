@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { Notification } from '@carbon/icons-react';
 import { useAppStore } from '../../store/app';
@@ -18,8 +19,26 @@ export default function TopNav() {
 
   const unreadCount = notifications.filter((n) => !n.read).length;
 
+  const [hidden, setHidden] = useState(false);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const THRESHOLD = 10;
+    function handleScroll() {
+      const currentY = window.scrollY;
+      if (currentY > lastScrollY.current + THRESHOLD && currentY > 80) {
+        setHidden(true);
+      } else if (currentY < lastScrollY.current - THRESHOLD) {
+        setHidden(false);
+      }
+      lastScrollY.current = currentY;
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <nav className={styles.nav}>
+    <nav className={`${styles.nav} ${hidden ? styles.navHidden : ''}`}>
       <div className={styles.content}>
         <div className={styles.brandSection}>
           <Link to="/app/audit" style={{ display: 'flex' }}>
