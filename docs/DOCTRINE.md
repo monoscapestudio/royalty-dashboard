@@ -88,22 +88,21 @@ All colors, spacing, font sizes, and radii are defined in `src/styles/tokens.css
 
 **Hardcoded values are a code smell.** If a value isn't in tokens but you need it (e.g., a new font size for a hero number), add it to tokens first, then reference.
 
-### Typography scale (current)
+### Typography scale (current — strict 5-tier system)
 
 ```
---text-xs:   10px  — micro labels
---text-sm:   11px  — secondary labels
---text-base: 12px  — body small
---text-md:   13px  — body
---text-lg:   14px  — body large
---text-xl:   15px  — emphasis
---text-2xl:  28px  — page titles
+--type-hero:          96px  — Helvetica Now Display 300, -0.04em
+--type-metric:        48px  — Helvetica Now Display 300, -0.02em
+--type-subtitle:      24px  — Helvetica Now Display 700, -0.01em
+--type-column-title:  18px  — JetBrains Mono 500, 0.10em (uppercase)
+--type-body:          16px  — Helvetica Now Display 400
+--type-data:          14px  — JetBrains Mono 400
+--type-label:         12px  — JetBrains Mono 500, 0.10em (uppercase)
 ```
 
-**Calm Dashboard adds (use sparingly, for hero moments):**
-- Section title: ~22–28px (already `--text-2xl`)
-- Hero number: 64–80px (revenue/findings)
-- Hero label: 28–32px
+**Fonts (MUST):**
+- `Helvetica Now Display` — all headings, body, UI text
+- `JetBrains Mono` — labels, data, column titles, metadata
 
 ### Colors
 - Backgrounds: `--bg-white`, `--bg-page`, `--bg-table-header`
@@ -224,53 +223,52 @@ Sarah is the primary customer voice on UI/UX. Her feedback (transcribed) drives 
 
 ---
 
-## 8. Remaining Work (page-by-page)
+## 8. Current Status (all pages)
 
-Status as of last commit on `main`.
+All pages have been implemented with the Calm Dashboard aesthetic. Status as of latest commit.
 
-### Audit — NOT_YET_RUN
-- ✅ 2-step checklist, any order, with done/pending visual states
-- ✅ Hero CTA "Run Audit" only when all steps done
-- ✅ "You can do them in any order" hint
-- ✅ Pre-Audit Readiness cards hidden in this state
-
-### Audit — RUNNING
-- ⏳ Hero progress: large percentage number (~42–48px), thick progress bar (~12–16px)
-- ⏳ Friendly text: *"Hold tight — we're going through your records."*
-- ⏳ Bigger, less-aggressive Stop button (current is tiny red 28px)
-- ⏳ Live findings count visible (proof the audit is working)
-
-### Audit — COMPLETE
-- ⏳ Hero findings number: 64–80px (currently 32px) — this is Sarah's explicit ask
-- ⏳ Banner "Audit Complete" demoted below hero number, not above
-- ⏳ Secondary stats (Coverage, Confidence) smaller and below
-
-### Audit — FAILED / STOPPED
-- ⏳ Larger, clearer message
-- ⏳ Bigger action buttons (Fix connection / Resume / Start new)
-- ⏳ Hide "View error log" under a secondary "Details" click — not first-class
-
-### Audit overlay
-- ✅ Two columns
-- ✅ PDF mocks with highlights
-- ✅ Recovery as dummy
-- ⏳ Optional pass: revisit type sizes for calm aesthetic
+### Audit
+- ✅ NOT_YET_RUN: 2-step checklist (Connect + Rules), any order
+- ✅ RUNNING: hero progress, live findings count, friendly copy
+- ✅ COMPLETE: hero findings (96px), $12.45M potential recovery, Coverage/Confidence secondary
+- ✅ FAILED: "Fix connection" navigates to Connects, "Re-run Audit" restarts
+- ✅ STOPPED: Resume / Start new actions
+- ✅ Finding detail overlay: two-column (Audit Trail + Recovery), PDF mocks
 
 ### Rules
-- ✅ Apply Rules + Current Rules panels
-- ✅ AI suggestions summary + slide-over panel
-- ⏳ Optional pass: bigger section headers, more breathing room
+- ✅ Apply Rules + Current Rules panels with 140px header spacing
+- ✅ AI suggestions summary + full-page review panel
+- ✅ Custom FilterSelect dropdown (not native OS)
+- ✅ Prominent group headers (Library / User-Defined / AI-Approved)
+- ✅ Edit, Duplicate, Toggle, Delete modals with implications flow
+- ✅ Mixed active/inactive library rules
 
 ### Connects
-- ✅ Three columns
-- ⏳ Optional pass: bigger column headers, cleaner source cards
+- ✅ Three-column layout (Contract / Billing / Recovery)
+- ✅ All modals: Add API, Add OAuth, Add Folder, Configure, Remove, Request Integration
+- ✅ Reconnect modal for sources with `fix` status (simulated auth re-auth)
+- ✅ Error banner auto-shows/hides based on failed source count
 
 ### Reporting
-- ⏳ Apply Calm Dashboard — hero metrics, less density
-- ⏳ Live state with PDF preview (Sarah liked this)
+- ✅ Empty state (pre-audit), Draft state, Finalized state
+- ✅ Permanent document header with hero summary synced to audit data ($12.45M, 1,390 findings, 96%)
+- ✅ Template switching with confirmation, block management (add/remove)
+- ✅ Report history sidebar, page format, status badges
+- ✅ Share Link modal (custom FormSelect, copy link, password protection)
+- ✅ Revert to Draft modal
+- ✅ Export PDF / Export CSV (simulated)
+- ✅ Finalize flow
 
-### Account pages
-- ⏳ Visual polish pass to match Calm Dashboard tone (currently functional but generic)
+### Account
+- ✅ Profile, Notifications, Team, Roles, Support sub-pages
+- ✅ All use FormSelect with proper label prop
+
+### Shared UI
+- ✅ Custom dropdowns (FormSelect) everywhere — no native OS selects in user-facing UI
+- ✅ Modal system (Modal + ConfirmDialog)
+- ✅ Notifications panel with category filtering
+- ✅ InlineBanner with dismissable state
+- ✅ StatusBadge (live/fix/pending/inactive)
 
 ---
 
@@ -315,6 +313,60 @@ If you find yourself doing any of the following, **stop and reconsider**:
 - Putting destructive actions (delete, remove) at the same visual weight as safe actions
 - Adding emoji "to make it friendly"
 - Building responsive breakpoints
+
+---
+
+## 11. Developer Handoff — Backend Integration Guide
+
+### Running the project
+
+```bash
+npm install
+npm run dev        # Vite dev server at localhost:5173
+npm run build      # TypeScript check + Vite production build
+```
+
+### What is mocked (needs backend replacement)
+
+| Area | Mock location | What it provides | Backend endpoint needed |
+|------|--------------|-----------------|----------------------|
+| Data sources | `src/data/mock.ts` | Source list, status, lastSync | GET /sources, PATCH /sources/:id |
+| Rules | `src/data/mockRules.ts` | Library, User, AI rules + suggestions | GET /rules, POST /rules, PATCH /rules/:id |
+| Audit results | `src/data/mockAudit.ts` | 1,390 findings with contracts, values, confidence | GET /audits/:id/findings |
+| Audit state | Zustand `auditStateBySilo` | NOT_YET_RUN/RUNNING/COMPLETE/FAILED/STOPPED | WebSocket or polling for run status |
+| Notifications | Zustand `INITIAL_NOTIFICATIONS` | Notification feed | WebSocket push or GET /notifications |
+| Report data | Hardcoded in `ReportingPage.tsx` | Document header metrics, block content | GET /reports/:id |
+
+### Simulated behaviors (will need real implementation)
+
+1. **Audit run** — Currently `setInterval` with fake progress. Replace with WebSocket connection to audit engine.
+2. **Reconnect source** — Currently `setTimeout` that flips status to `live`. Replace with OAuth re-auth flow.
+3. **Export PDF/CSV** — Currently `setTimeout` with toast. Replace with backend generation + download.
+4. **Share link** — Currently static URL. Replace with API-generated signed link.
+5. **AI suggestions** — Currently static array. Replace with ML pipeline output.
+
+### State management approach
+
+- **Global state** (`src/store/app.ts`): Zustand store. Holds active silo, notifications, audit state, readiness flags.
+- **Page-local state**: `useState` within each page component. Modals, form fields, UI toggles.
+- **Derived state**: Computed inline (e.g., `failedSources = sources.filter(s => s.status === 'fix')`).
+
+When adding backend, the recommended approach is:
+1. Keep Zustand for UI state (panels open, active selections)
+2. Add React Query (`@tanstack/react-query` already installed) for server data fetching
+3. Replace mock imports with `useQuery` hooks
+
+### Design tokens contract
+
+All visual decisions are in `src/styles/tokens.css`. Backend developers should not need to change these. If a new status or color is needed, add a token — never hardcode.
+
+### Dev simulation toggles
+
+Each page has a `SIMULATE STATE` dropdown (bottom-left, dev only) to force different states:
+- Audit: `?audit-state=NOT_YET_RUN|RUNNING|COMPLETE|FAILED|STOPPED`
+- Reporting: `?reporting-state=reporting-empty|reporting-draft|reporting-finalized`
+
+These should be removed before production deploy.
 
 ---
 
