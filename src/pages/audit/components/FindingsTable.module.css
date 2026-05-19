@@ -102,10 +102,12 @@
 
 /* ── Column headers ── */
 .colHeader {
-  display: flex;
+  display: grid;
+  grid-template-columns: 24px minmax(160px, 2fr) minmax(120px, 1.5fr) 110px 100px 130px minmax(140px, 1fr);
+  column-gap: 16px;
   align-items: center;
+  padding: 0 20px;
   height: 40px;
-  padding: 0 var(--content-px);
   border-bottom: 1px solid var(--border-default);
   background: var(--bg-white);
 }
@@ -123,10 +125,12 @@
 .tableBody { border-top: 1px solid var(--border-default); }
 
 .tableRow {
-  display: flex;
+  display: grid;
+  grid-template-columns: 24px minmax(160px, 2fr) minmax(120px, 1.5fr) 110px 100px 130px minmax(140px, 1fr);
+  column-gap: 16px;
   align-items: center;
+  padding: 0 20px;
   height: 64px;
-  padding: 0 var(--content-px);
   border-bottom: 1px solid var(--border-default);
   background: var(--bg-white);
 }
@@ -158,9 +162,9 @@
 
 .discrepancy {
   font-family: var(--font-display);
-  font-size: var(--type-subtitle);
-  font-weight: var(--type-subtitle-weight);
-  letter-spacing: var(--type-subtitle-tracking);
+  font-size: var(--type-body);
+  font-weight: 400;
+  letter-spacing: var(--type-body-tracking);
   color: var(--text-primary);
   font-variant-numeric: tabular-nums;
   font-feature-settings: 'tnum';

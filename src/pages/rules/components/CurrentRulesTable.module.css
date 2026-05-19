@@ -86,11 +86,14 @@
 
 /* ── Table row ── */
 .row {
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 108px 108px 160px 180px;
+  column-gap: 20px;
   height: 56px;
-  padding: 0 var(--content-px);
+  background: var(--bg-white);
   border-bottom: 1px solid var(--border-default);
+  padding: 0 20px;
+  align-items: center;
 }
 
 .row:hover {
