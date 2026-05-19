@@ -25,12 +25,13 @@
 }
 
 .content {
-  padding: 24px var(--content-px) 40px;
+  padding: 32px var(--content-px) 40px;
+  flex: 1;
+  overflow-y: auto;
 }
 
 .threeCol {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 20px;
-  align-items: start;
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
 }

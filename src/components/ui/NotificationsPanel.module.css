@@ -27,21 +27,21 @@
 }
 
 .headerTitle {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   color: #525252;
   letter-spacing: 0.04em;
 }
 
 .unreadCount {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 400;
   color: #161616;
 }
 
 .markAllBtn {
   margin-left: auto;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 400;
   color: #1a4da6;
   background: none;
@@ -71,7 +71,7 @@
 .tab {
   height: 32px;
   padding: 0 8px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 400;
   color: #525252;
   background: none;
@@ -161,13 +161,13 @@
   height: 20px;
   padding: 0 6px;
   border-radius: 3px;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
   white-space: nowrap;
 }
 
 .timestamp {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 400;
   color: #525252;
   margin-left: auto;
@@ -183,7 +183,7 @@
 }
 
 .rowDesc {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 400;
   color: #525252;
   margin: 0;
@@ -197,7 +197,7 @@
 }
 
 .actionLink {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   color: #1a4da6;
   background: none;
@@ -230,7 +230,7 @@
 }
 
 .emptyBody {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 400;
   color: #525252;
   margin: 0;

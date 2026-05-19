@@ -27,17 +27,19 @@
 
 .runBtn {
   margin-left: auto;
-  height: 40px;
-  padding: 0 20px;
+  height: 48px;
+  padding: 0 28px;
   background: var(--btn-primary-bg);
   color: #fff;
-  font-size: var(--type-body-sm);
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
   font-weight: 600;
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
   border-radius: var(--radius-btn);
   border: none;
   cursor: pointer;
   white-space: nowrap;
-  font-family: inherit;
   transition: background 0.1s;
 }
 .runBtn:hover { background: #0047a8; }
@@ -271,31 +273,35 @@
 }
 
 .stateCardBtnPrimary {
-  height: 48px;
-  padding: 0 28px;
+  height: 52px;
+  padding: 0 32px;
   background: var(--btn-primary-bg);
   color: #fff;
-  font-size: var(--type-body);
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
   font-weight: 600;
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
   border-radius: var(--radius-btn);
   border: none;
   cursor: pointer;
-  font-family: inherit;
   transition: background 0.1s;
 }
 .stateCardBtnPrimary:hover { background: #0047a8; }
 
 .stateCardBtnSecondary {
-  height: 48px;
+  height: 52px;
   padding: 0 24px;
   background: transparent;
   color: var(--text-primary);
-  font-size: var(--type-body);
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
   font-weight: 400;
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
   border-radius: var(--radius-btn);
   border: 1px solid var(--border-default);
   cursor: pointer;
-  font-family: inherit;
   transition: background 0.1s;
 }
 .stateCardBtnSecondary:hover { background: var(--bg-table-header); }
@@ -567,7 +573,7 @@
   text-transform: uppercase;
   color: var(--text-secondary);
   display: block;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 .summaryHeroValue {
@@ -585,6 +591,7 @@
 .summaryHeroSub {
   font-family: var(--font-mono);
   font-size: var(--type-data);
+  font-weight: var(--type-data-weight);
   letter-spacing: var(--type-data-tracking);
   color: var(--text-muted);
   margin-top: 20px;
@@ -596,7 +603,7 @@
   align-items: flex-start;
   gap: 64px;
   border-top: 1px solid var(--border-default);
-  padding-top: 32px;
+  padding-top: 40px;
 }
 
 .statItem {
@@ -613,7 +620,7 @@
   text-transform: uppercase;
   color: var(--text-muted);
   display: block;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
 }
 
 .statValue {
@@ -622,6 +629,7 @@
   font-weight: var(--type-headline-weight);
   letter-spacing: var(--type-headline-tracking);
   line-height: var(--type-headline-lh);
+  color: var(--text-primary);
   font-variant-numeric: tabular-nums;
   font-feature-settings: 'tnum';
   display: block;
@@ -686,7 +694,7 @@
   color: #fff;
   padding: 8px 12px;
   border-radius: 8px;
-  font-size: 11px;
+  font-size: 12px;
   font-family: monospace;
   z-index: 9999;
   display: flex;
@@ -700,7 +708,7 @@
   border: none;
   border-radius: 4px;
   padding: 2px 6px;
-  font-size: 11px;
+  font-size: 12px;
   font-family: monospace;
   cursor: pointer;
 }

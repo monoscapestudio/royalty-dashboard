@@ -86,14 +86,11 @@
 
 /* ── Table row ── */
 .row {
-  display: grid;
-  grid-template-columns: 1fr 108px 108px 160px 180px;
-  column-gap: 20px;
-  height: var(--table-row-height);
-  background: var(--bg-white);
-  border-bottom: 1px solid var(--border-default);
-  padding: 0 20px;
+  display: flex;
   align-items: center;
+  height: 56px;
+  padding: 0 var(--content-px);
+  border-bottom: 1px solid var(--border-default);
 }
 
 .row:hover {
@@ -101,11 +98,10 @@
 }
 
 .ruleText {
-  font-size: var(--type-data);
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
+  font-size: var(--type-body-sm);
   font-weight: 400;
   color: var(--text-primary);
-  padding-right: 16px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

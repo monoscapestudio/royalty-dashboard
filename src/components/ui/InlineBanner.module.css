@@ -31,7 +31,7 @@
 }
 
 .body {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 400;
   color: #525252;
   display: block;
@@ -40,7 +40,7 @@
 .dismissBtn {
   align-self: center;
   flex-shrink: 0;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 400;
   color: #525252;
   background: none;

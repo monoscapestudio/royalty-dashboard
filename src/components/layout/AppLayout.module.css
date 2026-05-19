@@ -32,7 +32,7 @@
   padding: 6px 12px;
   background: rgba(22, 22, 22, 0.88);
   color: #f4f4f4;
-  font-size: 11px;
+  font-size: 12px;
   border-radius: 8px;
   z-index: 500;
   flex-wrap: wrap;
@@ -62,7 +62,7 @@
   border: none;
   color: #78a9ff;
   font: inherit;
-  font-size: 11px;
+  font-size: 12px;
   cursor: pointer;
   text-decoration: underline;
 }
