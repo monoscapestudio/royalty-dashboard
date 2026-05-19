@@ -47,11 +47,12 @@ export default function TopNav() {
             <NavLink
               key={to}
               to={to}
+              data-text={label}
               className={({ isActive }) =>
                 `${styles.tab} ${isActive ? styles.tabActive : ''}`
               }
             >
-              {label}
+              <span className={styles.tabLabel}>{label}</span>
             </NavLink>
           ))}
         </div>
@@ -78,8 +79,9 @@ export default function TopNav() {
           <button
             className={`${styles.account} ${accountMenuOpen ? styles.accountActive : ''}`}
             onClick={toggleAccountMenu}
+            data-text="Account"
           >
-            Account
+            <span className={styles.accountLabel}>Account</span>
             {accountMenuOpen && <span className={styles.accountUnderline} />}
           </button>
 
