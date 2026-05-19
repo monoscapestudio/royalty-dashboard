@@ -7,7 +7,7 @@ export default function AppLayout() {
   return (
     <div className={styles.shell}>
       <TopNav />
-      <SubHeader />
+      {/* SubHeader hidden — not in Figma header design */}
       <main className={styles.main}>
         <Outlet />
       </main>

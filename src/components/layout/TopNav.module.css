@@ -4,127 +4,131 @@
   left: 0;
   right: 0;
   z-index: 100;
-  display: flex;
-  flex-direction: column;
   height: var(--nav-height);
   background: var(--bg-white);
-  border-bottom: 1px solid var(--border-default);
+  overflow: hidden;
 }
 
-/* ── Upper logo row ── */
-.logoRow {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 24px 32px 0;
-  flex: 1;
+/* ── Left art panel (343px, clipped eye image) ── */
+.artPanel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 343px;
+  height: 100%;
+  overflow: hidden;
+  background: url('/header/hero-eye.png') center center / cover no-repeat;
 }
 
-.logoMark {
-  width: 44px;
-  height: 44px;
-  background: #161616;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+.artStripe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 15px;
+  background: #ff2200;
+  mix-blend-mode: multiply;
 }
 
-.logoMarkText {
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 700;
-  color: #ffffff;
-  letter-spacing: -0.03em;
-  line-height: 1;
+/* ── Content area (right of art panel) ── */
+.content {
+  position: absolute;
+  top: 0;
+  left: 343px;
+  right: 0;
+  height: 100%;
 }
 
+/* ── Brand mark ── */
+.brandMark {
+  position: absolute;
+  top: 48px;
+  left: 69px;
+  width: 132px;
+  height: auto;
+}
+
+/* ── "Royalty" text ── */
 .logoText {
+  position: absolute;
+  top: 68px;
+  left: 221px;
   font-family: var(--font-display);
   font-size: 40px;
-  font-weight: 300;
-  color: var(--text-primary);
-  letter-spacing: -0.04em;
-  line-height: 1;
+  font-weight: 400;
+  color: #010101;
+  letter-spacing: -1.8px;
+  line-height: 0.84;
   white-space: nowrap;
 }
 
-/* ── Lower nav row ── */
-.navRow {
-  display: flex;
-  align-items: center;
-  height: 48px;
-  padding: 0 32px;
-  border-top: 1px solid var(--border-default);
-  flex-shrink: 0;
-}
-
-/* ── Industry label ── */
+/* ── "Industry: Music & Royalty" ── */
 .industryLabel {
+  position: absolute;
+  top: 121px;
+  left: 221px;
   font-family: var(--font-mono);
-  font-size: var(--type-caption);
+  font-size: 16px;
   font-weight: 400;
-  color: var(--text-secondary);
-  letter-spacing: var(--type-label-tracking);
+  color: #333333;
+  letter-spacing: 0.56px;
   text-transform: uppercase;
   white-space: nowrap;
-  margin-right: 48px;
+  line-height: 1;
 }
 
-/* ── Nav tabs ── */
+/* ── Navigation row (all at y=121 from top) ── */
+.navGroup {
+  position: absolute;
+  top: 121px;
+  right: 60px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
 .tabs {
   display: flex;
-  align-items: stretch;
+  align-items: center;
   gap: 0;
-  flex: 1;
 }
 
 .tab {
-  display: flex;
-  align-items: center;
-  position: relative;
-  padding: 0 20px;
   font-family: var(--font-mono);
-  font-size: var(--type-caption);
+  font-size: 16px;
   font-weight: 700;
-  letter-spacing: var(--type-label-tracking);
+  color: #010101;
+  letter-spacing: 0.56px;
   text-transform: uppercase;
-  color: var(--text-primary);
   text-decoration: none;
   white-space: nowrap;
+  padding: 0 36px;
+  line-height: 1;
   cursor: pointer;
-  transition: opacity 0.1s;
+  transition: opacity 0.15s;
+}
+
+.tab:first-child {
+  padding-left: 0;
 }
 
 .tab:hover {
-  opacity: 0.65;
+  opacity: 0.6;
 }
 
 .tabActive {
   color: #ff3d04;
+  font-weight: 800;
 }
 
-.tabActive::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 20px;
-  right: 20px;
-  height: 2px;
-  background: #ff3d04;
-}
-
-/* ── Right group ── */
+/* ── Right section (bell + account) ── */
 .right {
   display: flex;
   align-items: center;
-  gap: 20px;
-  margin-left: auto;
-  flex-shrink: 0;
+  gap: 24px;
+  margin-left: 48px;
 }
 
-/* Bell */
 .bellWrapper {
   position: relative;
 }
@@ -133,9 +137,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
-  color: var(--text-primary);
+  width: 28px;
+  height: 28px;
+  color: #161616;
   background: none;
   border: none;
   cursor: pointer;
@@ -146,13 +150,13 @@
 
 .bellButton:hover,
 .bellActive {
-  background: var(--bg-table-header);
+  background: rgba(0, 0, 0, 0.04);
 }
 
 .bellBadge {
   position: absolute;
-  top: 4px;
-  right: 4px;
+  top: 2px;
+  right: 2px;
   width: 7px;
   height: 7px;
   border-radius: 50%;
@@ -161,41 +165,38 @@
   display: block;
 }
 
-/* Account */
 .accountWrapper {
   position: relative;
 }
 
 .account {
   font-family: var(--font-mono);
-  font-size: var(--type-caption);
+  font-size: 16px;
   font-weight: 400;
-  letter-spacing: var(--type-label-tracking);
+  color: #010101;
+  letter-spacing: 0.56px;
   text-transform: uppercase;
-  color: var(--text-primary);
   cursor: pointer;
   background: none;
   border: none;
   padding: 0;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  position: relative;
-  transition: opacity 0.1s;
+  white-space: nowrap;
+  line-height: 1;
+  transition: opacity 0.15s;
 }
 
 .account:hover,
 .accountActive {
-  opacity: 0.65;
+  opacity: 0.6;
 }
 
 .accountUnderline {
   position: absolute;
-  bottom: 0;
+  bottom: -4px;
   left: 0;
   right: 0;
   height: 2px;
-  background: var(--text-primary);
+  background: #010101;
   display: block;
 }
 

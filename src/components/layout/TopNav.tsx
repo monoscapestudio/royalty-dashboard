@@ -20,69 +20,73 @@ export default function TopNav() {
 
   return (
     <nav className={styles.nav}>
-      {/* Upper logo row */}
-      <div className={styles.logoRow}>
-        <div className={styles.logoMark}>
-          <span className={styles.logoMarkText}>R.</span>
-        </div>
-        <span className={styles.logoText}>Royalty</span>
+      <div className={styles.artPanel}>
+        <div className={styles.artStripe} />
       </div>
 
-      {/* Lower nav row */}
-      <div className={styles.navRow}>
+      <div className={styles.content}>
+        <img
+          className={styles.brandMark}
+          src="/header/brand-mark.svg"
+          alt=""
+          aria-hidden="true"
+        />
+        <span className={styles.logoText}>Royalty</span>
         <span className={styles.industryLabel}>Industry: Music &amp; Royalty</span>
 
-        <div className={styles.tabs}>
-          {[
-            { to: '/app/connects', label: 'Connects' },
-            { to: '/app/rules', label: 'Rules' },
-            { to: '/app/audit', label: 'Audit' },
-            { to: '/app/reporting', label: 'Reporting' },
-          ].map(({ to, label }) => (
-            <NavLink
-              key={to}
-              to={to}
-              className={({ isActive }) => `${styles.tab} ${isActive ? styles.tabActive : ''}`}
-            >
-              {label}
-            </NavLink>
-          ))}
-        </div>
-
-        <div className={styles.right}>
-          <div className={styles.bellWrapper}>
-            <button
-              className={`${styles.bellButton} ${notificationPanelOpen ? styles.bellActive : ''}`}
-              aria-label="Notifications"
-              onClick={toggleNotificationPanel}
-            >
-              <Notification size={16} />
-              {unreadCount > 0 && <span className={styles.bellBadge} />}
-            </button>
-
-            {notificationPanelOpen && (
-              <>
-                <div className={styles.scrim} onClick={() => setNotificationPanelOpen(false)} />
-                <NotificationsPanel />
-              </>
-            )}
+        <div className={styles.navGroup}>
+          <div className={styles.tabs}>
+            {[
+              { to: '/app/connects', label: 'Connects' },
+              { to: '/app/rules', label: 'Rules' },
+              { to: '/app/audit', label: 'Audit' },
+              { to: '/app/reporting', label: 'Reporting' },
+            ].map(({ to, label }) => (
+              <NavLink
+                key={to}
+                to={to}
+                className={({ isActive }) => `${styles.tab} ${isActive ? styles.tabActive : ''}`}
+              >
+                {label}
+              </NavLink>
+            ))}
           </div>
 
-          <div className={styles.accountWrapper}>
-            <button
-              className={`${styles.account} ${accountMenuOpen ? styles.accountActive : ''}`}
-              onClick={toggleAccountMenu}
-            >
-              Account
-              {accountMenuOpen && <span className={styles.accountUnderline} />}
-            </button>
+          <div className={styles.right}>
+            <div className={styles.bellWrapper}>
+              <button
+                className={`${styles.bellButton} ${notificationPanelOpen ? styles.bellActive : ''}`}
+                aria-label="Notifications"
+                onClick={toggleNotificationPanel}
+              >
+                <Notification size={16} />
+                {unreadCount > 0 && <span className={styles.bellBadge} />}
+              </button>
 
-            {accountMenuOpen && (
-              <>
-                <div className={styles.scrim} onClick={() => setAccountMenuOpen(false)} />
-                <AccountMenu />
-              </>
-            )}
+              {notificationPanelOpen && (
+                <>
+                  <div className={styles.scrim} onClick={() => setNotificationPanelOpen(false)} />
+                  <NotificationsPanel />
+                </>
+              )}
+            </div>
+
+            <div className={styles.accountWrapper}>
+              <button
+                className={`${styles.account} ${accountMenuOpen ? styles.accountActive : ''}`}
+                onClick={toggleAccountMenu}
+              >
+                Account
+                {accountMenuOpen && <span className={styles.accountUnderline} />}
+              </button>
+
+              {accountMenuOpen && (
+                <>
+                  <div className={styles.scrim} onClick={() => setAccountMenuOpen(false)} />
+                  <AccountMenu />
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>

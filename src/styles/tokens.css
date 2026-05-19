@@ -170,7 +170,7 @@
 
   /* ── Shell dimensions ── */
   --nav-height:          160px;
-  --subheader-height:    32px;
+  --subheader-height:    0px;
   --page-header-height:  64px;
   --content-px:          32px;
   --table-row-height:    48px;
