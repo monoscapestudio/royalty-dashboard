@@ -43,21 +43,24 @@
 .runBtn:hover { background: #0047a8; }
 
 .rerunBtn {
-  height: 32px;
-  padding: 0 16px;
-  background: #fff;
+  height: 48px;
+  padding: 0 28px;
+  background: transparent;
   color: var(--text-primary);
-  font-size: var(--type-data);
   font-family: var(--font-mono);
-  font-weight: 600;
+  font-size: var(--type-label);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
   border-radius: var(--radius-btn);
   border: 1px solid var(--border-default);
   cursor: pointer;
-  white-space: nowrap;
-  font-family: inherit;
-  transition: background 0.1s;
+  transition: background 0.15s ease;
+  align-self: flex-start;
 }
-.rerunBtn:hover { background: var(--bg-table-header); }
+.rerunBtn:hover {
+  background: var(--bg-table-header);
+}
 
 /* ── Section label ── */
 .sectionLabel {
@@ -543,10 +546,10 @@
 /* ── Findings summary — Swiss editorial ── */
 .findingsSummary {
   margin: 0 var(--content-px) 0;
-  padding: var(--space-hero-above) 0 var(--space-hero-below);
+  padding: 80px 0 64px;
   display: flex;
-  align-items: flex-end;
-  gap: 96px;
+  flex-direction: column;
+  gap: 48px;
   border-bottom: 1px solid var(--border-default);
 }
 
@@ -576,22 +579,24 @@
   font-variant-numeric: tabular-nums;
   font-feature-settings: 'tnum';
   display: block;
+  margin-bottom: 0;
 }
 
 .summaryHeroSub {
-  font-size: var(--type-data);
   font-family: var(--font-mono);
+  font-size: var(--type-data);
+  letter-spacing: var(--type-data-tracking);
   color: var(--text-muted);
-  margin-top: 16px;
+  margin-top: 20px;
   display: block;
-  letter-spacing: 0.01em;
 }
 
 .summaryMeta {
   display: flex;
-  align-items: flex-end;
-  gap: var(--space-hero-above);
-  padding-bottom: 6px;
+  align-items: flex-start;
+  gap: 64px;
+  border-top: 1px solid var(--border-default);
+  padding-top: 32px;
 }
 
 .statItem {
@@ -622,23 +627,7 @@
   display: block;
 }
 
-.rerunBtnSmall {
-  height: 32px;
-  padding: 0 14px;
-  background: transparent;
-  color: var(--text-muted);
-  font-size: var(--type-data);
-  font-family: var(--font-mono);
-  font-weight: 400;
-  border-radius: var(--radius-btn);
-  border: 1px solid var(--border-default);
-  cursor: pointer;
-  font-family: inherit;
-  align-self: flex-end;
-  margin-bottom: 4px;
-  transition: color 0.1s;
-}
-.rerunBtnSmall:hover { color: var(--text-primary); }
+
 
 /* ── Status widget (post-first-audit) ── */
 .statusWidget {
