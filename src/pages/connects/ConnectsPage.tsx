@@ -30,13 +30,21 @@ const nextId = () => String(++_nextId);
 export default function ConnectsPage() {
   const activeSiloId = useAppStore((s) => s.activeSiloId);
 
-  /* Local sources state — reset when silo changes */
   const [sources, setSources] = useState<DataSource[]>(
     () => mockSources[activeSiloId] ?? []
   );
+  const markContractSourceReady = useAppStore((s) => s.markContractSourceReady);
+
   useEffect(() => {
     setSources(mockSources[activeSiloId] ?? []);
   }, [activeSiloId]);
+
+  useEffect(() => {
+    const list = mockSources[activeSiloId] ?? [];
+    if (list.some((src) => src.category === 'contracts')) {
+      markContractSourceReady();
+    }
+  }, [activeSiloId, markContractSourceReady]);
 
   const contracts = sources.filter((s) => s.category === 'contracts');
   const billing = sources.filter((s) => s.category === 'billing');
@@ -48,7 +56,6 @@ export default function ConnectsPage() {
   const [modal, setModal] = useState<ModalState>(null);
   const closeModal = () => setModal(null);
 
-  /* ── Type selector → specific add modal ── */
   const handleTypeSelected = (connectionType: ConnectionType) => {
     if (!modal || modal.type !== 'connection-type-selector') return;
     const { category } = modal;
@@ -57,7 +64,6 @@ export default function ConnectsPage() {
     else setModal({ type: 'add-folder', category });
   };
 
-  /* ── Add source callback ── */
   const handleSaveSource = (partial: Partial<DataSource>) => {
     const newSource: DataSource = {
       id: nextId(),
@@ -70,17 +76,14 @@ export default function ConnectsPage() {
     setSources((prev) => [...prev, newSource]);
   };
 
-  /* ── Configure save ── */
   const handleConfigureSave = (updated: DataSource) => {
     setSources((prev) => prev.map((s) => (s.id === updated.id ? updated : s)));
   };
 
-  /* ── Remove source ── */
   const handleRemoveConfirm = (source: DataSource) => {
     setSources((prev) => prev.filter((s) => s.id !== source.id));
   };
 
-  /* ── Reconnect (re-open add modal with pre-fill) ── */
   const handleReconnect = (src: DataSource) => {
     if (src.type === 'API') setModal({ type: 'add-api', category: src.category, source: src });
     else if (src.type === 'OAuth') setModal({ type: 'add-oauth', category: src.category, source: src });
@@ -92,7 +95,6 @@ export default function ConnectsPage() {
 
   return (
     <>
-      {/* ── Page header ── */}
       <div className={styles.pageHeader}>
         <h1 className={styles.pageTitle}>Connects</h1>
         <span className={styles.pageSubtitle}>
@@ -100,7 +102,6 @@ export default function ConnectsPage() {
         </span>
       </div>
 
-      {/* ── Page content ── */}
       <div className={styles.content}>
         {isEmpty ? (
           <ConnectsEmptyState
@@ -121,39 +122,40 @@ export default function ConnectsPage() {
               />
             )}
 
-            <SourceSection
-              category="contracts"
-              sources={contracts}
-              onAddSource={openAddModal}
-              onConfigure={(src) => setModal({ type: 'configure', source: src })}
-              onRemove={(src) => setModal({ type: 'remove-confirm', source: src })}
-              onReconnect={handleReconnect}
-            />
+            <div className={styles.threeCol}>
+              <SourceSection
+                category="contracts"
+                sources={contracts}
+                onAddSource={openAddModal}
+                onConfigure={(src) => setModal({ type: 'configure', source: src })}
+                onRemove={(src) => setModal({ type: 'remove-confirm', source: src })}
+                onReconnect={handleReconnect}
+              />
 
-            <SourceSection
-              category="billing"
-              sources={billing}
-              onAddSource={openAddModal}
-              onConfigure={(src) => setModal({ type: 'configure', source: src })}
-              onRemove={(src) => setModal({ type: 'remove-confirm', source: src })}
-              onReconnect={handleReconnect}
-              showRequestIntegration
-              onRequestIntegration={() => setModal({ type: 'request-integration' })}
-            />
+              <SourceSection
+                category="billing"
+                sources={billing}
+                onAddSource={openAddModal}
+                onConfigure={(src) => setModal({ type: 'configure', source: src })}
+                onRemove={(src) => setModal({ type: 'remove-confirm', source: src })}
+                onReconnect={handleReconnect}
+                showRequestIntegration
+                onRequestIntegration={() => setModal({ type: 'request-integration' })}
+              />
 
-            <SourceSection
-              category="recovery"
-              sources={recovery}
-              onAddSource={openAddModal}
-              onConfigure={(src) => setModal({ type: 'configure', source: src })}
-              onRemove={(src) => setModal({ type: 'remove-confirm', source: src })}
-              onReconnect={handleReconnect}
-            />
+              <SourceSection
+                category="recovery"
+                sources={recovery}
+                onAddSource={openAddModal}
+                onConfigure={(src) => setModal({ type: 'configure', source: src })}
+                onRemove={(src) => setModal({ type: 'remove-confirm', source: src })}
+                onReconnect={handleReconnect}
+              />
+            </div>
           </>
         )}
       </div>
 
-      {/* ── Modal layer ── */}
       {modal?.type === 'connection-type-selector' && (
         <ConnectionTypeSelector
           category={modal.category}
@@ -161,7 +163,6 @@ export default function ConnectsPage() {
           onClose={closeModal}
         />
       )}
-
       {modal?.type === 'add-api' && (
         <AddSourceApiModal
           category={modal.category}
@@ -170,7 +171,6 @@ export default function ConnectsPage() {
           onClose={closeModal}
         />
       )}
-
       {modal?.type === 'add-oauth' && (
         <AddSourceOAuthModal
           category={modal.category}
@@ -179,7 +179,6 @@ export default function ConnectsPage() {
           onClose={closeModal}
         />
       )}
-
       {modal?.type === 'add-folder' && (
         <AddSourceFolderModal
           category={modal.category}
@@ -188,7 +187,6 @@ export default function ConnectsPage() {
           onClose={closeModal}
         />
       )}
-
       {modal?.type === 'configure' && (
         <ConfigureExistingModal
           source={modal.source}
@@ -196,11 +194,9 @@ export default function ConnectsPage() {
           onClose={closeModal}
         />
       )}
-
       {modal?.type === 'request-integration' && (
         <RequestIntegrationModal onClose={closeModal} />
       )}
-
       {modal?.type === 'remove-confirm' && (
         <RemoveConfirmationDialog
           source={modal.source}

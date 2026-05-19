@@ -1,93 +1,118 @@
-.section {
-  margin-bottom: 0;
+.column {
+  background: var(--bg-white);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-card);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
-/* ── Section label row ── */
-.sectionHeader {
+.columnHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 8px;
-}
-
-.sectionLabel {
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--text-secondary);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.sectionCount {
-  font-size: var(--text-sm);
-  font-weight: 400;
-  color: var(--text-secondary);
-}
-
-/* ── Table wrapper ── */
-.table {
-  border-top: 1px solid var(--border-default);
-}
-
-/* ── Column header row ── */
-.colHeader {
-  display: grid;
-  grid-template-columns: var(--col-grid);
-  column-gap: 20px;
-  align-items: center;
-  height: var(--table-header-height);
+  padding: 14px 16px;
   background: var(--bg-table-header);
-  padding: 0 20px;
   border-bottom: 1px solid var(--border-default);
 }
 
-.colHeaderCell {
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--text-secondary);
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-}
-
-/* ── Data row ── */
-.row {
-  display: grid;
-  grid-template-columns: var(--col-grid);
-  column-gap: 20px;
-  align-items: center;
-  height: var(--table-row-height);
-  background: var(--bg-white);
-  padding: 0 20px;
-  border-bottom: 1px solid var(--border-default);
-}
-
-.cellSource {
+.columnTitle {
   font-size: var(--text-md);
-  font-weight: 400;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.columnCount {
+  font-size: var(--text-md);
+  font-weight: 700;
+  color: var(--text-secondary);
+  background: var(--bg-white);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-badge);
+  padding: 0 10px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+  letter-spacing: -0.01em;
+}
+
+.disclaimer {
+  padding: 10px 16px;
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  background: var(--bg-table-header);
+  border-bottom: 1px solid var(--border-default);
+}
+
+.list {
+  flex: 1;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card {
+  border: 1px solid var(--border-default);
+  border-radius: 6px;
+  padding: 12px;
+  background: var(--bg-white);
+  transition: background 0.1s;
+}
+
+.card:hover {
+  background: #fafafa;
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.cardName {
+  font-size: var(--text-md);
+  font-weight: 600;
   color: var(--text-primary);
 }
 
-.cellType {
-  font-size: var(--text-base);
-  font-weight: 400;
-  color: var(--text-secondary);
-}
-
-.cellSync {
-  font-size: var(--text-base);
-  font-weight: 400;
-  color: var(--text-secondary);
-}
-
-.cellSyncFailed {
-  color: var(--status-fix-text);
-  font-weight: 400;
-}
-
-.cellActions {
+.cardMeta {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.cardType {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+}
+
+.cardDot {
+  font-size: var(--text-base);
+  color: var(--text-muted);
+}
+
+.cardSync {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+}
+
+.cardSyncFailed {
+  font-size: var(--text-base);
+  color: var(--status-fix-text);
+  font-weight: 600;
+}
+
+.cardActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .actionLink {
@@ -99,7 +124,6 @@
   border: none;
   padding: 0;
   font-family: inherit;
-  text-decoration: none;
   transition: color 0.1s;
 }
 
@@ -107,25 +131,26 @@
   color: var(--btn-primary-bg);
 }
 
-.actionLinkMuted {
-  color: var(--text-secondary);
-}
-
-.actionLinkMuted:hover {
+.actionLinkDanger:hover {
   color: var(--status-fix-text);
 }
 
+.actionMuted {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
 .reconnectBtn {
-  height: 28px;
-  padding: 0 14px;
+  height: 26px;
+  padding: 0 12px;
   background: var(--btn-primary-bg);
-  color: #ffffff;
+  color: #fff;
   font-size: var(--text-sm);
   font-weight: 600;
   border-radius: var(--radius-btn);
   border: none;
   cursor: pointer;
-  white-space: nowrap;
+  font-family: inherit;
   transition: background 0.1s;
 }
 
@@ -133,41 +158,38 @@
   background: #0047a8;
 }
 
-/* ── Add-source dashed row ── */
-.addRow {
-  height: var(--table-row-height);
+.addBtn {
+  margin: 8px;
+  height: 40px;
   border: 1px dashed var(--border-default);
-  border-top: none;
+  border-radius: 6px;
   display: flex;
   align-items: center;
-  padding: 0 16px;
+  justify-content: center;
+  background: none;
   cursor: pointer;
-  background: transparent;
-  width: 100%;
-  transition: background 0.1s;
-}
-
-.addRow:hover {
-  background: rgba(0, 0, 0, 0.02);
-}
-
-.addRowLabel {
   font-size: var(--text-md);
   font-weight: 400;
   color: var(--text-primary);
+  font-family: inherit;
+  transition: background 0.1s;
 }
 
-/* ── Request integration link ── */
+.addBtn:hover {
+  background: rgba(0, 0, 0, 0.02);
+}
+
 .requestRow {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 4px;
-  padding: 10px 16px 0;
+  padding: 10px 16px;
+  border-top: 1px solid var(--border-default);
 }
 
 .requestText {
   font-size: var(--text-base);
-  font-weight: 400;
   color: var(--text-secondary);
 }
 
@@ -185,32 +207,4 @@
 
 .requestLink:hover {
   color: var(--btn-primary-bg);
-}
-
-/* ── Recovery disclaimer banner ── */
-.recoveryDisclaimer {
-  display: flex;
-  align-items: center;
-  height: 40px;
-  padding: 0 16px 0 14px;
-  background: var(--bg-table-header);
-  position: relative;
-  overflow: hidden;
-  border-top: 1px solid var(--border-default);
-}
-
-.recoveryDisclaimer::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: var(--text-primary);
-}
-
-.recoveryDisclaimerText {
-  font-size: var(--text-base);
-  font-weight: 400;
-  color: var(--text-primary);
 }

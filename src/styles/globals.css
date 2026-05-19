@@ -43,3 +43,28 @@ textarea {
   font-family: inherit;
   font-size: inherit;
 }
+
+/* ── Editorial numbers — apply to all hero metrics across the project ── */
+.editorialNum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+  letter-spacing: -0.02em;
+  font-weight: 700;
+}
+
+/* Hero scale — primary metric (e.g. $12.4M findings) */
+.editorialNumHero {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  line-height: 0.95;
+}
+
+/* Stat scale — secondary metrics (e.g. 1,390 / 96% / 98%) */
+.editorialNumStat {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+  letter-spacing: -0.01em;
+  font-weight: 600;
+}

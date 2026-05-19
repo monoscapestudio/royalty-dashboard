@@ -550,37 +550,45 @@
 .metricsGrid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 0;
-  margin-bottom: 6px;
+  gap: 0 40px;
+  margin-bottom: 16px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border-default);
 }
 
 .metricItem {}
 
 .metricLabel {
-  font-size: 7px;
+  font-size: var(--text-xs);
   font-weight: 600;
-  color: var(--text-secondary);
+  color: var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.1em;
   display: block;
-  margin-bottom: 3px;
+  margin-bottom: 6px;
 }
 
 .metricValue {
-  font-size: 14px;
+  font-size: 36px;
   font-weight: 700;
   display: block;
-  margin-bottom: 2px;
+  margin-bottom: 4px;
+  letter-spacing: -1px;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+  line-height: 0.95;
 }
 
 .metricValueAmber { color: var(--status-pending-text); }
 .metricValueDefault { color: var(--text-primary); }
 
 .metricSub {
-  font-size: 7px;
+  font-size: var(--text-base);
   font-weight: 400;
-  color: var(--text-secondary);
+  color: var(--text-muted);
   display: block;
+  margin-top: 6px;
+  line-height: 1.4;
 }
 
 /* Findings table block */
