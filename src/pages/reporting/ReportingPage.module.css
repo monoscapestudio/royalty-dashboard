@@ -130,11 +130,8 @@
 }
 
 .leftHeaderSub {
-  font-size: 10px;
-  font-weight: 400;
-  color: var(--text-secondary);
-  display: block;
-  margin-top: 2px;
+  font-size: var(--type-caption);
+  color: var(--text-muted);
 }
 
 .leftSection {
@@ -142,13 +139,11 @@
 }
 
 .sectionLabel {
-  font-size: 10px;
+  font-size: var(--type-caption);
   font-weight: 600;
   color: var(--text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  display: block;
-  margin-bottom: 8px;
 }
 
 /* Template dropdown */
@@ -180,7 +175,7 @@
   border-radius: 4px;
   padding: 8px 10px;
   margin: 6px 0 0;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-secondary);
   line-height: 1.4;
 }
@@ -192,7 +187,7 @@
 }
 
 .confirmReplaceBtn {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--btn-primary-bg);
   background: none;
@@ -203,7 +198,7 @@
 }
 
 .confirmCancelBtn {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 400;
   color: var(--text-secondary);
   background: none;
@@ -301,7 +296,7 @@
 }
 
 .canvasTopLabel {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--text-secondary);
   text-transform: uppercase;
@@ -310,32 +305,32 @@
 }
 
 .canvasTopMeta {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 400;
   color: var(--text-secondary);
   white-space: nowrap;
 }
 
 .canvasStatusDraft {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--status-pending-text);
 }
 
 .canvasStatusFinal {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--status-live-text);
 }
 
 .canvasId {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--text-primary);
 }
 
 .canvasPage {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 400;
   color: var(--text-secondary);
   margin-left: auto;
@@ -366,7 +361,7 @@
   padding: 8px 12px 8px 16px;
   position: relative;
   overflow: hidden;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 400;
   color: var(--text-secondary);
   display: flex;
@@ -383,7 +378,7 @@
 }
 
 .finalizedBannerText {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 400;
   color: var(--text-secondary);
 }
@@ -415,13 +410,13 @@
 }
 
 .docBrand {
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 700;
   color: var(--text-primary);
 }
 
 .docReportLabel {
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--status-pending-text);
   text-transform: uppercase;
@@ -439,7 +434,7 @@
 }
 
 .docMeta {
-  font-size: 7px;
+  font-size: 12px;
   font-weight: 400;
   color: var(--text-secondary);
   display: block;
@@ -465,7 +460,7 @@
 }
 
 .dropZoneTitle {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--text-secondary);
   text-transform: uppercase;
@@ -473,7 +468,7 @@
 }
 
 .dropZoneText {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 400;
   color: var(--text-secondary);
 }
@@ -489,7 +484,7 @@
 }
 
 .docFooterText {
-  font-size: 6px;
+  font-size: 12px;
   font-weight: 400;
   color: var(--text-secondary);
 }
@@ -520,7 +515,7 @@
 }
 
 .blockDragHandle {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-secondary);
   cursor: grab;
   background: rgba(255,255,255,0.9);
@@ -531,7 +526,7 @@
 }
 
 .blockRemoveBtn {
-  font-size: 10px;
+  font-size: 12px;
   color: var(--text-secondary);
   background: rgba(255,255,255,0.9);
   border: 1px solid var(--border-default);
@@ -551,7 +546,7 @@
 }
 
 .blockHeaderLabel {
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--text-secondary);
   text-transform: uppercase;
@@ -571,25 +566,22 @@
 .metricItem {}
 
 .metricLabel {
+  font-family: var(--font-mono);
   font-size: var(--type-caption);
-  letter-spacing: var(--type-caption-tracking);
-  font-weight: 600;
-  color: var(--text-muted);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  display: block;
-  margin-bottom: 6px;
+  color: var(--text-secondary);
+  margin-top: 4px;
 }
 
 .metricValue {
-  font-size: 36px;
-  font-weight: 700;
-  display: block;
-  margin-bottom: 4px;
-  letter-spacing: -1px;
-  font-variant-numeric: tabular-nums;
-  font-feature-settings: 'tnum';
-  line-height: 0.95;
+  font-family: var(--font-display);
+  font-size: var(--type-title);
+  font-weight: var(--type-title-weight);
+  letter-spacing: var(--type-title-tracking);
+  line-height: var(--type-title-lh);
+  color: var(--text-primary);
 }
 
 .metricValueAmber { color: var(--status-pending-text); }
@@ -609,7 +601,7 @@
 .miniTable {
   width: 100%;
   border-collapse: collapse;
-  font-size: 8px;
+  font-size: 12px;
   margin-bottom: 4px;
 }
 
@@ -631,7 +623,7 @@
 }
 
 .miniTableFooter {
-  font-size: 7px;
+  font-size: 12px;
   font-weight: 400;
   color: var(--text-secondary);
   font-style: italic;
@@ -650,14 +642,14 @@
 }
 
 .chartPlaceholderText {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 400;
   color: var(--text-secondary);
 }
 
 /* Custom text block */
 .customText {
-  font-size: 8px;
+  font-size: 12px;
   font-weight: 400;
   color: var(--text-secondary);
   line-height: 1.6;
@@ -672,13 +664,13 @@
 }
 
 .coverageStat {
-  font-size: 8px;
+  font-size: 12px;
   color: var(--text-secondary);
 }
 
 /* Rule Set Reference block */
 .ruleRefList {
-  font-size: 8px;
+  font-size: 12px;
   color: var(--text-secondary);
   padding-left: 12px;
   line-height: 1.8;
@@ -687,7 +679,7 @@
 /* Recovery Status block */
 .recoveryTable {
   width: 100%;
-  font-size: 8px;
+  font-size: 12px;
   border-collapse: collapse;
 }
 .recoveryTable th {
@@ -705,7 +697,7 @@
 
 /* Finding Detail block */
 .findingDetail {
-  font-size: 8px;
+  font-size: 12px;
   color: var(--text-secondary);
   background: var(--bg-table-header);
   padding: 6px 8px;
@@ -742,7 +734,7 @@
 }
 
 .propLabel {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--text-secondary);
   text-transform: uppercase;
@@ -830,7 +822,7 @@
 }
 
 .propMeta {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 400;
   color: var(--text-secondary);
   display: block;
@@ -898,7 +890,7 @@
 }
 
 .actionDisclaimer {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 400;
   color: var(--text-secondary);
   line-height: 1.5;
@@ -1109,7 +1101,7 @@
   color: #fff;
   padding: 8px 12px;
   border-radius: 8px;
-  font-size: 11px;
+  font-size: 12px;
   font-family: monospace;
   z-index: 9999;
   display: flex;
@@ -1122,7 +1114,7 @@
   border: none;
   border-radius: 4px;
   padding: 2px 6px;
-  font-size: 11px;
+  font-size: 12px;
   font-family: monospace;
   cursor: pointer;
 }
