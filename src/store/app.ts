@@ -91,6 +91,8 @@ interface AppState {
   accountMenuOpen: boolean;
   notifications: AppNotification[];
   auditStateBySilo: Record<string, AuditState>;
+  /** First-audit setup — marked when user visits Connects/Rules and criteria are met */
+  auditReadiness: { contractSource: boolean; rulesApplied: boolean };
   /* Actions */
   setNotificationPanelOpen: (open: boolean) => void;
   toggleNotificationPanel: () => void;
@@ -99,6 +101,8 @@ interface AppState {
   markNotificationRead: (id: string) => void;
   markAllNotificationsRead: () => void;
   setAuditState: (siloId: string, state: AuditState) => void;
+  markContractSourceReady: () => void;
+  markRulesApplied: () => void;
 }
 
 export const useAppStore = create<AppState>((set) => ({
@@ -107,6 +111,7 @@ export const useAppStore = create<AppState>((set) => ({
   accountMenuOpen: false,
   notifications: INITIAL_NOTIFICATIONS,
   auditStateBySilo: { 'music-royalty': 'COMPLETE' },
+  auditReadiness: { contractSource: false, rulesApplied: false },
 
   setNotificationPanelOpen: (open) =>
     set({ notificationPanelOpen: open, accountMenuOpen: false }),
@@ -135,5 +140,13 @@ export const useAppStore = create<AppState>((set) => ({
   setAuditState: (siloId, state) =>
     set((s) => ({
       auditStateBySilo: { ...s.auditStateBySilo, [siloId]: state },
+    })),
+  markContractSourceReady: () =>
+    set((s) => ({
+      auditReadiness: { ...s.auditReadiness, contractSource: true },
+    })),
+  markRulesApplied: () =>
+    set((s) => ({
+      auditReadiness: { ...s.auditReadiness, rulesApplied: true },
     })),
 }));

@@ -2,27 +2,13 @@ import type { DataSource, SourceCategory } from '../../../types';
 import StatusBadge from '../../../components/ui/StatusBadge';
 import styles from './SourceSection.module.css';
 
-const COL_GRID = 'minmax(160px, 2fr) 96px 96px 160px minmax(140px, 1fr)';
-
 const CATEGORY_META: Record<
   SourceCategory,
-  { label: string; addLabel: string; colHeader: string }
+  { label: string; addLabel: string }
 > = {
-  contracts: {
-    label: 'Contracts',
-    addLabel: '+ Add contract source',
-    colHeader: 'Source',
-  },
-  billing: {
-    label: 'Billing',
-    addLabel: '+ Add billing source',
-    colHeader: 'Source',
-  },
-  recovery: {
-    label: 'Recovery',
-    addLabel: '+ Connect email channel',
-    colHeader: 'Channel',
-  },
+  contracts: { label: 'Contract', addLabel: '+ Add source' },
+  billing: { label: 'Billing', addLabel: '+ Add source' },
+  recovery: { label: 'Recovery', addLabel: '+ Connect channel' },
 };
 
 interface Props {
@@ -47,64 +33,47 @@ export default function SourceSection({
   showRequestIntegration = false,
 }: Props) {
   const meta = CATEGORY_META[category];
-  const liveCount = sources.filter((s) => s.status === 'live').length;
 
   return (
-    <div className={styles.section}>
-      {/* Section label */}
-      <div className={styles.sectionHeader}>
-        <span className={styles.sectionLabel}>{meta.label}</span>
-        <span className={styles.sectionCount}>
-          {sources.length} {sources.length === 1 ? 'source' : category === 'recovery' ? 'channel' : 'sources'}
-        </span>
+    <div className={styles.column}>
+      <div className={styles.columnHeader}>
+        <span className={styles.columnTitle}>{meta.label}</span>
+        <span className={styles.columnCount}>{sources.length}</span>
       </div>
 
-      <div className={styles.table} style={{ '--col-grid': COL_GRID } as React.CSSProperties}>
-        {/* Recovery section: disclaimer banner before column headers */}
-        {category === 'recovery' && (
-          <div className={styles.recoveryDisclaimer}>
-            <span className={styles.recoveryDisclaimerText}>
-              Revorion drafts emails on your behalf but never sends without your explicit approval.
-            </span>
-          </div>
-        )}
-
-        {/* Column headers */}
-        <div className={styles.colHeader}>
-          <span className={styles.colHeaderCell}>{meta.colHeader}</span>
-          <span className={styles.colHeaderCell}>Type</span>
-          <span className={styles.colHeaderCell}>Status</span>
-          <span className={styles.colHeaderCell}>Last Sync</span>
-          <span className={styles.colHeaderCell}>Actions</span>
+      {category === 'recovery' && (
+        <div className={styles.disclaimer}>
+          Emails are never sent without your explicit approval.
         </div>
+      )}
 
-        {/* Data rows */}
+      <div className={styles.list}>
         {sources.map((src) => (
-          <div key={src.id} className={styles.row}>
-            <span className={styles.cellSource}>{src.name}</span>
-            <span className={styles.cellType}>{src.type}</span>
-            <StatusBadge status={src.status} />
-            <span className={src.status === 'fix' ? styles.cellSyncFailed : styles.cellSync}>
-              {src.lastSync}
-            </span>
-            <div className={styles.cellActions}>
+          <div key={src.id} className={styles.card}>
+            <div className={styles.cardTop}>
+              <span className={styles.cardName}>{src.name}</span>
+              <StatusBadge status={src.status} />
+            </div>
+            <div className={styles.cardMeta}>
+              <span className={styles.cardType}>{src.type}</span>
+              <span className={styles.cardDot}>·</span>
+              <span className={src.status === 'fix' ? styles.cardSyncFailed : styles.cardSync}>
+                {src.lastSync}
+              </span>
+            </div>
+            <div className={styles.cardActions}>
               {src.status === 'fix' ? (
                 <button className={styles.reconnectBtn} onClick={() => onReconnect?.(src)}>
                   Reconnect
                 </button>
               ) : src.status === 'pending' ? (
-                <span className={`${styles.actionLink} ${styles.actionLinkMuted}`}>
-                  Provisioning...
-                </span>
+                <span className={styles.actionMuted}>Provisioning...</span>
               ) : (
                 <>
                   <button className={styles.actionLink} onClick={() => onConfigure(src)}>
                     Configure
                   </button>
-                  <button
-                    className={`${styles.actionLink} ${styles.actionLinkMuted}`}
-                    onClick={() => onRemove(src)}
-                  >
+                  <button className={`${styles.actionLink} ${styles.actionLinkDanger}`} onClick={() => onRemove(src)}>
                     Remove
                   </button>
                 </>
@@ -112,14 +81,12 @@ export default function SourceSection({
             </div>
           </div>
         ))}
-
-        {/* Add source dashed row */}
-        <button className={styles.addRow} onClick={() => onAddSource(category)}>
-          <span className={styles.addRowLabel}>{meta.addLabel}</span>
-        </button>
       </div>
 
-      {/* Request integration (billing only per wireframe) */}
+      <button className={styles.addBtn} onClick={() => onAddSource(category)}>
+        {meta.addLabel}
+      </button>
+
       {showRequestIntegration && (
         <div className={styles.requestRow}>
           <span className={styles.requestText}>Don't see your system?</span>

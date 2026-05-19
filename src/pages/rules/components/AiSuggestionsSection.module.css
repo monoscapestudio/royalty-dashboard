@@ -1,133 +1,51 @@
-.section {
-  margin-bottom: 24px;
-}
-
-.sectionHeader {
+.summaryBar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
+  padding: 10px 16px;
+  background: var(--bg-table-header);
+  border: 1px solid var(--border-default);
+  border-radius: 6px;
+  margin-top: 12px;
 }
 
-.sectionLabel {
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.suggestionCount {
-  font-size: var(--text-sm);
-  font-weight: 400;
-  color: var(--text-secondary);
-}
-
-.card {
-  background: var(--bg-white);
-  border-bottom: 1px solid var(--border-default);
-  padding: 12px 16px;
+.summaryLeft {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
-  min-height: 80px;
-}
-
-.card:first-of-type {
-  border-top: 1px solid var(--border-default);
-}
-
-.cardLeft {
-  flex: 1;
-  min-width: 0;
+  align-items: center;
+  gap: 10px;
 }
 
 .aiBadge {
   display: inline-flex;
   align-items: center;
-  height: 24px;
-  padding: 0 10px;
+  height: 20px;
+  padding: 0 8px;
   background: var(--type-badge-bg);
   color: var(--type-badge-text);
   font-size: var(--text-sm);
-  font-weight: 600;
+  font-weight: 700;
   border-radius: var(--radius-badge);
-  margin-bottom: 8px;
+  letter-spacing: 0.04em;
 }
 
-.suggestionText {
+.summaryText {
   font-size: var(--text-md);
-  font-weight: 400;
   color: var(--text-primary);
-  display: block;
-  margin-bottom: 6px;
-  line-height: 1.4;
-}
-
-.suggestionMeta {
-  font-size: var(--text-base);
   font-weight: 400;
-  color: var(--text-secondary);
-  white-space: pre;
 }
 
-.cardActions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-  padding-top: 22px;
-}
-
-.btnApprove {
-  height: 28px;
-  padding: 0 12px;
-  background: var(--btn-success-bg);
-  color: #fff;
+.reviewBtn {
   font-size: var(--text-sm);
   font-weight: 600;
-  border: none;
-  border-radius: var(--radius-btn);
-  cursor: pointer;
-  font-family: inherit;
-  transition: background 0.1s;
-}
-
-.btnApprove:hover {
-  background: var(--btn-success-hover);
-}
-
-.btnEdit {
-  height: 28px;
-  padding: 0 8px;
-  background: transparent;
-  color: var(--text-primary);
-  font-size: var(--text-sm);
-  font-weight: 400;
+  color: var(--btn-primary-bg);
+  background: none;
   border: none;
   cursor: pointer;
   font-family: inherit;
+  padding: 0;
+  transition: opacity 0.1s;
 }
 
-.btnEdit:hover {
-  text-decoration: underline;
-}
-
-.btnDismiss {
-  height: 28px;
-  padding: 0 10px;
-  background: #fff;
-  color: var(--text-secondary);
-  font-size: var(--text-sm);
-  font-weight: 400;
-  border: 1px solid #BFBFBF;
-  border-radius: var(--radius-btn);
-  cursor: pointer;
-  font-family: inherit;
-  transition: background 0.1s;
-}
-
-.btnDismiss:hover {
-  background: var(--bg-table-header);
+.reviewBtn:hover {
+  opacity: 0.7;
 }

@@ -8,6 +8,7 @@ import {
 } from '../../data/mockRules';
 import AddRulesSection from './components/AddRulesSection';
 import AiSuggestionsSection from './components/AiSuggestionsSection';
+import AiSuggestionsPanel from './components/AiSuggestionsPanel';
 import CurrentRulesTable from './components/CurrentRulesTable';
 import RulesEmptyState from './RulesEmptyState';
 import RuleEditModal from './modals/RuleEditModal';
@@ -30,6 +31,9 @@ export default function RulesPage() {
   const [pendingUpdate, setPendingUpdate] = useState<Rule | null>(null);
   const [showImplications, setShowImplications] = useState(false);
 
+  /* ── AI panel ── */
+  const [aiPanelOpen, setAiPanelOpen] = useState(false);
+
   /* ── Toast ── */
   const [toast, setToast] = useState<string | null>(null);
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -41,10 +45,18 @@ export default function RulesPage() {
     toastTimer.current = setTimeout(() => setToast(null), 4000);
   };
 
+  const markRulesApplied = useAppStore((s) => s.markRulesApplied);
+
   useEffect(() => {
     setRules(mockRulesBySilo[activeSiloId] ?? []);
     setSuggestions(mockAiSuggestionsBySilo[activeSiloId] ?? []);
   }, [activeSiloId]);
+
+  useEffect(() => {
+    if (rules.length > 0) {
+      markRulesApplied();
+    }
+  }, [rules.length, markRulesApplied]);
 
   const isEmpty = rules.length === 0;
 
@@ -170,30 +182,53 @@ export default function RulesPage() {
           />
         ) : (
           <>
-            <AddRulesSection
-              showLibraryBanner={libraryRules.length > 0}
-              siloLabel={siloLabel}
-              libraryCount={libraryRules.length}
-              existingRules={rules}
-              onAddRule={handleAddRule}
-            />
+            {/* Apply Rules panel */}
+            <div className={styles.panel}>
+              <div className={styles.panelHeader}>
+                <span className={styles.panelTitle}>Apply Rules</span>
+              </div>
+              <div className={styles.panelBody}>
+                <AddRulesSection
+                  showLibraryBanner={libraryRules.length > 0}
+                  siloLabel={siloLabel}
+                  libraryCount={libraryRules.length}
+                  existingRules={rules}
+                  onAddRule={handleAddRule}
+                />
+                <AiSuggestionsSection
+                  suggestions={suggestions}
+                  onReview={() => setAiPanelOpen(true)}
+                />
+              </div>
+            </div>
 
-            <AiSuggestionsSection
-              suggestions={suggestions}
-              onApprove={handleApprove}
-              onDismiss={(id) => setSuggestions((prev) => prev.filter((s) => s.id !== id))}
-            />
-
-            <CurrentRulesTable
-              rules={rules}
-              onToggle={handleToggle}
-              onDuplicate={handleDuplicate}
-              onEdit={handleEdit}
-              onRemove={(r) => setRulePendingDelete(r)}
-            />
+            {/* Current Rules panel */}
+            <div className={styles.panel} style={{ marginTop: 20 }}>
+              <div className={styles.panelHeader}>
+                <span className={styles.panelTitle}>Current Rules</span>
+                <span className={styles.panelCount}>{rules.length} rule{rules.length !== 1 ? 's' : ''}</span>
+              </div>
+              <CurrentRulesTable
+                rules={rules}
+                onToggle={handleToggle}
+                onDuplicate={handleDuplicate}
+                onEdit={handleEdit}
+                onRemove={(r) => setRulePendingDelete(r)}
+              />
+            </div>
           </>
         )}
       </div>
+
+      {/* AI Suggestions Panel */}
+      {aiPanelOpen && (
+        <AiSuggestionsPanel
+          suggestions={suggestions}
+          onApprove={handleApprove}
+          onDismiss={(id) => setSuggestions((prev) => prev.filter((s) => s.id !== id))}
+          onClose={() => setAiPanelOpen(false)}
+        />
+      )}
 
       {/* Toast */}
       {toast && (

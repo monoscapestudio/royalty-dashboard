@@ -95,4 +95,34 @@
   --radius-badge:  100px;
   --radius-option: 8px;
   --radius-banner: 6px;
+
+  /* ── CALM DASHBOARD: HERO TOKENS ── */
+  /* ── HERO TYPOGRAPHY ── */
+  --font-display: 'Helvetica Now Display', 'Helvetica Neue', 'Arial', sans-serif;
+  --hero-xxl: 96px;
+  --hero-xl: 80px;
+  --hero-lg: 64px;
+  --hero-md: 48px;
+  --hero-sm: 32px;
+  --hero-weight: 300;
+  --hero-tracking: -0.04em;
+  --hero-line-height: 0.95;
+
+  /* ── WARM NEUTRALS (supplement, not replace existing) ── */
+  --warm-gray-50: #FAFAF9;
+  --warm-gray-100: #F5F5F4;
+  --warm-gray-200: #E7E5E4;
+  --warm-gray-300: #D6D3D1;
+  --warm-gray-400: #A8A29E;
+  --warm-gray-500: #78716C;
+
+  /* ── HERO SPACING ── */
+  --space-hero-above: 64px;
+  --space-hero-below: 48px;
+  --space-hero-between: 32px;
+
+  /* ── HERO CTA ── */
+  --cta-hero-height: 52px;
+  --cta-hero-font-size: 15px;
+  --cta-hero-padding: 0 32px;
 }
