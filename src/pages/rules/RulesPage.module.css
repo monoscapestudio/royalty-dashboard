@@ -58,17 +58,15 @@
 
 .panelCount {
   font-family: var(--font-display);
-  font-size: var(--type-title);
-  font-weight: var(--type-title-weight);
-  letter-spacing: var(--type-title-tracking);
+  font-size: var(--type-subtitle);
+  font-weight: var(--type-subtitle-weight);
+  letter-spacing: var(--type-subtitle-tracking);
   color: var(--text-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  background: var(--bg-table-header);
-  border-radius: 50%;
+  background: none;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  height: auto;
 }
 
 .panelBody {
