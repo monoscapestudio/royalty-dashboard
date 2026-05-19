@@ -271,7 +271,7 @@ function RevertToDraftDialog({
         <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: 16, borderTop: '1px solid var(--border-default)', paddingTop: 16 }}>
           <button
             onClick={onClose}
-            style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 'var(--text-base)', fontFamily: 'inherit', color: 'var(--text-secondary)' }}
+            style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 'var(--type-data)', fontFamily: 'var(--font-mono)', color: 'var(--text-secondary)' }}
           >
             Cancel
           </button>

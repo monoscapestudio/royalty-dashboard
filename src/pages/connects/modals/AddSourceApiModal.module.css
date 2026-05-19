@@ -13,13 +13,15 @@
   padding: 0 10px;
   background: var(--type-badge-bg);
   color: var(--type-badge-text);
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 600;
   border-radius: var(--radius-badge);
 }
 
 .typeHint {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 400;
   color: var(--text-secondary);
 }
@@ -53,7 +55,8 @@
 }
 
 .disclaimerText {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 400;
   color: var(--text-secondary);
 }
@@ -83,13 +86,14 @@
 }
 
 .successTitle {
-  font-size: var(--text-md);
+  font-size: var(--type-body-sm);
   font-weight: 600;
   color: var(--banner-success-accent);
 }
 
 .successBody {
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   font-weight: 400;
   color: #266633;
   margin-top: 2px;

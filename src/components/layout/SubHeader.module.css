@@ -22,19 +22,22 @@
 .divider {
   margin: 0 16px;
   color: var(--border-default);
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 400;
   user-select: none;
 }
 
 .label {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 400;
   color: var(--text-secondary);
 }
 
 .value {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 700;
   color: var(--text-primary);
   font-variant-numeric: tabular-nums;

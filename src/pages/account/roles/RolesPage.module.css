@@ -8,7 +8,7 @@
 }
 
 .pageSubtitle {
-  font-size: var(--text-md);
+  font-size: var(--type-body-sm);
   color: var(--text-secondary);
   margin: 0 0 28px;
 }
@@ -28,14 +28,15 @@
 }
 
 .cardTitle {
-  font-size: var(--text-lg);
+  font-size: var(--type-body-sm);
   font-weight: 600;
   color: var(--text-primary);
   margin: 0 0 2px;
 }
 
 .cardDesc {
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   color: var(--text-secondary);
   margin: 0;
 }
@@ -52,7 +53,8 @@
 
 .gridHeadCell {
   padding: 10px 20px;
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   font-weight: 600;
   color: var(--text-secondary);
   text-align: center;
@@ -76,7 +78,7 @@
 .permRow:last-child .permCell { border-bottom: none; }
 
 .permName {
-  font-size: var(--text-md);
+  font-size: var(--type-body-sm);
   font-weight: 600;
   color: var(--text-primary);
   display: block;
@@ -84,7 +86,8 @@
 }
 
 .permDesc {
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   color: var(--text-secondary);
 }
 
@@ -133,7 +136,7 @@
 }
 
 .infoText {
-  font-size: var(--text-md);
+  font-size: var(--type-body-sm);
   color: var(--text-primary);
   line-height: 1.5;
 }

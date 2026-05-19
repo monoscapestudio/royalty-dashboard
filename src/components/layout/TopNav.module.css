@@ -19,7 +19,7 @@
 }
 
 .logo {
-  font-size: var(--text-lg);
+  font-size: var(--type-body-sm);
   font-weight: 600;
   color: var(--text-nav-active);
   white-space: nowrap;
@@ -29,7 +29,8 @@
 
 /* ── Industry static label ── */
 .industryLabel {
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   color: var(--text-nav-inactive);
   font-weight: 400;
   white-space: nowrap;
@@ -49,7 +50,7 @@
   align-items: center;
   position: relative;
   padding: 0 20px;
-  font-size: var(--text-md);
+  font-size: var(--type-body-sm);
   font-weight: 400;
   color: var(--text-nav-inactive);
   text-decoration: none;
@@ -130,14 +131,15 @@
 }
 
 .account {
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   font-weight: 400;
   color: var(--text-nav-inactive);
   cursor: pointer;
   transition: color 0.1s;
   background: none;
   border: none;
-  font-family: var(--font);
+  font-family: var(--font-display);
   padding: 0;
   height: var(--nav-height);
   display: flex;

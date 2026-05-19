@@ -1,5 +1,5 @@
 .question {
-  font-size: var(--text-md);
+  font-size: var(--type-body-sm);
   font-weight: 400;
   color: var(--text-primary);
   margin-bottom: 16px;
@@ -46,25 +46,29 @@
   padding: 0 10px;
   background: var(--type-badge-bg);
   color: var(--type-badge-text);
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 600;
   border-radius: var(--radius-badge);
 }
 
 .optionDesc {
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   font-weight: 400;
   color: var(--text-secondary);
 }
 
 .optionHint {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 400;
   color: var(--text-muted);
 }
 
 .selectCta {
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   font-weight: 600;
   color: var(--text-primary);
   flex-shrink: 0;

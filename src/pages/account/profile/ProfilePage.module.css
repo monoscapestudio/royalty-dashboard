@@ -10,7 +10,7 @@
 }
 
 .pageSubtitle {
-  font-size: var(--text-md);
+  font-size: var(--type-body-sm);
   color: var(--text-secondary);
   margin: 0 0 28px;
 }
@@ -24,7 +24,7 @@
 }
 
 .cardTitle {
-  font-size: var(--text-lg);
+  font-size: var(--type-body-sm);
   font-weight: 600;
   color: var(--text-primary);
   margin: 0 0 20px;
@@ -52,13 +52,13 @@
 }
 
 .avatarBtn {
-  font-size: var(--text-md);
+  font-size: var(--type-body-sm);
   font-weight: 400;
   color: var(--btn-primary-bg);
   background: none;
   border: none;
   cursor: pointer;
-  font-family: var(--font);
+  font-family: var(--font-display);
   padding: 0;
 }
 
@@ -85,7 +85,8 @@
 }
 
 .label {
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   font-weight: 600;
   color: var(--text-primary);
 }
@@ -95,8 +96,8 @@
   padding: 0 12px;
   border: 1px solid var(--border-default);
   border-radius: 4px;
-  font-size: var(--text-md);
-  font-family: var(--font);
+  font-size: var(--type-body-sm);
+  font-family: var(--font-display);
   color: var(--text-primary);
   background: var(--bg-white);
   outline: none;
@@ -112,8 +113,8 @@
   padding: 0 12px;
   border: 1px solid var(--border-default);
   border-radius: 4px;
-  font-size: var(--text-md);
-  font-family: var(--font);
+  font-size: var(--type-body-sm);
+  font-family: var(--font-display);
   color: var(--text-primary);
   background: var(--bg-white);
   outline: none;
@@ -125,7 +126,8 @@
 }
 
 .hint {
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   color: var(--text-muted);
 }
 
@@ -149,9 +151,9 @@
   color: #fff;
   border: none;
   border-radius: var(--radius-btn);
-  font-size: var(--text-md);
+  font-size: var(--type-body-sm);
   font-weight: 600;
-  font-family: var(--font);
+  font-family: var(--font-display);
   cursor: pointer;
   transition: opacity 0.1s;
 }
@@ -165,9 +167,9 @@
   color: var(--btn-primary-bg);
   border: 1px solid var(--btn-primary-bg);
   border-radius: var(--radius-btn);
-  font-size: var(--text-md);
+  font-size: var(--type-body-sm);
   font-weight: 600;
-  font-family: var(--font);
+  font-family: var(--font-display);
   cursor: pointer;
   transition: background 0.1s;
 }
@@ -179,14 +181,14 @@
 }
 
 .dangerTitle {
-  font-size: var(--text-lg);
+  font-size: var(--type-body-sm);
   font-weight: 600;
   color: var(--status-fix-text);
   margin: 0 0 8px;
 }
 
 .dangerText {
-  font-size: var(--text-md);
+  font-size: var(--type-body-sm);
   color: var(--text-secondary);
   margin: 0 0 16px;
 }
@@ -198,9 +200,9 @@
   color: var(--status-fix-text);
   border: 1px solid var(--status-fix-text);
   border-radius: var(--radius-btn);
-  font-size: var(--text-md);
+  font-size: var(--type-body-sm);
   font-weight: 600;
-  font-family: var(--font);
+  font-family: var(--font-display);
   cursor: pointer;
   transition: background 0.1s;
 }

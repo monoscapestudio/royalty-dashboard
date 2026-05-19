@@ -7,7 +7,8 @@
 }
 
 .sourceLabel {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 600;
   color: var(--text-secondary);
   text-transform: uppercase;
@@ -16,19 +17,22 @@
 }
 
 .sourceValueUser {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 600;
   color: var(--status-pending-text);
 }
 
 .sourceValueAi {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 600;
   color: var(--type-badge-text);
 }
 
 .sourceTimestamp {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 400;
   color: var(--text-secondary);
 }
@@ -42,7 +46,8 @@
 }
 
 .fieldLabel {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 600;
   color: var(--text-secondary);
   text-transform: uppercase;
@@ -57,8 +62,8 @@
   border-bottom: 1px solid #8D8D8D;
   border-radius: 4px 4px 0 0;
   padding: 8px 12px;
-  font-size: var(--text-md);
-  font-family: var(--font);
+  font-size: var(--type-body-sm);
+  font-family: var(--font-display);
   color: var(--text-primary);
   resize: none;
   box-sizing: border-box;
@@ -95,7 +100,8 @@
 }
 
 .interpRuleLine {
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   font-weight: 400;
   color: var(--text-primary);
   display: block;
@@ -103,7 +109,8 @@
 }
 
 .interpMeta {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 400;
   color: var(--text-secondary);
   display: block;
@@ -111,7 +118,8 @@
 }
 
 .reinterpretNote {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 400;
   color: var(--text-secondary);
   display: block;
@@ -176,13 +184,15 @@
 }
 
 .statusActive {
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   font-weight: 600;
   color: var(--status-live-text);
 }
 
 .statusInactive {
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   font-weight: 600;
   color: var(--text-secondary);
 }
@@ -208,7 +218,8 @@
 }
 
 .deleteConfirmTitle {
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   font-weight: 600;
   color: var(--status-fix-text);
   display: block;
@@ -216,7 +227,8 @@
 }
 
 .deleteConfirmBody {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 400;
   color: var(--banner-error-body);
   display: block;

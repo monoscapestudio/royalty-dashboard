@@ -10,7 +10,8 @@
 }
 
 .sectionLabel {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 600;
   color: var(--text-secondary);
   text-transform: uppercase;
@@ -18,7 +19,8 @@
 }
 
 .sectionMeta {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 400;
   color: var(--text-secondary);
   display: flex;
@@ -29,7 +31,8 @@
 .filterSelect {
   background: none;
   border: none;
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 400;
   color: var(--text-secondary);
   cursor: pointer;
@@ -55,7 +58,8 @@
 }
 
 .colHead {
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 600;
   color: var(--text-secondary);
   text-transform: uppercase;
@@ -72,7 +76,8 @@
 }
 
 .groupLabel {
-  font-size: var(--text-xs);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 600;
   color: var(--text-secondary);
   text-transform: uppercase;
@@ -96,7 +101,8 @@
 }
 
 .ruleText {
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   font-weight: 400;
   color: var(--text-primary);
   padding-right: 16px;
@@ -110,7 +116,8 @@
 }
 
 .lastModified {
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   font-weight: 400;
   color: var(--text-secondary);
 }
@@ -126,7 +133,8 @@
   background: none;
   border: none;
   cursor: pointer;
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 400;
   padding: 0;
   font-family: inherit;
@@ -161,7 +169,8 @@
 }
 
 .overflowText {
-  font-size: var(--text-base);
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
   font-weight: 400;
   color: var(--text-secondary);
 }
@@ -170,7 +179,8 @@
   background: none;
   border: none;
   cursor: pointer;
-  font-size: var(--text-sm);
+  font-size: var(--type-caption);
+  letter-spacing: var(--type-caption-tracking);
   font-weight: 400;
   color: var(--text-primary);
   font-family: inherit;

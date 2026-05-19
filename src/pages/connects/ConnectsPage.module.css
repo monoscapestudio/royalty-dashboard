@@ -9,14 +9,17 @@
 }
 
 .pageTitle {
-  font-size: var(--text-2xl);
+  font-size: var(--type-title);
+  font-weight: var(--type-title-weight);
+  letter-spacing: var(--type-title-tracking);
+  font-family: var(--font-display);
   font-weight: 400;
   color: var(--text-primary);
   flex-shrink: 0;
 }
 
 .pageSubtitle {
-  font-size: var(--text-lg);
+  font-size: var(--type-body-sm);
   font-weight: 400;
   color: var(--text-secondary);
 }
