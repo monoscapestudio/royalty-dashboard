@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSearchParams, Link } from 'react-router-dom';
 import { useAppStore } from '../../store/app';
 import { mockSources } from '../../data/mock';
 import type { DataSource, SourceCategory, ConnectionType } from '../../types';
@@ -32,22 +33,17 @@ const nextId = () => String(++_nextId);
 
 export default function ConnectsPage() {
   const activeSiloId = useAppStore((s) => s.activeSiloId);
+  const [searchParams] = useSearchParams();
+  const firstAuditMode = searchParams.get('first-audit') === '1';
+  const setContractSourceReady = useAppStore((s) => s.setContractSourceReady);
 
   const [sources, setSources] = useState<DataSource[]>(
-    () => mockSources[activeSiloId] ?? []
+    () => (firstAuditMode ? [] : mockSources[activeSiloId] ?? [])
   );
-  const markContractSourceReady = useAppStore((s) => s.markContractSourceReady);
 
   useEffect(() => {
-    setSources(mockSources[activeSiloId] ?? []);
-  }, [activeSiloId]);
-
-  useEffect(() => {
-    const list = mockSources[activeSiloId] ?? [];
-    if (list.some((src) => src.category === 'contracts')) {
-      markContractSourceReady();
-    }
-  }, [activeSiloId, markContractSourceReady]);
+    setSources(firstAuditMode ? [] : mockSources[activeSiloId] ?? []);
+  }, [activeSiloId, firstAuditMode]);
 
   const contracts = sources.filter((s) => s.category === 'contracts');
   const billing = sources.filter((s) => s.category === 'billing');
@@ -76,15 +72,36 @@ export default function ConnectsPage() {
       category: partial.category ?? 'contracts',
       lastSync: 'Just now',
     };
-    setSources((prev) => [...prev, newSource]);
+    setSources((prev) => {
+      const next = [...prev, newSource];
+      setContractSourceReady(
+        activeSiloId,
+        next.some((source) => source.category === 'contracts')
+      );
+      return next;
+    });
   };
 
   const handleConfigureSave = (updated: DataSource) => {
-    setSources((prev) => prev.map((s) => (s.id === updated.id ? updated : s)));
+    setSources((prev) => {
+      const next = prev.map((s) => (s.id === updated.id ? updated : s));
+      setContractSourceReady(
+        activeSiloId,
+        next.some((source) => source.category === 'contracts')
+      );
+      return next;
+    });
   };
 
   const handleRemoveConfirm = (source: DataSource) => {
-    setSources((prev) => prev.filter((s) => s.id !== source.id));
+    setSources((prev) => {
+      const next = prev.filter((s) => s.id !== source.id);
+      setContractSourceReady(
+        activeSiloId,
+        next.some((item) => item.category === 'contracts')
+      );
+      return next;
+    });
   };
 
   const handleReconnect = (src: DataSource) => {
@@ -101,11 +118,16 @@ export default function ConnectsPage() {
   const handleReconnectConfirm = (src: DataSource) => {
     setReconnecting(true);
     setTimeout(() => {
-      setSources((prev) =>
-        prev.map((s) =>
+      setSources((prev) => {
+        const next = prev.map((s) =>
           s.id === src.id ? { ...s, status: 'live' as const, lastSync: 'Just now' } : s
-        )
-      );
+        );
+        setContractSourceReady(
+          activeSiloId,
+          next.some((source) => source.category === 'contracts')
+        );
+        return next;
+      });
       setReconnecting(false);
       closeModal();
     }, 1500);
@@ -120,12 +142,27 @@ export default function ConnectsPage() {
         <div className={styles.pageHeaderText}>
           <h1 className={styles.pageTitle}>Connects</h1>
         <span className={styles.pageSubtitle}>
-          Add data sources and configure recovery pipeline.
+          {firstAuditMode
+            ? 'Step 1 of 2: add a contract source to unlock your first audit.'
+            : 'Add data sources and configure recovery pipeline.'}
         </span>
         </div>
       </div>
 
       <div className={styles.content}>
+        {firstAuditMode && contracts.length > 0 && (
+          <div className={styles.stepCompleteBanner}>
+            <span className={styles.stepCompleteCheck}>✓</span>
+            <div className={styles.stepCompleteText}>
+              <strong>Step 1 complete.</strong> Contract source connected.
+              You can add more sources, or continue setup.
+            </div>
+            <Link to="/app/rules?first-audit=1" className={styles.stepCompleteBtn}>
+              Next: Apply Rules →
+            </Link>
+          </div>
+        )}
+
         {isEmpty ? (
           <ConnectsEmptyState
             onAddSource={openAddModal}

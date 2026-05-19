@@ -21,6 +21,15 @@ A fully clickable prototype covering the complete user flow:
 
 All data is mocked. No backend required to run.
 
+## Simulator: first-audit journey
+
+The prototype includes a guided onboarding flow that lets testers walk through the first-time user experience:
+
+1. On the Audit page, select **`not-yet-run`** from the dev toggle (bottom-right)
+2. Follow the two-step checklist: Connect a source → Apply rules → Run Audit
+
+Each step starts empty and provides a clear "next" CTA after completion. See [docs/DOCTRINE.md](docs/DOCTRINE.md) for full details.
+
 ## Stack
 
 - React 18 + TypeScript + Vite

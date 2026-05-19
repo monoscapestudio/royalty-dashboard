@@ -4,6 +4,7 @@ import Modal from '../../components/ui/Modal';
 import InlineBanner from '../../components/ui/InlineBanner';
 import FormSelect from '../../components/ui/FormSelect';
 import { useAppStore } from '../../store/app';
+import { MOCK_AUDIT_RESULT } from '../../data/mockAudit';
 import styles from './ReportingPage.module.css';
 
 /* ── Constants ── */
@@ -95,7 +96,7 @@ function BlockContent({ name }: { name: BlockName }) {
               <tr><td>Spotify Recoupment</td><td>INV-2026-0981</td><td>$980</td><td>91%</td></tr>
             </tbody>
           </table>
-          <span className={styles.miniTableFooter}>... and 342 more findings. See full export for details.</span>
+          <span className={styles.miniTableFooter}>... and {(MOCK_AUDIT_RESULT.findingsCount - 5).toLocaleString()} more findings. See full export for details.</span>
         </>
       );
 
@@ -106,15 +107,18 @@ function BlockContent({ name }: { name: BlockName }) {
         </div>
       );
 
-    case 'Coverage Stats':
+    case 'Coverage Stats': {
+      const matched = Math.round(MOCK_AUDIT_RESULT.recordsProcessed * MOCK_AUDIT_RESULT.coverage / 100);
+      const unmatched = MOCK_AUDIT_RESULT.recordsProcessed - matched;
       return (
         <div className={styles.coverageGrid}>
-          <div className={styles.coverageStat}><strong>Records processed:</strong> 1,412,308</div>
-          <div className={styles.coverageStat}><strong>Coverage rate:</strong> 96%</div>
-          <div className={styles.coverageStat}><strong>Fully matched:</strong> 1,355,815</div>
-          <div className={styles.coverageStat}><strong>Unmatched:</strong> 56,493</div>
+          <div className={styles.coverageStat}><strong>Records processed:</strong> {MOCK_AUDIT_RESULT.recordsProcessed.toLocaleString()}</div>
+          <div className={styles.coverageStat}><strong>Coverage rate:</strong> {MOCK_AUDIT_RESULT.coverage}%</div>
+          <div className={styles.coverageStat}><strong>Fully matched:</strong> {matched.toLocaleString()}</div>
+          <div className={styles.coverageStat}><strong>Unmatched:</strong> {unmatched.toLocaleString()}</div>
         </div>
       );
+    }
 
     case 'Rule Set Reference':
       return (
@@ -616,23 +620,23 @@ export default function ReportingPage() {
                   <span className={styles.docMeta}>Batch: 8482-A9B | Silo: Music &amp; Royalty | Generated: 2026-04-21</span>
                   <hr className={styles.docDivider} />
 
-                  {/* Permanent summary metrics — synced with MOCK_AUDIT_RESULT */}
+                  {/* Permanent summary metrics — derived from MOCK_AUDIT_RESULT */}
                   <div className={styles.docSummary}>
                     <div className={styles.docSummaryHero}>
                       <span className={styles.docSummaryLabel}>Potential Recovery</span>
-                      <span className={styles.docSummaryHeroValue}>$12.45M</span>
+                      <span className={styles.docSummaryHeroValue}>{MOCK_AUDIT_RESULT.totalValueFormatted}</span>
                       <span className={styles.docSummarySub}>Total variance across all findings</span>
                     </div>
                     <div className={styles.docSummaryRow}>
                       <div className={styles.docSummaryItem}>
                         <span className={styles.docSummaryLabel}>Findings</span>
-                        <span className={styles.docSummaryValue}>1,390</span>
+                        <span className={styles.docSummaryValue}>{MOCK_AUDIT_RESULT.findingsCount.toLocaleString()}</span>
                         <span className={styles.docSummarySub}>Across 9 contract sources</span>
                       </div>
                       <div className={styles.docSummaryItem}>
                         <span className={styles.docSummaryLabel}>Coverage</span>
-                        <span className={styles.docSummaryValue}>96%</span>
-                        <span className={styles.docSummarySub}>Of 1,412,308 eligible records</span>
+                        <span className={styles.docSummaryValue}>{MOCK_AUDIT_RESULT.coverage}%</span>
+                        <span className={styles.docSummarySub}>Of {MOCK_AUDIT_RESULT.recordsProcessed.toLocaleString()} eligible records</span>
                       </div>
                     </div>
                   </div>
@@ -687,41 +691,49 @@ export default function ReportingPage() {
             <span className={styles.rightHeaderTitle}>Properties</span>
           </div>
 
-          <div className={styles.rightSection}>
-            <span className={styles.propLabel}>Report Name</span>
-            <input
-              className={styles.propInput}
-              type="text"
-              value={reportName}
-              onChange={(e) => setReportName(e.target.value)}
-              disabled={isFinalized}
-            />
+          <div className={`${styles.rightSection} ${styles.rightSectionForm}`}>
+            <div className={styles.propField}>
+              <span className={styles.propLabel}>Report Name</span>
+              <input
+                className={styles.propInput}
+                type="text"
+                value={reportName}
+                onChange={(e) => setReportName(e.target.value)}
+                disabled={isFinalized}
+              />
+            </div>
 
-            <FormSelect
-              label="Page Format"
-              value={pageFormat}
-              onChange={(value) => {
-                if (!isFinalized) setPageFormat(value);
-              }}
-              options={PAGE_FORMAT_OPTIONS}
-              className={`${styles.controlSelect} ${isFinalized ? styles.controlSelectDisabled : ''}`}
-            />
+            <div className={styles.propField}>
+              <FormSelect
+                label="Page Format"
+                value={pageFormat}
+                onChange={(value) => {
+                  if (!isFinalized) setPageFormat(value);
+                }}
+                options={PAGE_FORMAT_OPTIONS}
+                className={`${styles.controlSelect} ${isFinalized ? styles.controlSelectDisabled : ''}`}
+              />
+            </div>
 
-            <span className={styles.propLabel}>Status</span>
-            <span className={isFinalized ? styles.statusBadgeFinal : styles.statusBadgeDraft}>
-              {isFinalized ? 'Final' : 'Draft'}
-            </span>
+            <div className={styles.propField}>
+              <span className={styles.propLabel}>Status</span>
+              <span className={isFinalized ? styles.statusBadgeFinal : styles.statusBadgeDraft}>
+                {isFinalized ? 'Final' : 'Draft'}
+              </span>
+            </div>
 
-            <span className={styles.propLabel}>Generated</span>
-            <span className={styles.propValue}>April 21, 2026 at 14:32 UTC</span>
-            <span className={styles.propMeta}>Auto-generated on audit completion</span>
+            <div className={styles.propField}>
+              <span className={styles.propLabel}>Generated</span>
+              <span className={styles.propValue}>{MOCK_AUDIT_RESULT.completedAt}</span>
+              <span className={styles.propMeta}>Auto-generated on audit completion</span>
+            </div>
 
             {isFinalized && (
-              <>
+              <div className={styles.propField}>
                 <span className={styles.propLabel}>Finalized</span>
                 <span className={styles.propValue}>April 21, 2026 at 15:04 UTC</span>
                 <span className={styles.propMeta}>by Sarah Cone</span>
-              </>
+              </div>
             )}
           </div>
 

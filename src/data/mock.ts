@@ -1,4 +1,5 @@
 import type { DataSource, SubHeaderStats } from '../types';
+import { mockRulesPopulated } from './mockRules';
 
 export const mockSources: Record<string, DataSource[]> = {
   'music-royalty': [
@@ -56,13 +57,17 @@ export const mockSources: Record<string, DataSource[]> = {
   'fintech-ip': [],
 };
 
+const musicSources = mockSources['music-royalty'] ?? [];
+const musicLive = musicSources.filter((s) => s.status === 'live').length;
+const musicActiveRules = mockRulesPopulated.filter((r) => r.status === 'Active').length;
+
 export const mockSubHeaderStats: Record<string, SubHeaderStats> = {
   'music-royalty': {
     connectsLabel: 'Connects:',
-    connectsValue: '6 live',
+    connectsValue: `${musicLive} live`,
     connectsValueColor: 'green',
     rulesLabel: 'Rules:',
-    rulesValue: '321 active',
+    rulesValue: `${musicActiveRules} active`,
     rulesValueColor: 'default',
     auditLabel: 'Audit:',
     auditValue: 'Ready',
