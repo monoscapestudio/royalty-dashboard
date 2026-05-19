@@ -39,6 +39,9 @@ export default function AuditPage() {
   const dismissBanner = (id: string) => setDismissedBanners((prev) => [...prev, id]);
 
   /* Toast */
+  const [showReadiness, setShowReadiness] = useState(false);
+
+  /* Toast */
   const [toast, setToast] = useState<string | null>(null);
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const showToast = (msg: string) => {
@@ -178,7 +181,7 @@ export default function AuditPage() {
         )}
       </div>
 
-      {effectiveState !== 'NOT_YET_RUN' && (
+      {effectiveState !== 'NOT_YET_RUN' && effectiveState !== 'COMPLETE' && (
         <>
       {/* PRE-AUDIT READINESS section label */}
       <span className={styles.sectionLabel} style={{ paddingTop: 16 }}>Pre-Audit Readiness</span>
@@ -309,10 +312,44 @@ export default function AuditPage() {
         </>
       )}
 
-      {/* COMPLETE: hero findings + table */}
+            {/* COMPLETE: hero findings + table */}
       {effectiveState === 'COMPLETE' && (
         <>
           <FindingsSummary findings={findingsToShow} onRerun={startAudit} />
+          
+          <div style={{ padding: '0 var(--content-px)', marginBottom: 32 }}>
+            <button 
+              onClick={() => setShowReadiness(!showReadiness)}
+              style={{
+                background: 'none', border: 'none', cursor: 'pointer',
+                fontFamily: 'var(--font-mono)', fontSize: 'var(--type-caption)',
+                color: 'var(--text-secondary)', textDecoration: 'underline'
+              }}
+            >
+              {showReadiness ? 'Hide readiness details' : 'View readiness details'}
+            </button>
+            
+            {showReadiness && (
+              <div style={{ marginTop: 16 }}>
+                <span className={styles.sectionLabel} style={{ padding: '0 0 8px 0' }}>Pre-Audit Readiness</span>
+                <div className={styles.readinessRow} style={{ padding: 0 }}>
+                  <div className={styles.readinessCard}>
+                    <span className={`${styles.readinessBadge} ${styles.badgeReady}`}>Ready</span>
+                    <span className={styles.readinessDesc}>Data Sources: 6 connected, 5 live, 1 needs fix</span>
+                  </div>
+                  <div className={styles.readinessCard}>
+                    <span className={`${styles.readinessBadge} ${styles.badgeReady}`}>Ready</span>
+                    <span className={styles.readinessDesc}>Rules: 321 active across 3 sources</span>
+                  </div>
+                  <div className={styles.readinessCard}>
+                    <span className={`${styles.readinessBadge} ${styles.badgeReady}`}>96%</span>
+                    <span className={styles.readinessDesc}>Coverage: 1,412,308 eligible records</span>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
           <FindingsTable findings={findingsToShow} onToast={showToast} />
         </>
       )}
@@ -420,6 +457,9 @@ function FindingsSummary({ findings, onRerun }: { findings: Finding[]; onRerun?:
         <span className={styles.summaryHeroSub}>
           Audit complete · April 21, 2026 · 1,412,308 records processed
         </span>
+        {onRerun && (
+          <button className={styles.rerunBtn} onClick={onRerun} style={{ marginTop: 32 }}>RE-RUN AUDIT</button>
+        )}
       </div>
       <div className={styles.summaryMeta}>
         <div className={styles.statItem}>
@@ -434,9 +474,6 @@ function FindingsSummary({ findings, onRerun }: { findings: Finding[]; onRerun?:
           <span className={styles.statLabel}>Max Confidence</span>
           <span className={styles.statValue}>{maxConf}%</span>
         </div>
-        {onRerun && (
-          <button className={styles.rerunBtnSmall} onClick={onRerun}>Re-run Audit</button>
-        )}
       </div>
     </div>
   );
