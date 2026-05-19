@@ -4,9 +4,8 @@
   height: 100%;
 }
 
-/* Offset the fixed nav (48px) + fixed subheader (32px) */
 .main {
-  margin-top: calc(var(--nav-height) + var(--subheader-height));
+  margin-top: var(--nav-height);
   flex: 1;
   overflow-y: auto;
   background: var(--bg-page);
