@@ -91,8 +91,8 @@ interface AppState {
   accountMenuOpen: boolean;
   notifications: AppNotification[];
   auditStateBySilo: Record<string, AuditState>;
-  /** First-audit setup — marked when user visits Connects/Rules and criteria are met */
-  auditReadiness: { contractSource: boolean; rulesApplied: boolean };
+  /** First-audit setup progress stored per silo */
+  auditReadinessBySilo: Record<string, { contractSource: boolean; rulesApplied: boolean }>;
   /* Actions */
   setNotificationPanelOpen: (open: boolean) => void;
   toggleNotificationPanel: () => void;
@@ -101,8 +101,9 @@ interface AppState {
   markNotificationRead: (id: string) => void;
   markAllNotificationsRead: () => void;
   setAuditState: (siloId: string, state: AuditState) => void;
-  markContractSourceReady: () => void;
-  markRulesApplied: () => void;
+  setContractSourceReady: (siloId: string, ready: boolean) => void;
+  setRulesApplied: (siloId: string, ready: boolean) => void;
+  resetAuditReadiness: (siloId: string) => void;
 }
 
 export const useAppStore = create<AppState>((set) => ({
@@ -111,7 +112,7 @@ export const useAppStore = create<AppState>((set) => ({
   accountMenuOpen: false,
   notifications: INITIAL_NOTIFICATIONS,
   auditStateBySilo: { 'music-royalty': 'COMPLETE' },
-  auditReadiness: { contractSource: false, rulesApplied: false },
+  auditReadinessBySilo: {},
 
   setNotificationPanelOpen: (open) =>
     set({ notificationPanelOpen: open, accountMenuOpen: false }),
@@ -141,12 +142,31 @@ export const useAppStore = create<AppState>((set) => ({
     set((s) => ({
       auditStateBySilo: { ...s.auditStateBySilo, [siloId]: state },
     })),
-  markContractSourceReady: () =>
+  setContractSourceReady: (siloId, ready) =>
     set((s) => ({
-      auditReadiness: { ...s.auditReadiness, contractSource: true },
+      auditReadinessBySilo: {
+        ...s.auditReadinessBySilo,
+        [siloId]: {
+          contractSource: ready,
+          rulesApplied: s.auditReadinessBySilo[siloId]?.rulesApplied ?? false,
+        },
+      },
     })),
-  markRulesApplied: () =>
+  setRulesApplied: (siloId, ready) =>
     set((s) => ({
-      auditReadiness: { ...s.auditReadiness, rulesApplied: true },
+      auditReadinessBySilo: {
+        ...s.auditReadinessBySilo,
+        [siloId]: {
+          contractSource: s.auditReadinessBySilo[siloId]?.contractSource ?? false,
+          rulesApplied: ready,
+        },
+      },
+    })),
+  resetAuditReadiness: (siloId) =>
+    set((s) => ({
+      auditReadinessBySilo: {
+        ...s.auditReadinessBySilo,
+        [siloId]: { contractSource: false, rulesApplied: false },
+      },
     })),
 }));

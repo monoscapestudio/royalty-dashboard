@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useSearchParams, Link } from 'react-router-dom';
 import { useAppStore } from '../../store/app';
 import type { Rule, AiSuggestion, RuleSource } from '../../types';
 import {
@@ -20,10 +21,13 @@ let _newId = 4000;
 
 export default function RulesPage() {
   const activeSiloId = useAppStore((s) => s.activeSiloId);
+  const [searchParams] = useSearchParams();
+  const firstAuditMode = searchParams.get('first-audit') === '1';
+  const setRulesApplied = useAppStore((s) => s.setRulesApplied);
 
-  const [rules, setRules] = useState<Rule[]>(() => mockRulesBySilo[activeSiloId] ?? []);
+  const [rules, setRules] = useState<Rule[]>(() => (firstAuditMode ? [] : mockRulesBySilo[activeSiloId] ?? []));
   const [suggestions, setSuggestions] = useState<AiSuggestion[]>(
-    () => mockAiSuggestionsBySilo[activeSiloId] ?? []
+    () => (firstAuditMode ? [] : mockAiSuggestionsBySilo[activeSiloId] ?? [])
   );
 
   /* ── Edit modal state ── */
@@ -47,25 +51,18 @@ export default function RulesPage() {
     toastTimer.current = setTimeout(() => setToast(null), 4000);
   };
 
-  const markRulesApplied = useAppStore((s) => s.markRulesApplied);
-
   useEffect(() => {
-    setRules(mockRulesBySilo[activeSiloId] ?? []);
-    setSuggestions(mockAiSuggestionsBySilo[activeSiloId] ?? []);
+    setRules(firstAuditMode ? [] : mockRulesBySilo[activeSiloId] ?? []);
+    setSuggestions(firstAuditMode ? [] : mockAiSuggestionsBySilo[activeSiloId] ?? []);
     setAiReviewMode(false);
     setCurrentRulesFilter('all');
-  }, [activeSiloId]);
-
-  useEffect(() => {
-    if (rules.length > 0) {
-      markRulesApplied();
-    }
-  }, [rules.length, markRulesApplied]);
+  }, [activeSiloId, firstAuditMode]);
 
   const isEmpty = rules.length === 0;
 
   /* ── Actions ── */
   const handleAddRule = (rule: Rule) => {
+    setRulesApplied(activeSiloId, true);
     setRules((prev) => {
       const hasUser = prev.some((r) => r.source === 'User');
       if (hasUser) return [...prev, rule];
@@ -97,7 +94,11 @@ export default function RulesPage() {
   };
 
   const handleRemove = (rule: Rule) => {
-    setRules((prev) => prev.filter((r) => r.id !== rule.id));
+    setRules((prev) => {
+      const next = prev.filter((r) => r.id !== rule.id);
+      setRulesApplied(activeSiloId, next.length > 0);
+      return next;
+    });
   };
 
   const handleApprove = (suggestion: AiSuggestion) => {
@@ -108,6 +109,7 @@ export default function RulesPage() {
       status: 'Active',
       lastModified: 'Just now',
     };
+    setRulesApplied(activeSiloId, true);
     setRules((prev) => [...prev, newRule]);
   };
 
@@ -148,6 +150,7 @@ export default function RulesPage() {
   };
 
   const handleLoadLibrary = () => {
+    setRulesApplied(activeSiloId, true);
     setRules(ALL_LIBRARY_RULES);
   };
 
@@ -178,6 +181,8 @@ export default function RulesPage() {
         <span className={styles.pageSubtitle}>
           {aiReviewMode
             ? 'Review AI-identified rules and decide what joins the active rule set.'
+            : firstAuditMode
+            ? 'Step 2 of 2: load or add rules so AuditGraph knows what to check.'
             : isEmpty
             ? 'Define what the audit looks for.'
             : 'Define what the audit looks for. Add rules, review AI suggestions, manage your rule set.'}
@@ -186,6 +191,19 @@ export default function RulesPage() {
       </div>
 
       <div className={styles.content}>
+        {firstAuditMode && rules.length > 0 && (
+          <div className={styles.stepCompleteBanner}>
+            <span className={styles.stepCompleteCheck}>✓</span>
+            <div className={styles.stepCompleteText}>
+              <strong>Step 2 complete.</strong> {rules.length} rule{rules.length !== 1 ? 's' : ''} applied.
+              You can fine-tune your rules, or run your first audit now.
+            </div>
+            <Link to="/app/audit" className={styles.stepCompleteBtn}>
+              Run your first audit →
+            </Link>
+          </div>
+        )}
+
         {aiReviewMode ? (
           <AiSuggestionsPanel
             suggestions={suggestions}

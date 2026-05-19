@@ -3,6 +3,8 @@ import { Outlet, useSearchParams, useNavigate, Link } from 'react-router-dom';
 import { useAppStore } from '../../store/app';
 import type { AuditState, Finding } from '../../types';
 import { ALL_FINDINGS, MOCK_AUDIT_RESULT } from '../../data/mockAudit';
+import { mockRulesPopulated } from '../../data/mockRules';
+import { mockSources } from '../../data/mock';
 import FindingsTable from './components/FindingsTable';
 import InlineBanner from '../../components/ui/InlineBanner';
 import styles from './AuditPage.module.css';
@@ -13,12 +15,21 @@ const INCREMENT_MAX = 8;
 const FINDINGS_PER_TICK = 3;
 const FINDINGS_TICK_EVERY = 2;
 
+const ACTIVE_RULES_COUNT = mockRulesPopulated.filter((r) => r.status === 'Active').length;
+const SOURCES = mockSources['music-royalty'] ?? [];
+const LIVE_COUNT = SOURCES.filter((s) => s.status === 'live').length;
+const FIX_COUNT = SOURCES.filter((s) => s.status === 'fix').length;
+const PENDING_COUNT = SOURCES.filter((s) => s.status === 'pending').length;
+
 export default function AuditPage() {
   const navigate = useNavigate();
   const activeSiloId = useAppStore((s) => s.activeSiloId);
   const auditStateBySilo = useAppStore((s) => s.auditStateBySilo);
   const setAuditState = useAppStore((s) => s.setAuditState);
-  const auditReadiness = useAppStore((s) => s.auditReadiness);
+  const auditReadiness = useAppStore(
+    (s) => s.auditReadinessBySilo[activeSiloId] ?? { contractSource: false, rulesApplied: false }
+  );
+  const resetAuditReadiness = useAppStore((s) => s.resetAuditReadiness);
   const contractStepDone = auditReadiness.contractSource;
   const rulesStepDone = auditReadiness.rulesApplied;
   const allStepsDone = contractStepDone && rulesStepDone;
@@ -72,7 +83,7 @@ export default function AuditPage() {
         if (newP >= 100) {
           clearInterval(intervalRef.current!);
           setAuditState(activeSiloId, 'COMPLETE');
-          showToast('Audit complete. 1,390 findings identified.');
+          showToast(`Audit complete. ${MOCK_AUDIT_RESULT.findingsCount.toLocaleString()} findings identified.`);
         }
         return newP;
       });
@@ -123,6 +134,9 @@ export default function AuditPage() {
     if (val === 'reset') {
       setSearchParams({});
     } else {
+      if (val === 'NOT_YET_RUN') {
+        resetAuditReadiness(activeSiloId);
+      }
       setSearchParams({ 'audit-state': val });
     }
   };
@@ -135,7 +149,7 @@ export default function AuditPage() {
           id="audit-complete"
           variant="green"
           title="Audit complete."
-          body="1,390 findings identified. $12,450,000 potential recovery. Report auto-generated."
+          body={`${MOCK_AUDIT_RESULT.findingsCount.toLocaleString()} findings identified. ${MOCK_AUDIT_RESULT.totalValueFormatted} potential recovery. Report auto-generated.`}
           onDismiss={dismissBanner}
         />
       );
@@ -194,15 +208,15 @@ export default function AuditPage() {
         <div className={styles.readinessRow}>
           <div className={styles.readinessCard}>
             <span className={`${styles.readinessBadge} ${styles.badgeReady}`}>Ready</span>
-            <span className={styles.readinessDesc}>Data Sources: 6 connected, 5 live, 1 needs fix</span>
+            <span className={styles.readinessDesc}>Data Sources: {SOURCES.length} connected, {LIVE_COUNT} live, {FIX_COUNT} fix, {PENDING_COUNT} pending</span>
           </div>
           <div className={styles.readinessCard}>
             <span className={`${styles.readinessBadge} ${styles.badgeReady}`}>Ready</span>
-            <span className={styles.readinessDesc}>Rules: 321 active across 3 sources</span>
+            <span className={styles.readinessDesc}>Rules: {ACTIVE_RULES_COUNT} active across 3 sources</span>
           </div>
           <div className={styles.readinessCard}>
-            <span className={`${styles.readinessBadge} ${styles.badgeReady}`}>96%</span>
-            <span className={styles.readinessDesc}>Coverage: 1,412,308 eligible records</span>
+            <span className={`${styles.readinessBadge} ${styles.badgeReady}`}>{MOCK_AUDIT_RESULT.coverage}%</span>
+            <span className={styles.readinessDesc}>Coverage: {MOCK_AUDIT_RESULT.recordsProcessed.toLocaleString()} eligible records</span>
           </div>
         </div>
           </>
@@ -245,7 +259,7 @@ export default function AuditPage() {
                     {contractStepDone ? (
                       <span className={styles.todoCardDoneText}>Complete</span>
                     ) : (
-                      <Link to="/app/connects" className={styles.todoStepBtn}>
+                      <Link to="/app/connects?first-audit=1" className={styles.todoStepBtn}>
                         Go to Connects
                       </Link>
                     )}
@@ -272,7 +286,7 @@ export default function AuditPage() {
                     {rulesStepDone ? (
                       <span className={styles.todoCardDoneText}>Complete</span>
                     ) : (
-                      <Link to="/app/rules" className={styles.todoStepBtn}>
+                      <Link to="/app/rules?first-audit=1" className={styles.todoStepBtn}>
                         Go to Rules
                       </Link>
                     )}
@@ -361,15 +375,15 @@ export default function AuditPage() {
                   <div className={styles.readinessRowInline}>
                     <div className={styles.readinessCard}>
                       <span className={`${styles.readinessBadge} ${styles.badgeReady}`}>Ready</span>
-                      <span className={styles.readinessDesc}>Data Sources: 6 connected, 5 live, 1 needs fix</span>
+                      <span className={styles.readinessDesc}>Data Sources: {SOURCES.length} connected, {LIVE_COUNT} live, {FIX_COUNT} fix, {PENDING_COUNT} pending</span>
                     </div>
                     <div className={styles.readinessCard}>
                       <span className={`${styles.readinessBadge} ${styles.badgeReady}`}>Ready</span>
-                      <span className={styles.readinessDesc}>Rules: 321 active across 3 sources</span>
+                      <span className={styles.readinessDesc}>Rules: {ACTIVE_RULES_COUNT} active across 3 sources</span>
                     </div>
                     <div className={styles.readinessCard}>
-                      <span className={`${styles.readinessBadge} ${styles.badgeReady}`}>96%</span>
-                      <span className={styles.readinessDesc}>Coverage: 1,412,308 eligible records</span>
+                      <span className={`${styles.readinessBadge} ${styles.badgeReady}`}>{MOCK_AUDIT_RESULT.coverage}%</span>
+                      <span className={styles.readinessDesc}>Coverage: {MOCK_AUDIT_RESULT.recordsProcessed.toLocaleString()} eligible records</span>
                     </div>
                   </div>
                 </div>
@@ -432,12 +446,12 @@ export default function AuditPage() {
             <div className={styles.widgetRow}>
               <span className={styles.widgetDot} data-ok="true" />
               <span className={styles.widgetLabel}>Sources</span>
-              <span className={styles.widgetValue}>5 live / 1 fix</span>
+              <span className={styles.widgetValue}>{LIVE_COUNT} live / {FIX_COUNT} fix / {PENDING_COUNT} pending</span>
             </div>
             <div className={styles.widgetRow}>
               <span className={styles.widgetDot} data-ok="true" />
               <span className={styles.widgetLabel}>Rules</span>
-              <span className={styles.widgetValue}>321 active</span>
+              <span className={styles.widgetValue}>{ACTIVE_RULES_COUNT} active</span>
             </div>
           </div>
         )}
@@ -473,7 +487,7 @@ function FindingsSummary({ findings, onRerun }: { findings: Finding[]; onRerun?:
   const totalValue = findings.reduce((sum, f) => sum + f.discrepancyValue, 0);
   const maxConf = findings.length > 0 ? Math.max(...findings.map((f) => f.confidence)) : 0;
   const fmtValue = '$' + (totalValue >= 1_000_000
-    ? (totalValue / 1_000_000).toFixed(1) + 'M'
+    ? (totalValue / 1_000_000).toFixed(2) + 'M'
     : totalValue.toLocaleString('en-US'));
 
   return (
@@ -493,18 +507,15 @@ function FindingsSummary({ findings, onRerun }: { findings: Finding[]; onRerun?:
           {onRerun && (
             <Link to="/app/reporting" className={styles.viewReportBtn}>View Report</Link>
           )}
-          {onRerun && (
-            <button className={styles.rerunBtn} onClick={onRerun}>Re-run audit</button>
-          )}
         </div>
       </div>
       <span className={styles.summaryHeroSub}>
-        Audit complete · April 21, 2026 · 1,412,308 records processed
+        Audit complete · {MOCK_AUDIT_RESULT.completedAt.split(' at ')[0]} · {MOCK_AUDIT_RESULT.recordsProcessed.toLocaleString()} records processed
       </span>
       <div className={styles.summaryMeta}>
         <div className={styles.statItem}>
           <span className={styles.statLabel}>Coverage</span>
-          <span className={styles.statValue}>96%</span>
+          <span className={styles.statValue}>{MOCK_AUDIT_RESULT.coverage}%</span>
         </div>
         <div className={styles.statItem}>
           <span className={styles.statLabel}>Max Confidence</span>

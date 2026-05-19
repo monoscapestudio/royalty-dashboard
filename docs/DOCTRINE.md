@@ -228,12 +228,13 @@ Sarah is the primary customer voice on UI/UX. Her feedback (transcribed) drives 
 All pages have been implemented with the Calm Dashboard aesthetic.
 
 ### Audit
-- NOT_YET_RUN: 2-step checklist (Connect + Rules), any order
+- NOT_YET_RUN: 2-step checklist (Connect + Rules), any order, with guided onboarding simulator
 - RUNNING: hero progress, live findings count, friendly copy
-- COMPLETE: hero findings (96px), $12.45M potential recovery, Coverage/Confidence secondary
+- COMPLETE: hero findings (96px), computed potential recovery, Coverage/Confidence secondary
 - FAILED: "Fix connection" navigates to Connects, "Re-run Audit" restarts
 - STOPPED: Resume / Start new actions
 - Finding detail overlay: two-column (Audit Trail + Recovery), PDF mocks
+- First-audit flow: steps marked via user action only, success banners guide forward
 
 ### Rules
 - Apply Rules + Current Rules panels with 140px header spacing
@@ -340,7 +341,7 @@ npm run build      # TypeScript check + Vite production build
 
 ### State management approach
 
-- **Global state** (`src/store/app.ts`): Zustand store. Holds active silo, notifications, audit state, readiness flags.
+- **Global state** (`src/store/app.ts`): Zustand store. Holds active silo, notifications, audit state, per-silo readiness flags (`auditReadinessBySilo`).
 - **Page-local state**: `useState` within each page component. Modals, form fields, UI toggles.
 - **Derived state**: Computed inline (e.g., `failedSources = sources.filter(s => s.status === 'fix')`).
 
@@ -355,11 +356,50 @@ All visual decisions are in `src/styles/tokens.css`. Backend developers should n
 
 ### Dev simulation toggles
 
-Each page has a `SIMULATE STATE` dropdown (bottom-left, dev only) to force different states:
+Each page has a `SIMULATE STATE` dropdown (bottom-right, dev only) to force different states:
 - Audit: `?audit-state=NOT_YET_RUN|RUNNING|COMPLETE|FAILED|STOPPED`
 - Reporting: `?reporting-state=reporting-empty|reporting-draft|reporting-finalized`
 
 These should be removed before production deploy.
+
+### First-audit onboarding simulator
+
+The wireframe includes a full guided journey for first-time users. To test it:
+
+1. Go to **Audit** and select `not-yet-run` from the SIMULATE STATE toggle.
+2. Both checklist steps reset to incomplete.
+3. Click **"Go to Connects"** → opens Connects in empty first-audit mode (`?first-audit=1`).
+4. Add a contract source through the normal flow (click "+ Add contract source").
+5. A green success banner appears: **"Step 1 complete"** with a CTA **"Next: Apply Rules →"**.
+6. Click the CTA → opens Rules in empty first-audit mode (`?first-audit=1`).
+7. Load industry library or add a custom rule.
+8. A green success banner appears: **"Step 2 complete"** with a CTA **"Run your first audit →"**.
+9. Click the CTA → returns to Audit with both steps done and "Run Audit" enabled.
+10. Click "Run Audit" → simulation starts (progress bar, findings appearing in real time).
+
+**Key design decisions for the onboarding:**
+
+- `?first-audit=1` param creates a clean-slate context (empty data) on Connects and Rules pages.
+- Readiness state is per-silo and stored in Zustand (`auditReadinessBySilo`).
+- Steps are marked complete only through explicit user actions (adding a source / loading rules), never on page load.
+- Success banners use the "next" pattern, not "back" — they always guide forward.
+- The flow works as a linear wizard without actually being a wizard (no step indicators, no locked gates). Users can still navigate freely via the top nav.
+- Selecting `not-yet-run` from the Audit dev toggle resets readiness for the active silo.
+
+### Data consistency (single source of truth)
+
+All numerical stats across pages derive from the same mock data source:
+
+| Metric | Source | Used by |
+|--------|--------|---------|
+| Recovery value | Computed from `ALL_FINDINGS` in `mockAudit.ts` | Audit banner, FindingsSummary, Reporting doc header |
+| Findings count | `MOCK_AUDIT_RESULT.findingsCount` | Audit toast, banner, Reporting |
+| Records processed | `MOCK_AUDIT_RESULT.recordsProcessed` | Audit readiness, FindingsSummary, Reporting coverage |
+| Coverage | `MOCK_AUDIT_RESULT.coverage` | Same as above |
+| Active rules count | Computed from `mockRulesPopulated` | Audit readiness cards, SubHeader, status widget |
+| Live sources count | Computed from `mockSources` | Audit readiness cards, SubHeader, status widget |
+
+Never hardcode these values in page components. Always import and compute from mock data files.
 
 ---
 

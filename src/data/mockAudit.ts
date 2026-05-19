@@ -31,12 +31,13 @@ function fmt(n: number): string {
   return '$' + n.toLocaleString('en-US');
 }
 
-/* Generate 1,381 additional findings to reach 1,390 total */
+/* Generate 1,381 additional findings to reach 1,390 total.
+   Formula tuned so seed + extras ≈ $12.45M total recovery. */
 const EXTRA_FINDINGS: Finding[] = Array.from({ length: 1381 }, (_, i) => {
   const idx = i + 10;
   const contract = CONTRACTS[idx % CONTRACTS.length];
   const inv = `INV-2026-${String(1000 + idx).padStart(4, '0')}`;
-  const discVal = Math.max(1, Math.round(4500 - idx * 3.2 + Math.sin(idx) * 200));
+  const discVal = Math.max(100, Math.round(15200 - idx * 8.8 + Math.sin(idx) * 1500));
   const conf = Math.max(60, Math.min(99, 98 - Math.floor(idx / 20)));
   const status: FindingStatus = STATUSES[idx % STATUSES.length];
   return {
@@ -52,12 +53,16 @@ const EXTRA_FINDINGS: Finding[] = Array.from({ length: 1381 }, (_, i) => {
 
 export const ALL_FINDINGS: Finding[] = [...SEED_FINDINGS, ...EXTRA_FINDINGS];
 
+const COMPUTED_TOTAL = ALL_FINDINGS.reduce((sum, f) => sum + f.discrepancyValue, 0);
+
 export const MOCK_AUDIT_RESULT = {
   completedAt: 'April 21, 2026 at 14:32 UTC',
   duration: '8 minutes',
   recordsProcessed: 1_412_308,
   findings: ALL_FINDINGS,
-  totalValue: '$12,450,000',
+  totalValue: COMPUTED_TOTAL,
+  totalValueFormatted: '$' + (COMPUTED_TOTAL / 1_000_000).toFixed(2) + 'M',
+  findingsCount: ALL_FINDINGS.length,
   coverage: 96,
   maxConfidence: 98,
 };
