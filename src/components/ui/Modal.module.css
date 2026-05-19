@@ -1,12 +1,13 @@
 .scrim {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(22, 22, 22, 0.34);
+  backdrop-filter: blur(4px);
   z-index: var(--modal-z, 300);
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding-top: 80px;
+  padding: 96px 32px 40px;
   overflow-y: auto;
 }
 
@@ -14,45 +15,49 @@
   background: var(--bg-white);
   border: 1px solid var(--border-card);
   border-radius: var(--radius-card);
-  width: 480px;
+  width: min(560px, calc(100vw - 64px));
   flex-shrink: 0;
   overflow: hidden;
+  box-shadow: var(--shadow-soft);
 }
 
 /* ── Modal header ── */
 .header {
-  padding: 16px 20px 12px;
+  padding: 24px 28px 18px;
   border-bottom: 1px solid var(--border-default);
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 16px;
+  gap: 20px;
 }
 
 .headerMeta {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 10px;
 }
 
 .headerContext {
-  font-size: var(--type-caption);
-  letter-spacing: var(--type-caption-tracking);
-  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  letter-spacing: var(--type-label-tracking);
+  font-weight: var(--type-label-weight);
   color: var(--text-secondary);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
 }
 
 .headerTitleRow {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .headerTitle {
-  font-size: var(--type-body-sm);
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: var(--type-subtitle);
+  font-weight: var(--type-subtitle-weight);
+  letter-spacing: var(--type-subtitle-tracking);
+  line-height: var(--type-subtitle-lh);
   color: var(--text-primary);
 }
 
@@ -61,20 +66,23 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 20px;
+  padding-top: 24px;
   border-top: 1px solid var(--border-default);
-  margin-top: 20px;
+  margin-top: 24px;
 }
 
 .footerRight {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 /* ── Shared modal buttons ── */
 .btnCancel {
-  font-size: var(--type-body-sm);
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
   font-weight: 400;
   color: var(--text-secondary);
   background: none;
@@ -90,93 +98,103 @@
 }
 
 .btnPrimary {
-  height: 40px;
-  padding: 0 20px;
+  height: 44px;
+  padding: 0 22px;
   background: var(--btn-primary-bg);
-  color: #fff;
-  font-size: var(--type-body-sm);
-  font-weight: 600;
+  color: var(--btn-primary-text);
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
   border-radius: var(--radius-btn);
   border: none;
   cursor: pointer;
   white-space: nowrap;
-  font-family: inherit;
   transition: background 0.1s;
 }
 
 .btnPrimary:hover {
-  background: #0047a8;
+  background: var(--btn-primary-hover);
 }
 
 .btnPrimary:disabled {
   background: var(--btn-disabled-bg);
+  color: var(--btn-disabled-text);
   cursor: not-allowed;
 }
 
 .btnSecondary {
-  height: 40px;
-  padding: 0 20px;
-  background: #fff;
-  color: var(--btn-primary-bg);
-  font-size: var(--type-body-sm);
-  font-weight: 600;
+  height: 44px;
+  padding: 0 22px;
+  background: var(--btn-secondary-bg);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
   border-radius: var(--radius-btn);
-  border: 1.5px solid var(--btn-primary-bg);
+  border: 1px solid var(--btn-secondary-border);
   cursor: pointer;
   white-space: nowrap;
-  font-family: inherit;
   transition: background 0.1s;
 }
 
 .btnSecondary:hover {
-  background: #f0f5ff;
+  background: var(--btn-secondary-hover);
 }
 
 .btnDanger {
-  height: 36px;
-  padding: 0 20px;
-  background: var(--status-fix-text);
+  height: 44px;
+  padding: 0 22px;
+  background: var(--status-fix-bg);
   color: #fff;
-  font-size: var(--type-data);
+  font-size: var(--type-label);
   font-family: var(--font-mono);
-  font-weight: 600;
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
   border-radius: var(--radius-btn);
   border: none;
   cursor: pointer;
   white-space: nowrap;
-  font-family: inherit;
   transition: background 0.1s;
 }
 
 .btnDanger:hover {
-  background: #9e1c1c;
+  background: #cc3103;
 }
 
 /* Danger outlined — white bg, red border, red text (Delete rule) */
 .btnDangerOutlined {
-  height: 40px;
-  padding: 0 20px;
+  height: 44px;
+  padding: 0 22px;
   background: #fff;
-  color: var(--status-fix-text);
-  font-size: var(--type-body-sm);
-  font-weight: 400;
+  color: var(--status-fix-bg);
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
   border-radius: var(--radius-btn);
   border: 1px solid var(--border-default);
   cursor: pointer;
   white-space: nowrap;
-  font-family: inherit;
   transition: background 0.1s, border-color 0.1s;
 }
 
 .btnDangerOutlined:hover {
   background: #fff5f5;
-  border-color: var(--status-fix-text);
+  border-color: var(--status-fix-bg);
 }
 
 /* Large title variant (16px, for Implications modal) */
 .headerTitleLarge {
-  font-size: 16px;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: var(--type-body);
+  font-weight: 400;
+  letter-spacing: var(--type-body-tracking);
   color: var(--text-primary);
 }
 
@@ -186,21 +204,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bg-table-header);
+  background: var(--bg-panel-muted);
   border: none;
   cursor: pointer;
   flex-shrink: 0;
-  font-size: var(--type-body-sm);
+  font-size: var(--type-body);
   color: var(--text-secondary);
-  border-radius: 2px;
+  border-radius: var(--radius-btn);
   transition: background 0.1s;
 }
 
 .closeBtn:hover {
-  background: var(--border-default);
+  background: var(--bg-hover-strong);
 }
 
 /* ── Modal body ── */
 .body {
-  padding: 20px;
+  padding: 24px 28px 28px;
 }

@@ -3,6 +3,8 @@ import { useAppStore } from '../../store/app';
 import { mockSources } from '../../data/mock';
 import type { DataSource, SourceCategory, ConnectionType } from '../../types';
 import Banner from '../../components/ui/Banner';
+import Modal from '../../components/ui/Modal';
+import modalStyles from '../../components/ui/Modal.module.css';
 import SourceSection from './components/SourceSection';
 import ConnectsEmptyState from './ConnectsEmptyState';
 import ConnectionTypeSelector from './modals/ConnectionTypeSelector';
@@ -22,6 +24,7 @@ type ModalState =
   | { type: 'configure'; source: DataSource }
   | { type: 'request-integration' }
   | { type: 'remove-confirm'; source: DataSource }
+  | { type: 'reconnect'; source: DataSource }
   | null;
 
 let _nextId = 1000;
@@ -85,9 +88,27 @@ export default function ConnectsPage() {
   };
 
   const handleReconnect = (src: DataSource) => {
+    if (src.status === 'fix') {
+      setModal({ type: 'reconnect', source: src });
+      return;
+    }
     if (src.type === 'API') setModal({ type: 'add-api', category: src.category, source: src });
     else if (src.type === 'OAuth') setModal({ type: 'add-oauth', category: src.category, source: src });
     else setModal({ type: 'add-folder', category: src.category, source: src });
+  };
+
+  const [reconnecting, setReconnecting] = useState(false);
+  const handleReconnectConfirm = (src: DataSource) => {
+    setReconnecting(true);
+    setTimeout(() => {
+      setSources((prev) =>
+        prev.map((s) =>
+          s.id === src.id ? { ...s, status: 'live' as const, lastSync: 'Just now' } : s
+        )
+      );
+      setReconnecting(false);
+      closeModal();
+    }, 1500);
   };
 
   const openAddModal = (category: SourceCategory) =>
@@ -96,10 +117,12 @@ export default function ConnectsPage() {
   return (
     <>
       <div className={styles.pageHeader}>
-        <h1 className={styles.pageTitle}>Connects</h1>
+        <div className={styles.pageHeaderText}>
+          <h1 className={styles.pageTitle}>Connects</h1>
         <span className={styles.pageSubtitle}>
           Add data sources and configure recovery pipeline.
         </span>
+        </div>
       </div>
 
       <div className={styles.content}>
@@ -203,6 +226,45 @@ export default function ConnectsPage() {
           onConfirm={handleRemoveConfirm}
           onClose={closeModal}
         />
+      )}
+      {modal?.type === 'reconnect' && (
+        <Modal
+          contextLabel="Reconnect Source"
+          title={modal.source.name}
+          onClose={closeModal}
+          width={460}
+        >
+          <div className={styles.reconnectBody}>
+            <p className={styles.reconnectMessage}>
+              Authentication for <strong>{modal.source.name}</strong> has expired.
+              Re-authorize access to resume syncing documents.
+            </p>
+            <div className={styles.reconnectMeta}>
+              <span className={styles.reconnectMetaRow}>
+                <span className={styles.reconnectMetaLabel}>Type</span>
+                <span className={styles.reconnectMetaValue}>{modal.source.type}</span>
+              </span>
+              <span className={styles.reconnectMetaRow}>
+                <span className={styles.reconnectMetaLabel}>Status</span>
+                <span className={styles.reconnectMetaValue}>Authentication expired</span>
+              </span>
+            </div>
+          </div>
+          <div className={modalStyles.footer}>
+            <button className={modalStyles.btnCancel} onClick={closeModal}>
+              Cancel
+            </button>
+            <div className={modalStyles.footerRight}>
+              <button
+                className={modalStyles.btnPrimary}
+                onClick={() => handleReconnectConfirm(modal.source)}
+                disabled={reconnecting}
+              >
+                {reconnecting ? 'Reconnecting…' : 'Reconnect'}
+              </button>
+            </div>
+          </div>
+        </Modal>
       )}
     </>
   );

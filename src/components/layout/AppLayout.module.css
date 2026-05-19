@@ -11,6 +11,7 @@
   background: var(--bg-page);
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .mainSwitching {
@@ -29,18 +30,20 @@
   align-items: center;
   gap: 12px;
   padding: 6px 12px;
-  background: rgba(22, 22, 22, 0.88);
-  color: #f4f4f4;
-  font-size: 12px;
-  border-radius: 8px;
+  background: rgba(22, 22, 22, 0.92);
+  color: #f4f1ea;
+  font-size: var(--type-body);
+  border-radius: var(--radius-btn);
   z-index: 500;
   flex-wrap: wrap;
+  box-shadow: var(--shadow-soft);
 }
 
 .demoSkipLabel {
+  font-family: var(--font-mono);
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: var(--type-label-tracking);
   color: #c6c6c6;
   margin-right: 4px;
 }
@@ -61,7 +64,7 @@
   border: none;
   color: #78a9ff;
   font: inherit;
-  font-size: 12px;
+  font-size: var(--type-body);
   cursor: pointer;
   text-decoration: underline;
 }

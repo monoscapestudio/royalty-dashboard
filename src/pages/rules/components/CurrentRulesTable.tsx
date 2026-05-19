@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import type { Rule, RuleSource } from '../../../types';
 import RuleBadge from './RuleBadge';
 import styles from './CurrentRulesTable.module.css';
@@ -11,6 +11,8 @@ interface Props {
   onDuplicate: (rule: Rule) => void;
   onEdit: (rule: Rule) => void;
   onRemove: (rule: Rule) => void;
+  filter: 'all' | RuleSource;
+  onFilterChange: (filter: 'all' | RuleSource) => void;
 }
 
 function RuleRow({
@@ -29,27 +31,32 @@ function RuleRow({
   const inactive = rule.status === 'Inactive';
   return (
     <div className={styles.row}>
-      <span className={`${styles.ruleText} ${inactive ? styles.ruleTextInactive : ''}`}>
-        {rule.text}
-      </span>
-      <RuleBadge kind="source" value={rule.source} />
-      <RuleBadge kind="status" value={rule.status} />
-      <span className={styles.lastModified}>{rule.lastModified}</span>
+      <div className={styles.rowTop}>
+        <span className={`${styles.ruleText} ${inactive ? styles.ruleTextInactive : ''}`}>
+          {rule.text}
+        </span>
+        <RuleBadge kind="status" value={rule.status} />
+      </div>
+      <div className={styles.rowMeta}>
+        <RuleBadge kind="source" value={rule.source} />
+        <span className={styles.metaDot}>·</span>
+        <span className={styles.lastModified}>{rule.lastModified}</span>
+      </div>
       <div className={styles.actions}>
         {rule.source !== 'Library' && (
-          <button className={`${styles.actionBtn} ${styles.actionBtnPrimary}`} onClick={() => onEdit(rule)}>
+          <button className={styles.actionBtn} onClick={() => onEdit(rule)}>
             Edit
           </button>
         )}
-        <button className={`${styles.actionBtn} ${styles.actionBtnPrimary}`} onClick={() => onToggle(rule.id)}>
+        <button className={styles.actionBtn} onClick={() => onToggle(rule.id)}>
           Toggle
         </button>
         {rule.source === 'Library' ? (
-          <button className={`${styles.actionBtn} ${styles.actionBtnMuted}`} onClick={() => onDuplicate(rule)}>
+          <button className={styles.actionBtn} onClick={() => onDuplicate(rule)}>
             Duplicate
           </button>
         ) : (
-          <button className={`${styles.actionBtn} ${styles.actionBtnMuted}`} onClick={() => onRemove(rule)}>
+          <button className={`${styles.actionBtn} ${styles.actionBtnDanger}`} onClick={() => onRemove(rule)}>
             Remove
           </button>
         )}
@@ -84,7 +91,8 @@ function RuleGroup({
   return (
     <>
       <div className={styles.groupHeader}>
-        <span className={styles.groupLabel}>{label} ({rules.length})</span>
+        <span className={styles.groupLabel}>{label}</span>
+        <span className={styles.groupCount}>{rules.length}</span>
       </div>
       {visible.map((rule) => (
         <RuleRow
@@ -123,10 +131,82 @@ const FILTER_OPTIONS: { value: 'all' | RuleSource; label: string }[] = [
   { value: 'AI', label: 'AI-approved' },
 ];
 
-export default function CurrentRulesTable({ rules, onToggle, onDuplicate, onEdit, onRemove }: Props) {
-  const [filter, setFilter] = useState<'all' | RuleSource>('all');
+function FilterSelect({
+  value,
+  onChange,
+  options,
+  ariaLabel,
+}: {
+  value: 'all' | RuleSource;
+  onChange: (value: 'all' | RuleSource) => void;
+  options: { value: 'all' | RuleSource; label: string }[];
+  ariaLabel: string;
+}) {
+  const [open, setOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const selectedLabel = options.find((option) => option.value === value)?.label ?? options[0].label;
+
+  return (
+    <div className={styles.filterSelectWrap} ref={containerRef}>
+      <button
+        type="button"
+        className={`${styles.filterTrigger} ${open ? styles.filterTriggerOpen : ''}`}
+        onClick={() => setOpen((prev) => !prev)}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-label={ariaLabel}
+      >
+        <span className={styles.filterValue}>{selectedLabel}</span>
+        <span className={styles.filterChevron}>▼</span>
+      </button>
+
+      {open && (
+        <div className={styles.filterMenu} role="listbox">
+          {options.map((option) => (
+            <button
+              key={option.value}
+              type="button"
+              className={`${styles.filterOption} ${option.value === value ? styles.filterOptionSelected : ''}`}
+              onClick={() => {
+                onChange(option.value);
+                setOpen(false);
+              }}
+            >
+              {option.label}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default function CurrentRulesTable({
+  rules,
+  onToggle,
+  onDuplicate,
+  onEdit,
+  onRemove,
+  filter,
+  onFilterChange,
+}: Props) {
   const filtered = filter === 'all' ? rules : rules.filter((r) => r.source === filter);
+  const filterLabel = useMemo(
+    () => FILTER_OPTIONS.find((opt) => opt.value === filter)?.label ?? 'All Sources',
+    [filter]
+  );
 
   const library = filtered.filter((r) => r.source === 'Library');
   const user = filtered.filter((r) => r.source === 'User');
@@ -134,32 +214,24 @@ export default function CurrentRulesTable({ rules, onToggle, onDuplicate, onEdit
 
   return (
     <div className={styles.section}>
-      <div className={styles.sectionHeader}>
-        <span className={styles.sectionLabel}>Current Rules</span>
+      <div className={styles.utilityBar}>
         <div className={styles.sectionMeta}>
-          <span>{rules.length} rules</span>
-          <span>|</span>
-          <span>Filter:</span>
-          <select
-            className={styles.filterSelect}
-            value={filter}
-            onChange={(e) => setFilter(e.target.value as typeof filter)}
-          >
-            {FILTER_OPTIONS.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
+          <span className={styles.metaValue}>{filtered.length}</span>
+          <span className={styles.metaLabel}>
+            visible {filtered.length === 1 ? 'rule' : 'rules'}
+          </span>
+          <span className={styles.metaDivider}>/</span>
+          <span>{rules.length} total</span>
         </div>
-      </div>
-
-      <div className={styles.tableHeader}>
-        <span className={styles.colHead}>Rule</span>
-        <span className={styles.colHead}>Source</span>
-        <span className={styles.colHead}>Status</span>
-        <span className={styles.colHead}>Last Modified</span>
-        <span className={styles.colHead}>Actions</span>
+        <div className={styles.filterGroup}>
+          <span className={styles.filterLabel}>Filter</span>
+          <FilterSelect
+            value={filter}
+            onChange={onFilterChange}
+            options={FILTER_OPTIONS}
+            ariaLabel="Filter current rules by source"
+          />
+        </div>
       </div>
 
       <RuleGroup label="Library Rules" rules={library} onToggle={onToggle} onDuplicate={onDuplicate} onEdit={onEdit} onRemove={onRemove} />

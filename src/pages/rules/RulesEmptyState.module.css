@@ -1,90 +1,88 @@
+/* ── Library CTA banner ── */
 .libraryCta {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 16px 16px 16px 20px;
-  background: var(--bg-table-header);
-  position: relative;
-  overflow: hidden;
-  border-radius: var(--radius-banner);
-  margin-bottom: 24px;
+  padding: 24px 24px 24px 28px;
+  background: var(--bg-panel);
+  border-left: 3px solid var(--text-primary);
+  border-radius: var(--radius-card);
+  margin-bottom: 28px;
   min-height: 100px;
 }
 
-.libraryCta::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: var(--text-primary);
-}
-
 .libraryCtaTitle {
-  font-size: 16px;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: var(--type-subtitle);
+  font-weight: var(--type-subtitle-weight);
+  letter-spacing: var(--type-subtitle-tracking);
   color: var(--text-primary);
-  margin-bottom: 6px;
+  margin: 0 0 8px;
 }
 
 .libraryCtaDesc {
-  font-size: var(--type-body-sm);
+  font-family: var(--font-display);
+  font-size: var(--type-body);
   font-weight: 400;
   color: var(--text-secondary);
-  margin-bottom: 14px;
+  margin: 0 0 20px;
   line-height: 1.5;
 }
 
 .libraryCtaActions {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
 }
 
 .btnLoadLibrary {
-  height: 28px;
-  padding: 0 14px;
+  height: 44px;
+  padding: 0 24px;
   background: var(--btn-primary-bg);
-  color: #fff;
-  font-size: var(--type-data);
+  color: var(--btn-primary-text);
   font-family: var(--font-mono);
-  font-weight: 600;
+  font-size: var(--type-label);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
   border: none;
   border-radius: var(--radius-btn);
   cursor: pointer;
-  font-family: inherit;
-  transition: background 0.1s;
+  transition: background 0.15s;
+  white-space: nowrap;
 }
 
-.btnLoadLibrary:hover {
-  background: #0047a8;
-}
+.btnLoadLibrary:hover { background: var(--btn-primary-hover); }
 
 .orScratch {
-  font-size: var(--type-data);
   font-family: var(--font-mono);
+  font-size: var(--type-data);
   font-weight: 400;
   color: var(--text-secondary);
 }
 
+/* ── Custom rule section ── */
 .customRuleLabel {
-  font-size: var(--type-body-sm);
-  font-weight: 600;
-  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
+  color: var(--text-secondary);
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
+/* ── Empty rules placeholder ── */
 .emptyRulesLabel {
-  font-size: var(--type-caption);
-  letter-spacing: var(--type-caption-tracking);
-  font-weight: 600;
-  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  color: var(--text-secondary);
   display: block;
-  margin-top: 24px;
+  margin-top: 28px;
   margin-bottom: 12px;
 }
 
@@ -96,65 +94,65 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
+  border-radius: var(--radius-card);
 }
 
 .emptyRulesTitle {
-  font-size: var(--type-body-sm);
+  font-family: var(--font-display);
+  font-size: var(--type-body);
   font-weight: 400;
   color: var(--text-secondary);
 }
 
 .emptyRulesHint {
-  font-size: var(--type-data);
   font-family: var(--font-mono);
+  font-size: var(--type-data);
   font-weight: 400;
-  color: var(--text-secondary);
+  color: var(--text-muted);
 }
 
-/* ── input row (same as AddRulesSection but used standalone here) ── */
+/* ── Input row ── */
 .inputRow {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   align-items: stretch;
 }
 
 .ruleInput {
   flex: 1;
-  height: 48px;
-  background: var(--bg-table-header);
+  height: 44px;
+  background: var(--field-bg);
   border: none;
-  border-bottom: 1px solid #8D8D8D;
-  border-radius: 4px 4px 0 0;
+  border-bottom: 1px solid var(--field-border);
+  border-radius: var(--radius-btn);
   padding: 0 16px;
-  font-size: var(--type-body-sm);
   font-family: var(--font-display);
+  font-size: var(--type-body);
   color: var(--text-primary);
-}
-
-.ruleInput::placeholder {
-  color: #A8A8A8;
-}
-
-.ruleInput:focus {
   outline: none;
-  border-bottom-color: var(--btn-primary-bg);
+  transition: border-color 0.15s, background 0.15s;
 }
+
+.ruleInput::placeholder { color: var(--field-placeholder); }
+.ruleInput:hover { background: var(--field-bg-hover); }
+.ruleInput:focus { background: #fff; border-bottom-color: var(--field-border-focus); }
 
 .addBtn {
-  height: 48px;
-  width: 90px;
+  height: 44px;
+  padding: 0 24px;
   background: var(--btn-primary-bg);
-  color: #fff;
-  font-size: var(--type-body-sm);
-  font-weight: 600;
+  color: var(--btn-primary-text);
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
   border: none;
   border-radius: var(--radius-btn);
   cursor: pointer;
-  font-family: inherit;
-  transition: background 0.1s;
+  flex-shrink: 0;
+  transition: background 0.15s;
 }
 
-.addBtn:disabled {
-  background: var(--btn-disabled-bg);
-  cursor: not-allowed;
-}
+.addBtn:hover:not(:disabled) { background: var(--btn-primary-hover); }
+.addBtn:disabled { background: var(--btn-disabled-bg); cursor: not-allowed; }

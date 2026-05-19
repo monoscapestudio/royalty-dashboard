@@ -6,67 +6,51 @@
   z-index: 100;
   height: var(--nav-height);
   background: var(--bg-white);
-  overflow: hidden;
-}
-
-/* ── Left art panel (343px, clipped eye image) ── */
-.artPanel {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 343px;
-  height: 100%;
-  overflow: hidden;
-  background: url('/header/hero-eye.png') center center / cover no-repeat;
-}
-
-.artStripe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 15px;
-  background: #ff2200;
-  mix-blend-mode: multiply;
+  background-image: url('/header/top-texture.png');
+  background-size: cover;
+  background-position: top left;
+  background-repeat: no-repeat;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
 }
 
 /* ── Content area (right of art panel) ── */
 .content {
   position: absolute;
   top: 0;
-  left: 343px;
+  left: 0;
   right: 0;
   height: 100%;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 29px;
+  padding-left: var(--content-px);
+  padding-right: 60px;
 }
 
-/* ── Brand mark ── */
+/* ── Brand section (mark + text stack) ── */
+.brandSection {
+  display: flex;
+  align-items: flex-end;
+  gap: 80px;
+  flex-shrink: 0;
+}
+
 .brandMark {
-  position: absolute;
-  top: 48px;
-  left: 69px;
-  width: 132px;
-  height: auto;
+  width: 133px;
+  height: 84px;
+  flex-shrink: 0;
 }
 
-/* ── "Royalty" text ── */
-.logoText {
-  position: absolute;
-  top: 68px;
-  left: 221px;
-  font-family: var(--font-display);
-  font-size: 40px;
-  font-weight: 400;
-  color: #010101;
-  letter-spacing: -1.8px;
-  line-height: 0.84;
-  white-space: nowrap;
+.brandText {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 2px;
 }
 
-/* ── "Industry: Music & Royalty" ── */
 .industryLabel {
-  position: absolute;
-  top: 121px;
-  left: 221px;
+  display: flex;
+  flex-direction: column;
   font-family: var(--font-mono);
   font-size: 16px;
   font-weight: 400;
@@ -74,23 +58,25 @@
   letter-spacing: 0.56px;
   text-transform: uppercase;
   white-space: nowrap;
-  line-height: 1;
+  line-height: 18px;
 }
 
-/* ── Navigation row (all at y=121 from top) ── */
-.navGroup {
-  position: absolute;
-  top: 121px;
-  right: 60px;
-  display: flex;
-  align-items: center;
-  gap: 0;
+.industryLabelPrefix {
+  font-weight: 400;
 }
 
+.industryLabelValue {
+  font-weight: 800;
+  color: #010101;
+}
+
+/* ── Navigation tabs (middle section) ── */
 .tabs {
   display: flex;
   align-items: center;
-  gap: 0;
+  margin-left: auto;
+  margin-right: auto;
+  gap: 64px;
 }
 
 .tab {
@@ -102,14 +88,9 @@
   text-transform: uppercase;
   text-decoration: none;
   white-space: nowrap;
-  padding: 0 36px;
   line-height: 1;
   cursor: pointer;
   transition: opacity 0.15s;
-}
-
-.tab:first-child {
-  padding-left: 0;
 }
 
 .tab:hover {
@@ -121,58 +102,57 @@
   font-weight: 800;
 }
 
-/* ── Right section (bell + account) ── */
-.right {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  margin-left: 48px;
-}
-
 .bellWrapper {
-  position: relative;
+  margin-left: 24px;
 }
 
 .bellButton {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
-  color: #161616;
+  width: 40px;
+  height: 40px;
+  color: var(--text-primary);
   background: none;
   border: none;
   cursor: pointer;
-  border-radius: 4px;
-  transition: background 0.1s;
+  border-radius: 6px;
+  transition: color 0.15s;
   position: relative;
+  transform: translateY(12px);
 }
 
 .bellButton:hover,
 .bellActive {
-  background: rgba(0, 0, 0, 0.04);
+  color: var(--status-fix-bg);
 }
 
 .bellBadge {
   position: absolute;
-  top: 2px;
-  right: 2px;
-  width: 7px;
-  height: 7px;
+  top: 4px;
+  right: 4px;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
-  background: #da1e28;
-  border: 1.5px solid var(--bg-white);
+  background: var(--status-fix-bg);
+  border: 2px solid var(--bg-white);
   display: block;
+  transition: background 0.15s;
+}
+
+.bellButton:hover .bellBadge,
+.bellActive .bellBadge {
+  background: var(--text-primary);
 }
 
 .accountWrapper {
-  position: relative;
+  margin-left: 24px;
 }
 
 .account {
   font-family: var(--font-mono);
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 700;
   color: #010101;
   letter-spacing: 0.56px;
   text-transform: uppercase;
@@ -182,7 +162,9 @@
   padding: 0;
   white-space: nowrap;
   line-height: 1;
+  text-decoration: none;
   transition: opacity 0.15s;
+  transform: translateY(4px);
 }
 
 .account:hover,
@@ -204,5 +186,64 @@
 .scrim {
   position: fixed;
   inset: 0;
-  z-index: 199;
+  z-index: 999;
+}
+
+/* ══════════════════════════════════════════════════
+   RESPONSIVE: Standard desktop breakpoints
+   ══════════════════════════════════════════════════ */
+
+/* ── 1680px ── */
+@media (max-width: 1680px) {
+  .tabs {
+    gap: 48px;
+  }
+}
+
+/* ── 1440px ── */
+@media (max-width: 1440px) {
+  .tabs {
+    gap: 36px;
+  }
+  .content {
+    padding-left: 32px;
+    padding-right: 48px;
+  }
+}
+
+/* ── 1366px ── */
+@media (max-width: 1366px) {
+  .tabs {
+    gap: 28px;
+  }
+  .content {
+    padding-left: 28px;
+    padding-right: 40px;
+  }
+  .brandMark {
+    width: 100px;
+    height: 64px;
+  }
+}
+
+/* ── 1280px ── */
+@media (max-width: 1280px) {
+  .content {
+    left: 0;
+    padding-left: 24px;
+    padding-right: 32px;
+  }
+  .tabs {
+    gap: 20px;
+  }
+  .brandMark {
+    width: 80px;
+    height: 51px;
+  }
+  .brandSection {
+    gap: 80px;
+  }
+  .brandText {
+    padding-bottom: 0;
+  }
 }

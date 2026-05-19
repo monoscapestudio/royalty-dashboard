@@ -1,27 +1,42 @@
 /* ── Page header ── */
+.page {
+  min-height: calc(100vh - var(--nav-height) + 120px);
+  padding-bottom: 120px;
+}
+
 .pageHeader {
+  padding: 40px var(--content-px) 24px;
   display: flex;
-  align-items: center;
-  gap: 20px;
-  padding: 16px var(--content-px) 16px;
-  background: var(--bg-white);
-  border-bottom: 1px solid var(--border-default);
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  background: transparent;
+  border-bottom: none;
+}
+
+.pageHeaderText {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .pageTitle {
   font-family: var(--font-display);
-  font-size: var(--type-title);
-  font-weight: var(--type-title-weight);
-  letter-spacing: var(--type-title-tracking);
-  line-height: var(--type-title-lh);
+  font-size: var(--type-hero);
+  font-weight: 500;
+  letter-spacing: var(--type-hero-tracking);
+  line-height: var(--type-hero-lh);
   color: var(--text-primary);
   margin: 0;
   white-space: nowrap;
 }
 
 .pageSubtitle {
-  font-size: var(--type-body-sm);
-  font-weight: 400;
+  font-family: var(--font-display);
+  font-size: var(--type-subtitle);
+  font-weight: var(--type-subtitle-weight);
+  letter-spacing: var(--type-subtitle-tracking);
+  line-height: var(--type-subtitle-lh);
   color: var(--text-secondary);
 }
 
@@ -42,12 +57,12 @@
   white-space: nowrap;
   transition: background 0.1s;
 }
-.runBtn:hover { background: #0047a8; }
+.runBtn:hover { background: var(--btn-primary-hover); }
 
 .rerunBtn {
-  height: 48px;
-  padding: 0 28px;
-  background: transparent;
+  height: 44px;
+  padding: 0 22px;
+  background: var(--btn-secondary-bg);
   color: var(--text-primary);
   font-family: var(--font-mono);
   font-size: var(--type-label);
@@ -55,19 +70,20 @@
   letter-spacing: var(--type-label-tracking);
   text-transform: uppercase;
   border-radius: var(--radius-btn);
-  border: 1px solid var(--border-default);
+  border: 1px solid var(--btn-secondary-border);
   cursor: pointer;
   transition: background 0.15s ease;
   align-self: flex-start;
+  flex-shrink: 0;
 }
 .rerunBtn:hover {
-  background: var(--bg-table-header);
+  background: var(--btn-secondary-hover);
 }
 
 /* ── Section label ── */
 .sectionLabel {
   font-family: var(--font-mono);
-  font-size: var(--type-caption);
+  font-size: var(--type-label);
   font-weight: var(--type-label-weight);
   letter-spacing: var(--type-label-tracking);
   text-transform: uppercase;
@@ -87,9 +103,10 @@
 .readinessCard {
   flex: 1;
   border: 1px solid var(--border-default);
-  padding: 10px 12px 10px 12px;
-  height: 64px;
+  padding: 14px 16px;
+  min-height: 78px;
   box-sizing: border-box;
+  background: var(--bg-white);
 }
 
 .readinessCard + .readinessCard { margin-left: -1px; }
@@ -97,13 +114,15 @@
 .readinessBadge {
   display: inline-flex;
   align-items: center;
-  height: 24px;
-  padding: 0 8px;
-  border-radius: 3px;
-  font-size: var(--type-caption);
-  letter-spacing: var(--type-caption-tracking);
-  font-weight: 600;
-  margin-bottom: 6px;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: var(--radius-badge);
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  letter-spacing: var(--type-label-tracking);
+  font-weight: var(--type-label-weight);
+  text-transform: uppercase;
+  margin-bottom: 8px;
 }
 .badgeReady { background: var(--status-live-bg); color: var(--status-live-text); }
 .badgeWarning { background: var(--status-pending-bg); color: var(--status-pending-text); }
@@ -115,6 +134,7 @@
   font-weight: 400;
   color: var(--text-secondary);
   display: block;
+  line-height: 1.5;
 }
 
 /* ── Running hero — Swiss editorial ── */
@@ -139,7 +159,7 @@
 
 .runningLabel {
   font-family: var(--font-mono);
-  font-size: var(--type-caption);
+  font-size: var(--type-data);
   font-weight: var(--type-label-weight);
   letter-spacing: var(--type-label-tracking);
   text-transform: uppercase;
@@ -149,7 +169,7 @@
 }
 
 .runningHint {
-  font-size: var(--type-body-sm);
+  font-size: var(--type-body);
   font-weight: 400;
   color: var(--text-secondary);
   margin-top: 10px;
@@ -165,10 +185,10 @@
 
 .runningPercent {
   font-family: var(--font-display);
-  font-size: var(--type-hero);
+  font-size: calc(var(--type-hero) * 2);
   font-weight: var(--type-hero-weight);
   letter-spacing: var(--type-hero-tracking);
-  line-height: var(--type-hero-lh);
+  line-height: 0.92;
   font-variant-numeric: tabular-nums;
   font-feature-settings: 'tnum';
   display: block;
@@ -203,25 +223,27 @@
 }
 
 .runningFindings {
-  font-size: var(--type-body-sm);
+  font-size: var(--type-body);
   color: var(--text-secondary);
 }
 
 .stopBtn {
-  height: 40px;
-  padding: 0 24px;
+  height: 44px;
+  padding: 0 22px;
   background: transparent;
-  color: var(--status-fix-text);
-  font-size: var(--type-body-sm);
-  font-weight: 600;
+  color: var(--status-fix-bg);
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
   border-radius: var(--radius-btn);
-  border: 1px solid var(--status-fix-text);
+  border: 1px solid var(--status-fix-bg);
   cursor: pointer;
-  font-family: inherit;
   transition: background 0.1s, color 0.1s;
 }
 .stopBtn:hover {
-  background: var(--status-fix-text);
+  background: var(--status-fix-bg);
   color: #fff;
 }
 
@@ -237,10 +259,10 @@
 
 .stateCard[data-variant="failed"] .stateCardTitle {
   font-family: var(--font-display);
-  font-size: var(--type-display);
-  font-weight: var(--type-display-weight);
-  letter-spacing: var(--type-display-tracking);
-  line-height: var(--type-display-lh);
+  font-size: var(--type-hero);
+  font-weight: var(--type-hero-weight);
+  letter-spacing: var(--type-hero-tracking);
+  line-height: var(--type-hero-lh);
 }
 
 .stateCard[data-variant="stopped"] .stateCardTitle {
@@ -248,19 +270,19 @@
 }
 
 .stateCardTitle {
-  font-size: 64px;
-  font-weight: 700;
+  font-size: var(--type-metric);
+  font-weight: var(--type-metric-weight);
+  letter-spacing: var(--type-metric-tracking);
+  line-height: var(--type-metric-lh);
   color: var(--text-primary);
-  line-height: 0.95;
-  letter-spacing: -2px;
 }
 
 .stateCardBody {
   font-family: var(--font-display);
-  font-size: var(--type-subtitle);
-  font-weight: var(--type-subtitle-weight);
-  letter-spacing: var(--type-subtitle-tracking);
-  line-height: var(--type-subtitle-lh);
+  font-size: var(--type-body);
+  font-weight: var(--type-body-weight);
+  letter-spacing: var(--type-body-tracking);
+  line-height: var(--type-body-lh);
   max-width: 560px;
   margin-top: 8px;
 }
@@ -287,24 +309,24 @@
   cursor: pointer;
   transition: background 0.1s;
 }
-.stateCardBtnPrimary:hover { background: #0047a8; }
+.stateCardBtnPrimary:hover { background: var(--btn-primary-hover); }
 
 .stateCardBtnSecondary {
   height: 52px;
   padding: 0 24px;
-  background: transparent;
+  background: var(--btn-secondary-bg);
   color: var(--text-primary);
   font-family: var(--font-mono);
   font-size: var(--type-label);
-  font-weight: 400;
+  font-weight: var(--type-label-weight);
   letter-spacing: var(--type-label-tracking);
   text-transform: uppercase;
   border-radius: var(--radius-btn);
-  border: 1px solid var(--border-default);
+  border: 1px solid var(--btn-secondary-border);
   cursor: pointer;
   transition: background 0.1s;
 }
-.stateCardBtnSecondary:hover { background: var(--bg-table-header); }
+.stateCardBtnSecondary:hover { background: var(--btn-secondary-hover); }
 
 .stateCardDetails {
   font-size: var(--type-data);
@@ -343,57 +365,127 @@
   color: var(--text-primary);
 }
 
-/* ── To-do checklist (NOT_YET_RUN) ── */
-.todoChecklist {
+/* ── First-run onboarding (NOT_YET_RUN) ── */
+.todoStage {
   margin: 0 var(--content-px) 24px;
+  display: grid;
+  grid-template-columns: minmax(320px, 1.15fr) minmax(420px, 1.85fr);
+  gap: 40px;
+  align-items: start;
+  padding: 40px 0 48px;
+  border-bottom: 1px solid var(--border-default);
+}
+
+.todoIntro {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 460px;
+}
+
+.todoEyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.todoHeroTitle {
+  font-family: var(--font-display);
+  font-size: var(--type-metric);
+  font-weight: 400;
+  letter-spacing: var(--type-metric-tracking);
+  line-height: var(--type-metric-lh);
+  color: var(--text-primary);
+}
+
+.todoHeroBody {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--type-body);
+  font-weight: var(--type-body-weight);
+  line-height: var(--type-body-lh);
+  color: var(--text-secondary);
+  max-width: 420px;
+}
+
+.todoOrderNote {
+  font-family: var(--font-mono);
+  font-size: var(--type-data);
+  color: var(--text-muted);
+}
+
+.todoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.todoCard {
   background: var(--bg-white);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-card);
-  padding: 32px 36px 36px;
-  max-width: 720px;
-}
-
-.todoTitle {
-  font-family: var(--font-display);
-  font-size: var(--type-title);
-  font-weight: var(--type-title-weight);
-  letter-spacing: var(--type-title-tracking);
-  color: var(--text-primary);
-  display: block;
-  margin-bottom: 8px;
-  line-height: 1.25;
-}
-
-.todoHint {
-  font-size: var(--type-body-sm);
-  color: var(--text-secondary);
-  margin: 0 0 28px;
-  line-height: 1.4;
-}
-
-.todoItems {
+  box-shadow: var(--shadow-panel);
+  padding: 24px;
+  min-height: 240px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-bottom: 32px;
+  gap: 18px;
 }
 
-.todoItem {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 20px 22px;
-  border: 1px solid var(--border-default);
-  border-radius: 8px;
-  min-height: 72px;
-}
-
-.todoItemPending {
+.todoCardPending {
   background: var(--bg-white);
 }
 
-.todoItemDone {
-  background: var(--bg-table-header);
+.todoCardDone {
+  background: var(--bg-panel);
+}
+
+.todoCardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.todoStepIndex {
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.todoCardTitle {
+  font-family: var(--font-display);
+  font-size: var(--type-metric);
+  font-weight: 400;
+  letter-spacing: var(--type-metric-tracking);
+  line-height: var(--type-metric-lh);
+  color: var(--text-primary);
+}
+
+.todoCardBody {
+  font-family: var(--font-mono);
+  font-size: var(--type-data);
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.todoCardAction {
+  margin-top: auto;
+}
+
+.todoCardDoneText {
+  font-family: var(--font-display);
+  font-size: var(--type-body);
+  color: var(--status-live-bg);
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .todoCheck {
@@ -404,34 +496,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: var(--type-body);
   font-weight: 700;
   color: transparent;
   flex-shrink: 0;
 }
 
 .todoCheckPending {
-  background: var(--bg-white);
+  display: none;
 }
 
 .todoCheckDone {
   background: var(--status-live-bg);
   border-color: var(--status-live-text);
   color: var(--status-live-text);
-}
-
-.todoText {
-  font-family: var(--font-display);
-  font-size: var(--type-subtitle);
-  font-weight: var(--type-subtitle-weight);
-  color: var(--text-primary);
-  flex: 1;
-  line-height: 1.35;
-}
-
-.todoTextDone {
-  color: var(--text-secondary);
-  font-weight: 400;
 }
 
 .todoStepBtn {
@@ -442,8 +520,11 @@
   padding: 0 22px;
   background: var(--btn-primary-bg);
   color: #fff;
-  font-size: var(--type-body-sm);
-  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
   border-radius: var(--radius-btn);
   text-decoration: none;
   white-space: nowrap;
@@ -452,26 +533,29 @@
 }
 
 .todoStepBtn:hover {
-  background: #0047a8;
+  background: var(--btn-primary-hover);
 }
 
 .todoAction {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: space-between;
   gap: 14px;
-  padding-top: 8px;
+  padding: 16px 0 0;
+  margin: 0 var(--content-px);
   border-top: 1px solid var(--border-default);
 }
 
 .todoReady {
-  font-size: var(--type-body);
+  font-family: var(--font-display);
+  font-size: var(--type-subtitle);
   color: var(--text-primary);
-  font-weight: 600;
+  font-weight: var(--type-subtitle-weight);
 }
 
 .todoBlocked {
-  font-size: var(--type-body-sm);
+  font-family: var(--font-mono);
+  font-size: var(--type-data);
   color: var(--text-secondary);
   margin: 0;
   font-weight: 400;
@@ -482,17 +566,19 @@
   padding: 0 32px;
   background: var(--btn-primary-bg);
   color: #fff;
-  font-size: 18px;
-  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
   border-radius: var(--radius-btn);
   border: none;
   cursor: pointer;
-  font-family: inherit;
   transition: background 0.1s;
 }
 
 .runAuditBtn:hover {
-  background: #0047a8;
+  background: var(--btn-primary-hover);
 }
 
 /* ── Legacy CTA (kept for ctaBtn) ── */
@@ -522,7 +608,7 @@
   padding: 0 20px;
   background: var(--btn-primary-bg);
   color: #fff;
-  font-size: var(--type-body-sm);
+  font-size: var(--type-body);
   font-weight: 600;
   border-radius: var(--radius-btn);
   border: none;
@@ -536,15 +622,17 @@
 /* ── Empty findings placeholder ── */
 .emptyFindings {
   margin: 0 var(--content-px);
-  border: 1px dashed var(--border-default);
-  height: 80px;
+  border-top: 1px solid var(--border-default);
+  min-height: 120px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  padding: 24px 0;
 }
 
 .emptyFindingsText {
-  font-size: var(--type-body-sm);
+  font-family: var(--font-mono);
+  font-size: var(--type-data);
   font-weight: 400;
   color: var(--text-secondary);
 }
@@ -559,6 +647,20 @@
   border-bottom: 1px solid var(--border-default);
 }
 
+.summaryTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.summaryHeroRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 96px;
+  flex-wrap: wrap;
+}
+
 .summaryHero {
   display: flex;
   flex-direction: column;
@@ -567,7 +669,7 @@
 
 .summaryHeroLabel {
   font-family: var(--font-mono);
-  font-size: var(--type-caption);
+  font-size: var(--type-data);
   font-weight: var(--type-label-weight);
   letter-spacing: var(--type-label-tracking);
   text-transform: uppercase;
@@ -578,10 +680,10 @@
 
 .summaryHeroValue {
   font-family: var(--font-display);
-  font-size: var(--type-hero);
+  font-size: calc(var(--type-hero) * 2);
   font-weight: var(--type-hero-weight);
   letter-spacing: var(--type-hero-tracking);
-  line-height: var(--type-hero-lh);
+  line-height: 0.92;
   font-variant-numeric: tabular-nums;
   font-feature-settings: 'tnum';
   display: block;
@@ -594,7 +696,6 @@
   font-weight: var(--type-data-weight);
   letter-spacing: var(--type-data-tracking);
   color: var(--text-muted);
-  margin-top: 20px;
   display: block;
 }
 
@@ -604,6 +705,7 @@
   gap: 64px;
   border-top: 1px solid var(--border-default);
   padding-top: 40px;
+  flex-wrap: wrap;
 }
 
 .statItem {
@@ -614,7 +716,7 @@
 
 .statLabel {
   font-family: var(--font-mono);
-  font-size: var(--type-caption);
+  font-size: var(--type-data);
   font-weight: var(--type-label-weight);
   letter-spacing: var(--type-label-tracking);
   text-transform: uppercase;
@@ -625,14 +727,58 @@
 
 .statValue {
   font-family: var(--font-display);
-  font-size: var(--type-headline);
-  font-weight: var(--type-headline-weight);
-  letter-spacing: var(--type-headline-tracking);
-  line-height: var(--type-headline-lh);
+  font-size: calc(var(--type-metric) * 2);
+  font-weight: var(--type-metric-weight);
+  letter-spacing: var(--type-metric-tracking);
+  line-height: 1;
   color: var(--text-primary);
   font-variant-numeric: tabular-nums;
   font-feature-settings: 'tnum';
   display: block;
+}
+
+.readinessToggleWrap {
+  padding: 0 var(--content-px);
+  margin-bottom: 32px;
+}
+
+.readinessToggleBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: var(--type-body);
+  color: var(--text-primary);
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  transition: color 0.15s, text-decoration-color 0.15s;
+}
+
+.readinessToggleBtn:hover {
+  color: var(--btn-primary-hover);
+  text-decoration-color: var(--btn-primary-hover);
+}
+
+.readinessInlineSection {
+  margin-top: 16px;
+}
+
+.readinessInlineLabel {
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.readinessRowInline {
+  display: flex;
+  gap: 0;
 }
 
 
@@ -663,25 +809,25 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--status-live-text);
+  background: var(--status-live-bg);
   flex-shrink: 0;
 }
 
 .widgetDot[data-ok="false"] {
-  background: var(--status-fix-text);
+  background: var(--status-fix-bg);
 }
 
 .widgetLabel {
-  font-size: var(--type-caption);
-  letter-spacing: var(--type-caption-tracking);
+  font-size: var(--type-body);
+  letter-spacing: var(--type-data-tracking);
   font-weight: 600;
   color: var(--text-secondary);
   min-width: 50px;
 }
 
 .widgetValue {
-  font-size: var(--type-caption);
-  letter-spacing: var(--type-caption-tracking);
+  font-size: var(--type-body);
+  letter-spacing: var(--type-data-tracking);
   color: var(--text-primary);
 }
 
@@ -694,7 +840,7 @@
   color: #fff;
   padding: 8px 12px;
   border-radius: 8px;
-  font-size: 12px;
+  font-size: var(--type-data);
   font-family: monospace;
   z-index: 9999;
   display: flex;
@@ -708,7 +854,7 @@
   border: none;
   border-radius: 4px;
   padding: 2px 6px;
-  font-size: 12px;
+  font-size: var(--type-data);
   font-family: monospace;
   cursor: pointer;
 }

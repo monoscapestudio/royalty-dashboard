@@ -38,8 +38,10 @@ export default function NotificationsPage() {
       <p className={styles.pageSubtitle}>Choose how and when you receive notifications.</p>
 
       <div className={styles.card}>
-        <h2 className={styles.cardTitle}>Email notifications</h2>
-        <p className={styles.cardSubtitle}>Sent to sarah@revorion.ai</p>
+        <div className={styles.cardHeader}>
+          <h2 className={styles.cardTitle}>Email notifications</h2>
+          <span className={styles.cardSubtitle}>Sent to sarah@revorion.ai</span>
+        </div>
         {prefs.map((p) => (
           <div key={p.id + '-email'} className={styles.row}>
             <div className={styles.rowLeft}>
@@ -56,11 +58,18 @@ export default function NotificationsPage() {
             </label>
           </div>
         ))}
+        <div className={styles.actions}>
+          <button className={styles.btnPrimary} onClick={handleSave}>
+            {saved ? 'Saved' : 'Save preferences'}
+          </button>
+        </div>
       </div>
 
       <div className={styles.card}>
-        <h2 className={styles.cardTitle}>In-app notifications</h2>
-        <p className={styles.cardSubtitle}>Shown in the notifications panel.</p>
+        <div className={styles.cardHeader}>
+          <h2 className={styles.cardTitle}>In-app notifications</h2>
+          <span className={styles.cardSubtitle}>Shown in the notifications panel.</span>
+        </div>
         {prefs.map((p) => (
           <div key={p.id + '-inapp'} className={styles.row}>
             <div className={styles.rowLeft}>
@@ -77,12 +86,6 @@ export default function NotificationsPage() {
             </label>
           </div>
         ))}
-      </div>
-
-      <div className={styles.actions}>
-        <button className={styles.btnPrimary} onClick={handleSave}>
-          {saved ? 'Saved!' : 'Save preferences'}
-        </button>
       </div>
     </div>
   );
