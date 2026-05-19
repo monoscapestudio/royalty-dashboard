@@ -1,13 +1,12 @@
 .shell {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  min-height: 100vh;
 }
 
 .main {
   margin-top: var(--nav-height);
   flex: 1;
-  overflow-y: auto;
   background: var(--bg-page);
   display: flex;
   flex-direction: column;

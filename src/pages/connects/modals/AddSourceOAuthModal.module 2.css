@@ -1,0 +1,78 @@
+.typeMeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.typeBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  padding: 0 10px;
+  background: var(--type-badge-bg);
+  color: var(--type-badge-text);
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  letter-spacing: var(--type-label-tracking);
+  font-weight: var(--type-label-weight);
+  text-transform: uppercase;
+  border-radius: var(--radius-badge);
+}
+
+.typeHint {
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+.instruction {
+  font-size: var(--type-data);
+  font-family: var(--font-mono);
+  font-weight: 400;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 18px 0 14px;
+}
+
+.permissionsBlock {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8px 12px 8px 14px;
+  background: var(--bg-panel-muted);
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-banner);
+  margin-bottom: 4px;
+  min-height: 48px;
+}
+
+.permissionsBlock::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--text-primary);
+}
+
+.permissionsTitle {
+  font-family: var(--font-display);
+  font-size: var(--type-subtitle);
+  font-weight: var(--type-subtitle-weight);
+  letter-spacing: var(--type-subtitle-tracking);
+  line-height: var(--type-subtitle-lh);
+  color: var(--text-primary);
+}
+
+.permissionsBody {
+  font-family: var(--font-display);
+  font-size: var(--type-body);
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}

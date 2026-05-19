@@ -11,6 +11,12 @@
   background-position: top left;
   background-repeat: no-repeat;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.navHidden {
+  transform: translateY(-100%);
 }
 
 /* ── Content area (right of art panel) ── */
