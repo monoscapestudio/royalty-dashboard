@@ -10,7 +10,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 0 8px 20px 8px;
+  padding: 0 8px 16px 8px;
   border-bottom: none;
   background: transparent;
 }
@@ -18,7 +18,7 @@
 .sectionMeta {
   font-family: var(--font-mono);
   font-size: var(--type-label);
-  font-weight: 400;
+  font-weight: 500;
   color: var(--text-secondary);
   display: flex;
   align-items: center;
@@ -47,7 +47,7 @@
 }
 
 .filterSelect {
-  min-width: 180px;
+  min-width: 140px;
   flex-shrink: 0;
 }
 

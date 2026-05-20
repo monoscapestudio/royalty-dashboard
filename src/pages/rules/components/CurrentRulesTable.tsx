@@ -156,15 +156,13 @@ export default function CurrentRulesTable({
 
   return (
     <div className={styles.section}>
-      <div className={styles.utilityBar}>
-        <div className={styles.sectionMeta}>
-          <span className={styles.metaValue}>{filtered.length}</span>
-          <span className={styles.metaLabel}>
-            visible {filtered.length === 1 ? 'rule' : 'rules'}
-          </span>
-          <span className={styles.metaDivider}>/</span>
-          <span>{rules.length} total</span>
-        </div>
+        <div className={styles.utilityBar}>
+          <div className={styles.sectionMeta}>
+            <span className={styles.metaValue}>{filtered.length}</span>
+            <span className={styles.metaLabel}>visible rules</span>
+            <span className={styles.metaDivider}>/</span>
+            <span>{rules.length} total</span>
+          </div>
         <div className={styles.filterGroup}>
           <FormSelect
             value={filter}
