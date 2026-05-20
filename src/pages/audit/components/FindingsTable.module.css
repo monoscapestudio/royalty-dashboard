@@ -1,36 +1,32 @@
-/* ── Table wrap (transparent) ── */
+/* ── Table wrap (now acts as Panel) ── */
 .tableWrap {
   margin: 0 var(--content-px);
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 32px;
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.04);
+  padding: 24px;
+  gap: 20px;
 }
 
-/* ── Glass container for rows ── */
-.list {
-  background: var(--glass-card-bg);
-  border: var(--glass-card-border);
-  border-radius: var(--glass-card-radius);
-  box-shadow: var(--glass-card-shadow);
+/* ── Panel Header ── */
+.panelHeader {
   display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-/* ── Section header ── */
-.sectionHeader {
-  display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
-  padding: 8px 8px 16px 8px;
+  padding: 0;
+  background: transparent;
+  border-bottom: none;
+  flex-shrink: 0;
 }
 
-.sectionHeaderLeft {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-}
-
-.sectionTitle {
+.panelTitle {
   font-family: var(--font-display);
   font-size: 15px;
   font-weight: 700;
@@ -38,6 +34,42 @@
   text-transform: uppercase;
   color: var(--text-primary);
   margin: 0;
+}
+
+.panelCount {
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.6);
+  border: none;
+  border-radius: var(--radius-badge);
+  padding: 0 8px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+}
+
+/* ── Utility Bar ── */
+.utilityBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 8px 16px 8px;
+}
+
+/* ── Glass container for rows ── */
+.list {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .sectionMeta {

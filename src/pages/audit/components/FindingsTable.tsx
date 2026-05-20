@@ -160,14 +160,19 @@ export default function FindingsTable({ findings, onToast }: Props) {
 
   return (
     <div className={styles.tableWrap}>
-      {/* Section header */}
-      <div className={styles.sectionHeader}>
-        <div className={styles.sectionHeaderLeft}>
-          <span className={styles.sectionTitle}>Findings</span>
-          <span className={styles.sectionMeta}>
-            <span className={styles.metaValue}>{filtered.length.toLocaleString()}</span>
-            <span className={styles.metaLabel}>found, ranked by discrepancy size</span>
-          </span>
+      {/* Row 1: Panel Header */}
+      <div className={styles.panelHeader}>
+        <span className={styles.panelTitle}>Findings</span>
+        <span className={styles.panelCount}>
+          {filtered.length.toLocaleString()} finding{filtered.length !== 1 ? 's' : ''}
+        </span>
+      </div>
+
+      {/* Row 2: Utility Bar */}
+      <div className={styles.utilityBar}>
+        <div className={styles.sectionMeta}>
+          <span className={styles.metaValue}>{filtered.length.toLocaleString()}</span>
+          <span className={styles.metaLabel}>found, ranked by discrepancy size</span>
         </div>
         <div className={styles.filters}>
           <FormSelect
