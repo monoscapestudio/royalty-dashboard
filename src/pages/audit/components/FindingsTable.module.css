@@ -9,6 +9,8 @@
   flex-direction: column;
   min-width: 0;
   min-height: 0;
+  flex: 1;
+  overflow: hidden;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.04);
   padding: 24px;
   gap: 0;
@@ -61,7 +63,7 @@
   padding: 0 8px 16px 8px;
 }
 
-/* ── Glass container for rows ── */
+/* ── Glass container for rows (scrollable) ── */
 .list {
   background: rgba(255, 255, 255, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.9);
@@ -69,7 +71,11 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
 .sectionMeta {
