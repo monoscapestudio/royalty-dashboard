@@ -19,9 +19,15 @@
 /* ── Section header ── */
 .sectionHeader {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
   padding: 8px 8px 16px 8px;
+}
+
+.sectionHeaderLeft {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
 }
 
 .sectionTitle {
@@ -32,15 +38,6 @@
   text-transform: uppercase;
   color: var(--text-primary);
   margin: 0;
-}
-
-/* ── Utility bar ── */
-.utilityBar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 0 8px 16px 8px;
 }
 
 .sectionMeta {
