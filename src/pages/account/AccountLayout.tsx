@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from 'react-router-dom';
+import { useAppStore } from '../../store/app';
 import styles from './AccountLayout.module.css';
 
 const NAV_ITEMS = [
@@ -16,6 +17,11 @@ const SUPPORT_ITEMS = [
 ];
 
 export default function AccountLayout() {
+  const { notificationPanelOpen } = useAppStore();
+
+  const navClass = (isActive: boolean) =>
+    `${styles.navItem} ${isActive && !notificationPanelOpen ? styles.navItemActive : ''}`;
+
   return (
     <div className={styles.shell}>
       <aside className={styles.sidebar}>
@@ -28,9 +34,7 @@ export default function AccountLayout() {
           <NavLink
             key={to}
             to={to}
-            className={({ isActive }) =>
-              `${styles.navItem} ${isActive ? styles.navItemActive : ''}`
-            }
+            className={({ isActive }) => navClass(isActive)}
           >
             {label}
           </NavLink>
@@ -41,9 +45,7 @@ export default function AccountLayout() {
           <NavLink
             key={to}
             to={to}
-            className={({ isActive }) =>
-              `${styles.navItem} ${isActive ? styles.navItemActive : ''}`
-            }
+            className={({ isActive }) => navClass(isActive)}
           >
             {label}
           </NavLink>
@@ -54,9 +56,7 @@ export default function AccountLayout() {
           <NavLink
             key={to}
             to={to}
-            className={({ isActive }) =>
-              `${styles.navItem} ${isActive ? styles.navItemActive : ''}`
-            }
+            className={({ isActive }) => navClass(isActive)}
           >
             {label}
           </NavLink>

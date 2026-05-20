@@ -51,33 +51,31 @@ export default function NotificationsPanel() {
 
   return (
     <div className={styles.panel}>
-      {/* Header */}
-      <div className={styles.header}>
-        <span className={styles.headerTitle}>NOTIFICATIONS</span>
-        {unreadCount > 0 && (
-          <span className={styles.unreadCount}>{unreadCount} unread</span>
-        )}
-        <button type="button" className={styles.markAllBtn} onClick={markAllNotificationsRead}>
-          Mark all read
-        </button>
-      </div>
-
-      {/* Filter tabs */}
-      <div className={styles.tabs}>
-        {(['All', 'Connections', 'Audit', 'Recovery', 'Rules'] as FilterTab[]).map((tab) => (
-          <button
-            key={tab}
-            type="button"
-            className={`${styles.tab} ${activeTab === tab ? styles.tabActive : ''}`}
-            onClick={() => setActiveTab(tab)}
-          >
-            {tab}
+      <div className={styles.content}>
+        <div className={styles.header}>
+          <span className={styles.headerTitle}>Notifications</span>
+          {unreadCount > 0 && (
+            <span className={styles.unreadCount}>{unreadCount} unread</span>
+          )}
+          <button type="button" className={styles.markAllBtn} onClick={markAllNotificationsRead}>
+            Mark all read
           </button>
-        ))}
-      </div>
+        </div>
 
-      {/* Notification rows */}
-      <div className={styles.list}>
+        <div className={styles.tabs}>
+          {(['All', 'Connections', 'Audit', 'Recovery', 'Rules'] as FilterTab[]).map((tab) => (
+            <button
+              key={tab}
+              type="button"
+              className={`${styles.tab} ${activeTab === tab ? styles.tabActive : ''}`}
+              onClick={() => setActiveTab(tab)}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
+
+        <div className={styles.list}>
         {filtered.length === 0 ? (
           <div className={styles.empty}>
             <p className={styles.emptyHeading}>No notifications</p>
@@ -125,6 +123,7 @@ export default function NotificationsPanel() {
             );
           })
         )}
+        </div>
       </div>
     </div>
   );

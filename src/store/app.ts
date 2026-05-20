@@ -88,6 +88,7 @@ const INITIAL_NOTIFICATIONS: AppNotification[] = [
 interface AppState {
   activeSiloId: string;
   notificationPanelOpen: boolean;
+  logoutModalOpen: boolean;
   accountMenuOpen: boolean;
   notifications: AppNotification[];
   auditStateBySilo: Record<string, AuditState>;
@@ -96,6 +97,7 @@ interface AppState {
   /* Actions */
   setNotificationPanelOpen: (open: boolean) => void;
   toggleNotificationPanel: () => void;
+  setLogoutModalOpen: (open: boolean) => void;
   setAccountMenuOpen: (open: boolean) => void;
   toggleAccountMenu: () => void;
   markNotificationRead: (id: string) => void;
@@ -109,24 +111,29 @@ interface AppState {
 export const useAppStore = create<AppState>((set) => ({
   activeSiloId: 'music-royalty',
   notificationPanelOpen: false,
+  logoutModalOpen: false,
   accountMenuOpen: false,
   notifications: INITIAL_NOTIFICATIONS,
   auditStateBySilo: { 'music-royalty': 'COMPLETE' },
   auditReadinessBySilo: {},
 
   setNotificationPanelOpen: (open) =>
-    set({ notificationPanelOpen: open, accountMenuOpen: false }),
+    set({ notificationPanelOpen: open, accountMenuOpen: false, logoutModalOpen: false }),
   toggleNotificationPanel: () =>
     set((s) => ({
       notificationPanelOpen: !s.notificationPanelOpen,
       accountMenuOpen: false,
+      logoutModalOpen: false,
     })),
+  setLogoutModalOpen: (open) =>
+    set({ logoutModalOpen: open, notificationPanelOpen: false, accountMenuOpen: false }),
   setAccountMenuOpen: (open) =>
-    set({ accountMenuOpen: open, notificationPanelOpen: false }),
+    set({ accountMenuOpen: open, notificationPanelOpen: false, logoutModalOpen: false }),
   toggleAccountMenu: () =>
     set((s) => ({
       accountMenuOpen: !s.accountMenuOpen,
       notificationPanelOpen: false,
+      logoutModalOpen: false,
     })),
   markNotificationRead: (id) =>
     set((s) => ({

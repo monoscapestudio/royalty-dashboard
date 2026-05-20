@@ -36,9 +36,18 @@ interface Props {
   onDelete: (rule: Rule) => void;
   onClose: () => void;
   onNeedImplications: (updated: Rule) => void;
+  /** Editing a pending AI suggestion (not yet in the rule set) */
+  isSuggestion?: boolean;
 }
 
-export default function RuleEditModal({ rule, onSave, onDelete, onClose, onNeedImplications }: Props) {
+export default function RuleEditModal({
+  rule,
+  onSave,
+  onDelete,
+  onClose,
+  onNeedImplications,
+  isSuggestion = false,
+}: Props) {
   const [description, setDescription] = useState(rule.text);
   const [isActive, setIsActive] = useState(rule.status === 'Active');
   const [confirmingDelete, setConfirmingDelete] = useState(false);
@@ -72,8 +81,8 @@ export default function RuleEditModal({ rule, onSave, onDelete, onClose, onNeedI
 
   return (
     <Modal
-      contextLabel="Edit Rule"
-      title="Modify rule logic and parameters"
+      contextLabel={isSuggestion ? 'Edit suggestion' : 'Edit Rule'}
+      title={isSuggestion ? 'Refine before approving' : 'Modify rule logic and parameters'}
       onClose={onClose}
       width={560}
       zIndex={300}
@@ -134,11 +143,13 @@ export default function RuleEditModal({ rule, onSave, onDelete, onClose, onNeedI
         <div className={styles.deleteConfirm}>
           <span className={styles.deleteConfirmTitle}>This action cannot be undone.</span>
           <span className={styles.deleteConfirmBody}>
-            Deleting this rule will remove it from your active rule set.
+            {isSuggestion
+              ? 'This suggestion will be removed from the review queue.'
+              : 'Deleting this rule will remove it from your active rule set.'}
           </span>
           <div className={styles.deleteConfirmActions}>
             <button className={modalStyles.btnDanger} onClick={handleConfirmDelete}>
-              Delete rule
+              {isSuggestion ? 'Dismiss suggestion' : 'Delete rule'}
             </button>
             <button
               className={modalStyles.btnCancel}
@@ -160,7 +171,7 @@ export default function RuleEditModal({ rule, onSave, onDelete, onClose, onNeedI
               className={modalStyles.btnDangerOutlined}
               onClick={() => setConfirmingDelete(true)}
             >
-              Delete rule
+              {isSuggestion ? 'Dismiss suggestion' : 'Delete rule'}
             </button>
           )}
           <button

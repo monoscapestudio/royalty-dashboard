@@ -7,7 +7,6 @@
   border-radius: 32px;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
   min-width: 0;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.04);
   padding: 16px;
@@ -50,11 +49,11 @@
 
 .columnHint {
   padding: 0 8px;
-  font-family: var(--font-display);
-  font-size: 13px;
+  font-family: var(--glass-card-body-font);
+  font-size: var(--glass-card-body-size);
   font-weight: 400;
-  color: var(--text-muted);
-  line-height: 1.4;
+  color: var(--text-secondary);
+  line-height: var(--glass-card-body-lh);
   margin-top: -8px;
 }
 
@@ -69,15 +68,15 @@
 
 /* ── Individual Connection Card (Floating Pill) ── */
 .card {
-  padding: 16px;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.9);
+  padding: var(--glass-card-pad);
+  border-radius: var(--glass-card-radius);
+  background: var(--glass-card-bg);
+  border: var(--glass-card-border);
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--glass-card-gap);
   transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+  box-shadow: var(--glass-card-shadow);
 }
 
 .card:hover {
@@ -219,9 +218,11 @@
 }
 
 .requestText {
-  font-size: var(--type-data);
-  font-family: var(--font-display);
+  font-family: var(--glass-card-body-font);
+  font-size: var(--glass-card-body-size);
+  font-weight: 400;
   color: var(--text-secondary);
+  line-height: var(--glass-card-body-lh);
 }
 
 .requestLink {

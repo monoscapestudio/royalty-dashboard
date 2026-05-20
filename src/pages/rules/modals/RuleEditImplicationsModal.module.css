@@ -1,10 +1,10 @@
 /* ── Warning banner ── */
 .warningBanner {
-  padding: 10px 12px;
-  background: #FFF5EB;
-  border-left: 3px solid var(--status-pending-bg);
-  border-radius: 0 var(--radius-btn) var(--radius-btn) 0;
-  margin-bottom: 14px;
+  padding: 16px;
+  background: rgba(255, 245, 235, 0.8);
+  border: 1px solid rgba(255, 140, 0, 0.2);
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
 }
 
 .warningBold {
@@ -45,13 +45,12 @@
 }
 
 .readonlyField {
-  height: 30px;
+  height: 40px;
   width: 100%;
-  background: var(--bg-panel-muted);
-  border: none;
-  border-bottom: 1px solid var(--border-default);
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: var(--radius-btn);
-  padding: 0 10px;
+  padding: 0 12px;
   font-family: var(--font-display);
   font-size: var(--type-body);
   color: var(--text-secondary);

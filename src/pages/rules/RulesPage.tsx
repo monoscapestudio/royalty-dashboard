@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
+import { Idea, ChevronLeft, ChevronRight } from '@carbon/icons-react';
 import { useAppStore } from '../../store/app';
 import type { Rule, AiSuggestion, RuleSource } from '../../types';
 import {
@@ -19,6 +20,13 @@ import styles from './RulesPage.module.css';
 
 let _newId = 4000;
 
+const TIPS = [
+  'Define what the audit looks for. Add rules, review AI suggestions, manage your rule set.',
+  'Rules are evaluated against every row of your billing data to find anomalies.',
+  'AI continually suggests new rules based on patterns it detects in your sources.',
+  'Industry libraries provide a strong foundation for your initial rule set.'
+];
+
 export default function RulesPage() {
   const activeSiloId = useAppStore((s) => s.activeSiloId);
   const [searchParams] = useSearchParams();
@@ -32,13 +40,14 @@ export default function RulesPage() {
 
   /* ── Edit modal state ── */
   const [editingRule, setEditingRule] = useState<Rule | null>(null);
+  const [editingSuggestion, setEditingSuggestion] = useState<AiSuggestion | null>(null);
   const [pendingUpdate, setPendingUpdate] = useState<Rule | null>(null);
   const [showImplications, setShowImplications] = useState(false);
 
   /* ── AI review flow ── */
   const [aiReviewMode, setAiReviewMode] = useState(false);
   const [currentRulesFilter, setCurrentRulesFilter] = useState<'all' | RuleSource>('all');
-  const currentRulesRef = useRef<HTMLDivElement | null>(null);
+  const currentRulesScrollRef = useRef<HTMLDivElement | null>(null);
 
   /* ── Toast ── */
   const [toast, setToast] = useState<string | null>(null);
@@ -59,6 +68,20 @@ export default function RulesPage() {
   }, [activeSiloId, firstAuditMode]);
 
   const isEmpty = rules.length === 0;
+
+  /* ── Tip Carousel ── */
+  const [currentTip, setCurrentTip] = useState(0);
+
+  useEffect(() => {
+    if (firstAuditMode) return;
+    const interval = setInterval(() => {
+      setCurrentTip((prev) => (prev + 1) % TIPS.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [firstAuditMode]);
+
+  const nextTip = () => setCurrentTip((prev) => (prev + 1) % TIPS.length);
+  const prevTip = () => setCurrentTip((prev) => (prev - 1 + TIPS.length) % TIPS.length);
 
   /* ── Actions ── */
   const handleAddRule = (rule: Rule) => {
@@ -111,6 +134,32 @@ export default function RulesPage() {
     };
     setRulesApplied(activeSiloId, true);
     setRules((prev) => [...prev, newRule]);
+  };
+
+  const suggestionToRule = (suggestion: AiSuggestion): Rule => ({
+    id: suggestion.id,
+    text: suggestion.text,
+    source: 'AI',
+    status: 'Active',
+    lastModified: 'Just now',
+  });
+
+  const handleEditSuggestion = (suggestion: AiSuggestion) => {
+    setEditingSuggestion(suggestion);
+  };
+
+  const handleSaveSuggestionEdit = (updated: Rule) => {
+    setSuggestions((prev) =>
+      prev.map((s) => (s.id === updated.id ? { ...s, text: updated.text } : s))
+    );
+    setEditingSuggestion(null);
+    showToast('Suggestion updated.');
+  };
+
+  const handleDismissSuggestionFromEdit = (rule: Rule) => {
+    setSuggestions((prev) => prev.filter((s) => s.id !== rule.id));
+    setEditingSuggestion(null);
+    showToast('Suggestion dismissed.');
   };
 
   /* ── Edit handlers ── */
@@ -170,27 +219,39 @@ export default function RulesPage() {
 
   const handleReviewLibrary = () => {
     setCurrentRulesFilter('Library');
-    currentRulesRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    currentRulesScrollRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
     <>
-      <div className={styles.pageHeader}>
-        <div className={styles.pageHeaderText}>
-          <h1 className={styles.pageTitle}>Rules</h1>
-        <span className={styles.pageSubtitle}>
-          {aiReviewMode
-            ? 'Review AI-identified rules and decide what joins the active rule set.'
-            : firstAuditMode
-            ? 'Step 2 of 2: load or add rules so AuditGraph knows what to check.'
-            : isEmpty
-            ? 'Define what the audit looks for.'
-            : 'Define what the audit looks for. Add rules, review AI suggestions, manage your rule set.'}
-        </span>
-        </div>
-      </div>
-
       <div className={styles.content}>
+        <div className={styles.topTipStrip}>
+          <div className={styles.topTipInner}>
+            <div className={styles.topTipContent}>
+              <Idea size={20} className={styles.topTipIcon} />
+              <span className={styles.topTipText}>
+                {aiReviewMode
+                  ? 'Review AI-identified rules and decide what joins the active rule set.'
+                  : firstAuditMode
+                  ? 'Step 2 of 2: load or add rules so AuditGraph knows what to check.'
+                  : isEmpty
+                  ? 'Define what the audit looks for.'
+                  : TIPS[currentTip]}
+              </span>
+            </div>
+          </div>
+          {!firstAuditMode && !aiReviewMode && !isEmpty && (
+            <div className={styles.topTipControls}>
+              <button onClick={prevTip} className={styles.topTipBtn} aria-label="Previous tip">
+                <ChevronLeft size={16} />
+              </button>
+              <button onClick={nextTip} className={styles.topTipBtn} aria-label="Next tip">
+                <ChevronRight size={16} />
+              </button>
+            </div>
+          )}
+        </div>
+
         {firstAuditMode && rules.length > 0 && (
           <div className={styles.stepCompleteBanner}>
             <span className={styles.stepCompleteCheck}>✓</span>
@@ -209,6 +270,7 @@ export default function RulesPage() {
             suggestions={suggestions}
             onApprove={handleApprove}
             onDismiss={(id) => setSuggestions((prev) => prev.filter((s) => s.id !== id))}
+            onEdit={handleEditSuggestion}
             onClose={() => setAiReviewMode(false)}
             mode="page"
           />
@@ -220,9 +282,9 @@ export default function RulesPage() {
             onAddRule={handleAddFromEmpty}
           />
         ) : (
-          <>
+          <div className={styles.columns}>
             {/* Apply Rules panel */}
-            <div className={styles.panel}>
+            <div className={`${styles.panel} ${styles.panelLeft}`}>
               <div className={styles.panelHeader}>
                 <span className={styles.panelTitle}>Apply Rules</span>
               </div>
@@ -244,28 +306,42 @@ export default function RulesPage() {
             </div>
 
             {/* Current Rules panel */}
-            <div className={styles.panel} ref={currentRulesRef}>
+            <div className={`${styles.panel} ${styles.panelRight}`}>
               <div className={styles.panelHeader}>
                 <span className={styles.panelTitle}>Current Rules</span>
                 <span className={styles.panelCount}>{rules.length} rule{rules.length !== 1 ? 's' : ''}</span>
               </div>
-              <CurrentRulesTable
-                rules={rules}
-                onToggle={handleToggle}
-                onDuplicate={handleDuplicate}
-                onEdit={handleEdit}
-                onRemove={(r) => setRulePendingDelete(r)}
-                filter={currentRulesFilter}
-                onFilterChange={setCurrentRulesFilter}
-              />
+              <div className={styles.panelScroll} ref={currentRulesScrollRef}>
+                <CurrentRulesTable
+                  rules={rules}
+                  onToggle={handleToggle}
+                  onDuplicate={handleDuplicate}
+                  onEdit={handleEdit}
+                  onRemove={(r) => setRulePendingDelete(r)}
+                  filter={currentRulesFilter}
+                  onFilterChange={setCurrentRulesFilter}
+                />
+              </div>
             </div>
-          </>
+          </div>
         )}
       </div>
 
       {/* Toast */}
       {toast && (
         <div className={styles.toast}>{toast}</div>
+      )}
+
+      {/* AI suggestion edit modal */}
+      {editingSuggestion && (
+        <RuleEditModal
+          rule={suggestionToRule(editingSuggestion)}
+          isSuggestion
+          onSave={handleSaveSuggestionEdit}
+          onDelete={handleDismissSuggestionFromEdit}
+          onClose={() => setEditingSuggestion(null)}
+          onNeedImplications={handleSaveSuggestionEdit}
+        />
       )}
 
       {/* Rule Edit modal */}

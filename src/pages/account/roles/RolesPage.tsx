@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { WarningAlt } from '@carbon/icons-react';
 import styles from './RolesPage.module.css';
 
 interface Permission {
@@ -9,7 +11,9 @@ interface Permission {
   analyst: boolean;
 }
 
-const PERMISSIONS: Permission[] = [
+type RoleKey = 'admin' | 'revops' | 'analyst';
+
+const INITIAL_PERMISSIONS: Permission[] = [
   { id: 'run-audit', name: 'Run audit', desc: 'Trigger a new audit run.', admin: true, revops: true, analyst: false },
   { id: 'view-findings', name: 'View findings', desc: 'Access audit findings and the audit trail.', admin: true, revops: true, analyst: true },
   { id: 'send-recovery', name: 'Send recovery emails', desc: 'Execute recovery email sequences.', admin: true, revops: true, analyst: false },
@@ -20,7 +24,47 @@ const PERMISSIONS: Permission[] = [
   { id: 'billing', name: 'Billing & subscription', desc: 'View and manage billing information.', admin: true, revops: false, analyst: false },
 ];
 
+const ROLE_LABELS: Record<RoleKey, string> = {
+  admin: 'Admin',
+  revops: 'Rev Ops',
+  analyst: 'Analyst',
+};
+
+function PermCheckbox({
+  checked,
+  label,
+  permName,
+  onToggle,
+}: {
+  checked: boolean;
+  label: string;
+  permName: string;
+  onToggle: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      role="checkbox"
+      aria-checked={checked}
+      aria-label={`${permName} — ${label}`}
+      className={styles.permCheckbox}
+      onClick={onToggle}
+    >
+      <span className={checked ? styles.check : styles.nocheck} />
+    </button>
+  );
+}
+
 export default function RolesPage() {
+  const [permissions, setPermissions] = useState<Permission[]>(INITIAL_PERMISSIONS);
+
+  function togglePermission(permId: string, role: RoleKey) {
+    setPermissions((prev) =>
+      prev.map((p) =>
+        p.id === permId ? { ...p, [role]: !p[role] } : p,
+      ),
+    );
+  }
   return (
     <div className={styles.page}>
       <h1 className={styles.pageTitle}>Roles and permissions</h1>
@@ -42,7 +86,7 @@ export default function RolesPage() {
           <div className={styles.gridHeadCell}>Analyst</div>
 
           {/* Permission rows */}
-          {PERMISSIONS.map((p) => (
+          {permissions.map((p) => (
             <div key={p.id} className={styles.permRow}>
               <div className={styles.permCell}>
                 <div>
@@ -50,25 +94,30 @@ export default function RolesPage() {
                   <span className={styles.permDesc}>{p.desc}</span>
                 </div>
               </div>
-              <div className={`${styles.permCell} ${styles.permCheck}`}>
-                {p.admin ? <span className={styles.check} /> : <span className={styles.nocheck} />}
-              </div>
-              <div className={`${styles.permCell} ${styles.permCheck}`}>
-                {p.revops ? <span className={styles.check} /> : <span className={styles.nocheck} />}
-              </div>
-              <div className={`${styles.permCell} ${styles.permCheck}`}>
-                {p.analyst ? <span className={styles.check} /> : <span className={styles.nocheck} />}
-              </div>
+              {(['admin', 'revops', 'analyst'] as RoleKey[]).map((role) => (
+                <div key={role} className={`${styles.permCell} ${styles.permCheck}`}>
+                  <PermCheckbox
+                    checked={p[role]}
+                    label={ROLE_LABELS[role]}
+                    permName={p.name}
+                    onToggle={() => togglePermission(p.id, role)}
+                  />
+                </div>
+              ))}
             </div>
           ))}
         </div>
       </div>
 
-      <div className={styles.infoCard}>
-        <span className={styles.infoIcon}>ℹ️</span>
-        <span className={styles.infoText}>
-          Role permissions are fixed by Revorion. To request a custom role or permission change, contact your account manager or use the support page.
-        </span>
+      <div className={styles.infoStrip}>
+        <div className={styles.infoStripInner}>
+          <div className={styles.infoStripContent}>
+            <WarningAlt size={20} className={styles.infoStripIcon} />
+            <span className={styles.infoStripText}>
+              Role permissions are fixed by Revorion. To request a custom role or permission change, contact your account manager or use the support page.
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -43,9 +43,11 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-top: 109px; /* Još 20px na gore */
-  margin-bottom: 48px; /* Pushes nav further down */
+  margin-top: 109px;
+  margin-bottom: 48px;
   width: 100%;
+  padding-left: 14px; /* align with nav icon inset */
+  padding-right: 14px;
 }
 
 .brand {
@@ -54,8 +56,8 @@
 }
 
 .brandMark {
-  width: 48px;
-  height: 30px;
+  width: 58px;
+  height: 36px;
   object-fit: contain;
 }
 

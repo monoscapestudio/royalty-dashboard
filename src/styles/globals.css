@@ -88,3 +88,12 @@ select {
   letter-spacing: -0.01em;
   font-weight: 400;
 }
+
+/* Secondary body copy — card descriptions, hints, helper text */
+.glassCardBody {
+  font-family: var(--glass-card-body-font);
+  font-size: var(--glass-card-body-size);
+  font-weight: 400;
+  color: var(--text-secondary);
+  line-height: var(--glass-card-body-lh);
+}

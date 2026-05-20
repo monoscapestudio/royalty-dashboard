@@ -1,4 +1,5 @@
 import React, { useEffect, type ReactNode } from 'react';
+import { createPortal } from 'react-dom';
 import styles from './Modal.module.css';
 
 interface Props {
@@ -22,7 +23,7 @@ export default function Modal({ contextLabel, title, titleSuffix, titleLarge, on
     return () => document.removeEventListener('keydown', handler);
   }, [onClose]);
 
-  return (
+  return createPortal(
     <div
       className={styles.scrim}
       style={zIndex ? ({ '--modal-z': zIndex } as React.CSSProperties) : undefined}
@@ -49,6 +50,7 @@ export default function Modal({ contextLabel, title, titleSuffix, titleLarge, on
         </div>
         <div className={styles.body}>{children}</div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

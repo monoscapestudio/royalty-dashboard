@@ -6,6 +6,7 @@ interface Props {
   suggestions: AiSuggestion[];
   onApprove: (suggestion: AiSuggestion) => void;
   onDismiss: (id: string) => void;
+  onEdit: (suggestion: AiSuggestion) => void;
   onClose: () => void;
   mode?: 'overlay' | 'page';
 }
@@ -14,6 +15,7 @@ export default function AiSuggestionsPanel({
   suggestions,
   onApprove,
   onDismiss,
+  onEdit,
   onClose,
   mode = 'overlay',
 }: Props) {
@@ -32,15 +34,18 @@ export default function AiSuggestionsPanel({
   };
 
   const header = (
-    <div className={styles.panelHeader}>
-      <div className={styles.panelTitleGroup}>
-        <span className={styles.aiBadge}>AI</span>
-        <span className={styles.panelTitle}>AI-Identified Rules</span>
-      </div>
+    <div className={`${styles.panelHeader} ${mode === 'page' ? styles.panelHeaderPage : ''}`}>
       <div className={styles.panelMeta}>
-        {visible.length} suggestion{visible.length !== 1 ? 's' : ''} pending review
+        <span className={styles.metaValue}>{visible.length}</span>
+        <span className={styles.metaLabel}>
+          suggestion{visible.length !== 1 ? 's' : ''} pending review
+        </span>
       </div>
-      <button className={styles.closeBtn} onClick={onClose} aria-label={mode === 'page' ? 'Back to rules' : 'Close panel'}>
+      <button 
+        className={mode === 'page' ? styles.closeBtnPage : styles.closeBtn} 
+        onClick={onClose} 
+        aria-label={mode === 'page' ? 'Back to rules' : 'Close panel'}
+      >
         {mode === 'page' ? 'Back' : '✕'}
       </button>
     </div>
@@ -64,7 +69,9 @@ export default function AiSuggestionsPanel({
               <button className={styles.btnApprove} onClick={() => handleApprove(suggestion)}>
                 Approve
               </button>
-              <button className={styles.btnEdit}>Edit</button>
+              <button className={styles.btnEdit} onClick={() => onEdit(suggestion)}>
+                Edit
+              </button>
               <button className={styles.btnDismiss} onClick={() => handleDismiss(suggestion.id)}>
                 Dismiss
               </button>
@@ -79,10 +86,6 @@ export default function AiSuggestionsPanel({
     return (
       <div className={styles.pageShell}>
         <div className={styles.pageIntro}>
-          <div className={styles.pageIntroTop}>
-            <span className={styles.pageEyebrow}>Apply Rules</span>
-            <span className={styles.pageCount}>{visible.length}</span>
-          </div>
           <h2 className={styles.pageTitle}>AI-identified rules</h2>
           <p className={styles.pageBody}>
             Review candidate rules separately from the main rule set. Approve what should be added, dismiss what should not.

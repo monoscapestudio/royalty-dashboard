@@ -9,7 +9,6 @@ import {
   Logout,
 } from '@carbon/icons-react';
 import { useAppStore } from '../../store/app';
-import NotificationsPanel from '../ui/NotificationsPanel';
 import styles from './Sidebar.module.css';
 
 const NAV_ITEMS = [
@@ -26,12 +25,19 @@ const ACCOUNT_ITEMS = [
 export default function Sidebar() {
   const {
     notificationPanelOpen,
+    logoutModalOpen,
     toggleNotificationPanel,
     setNotificationPanelOpen,
+    setLogoutModalOpen,
     notifications,
   } = useAppStore();
 
   const unreadCount = notifications.filter((n) => !n.read).length;
+
+  const navClass = (isActive: boolean) =>
+    `${styles.navItem} ${isActive && !notificationPanelOpen && !logoutModalOpen ? styles.navItemActive : ''}`;
+
+  const closeNotifications = () => setNotificationPanelOpen(false);
 
   return (
     <aside className={styles.sidebar}>
@@ -54,9 +60,8 @@ export default function Sidebar() {
           <NavLink
             key={to}
             to={to}
-            className={({ isActive }) =>
-              `${styles.navItem} ${isActive ? styles.navItemActive : ''}`
-            }
+            onClick={closeNotifications}
+            className={({ isActive }) => navClass(isActive)}
           >
             <Icon size={18} />
             <span>{label}</span>
@@ -68,6 +73,7 @@ export default function Sidebar() {
 
       <div className={styles.bottom}>
         <button
+          type="button"
           className={`${styles.navItem} ${notificationPanelOpen ? styles.navItemActive : ''}`}
           onClick={toggleNotificationPanel}
         >
@@ -82,27 +88,23 @@ export default function Sidebar() {
           <NavLink
             key={to}
             to={to}
-            className={({ isActive }) =>
-              `${styles.navItem} ${isActive ? styles.navItemActive : ''}`
-            }
+            onClick={closeNotifications}
+            className={({ isActive }) => navClass(isActive)}
           >
             <Icon size={18} />
             <span>{label}</span>
           </NavLink>
         ))}
 
-        <button className={`${styles.navItem} ${styles.logoutBtn}`}>
+        <button
+          type="button"
+          className={`${styles.navItem} ${styles.logoutBtn} ${logoutModalOpen ? styles.navItemActive : ''}`}
+          onClick={() => setLogoutModalOpen(true)}
+        >
           <Logout size={18} />
           <span>Logout</span>
         </button>
       </div>
-
-      {notificationPanelOpen && (
-        <>
-          <div className={styles.scrim} onClick={() => setNotificationPanelOpen(false)} />
-          <NotificationsPanel />
-        </>
-      )}
     </aside>
   );
 }

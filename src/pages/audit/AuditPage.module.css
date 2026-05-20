@@ -4,84 +4,126 @@
   padding-bottom: 60px;
 }
 
-.pageHeader {
-  padding: 20px var(--content-px) 16px;
+.content {
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+  padding: 24px var(--content-px) 32px;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  border-bottom: 1px solid var(--border-default);
+  flex-direction: column;
+  gap: 24px;
+  box-sizing: border-box;
 }
 
-.pageHeaderText {
+/* ── Top Tip Strip ── */
+.topTipStrip {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 100px;
+  padding: 8px 12px 8px 8px;
   display: flex;
-  align-items: baseline;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.04);
+  flex-shrink: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.topTipInner {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 100px;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.topTipContent {
+  display: flex;
+  align-items: center;
   gap: 12px;
 }
 
-.pageTitle {
-  font-family: var(--font-display);
-  font-size: var(--type-subtitle);
-  font-weight: 500;
-  letter-spacing: var(--type-subtitle-tracking);
+.topTipIcon {
   color: var(--text-primary);
-  margin: 0;
-}
-
-.pageSubtitle {
-  font-family: var(--font-display);
-  font-size: var(--type-body);
-  color: var(--text-muted);
-}
-
-.runBtn {
-  height: 48px;
-  padding: 0 24px;
-  background: var(--btn-primary-bg);
-  color: var(--btn-primary-text);
-  font-family: var(--font-display);
-  font-size: var(--type-label);
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  border-radius: var(--radius-btn);
-  border: none;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: background 0.1s, transform 0.1s;
-}
-.runBtn:hover { background: var(--btn-primary-hover); transform: translateY(-2px); }
-
-.summaryActions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
   flex-shrink: 0;
 }
 
-.viewReportBtn {
-  height: 48px;
-  padding: 0 24px;
-  background: rgba(255, 255, 255, 0.4);
+.topTipText {
+  font-family: var(--font-display);
+  font-size: var(--type-body);
+  font-weight: 500;
   color: var(--text-primary);
+  line-height: var(--type-body-lh);
+}
+
+.topTipControls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.topTipBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.05);
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.topTipBtn:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: var(--text-primary);
+}
+
+.runBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0 16px;
+  background: var(--text-primary);
+  color: #fff;
   font-family: var(--font-display);
   font-size: var(--type-label);
   font-weight: 600;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  border-radius: var(--radius-btn);
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 100px;
+  border: none;
   cursor: pointer;
-  transition: background 0.15s, transform 0.1s;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   white-space: nowrap;
+  transition: background 0.15s, opacity 0.15s;
 }
-.viewReportBtn:hover {
-  background: rgba(255, 255, 255, 0.8);
-  transform: translateY(-2px);
+
+.runBtn:hover:not(:disabled) {
+  background: var(--text-secondary);
+}
+
+.runBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.topTipStatus {
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  padding: 0 8px;
+  white-space: nowrap;
 }
 
 /* ── Section label ── */
@@ -560,13 +602,10 @@
 
 /* ── Findings summary — Bento Grid ── */
 .findingsSummary {
-  margin: 0 var(--content-px);
-  padding: 16px 0 16px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: auto auto;
   gap: 16px;
-  border-bottom: 1px solid var(--border-default);
 }
 
 .summaryBentoCard {
@@ -644,6 +683,56 @@
   margin-top: 8px;
 }
 
+.summaryHeroActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  margin-top: 20px;
+}
+
+.summaryPrimaryBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0 18px;
+  background: rgba(0, 0, 0, 0.88);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: var(--type-data);
+  font-weight: 600;
+  border-radius: 100px;
+  border: none;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+
+.summaryPrimaryBtn:hover {
+  background: rgba(0, 0, 0, 1);
+}
+
+.summarySecondaryBtn {
+  height: 36px;
+  padding: 0 4px;
+  background: none;
+  border: none;
+  font-family: var(--font-display);
+  font-size: var(--type-data);
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.65);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+
+.summarySecondaryBtn:hover {
+  color: rgba(0, 0, 0, 0.9);
+}
+
 .statValue {
   font-family: var(--font-display);
   font-size: var(--type-metric);
@@ -656,92 +745,74 @@
   margin-top: auto;
 }
 
-.summaryActions {
-  grid-column: span 4;
+/* ── Pre-audit setup bar (above findings, complete state) ── */
+.setupBar {
   display: flex;
-  justify-content: flex-end;
-  padding-top: 8px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px var(--glass-card-pad);
+  background: var(--glass-card-bg);
+  border: var(--glass-card-border);
+  border-radius: var(--glass-card-radius);
+  box-shadow: var(--glass-card-shadow);
 }
 
-.readinessToggleWrap {
-  padding: 0 var(--content-px);
-  margin-bottom: 12px;
-}
-
-.readinessToggleBtn {
+.setupBarToggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
   background: none;
   border: none;
   cursor: pointer;
-  font-family: var(--font-mono);
+  text-align: left;
+}
+
+.setupBarLabel {
+  font-family: var(--font-display);
   font-size: var(--type-data);
-  color: var(--text-secondary);
-  padding: 0;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  transition: color 0.15s;
-}
-.readinessToggleBtn:hover { color: var(--text-primary); }
-
-.readinessInlineSection {
-  margin-top: 8px;
+  font-weight: 600;
+  color: var(--text-primary);
 }
 
-.readinessInlineLabel {
+.setupBarBadge {
   font-family: var(--font-mono);
   font-size: var(--type-label);
   font-weight: var(--type-label-weight);
   letter-spacing: var(--type-label-tracking);
   text-transform: uppercase;
+  color: var(--status-live-bg);
+  padding: 4px 10px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.setupBarChevron {
   color: var(--text-secondary);
-  display: block;
-  margin-bottom: 6px;
-}
-
-.readinessRowInline {
-  display: flex;
-  gap: 0;
-}
-
-/* ── Status widget ── */
-.statusWidget {
-  position: fixed;
-  top: 16px;
-  right: 16px;
-  background: var(--bg-white);
-  border: 1px solid var(--border-default);
-  border-radius: 6px;
-  padding: 8px 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  box-shadow: var(--shadow-panel);
-  z-index: 50;
-}
-
-.widgetRow {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.widgetDot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--status-live-bg);
+  transition: transform 0.2s;
   flex-shrink: 0;
 }
-.widgetDot[data-ok="false"] { background: var(--status-fix-bg); }
 
-.widgetLabel {
-  font-size: var(--type-data);
-  font-weight: 600;
-  color: var(--text-secondary);
+.setupBarChevronOpen {
+  transform: rotate(180deg);
 }
 
-.widgetValue {
-  font-size: var(--type-data);
-  color: var(--text-primary);
+.setupBarHint {
+  font-family: var(--font-display);
+  font-size: var(--glass-card-body-size);
+  line-height: var(--glass-card-body-lh);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.setupBarPanel {
+  margin-top: -8px;
+}
+
+.setupBarPanel .readinessRow {
+  padding: 0;
+  margin-bottom: 0;
 }
 
 /* ── Dev state toggle ── */

@@ -18,13 +18,13 @@
 }
 
 .subheading {
-  font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-family: var(--glass-card-body-font);
+  font-size: var(--glass-card-body-size);
   font-weight: 400;
   color: var(--text-secondary);
   text-align: center;
   max-width: 640px;
-  line-height: 1.4;
+  line-height: var(--glass-card-body-lh);
   margin: 0 0 20px;
 }
 
@@ -68,11 +68,11 @@
 }
 
 .cardDescription {
-  font-size: var(--type-data);
-  font-family: var(--font-mono);
+  font-family: var(--glass-card-body-font);
+  font-size: var(--glass-card-body-size);
   font-weight: 400;
   color: var(--text-secondary);
-  line-height: 1.4;
+  line-height: var(--glass-card-body-lh);
   flex: 1;
   margin-bottom: 14px;
 }
@@ -100,11 +100,12 @@
 }
 
 .requestLink {
-  font-size: var(--type-data);
-  font-family: var(--font-mono);
+  font-family: var(--glass-card-body-font);
+  font-size: var(--glass-card-body-size);
+  font-weight: 400;
   color: var(--text-secondary);
   text-align: center;
-  line-height: 1.4;
+  line-height: var(--glass-card-body-lh);
 }
 
 .requestLink strong {

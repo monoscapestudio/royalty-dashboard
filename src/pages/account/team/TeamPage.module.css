@@ -1,4 +1,4 @@
-.page { max-width: 880px; }
+.page { max-width: 880px; padding-bottom: 8px; }
 
 .header {
   display: flex;
@@ -12,11 +12,12 @@
 
 .pageTitle {
   font-family: var(--font-display);
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 600;
   letter-spacing: -0.01em;
   color: var(--text-primary);
   margin: 0;
+  line-height: 1.2;
 }
 
 .pageSubtitle {
@@ -54,7 +55,6 @@
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border-radius: 32px;
-  overflow: hidden;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.05);
 }
 
@@ -132,6 +132,7 @@
 .roleBadge {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   height: 24px;
   padding: 0 10px;
   border-radius: 100px;
@@ -140,6 +141,8 @@
   letter-spacing: 0.04em;
   font-weight: 600;
   text-transform: uppercase;
+  text-align: center;
+  line-height: 1;
 }
 
 .roleAdmin { background: rgba(0, 0, 0, 0.85); color: #fff; }
@@ -149,6 +152,7 @@
 .statusBadge {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   height: 24px;
   padding: 0 10px;
   border-radius: 100px;
@@ -157,6 +161,8 @@
   letter-spacing: 0.04em;
   font-weight: 600;
   text-transform: uppercase;
+  text-align: center;
+  line-height: 1;
 }
 
 .statusActive { background: var(--status-live-bg); color: var(--status-live-text); }
@@ -178,47 +184,8 @@
 .actionBtn:hover { background: rgba(0, 0, 0, 0.08); color: var(--text-primary); }
 .actionBtn:disabled { opacity: 0.3; cursor: default; }
 
-/* ── Invite modal ── */
-.modalBackdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  z-index: 1000;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 48px 16px;
-}
-
-.modal {
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(40px);
-  -webkit-backdrop-filter: blur(40px);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  border-radius: 32px;
-  width: min(420px, calc(100vw - 32px));
-  overflow: hidden;
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.1);
-}
-
-.modalHeader {
-  padding: 24px 24px 8px;
-  border-bottom: none;
-}
-
-.modalTitle {
-  font-family: var(--font-display);
-  font-size: 24px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  color: var(--text-primary);
-  margin: 0;
-}
-
-.modalBody {
-  padding: 12px 24px 24px;
+/* ── Invite modal fields ── */
+.inviteFields {
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -253,28 +220,3 @@
 .input::placeholder { color: var(--text-muted); }
 .input:hover { background: rgba(0, 0, 0, 0.06); }
 .input:focus { background: rgba(255, 255, 255, 0.8); border-color: rgba(0, 0, 0, 0.1); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
-
-.modalFooter {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 24px 24px;
-  border-top: none;
-}
-
-.btnSecondary {
-  font-family: var(--font-display);
-  font-size: var(--type-label);
-  letter-spacing: 0.02em;
-  font-weight: 600;
-  text-transform: uppercase;
-  color: var(--text-secondary);
-  background: none;
-  border: none;
-  border-radius: 100px;
-  cursor: pointer;
-  padding: 8px 16px;
-  transition: background 0.15s, color 0.15s;
-}
-
-.btnSecondary:hover { background: rgba(0, 0, 0, 0.05); color: var(--text-primary); }

@@ -1,70 +1,64 @@
 .section {
-  margin-bottom: 14px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 16px;
 }
 
-.sectionHeader {
+.sectionHint {
+  font-family: var(--glass-card-body-font);
+  font-size: var(--glass-card-body-size);
+  font-weight: 400;
+  color: var(--text-secondary);
+  line-height: var(--glass-card-body-lh);
+  margin: 0;
+  padding: 0 8px;
+}
+
+/* ── Method cards ── */
+.methodCard {
+  padding: var(--glass-card-pad);
+  background: var(--glass-card-bg);
+  border: var(--glass-card-border);
+  border-radius: var(--glass-card-radius);
+  box-shadow: var(--glass-card-shadow);
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 10px;
+  flex-direction: column;
+  gap: var(--glass-card-gap);
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
 }
 
-.sectionLabel {
+.methodCard:hover {
+  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.methodTop {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 12px;
+}
+
+.methodTitleRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.methodLabel {
   font-family: var(--font-mono);
   font-size: var(--type-label);
   font-weight: var(--type-label-weight);
   letter-spacing: var(--type-label-tracking);
   text-transform: uppercase;
   color: var(--text-secondary);
-  display: block;
-}
-
-.sectionHint {
-  font-family: var(--font-mono);
-  font-size: var(--type-label);
-  font-weight: 400;
-  color: var(--text-secondary);
-  text-align: right;
-}
-
-/* ── Method cards ── */
-.methodCard {
-  padding: 12px;
-  border-radius: var(--radius-card);
-  background: var(--bg-white);
-  box-shadow: var(--shadow-card);
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.methodTop {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.methodTitleRow {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.methodLabel {
-  font-family: var(--font-display);
-  font-size: var(--type-body);
-  font-weight: 500;
-  letter-spacing: var(--type-body-tracking);
-  color: var(--text-primary);
 }
 
 .methodCount {
-  height: 20px;
+  height: 24px;
   padding: 0 8px;
+  flex-shrink: 0;
   display: inline-flex;
   align-items: center;
   border-radius: var(--radius-badge);
@@ -78,11 +72,12 @@
 }
 
 .methodBody {
-  font-family: var(--font-mono);
-  font-size: var(--type-label);
+  font-family: var(--glass-card-body-font);
+  font-size: var(--glass-card-body-size);
   font-weight: 400;
   color: var(--text-secondary);
-  line-height: 1.5;
+  line-height: var(--glass-card-body-lh);
+  margin: 0;
 }
 
 .methodAction {
@@ -109,11 +104,18 @@
 
 /* ── Plain language input ── */
 .composer {
-  padding: 12px;
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-card);
-  background: var(--bg-white);
-  box-shadow: var(--shadow-panel);
+  padding: var(--glass-card-pad);
+  background: var(--glass-card-bg);
+  border: var(--glass-card-border);
+  border-radius: var(--glass-card-radius);
+  box-shadow: var(--glass-card-shadow);
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.composer:hover {
+  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
 }
 
 .inputLabel {
@@ -136,9 +138,8 @@
 .ruleInput {
   flex: 1;
   height: 40px;
-  background: var(--field-bg);
-  border: none;
-  border-bottom: 1px solid var(--field-border);
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: var(--radius-btn);
   padding: 0 12px;
   font-family: var(--font-display);
@@ -149,33 +150,35 @@
 }
 
 .ruleInput::placeholder { color: var(--field-placeholder); }
-.ruleInput:hover { background: var(--field-bg-hover); }
-.ruleInput:focus { background: #fff; border-bottom-color: var(--field-border-focus); }
+.ruleInput:hover { background: rgba(255, 255, 255, 0.9); }
+.ruleInput:focus { background: rgba(255, 255, 255, 1); border-color: rgba(255, 255, 255, 1); }
 
 .addBtn {
   height: 40px;
-  padding: 0 16px;
+  padding: 0 20px;
   background: var(--btn-primary-bg);
   color: var(--btn-primary-text);
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: var(--type-label);
-  font-weight: var(--type-label-weight);
-  letter-spacing: var(--type-label-tracking);
+  font-weight: 600;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
   border: none;
-  border-radius: var(--radius-btn);
+  border-radius: 100px;
   cursor: pointer;
   flex-shrink: 0;
-  transition: background 0.15s;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
   white-space: nowrap;
 }
 
-.addBtn:hover:not(:disabled) { background: var(--btn-primary-hover); }
+.addBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
 .addBtn:disabled { background: var(--btn-disabled-bg); cursor: not-allowed; }
 
 /* ── Interpretation preview ── */
 .interpretation {
-  margin-top: -8px;
   padding: 10px 12px;
   background: var(--bg-panel);
   border-left: 3px solid var(--bg-ink);
@@ -194,21 +197,21 @@
 }
 
 .interpretationRule {
-  font-family: var(--font-display);
-  font-size: var(--type-body);
+  font-family: var(--glass-card-body-font);
+  font-size: var(--glass-card-body-size);
   font-weight: 500;
-  letter-spacing: var(--type-body-tracking);
-  line-height: 1.4;
+  line-height: var(--glass-card-body-lh);
   color: var(--text-primary);
   display: block;
-  margin-bottom: 4px;
+  margin: 0 0 4px;
 }
 
 .interpretationMeta {
-  font-family: var(--font-mono);
-  font-size: var(--type-label);
+  font-family: var(--glass-card-body-font);
+  font-size: var(--glass-card-body-size);
   font-weight: 400;
   color: var(--text-secondary);
+  line-height: var(--glass-card-body-lh);
   white-space: pre;
   display: block;
   margin-bottom: 8px;
@@ -270,7 +273,6 @@
 
 /* ── Duplicate warning ── */
 .duplicateWarning {
-  margin-top: -8px;
   padding: 10px 12px;
   background: var(--banner-warning-bg);
   border-left: 3px solid var(--status-pending-bg);
@@ -289,18 +291,20 @@
 }
 
 .duplicateRule {
-  font-family: var(--font-mono);
-  font-size: var(--type-label);
+  font-family: var(--glass-card-body-font);
+  font-size: var(--glass-card-body-size);
   font-weight: 400;
   color: var(--text-primary);
+  line-height: var(--glass-card-body-lh);
   display: block;
 }
 
 .duplicateExisting {
-  font-family: var(--font-mono);
-  font-size: var(--type-label);
+  font-family: var(--glass-card-body-font);
+  font-size: var(--glass-card-body-size);
   font-weight: 400;
   color: var(--text-secondary);
+  line-height: var(--glass-card-body-lh);
   display: block;
   margin-bottom: 8px;
 }

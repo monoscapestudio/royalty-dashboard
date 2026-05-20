@@ -84,6 +84,17 @@
   --space-hero-below: 24px;
   --space-hero-between: 16px;
 
+  /* Glass inner card (floating pills — Rules, Connects, etc.) */
+  --glass-card-pad: 20px;
+  --glass-card-gap: 16px;
+  --glass-card-radius: 20px;
+  --glass-card-bg: rgba(255, 255, 255, 0.7);
+  --glass-card-border: 1px solid rgba(255, 255, 255, 0.9);
+  --glass-card-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  --glass-card-body-font: var(--font-display);
+  --glass-card-body-size: var(--type-data);
+  --glass-card-body-lh: var(--type-body-lh);
+
   /* ── Backgrounds ── */
   --bg-page:         #F3F3F3; /* Slightly darker to make white cards pop */
   --bg-nav:          #161616;

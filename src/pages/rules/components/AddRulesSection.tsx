@@ -108,30 +108,9 @@ export default function AddRulesSection({
 
   return (
     <div className={styles.section}>
-      <div className={styles.sectionHeader}>
-        <span className={styles.sectionLabel}>Add Rules</span>
-        <span className={styles.sectionHint}>Write a rule in plain language and confirm the interpretation.</span>
-      </div>
-
-      <div className={styles.methodCard}>
-        <div className={styles.methodTop}>
-          <div className={styles.methodTitleRow}>
-            <span className={styles.methodLabel}>Library Rules</span>
-            {showLibraryBanner && <span className={styles.methodCount}>{libraryCount}</span>}
-          </div>
-          <button
-            className={styles.methodAction}
-            onClick={showLibraryBanner ? onReviewLibrary : onLoadLibrary}
-          >
-            {showLibraryBanner ? 'Review library rules' : 'Load industry library'}
-          </button>
-        </div>
-        <span className={styles.methodBody}>
-          {showLibraryBanner
-            ? `Started with ${libraryCount} rules from the ${siloLabel} industry library. Review the mix of active and inactive checks in Current Rules and keep only what you want applied.`
-            : `Load and review a starting set of rules from the ${siloLabel} industry library.`}
-        </span>
-      </div>
+      <p className={styles.sectionHint}>
+        Write a rule in plain language and confirm the interpretation.
+      </p>
 
       <div className={styles.composer}>
         <label className={styles.inputLabel}>Add a rule in plain language</label>
@@ -148,7 +127,7 @@ export default function AddRulesSection({
               }
             }}
             onKeyDown={(e) => e.key === 'Enter' && handleAdd()}
-            placeholder={`e.g. "Spotify recoupment rate must be minimum 0.005 per stream"`}
+            placeholder='e.g. "Min. $0.005 per stream"'
           />
           <button
             className={styles.addBtn}
@@ -188,6 +167,26 @@ export default function AddRulesSection({
           </div>
         </div>
       )}
+
+      <div className={styles.methodCard}>
+        <div className={styles.methodTop}>
+          <div className={styles.methodTitleRow}>
+            <span className={styles.methodLabel}>Library Rules</span>
+            {showLibraryBanner && <span className={styles.methodCount}>{libraryCount}</span>}
+          </div>
+          <button
+            className={styles.methodAction}
+            onClick={showLibraryBanner ? onReviewLibrary : onLoadLibrary}
+          >
+            {showLibraryBanner ? 'Review library rules' : 'Load industry library'}
+          </button>
+        </div>
+        <span className={styles.methodBody}>
+          {showLibraryBanner
+            ? `Started with ${libraryCount} rules from the ${siloLabel} industry library. Review the mix of active and inactive checks in Current Rules and keep only what you want applied.`
+            : `Load and review a starting set of rules from the ${siloLabel} industry library.`}
+        </span>
+      </div>
     </div>
   );
 }

@@ -1,0 +1,16 @@
+.messageBlock {
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+}
+
+.message {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}

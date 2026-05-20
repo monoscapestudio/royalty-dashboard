@@ -170,17 +170,17 @@ export default function ConnectsPage() {
                   : TIPS[currentTip]}
               </span>
             </div>
-            {!firstAuditMode && (
-              <div className={styles.topTipControls}>
-                <button onClick={prevTip} className={styles.topTipBtn} aria-label="Previous tip">
-                  <ChevronLeft size={16} />
-                </button>
-                <button onClick={nextTip} className={styles.topTipBtn} aria-label="Next tip">
-                  <ChevronRight size={16} />
-                </button>
-              </div>
-            )}
           </div>
+          {!firstAuditMode && (
+            <div className={styles.topTipControls}>
+              <button onClick={prevTip} className={styles.topTipBtn} aria-label="Previous tip">
+                <ChevronLeft size={16} />
+              </button>
+              <button onClick={nextTip} className={styles.topTipBtn} aria-label="Next tip">
+                <ChevronRight size={16} />
+              </button>
+            </div>
+          )}
         </div>
 
       {firstAuditMode && contracts.length > 0 && (

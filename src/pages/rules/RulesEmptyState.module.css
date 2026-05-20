@@ -3,10 +3,11 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 12px 14px 12px 16px;
-  background: var(--bg-panel);
-  border-left: 3px solid var(--text-primary);
-  border-radius: var(--radius-card);
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
   margin-bottom: 14px;
   min-height: 56px;
 }
@@ -21,12 +22,12 @@
 }
 
 .libraryCtaDesc {
-  font-family: var(--font-display);
-  font-size: var(--type-data);
+  font-family: var(--glass-card-body-font);
+  font-size: var(--glass-card-body-size);
   font-weight: 400;
   color: var(--text-secondary);
+  line-height: var(--glass-card-body-lh);
   margin: 0 0 10px;
-  line-height: 1.5;
 }
 
 .libraryCtaActions {
@@ -36,23 +37,26 @@
 }
 
 .btnLoadLibrary {
-  height: 36px;
-  padding: 0 16px;
+  height: 48px;
+  padding: 0 24px;
   background: var(--btn-primary-bg);
   color: var(--btn-primary-text);
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: var(--type-label);
-  font-weight: var(--type-label-weight);
-  letter-spacing: var(--type-label-tracking);
+  font-weight: 600;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
+  border-radius: 100px;
   border: none;
-  border-radius: var(--radius-btn);
   cursor: pointer;
-  transition: background 0.15s;
+  transition: transform 0.2s, box-shadow 0.2s;
   white-space: nowrap;
 }
 
-.btnLoadLibrary:hover { background: var(--btn-primary-hover); }
+.btnLoadLibrary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
 
 .orScratch {
   font-family: var(--font-mono);
@@ -87,28 +91,31 @@
 }
 
 .emptyRulesBox {
-  border: 1px dashed var(--border-default);
+  border: 1px dashed rgba(255, 255, 255, 0.6);
   height: 64px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 4px;
-  border-radius: var(--radius-card);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.3);
 }
 
 .emptyRulesTitle {
-  font-family: var(--font-display);
-  font-size: var(--type-body);
+  font-family: var(--glass-card-body-font);
+  font-size: var(--glass-card-body-size);
   font-weight: 400;
   color: var(--text-secondary);
+  line-height: var(--glass-card-body-lh);
 }
 
 .emptyRulesHint {
-  font-family: var(--font-mono);
-  font-size: var(--type-label);
+  font-family: var(--glass-card-body-font);
+  font-size: var(--glass-card-body-size);
   font-weight: 400;
-  color: var(--text-muted);
+  color: var(--text-secondary);
+  line-height: var(--glass-card-body-lh);
 }
 
 /* ── Input row ── */
@@ -121,9 +128,8 @@
 .ruleInput {
   flex: 1;
   height: 40px;
-  background: var(--field-bg);
-  border: none;
-  border-bottom: 1px solid var(--field-border);
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: var(--radius-btn);
   padding: 0 12px;
   font-family: var(--font-display);
@@ -134,25 +140,28 @@
 }
 
 .ruleInput::placeholder { color: var(--field-placeholder); }
-.ruleInput:hover { background: var(--field-bg-hover); }
-.ruleInput:focus { background: #fff; border-bottom-color: var(--field-border-focus); }
+.ruleInput:hover { background: rgba(255, 255, 255, 0.9); }
+.ruleInput:focus { background: rgba(255, 255, 255, 1); border-color: rgba(255, 255, 255, 1); }
 
 .addBtn {
   height: 40px;
-  padding: 0 16px;
+  padding: 0 20px;
   background: var(--btn-primary-bg);
   color: var(--btn-primary-text);
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: var(--type-label);
-  font-weight: var(--type-label-weight);
-  letter-spacing: var(--type-label-tracking);
+  font-weight: 600;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
   border: none;
-  border-radius: var(--radius-btn);
+  border-radius: 100px;
   cursor: pointer;
   flex-shrink: 0;
-  transition: background 0.15s;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
 }
 
-.addBtn:hover:not(:disabled) { background: var(--btn-primary-hover); }
+.addBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
 .addBtn:disabled { background: var(--btn-disabled-bg); cursor: not-allowed; }

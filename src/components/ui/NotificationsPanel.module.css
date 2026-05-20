@@ -1,29 +1,25 @@
 .panel {
-  position: fixed;
-  bottom: 24px;
-  left: calc(var(--sidebar-width) + 48px);
-  width: 440px;
-  max-height: calc(100vh - 48px);
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(40px);
-  -webkit-backdrop-filter: blur(40px);
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  margin: 24px 24px 24px 0;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: 32px;
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
-  z-index: 1000;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 /* ── Header ── */
 .header {
-  height: 72px;
   display: flex;
   align-items: center;
-  padding: 0 24px;
   gap: 12px;
-  border-bottom: none;
   flex-shrink: 0;
   background: transparent;
 }
@@ -34,6 +30,8 @@
   font-weight: 600;
   letter-spacing: -0.01em;
   color: var(--text-primary);
+  line-height: 1.2;
+  text-transform: none;
 }
 
 .unreadCount {
@@ -67,16 +65,30 @@
   background: rgba(0, 0, 0, 0.05);
 }
 
+/* ── Shared content column (header + tabs + list) ── */
+.content {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+}
+
 /* ── Filter tabs ── */
 .tabs {
   display: flex;
   align-items: center;
   padding: 4px;
-  margin: 16px 24px;
-  background: rgba(0, 0, 0, 0.04);
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: 100px;
   gap: 4px;
   flex-shrink: 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .tab {
@@ -98,47 +110,53 @@
 
 .tab:hover {
   color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.6);
 }
 
 .tabActive {
   color: var(--text-primary);
-  background: var(--bg-white);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 /* ── List ── */
 .list {
   flex: 1;
   overflow-y: auto;
-  padding: 0 12px 12px;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  width: calc(100% + 16px);
+  margin-right: -16px;
+  padding-right: 16px;
+  box-sizing: border-box;
 }
 
 /* ── Row ── */
 .row {
   display: flex;
   align-items: flex-start;
+  width: 100%;
+  box-sizing: border-box;
   padding: 16px;
   border-radius: 20px;
   cursor: pointer;
   transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
-  background: rgba(255, 255, 255, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
 }
 
 .rowUnread {
-  background: rgba(255, 255, 255, 0.8);
-  border-color: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  background: rgba(255, 255, 255, 0.95);
+  border-color: #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
 }
 
 .row:hover {
   background: rgba(255, 255, 255, 0.95);
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
 }
 
 .dotWrap {
@@ -246,8 +264,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 80px 24px;
+  padding: 80px 0;
   gap: 12px;
+  width: 100%;
 }
 
 .emptyHeading {

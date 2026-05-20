@@ -1,9 +1,20 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useState } from 'react';
 import type { Rule, RuleSource } from '../../../types';
+import FormSelect from '../../../components/ui/FormSelect';
 import RuleBadge from './RuleBadge';
 import styles from './CurrentRulesTable.module.css';
 
 const VISIBLE_PER_GROUP = 3;
+
+function formatLastModified(value: string): string {
+  if (value === 'Just now') return 'Just now';
+  if (/ago$/i.test(value)) return value;
+  return value;
+}
+
+function overflowGroupLabel(label: string): string {
+  return label.replace(/\s+rules$/i, '').toLowerCase();
+}
 
 interface Props {
   rules: Rule[];
@@ -31,17 +42,12 @@ function RuleRow({
   const inactive = rule.status === 'Inactive';
   return (
     <div className={styles.row}>
-      <div className={styles.rowTop}>
-        <span className={`${styles.ruleText} ${inactive ? styles.ruleTextInactive : ''}`}>
-          {rule.text}
-        </span>
-        <RuleBadge kind="status" value={rule.status} />
-      </div>
-      <div className={styles.rowMeta}>
-        <RuleBadge kind="source" value={rule.source} />
-        <span className={styles.metaDot}>·</span>
-        <span className={styles.lastModified}>{rule.lastModified}</span>
-      </div>
+      <span className={`${styles.ruleText} ${inactive ? styles.ruleTextInactive : ''}`} title={rule.text}>
+        {rule.text}
+      </span>
+      <RuleBadge kind="status" value={rule.status} />
+      <RuleBadge kind="source" value={rule.source} />
+      <span className={styles.lastModified}>{formatLastModified(rule.lastModified)}</span>
       <div className={styles.actions}>
         {rule.source !== 'Library' && (
           <button className={styles.actionBtn} onClick={() => onEdit(rule)}>
@@ -89,109 +95,49 @@ function RuleGroup({
   const hasOverflow = !expanded && overflow > 0;
 
   return (
-    <>
+    <div className={styles.groupContainer}>
       <div className={styles.groupHeader}>
         <span className={styles.groupLabel}>{label}</span>
         <span className={styles.groupCount}>{rules.length}</span>
       </div>
-      {visible.map((rule) => (
-        <RuleRow
-          key={rule.id}
-          rule={rule}
-          onToggle={onToggle}
-          onDuplicate={onDuplicate}
-          onEdit={onEdit}
-          onRemove={onRemove}
-        />
-      ))}
-      {hasOverflow && (
-        <div className={styles.overflowRow}>
-          <span className={styles.overflowText}>... {overflow} more {label.toLowerCase()} rules</span>
-          <button className={styles.showAllBtn} onClick={() => setExpanded(true)}>
-            Show all
-          </button>
-        </div>
-      )}
-      {expanded && (
-        <div className={styles.overflowRow}>
-          <span />
-          <button className={styles.showAllBtn} onClick={() => setExpanded(false)}>
-            Collapse
-          </button>
-        </div>
-      )}
-    </>
+      <div className={styles.list}>
+        {visible.map((rule) => (
+          <RuleRow
+            key={rule.id}
+            rule={rule}
+            onToggle={onToggle}
+            onDuplicate={onDuplicate}
+            onEdit={onEdit}
+            onRemove={onRemove}
+          />
+        ))}
+        {hasOverflow && (
+          <div className={styles.overflowRow}>
+            <span className={styles.overflowText}>... {overflow} more {overflowGroupLabel(label)}</span>
+            <button className={styles.showAllBtn} onClick={() => setExpanded(true)}>
+              Show all
+            </button>
+          </div>
+        )}
+        {expanded && (
+          <div className={styles.overflowRow}>
+            <span />
+            <button className={styles.showAllBtn} onClick={() => setExpanded(false)}>
+              Collapse
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
   );
 }
 
 const FILTER_OPTIONS: { value: 'all' | RuleSource; label: string }[] = [
-  { value: 'all', label: 'All Sources' },
+  { value: 'all', label: 'All sources' },
   { value: 'Library', label: 'Library' },
   { value: 'User', label: 'User-defined' },
   { value: 'AI', label: 'AI-approved' },
 ];
-
-function FilterSelect({
-  value,
-  onChange,
-  options,
-  ariaLabel,
-}: {
-  value: 'all' | RuleSource;
-  onChange: (value: 'all' | RuleSource) => void;
-  options: { value: 'all' | RuleSource; label: string }[];
-  ariaLabel: string;
-}) {
-  const [open, setOpen] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
-        setOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
-  const selectedLabel = options.find((option) => option.value === value)?.label ?? options[0].label;
-
-  return (
-    <div className={styles.filterSelectWrap} ref={containerRef}>
-      <button
-        type="button"
-        className={`${styles.filterTrigger} ${open ? styles.filterTriggerOpen : ''}`}
-        onClick={() => setOpen((prev) => !prev)}
-        aria-haspopup="listbox"
-        aria-expanded={open}
-        aria-label={ariaLabel}
-      >
-        <span className={styles.filterValue}>{selectedLabel}</span>
-        <span className={styles.filterChevron}>▼</span>
-      </button>
-
-      {open && (
-        <div className={styles.filterMenu} role="listbox">
-          {options.map((option) => (
-            <button
-              key={option.value}
-              type="button"
-              className={`${styles.filterOption} ${option.value === value ? styles.filterOptionSelected : ''}`}
-              onClick={() => {
-                onChange(option.value);
-                setOpen(false);
-              }}
-            >
-              {option.label}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
 
 export default function CurrentRulesTable({
   rules,
@@ -203,10 +149,6 @@ export default function CurrentRulesTable({
   onFilterChange,
 }: Props) {
   const filtered = filter === 'all' ? rules : rules.filter((r) => r.source === filter);
-  const filterLabel = useMemo(
-    () => FILTER_OPTIONS.find((opt) => opt.value === filter)?.label ?? 'All Sources',
-    [filter]
-  );
 
   const library = filtered.filter((r) => r.source === 'Library');
   const user = filtered.filter((r) => r.source === 'User');
@@ -224,12 +166,11 @@ export default function CurrentRulesTable({
           <span>{rules.length} total</span>
         </div>
         <div className={styles.filterGroup}>
-          <span className={styles.filterLabel}>Filter</span>
-          <FilterSelect
+          <FormSelect
             value={filter}
-            onChange={onFilterChange}
+            onChange={(v) => onFilterChange(v as 'all' | RuleSource)}
             options={FILTER_OPTIONS}
-            ariaLabel="Filter current rules by source"
+            className={styles.filterSelect}
           />
         </div>
       </div>

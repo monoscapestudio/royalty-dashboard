@@ -6,7 +6,7 @@ import { ALL_FINDINGS, MOCK_AUDIT_RESULT } from '../../data/mockAudit';
 import { mockRulesPopulated } from '../../data/mockRules';
 import { mockSources } from '../../data/mock';
 import FindingsTable from './components/FindingsTable';
-import InlineBanner from '../../components/ui/InlineBanner';
+import { Idea, ChevronLeft, ChevronRight, ChevronDown } from '@carbon/icons-react';
 import styles from './AuditPage.module.css';
 
 const TICK_MS = 2000;
@@ -20,6 +20,30 @@ const SOURCES = mockSources['music-royalty'] ?? [];
 const LIVE_COUNT = SOURCES.filter((s) => s.status === 'live').length;
 const FIX_COUNT = SOURCES.filter((s) => s.status === 'fix').length;
 const PENDING_COUNT = SOURCES.filter((s) => s.status === 'pending').length;
+
+const TIPS = [
+  'Use the table below to triage findings, or open the full report from the summary card.',
+  'Bulk select findings to send multiple recovery drafts at once.',
+  'Dismissed findings will not be included in the final recovery export.',
+  'Click any finding row to view its complete audit trail and evidence.'
+];
+
+function auditTipMessage(state: AuditState, tipIdx: number): string {
+  switch (state) {
+    case 'NOT_YET_RUN':
+      return 'Complete the two setup steps below, then run your first audit.';
+    case 'RUNNING':
+      return 'Audit in progress — findings appear below as they are identified.';
+    case 'COMPLETE':
+      return TIPS[tipIdx];
+    case 'STOPPED':
+      return 'Audit was stopped early — review partial results or start a new run from the banner above.';
+    case 'FAILED':
+      return 'The last run failed — fix your connection, then try again.';
+    default:
+      return 'Review readiness, run audit, inspect findings.';
+  }
+}
 
 export default function AuditPage() {
   const navigate = useNavigate();
@@ -46,12 +70,19 @@ export default function AuditPage() {
   const tickRef = useRef(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  /* Inline banners — dismissed state is session-only */
-  const [dismissedBanners, setDismissedBanners] = useState<string[]>([]);
-  const dismissBanner = (id: string) => setDismissedBanners((prev) => [...prev, id]);
+  /* Tip Carousel */
+  const [currentTip, setCurrentTip] = useState(0);
 
-  /* Toast */
-  const [showReadiness, setShowReadiness] = useState(false);
+  useEffect(() => {
+    if (effectiveState !== 'COMPLETE') return;
+    const interval = setInterval(() => {
+      setCurrentTip((prev) => (prev + 1) % TIPS.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [effectiveState]);
+
+  const nextTip = () => setCurrentTip((prev) => (prev + 1) % TIPS.length);
+  const prevTip = () => setCurrentTip((prev) => (prev - 1 + TIPS.length) % TIPS.length);
 
   /* Toast */
   const [toast, setToast] = useState<string | null>(null);
@@ -141,62 +172,34 @@ export default function AuditPage() {
     }
   };
 
-  /* Determine which audit page inline banner to show (most recent event wins) */
-  const auditBanner = (() => {
-    if (effectiveState === 'COMPLETE' && !dismissedBanners.includes('audit-complete')) {
-      return (
-        <InlineBanner
-          id="audit-complete"
-          variant="green"
-          title="Audit complete."
-          body={`${MOCK_AUDIT_RESULT.findingsCount.toLocaleString()} findings identified. ${MOCK_AUDIT_RESULT.totalValueFormatted} potential recovery. Report auto-generated.`}
-          onDismiss={dismissBanner}
-        />
-      );
-    }
-    if ((effectiveState === 'FAILED' || effectiveState === 'STOPPED') &&
-        !dismissedBanners.includes('audit-failed')) {
-      return (
-        <InlineBanner
-          id="audit-failed"
-          variant="red"
-          title="Connection dropped during audit."
-          body="SoundExchange connection failed at 43%. Audit stopped. Fix connection and re-run."
-          onDismiss={dismissBanner}
-        />
-      );
-    }
-    if (!dismissedBanners.includes('audit-recovery-response')) {
-      return (
-        <InlineBanner
-          id="audit-recovery-response"
-          variant="blue"
-          title="Response received."
-          body="SoundExchange replied to recovery email for INV-2026-0667. Review in findings table."
-          onDismiss={dismissBanner}
-        />
-      );
-    }
-    return null;
-  })();
-
   return (
     <>
-      <div className={styles.page}>
-        {auditBanner}
-        {/* Page header */}
-        <div className={styles.pageHeader}>
-          <div className={styles.pageHeaderText}>
-            <h1 className={styles.pageTitle}>Audit</h1>
-          <span className={styles.pageSubtitle}>Review readiness, run audit, inspect findings.</span>
+      <div className={styles.content}>
+        <div className={styles.topTipStrip}>
+          <div className={styles.topTipInner}>
+            <div className={styles.topTipContent}>
+              <Idea size={20} className={styles.topTipIcon} />
+              <span className={styles.topTipText}>{auditTipMessage(effectiveState, currentTip)}</span>
+            </div>
           </div>
-          {effectiveState === 'NOT_YET_RUN' && null}
-          {effectiveState === 'RUNNING' && (
-            <button className={styles.runBtn} disabled style={{ opacity: 0.5 }}>Run Audit</button>
-          )}
-          {(effectiveState === 'COMPLETE' || effectiveState === 'STOPPED' || effectiveState === 'FAILED') && (
-            <button className={styles.runBtn} onClick={startAudit}>Run Audit</button>
-          )}
+          <div className={styles.topTipControls}>
+            {effectiveState === 'COMPLETE' && (
+              <>
+                <button onClick={prevTip} className={styles.topTipBtn} aria-label="Previous tip">
+                  <ChevronLeft size={16} />
+                </button>
+                <button onClick={nextTip} className={styles.topTipBtn} aria-label="Next tip">
+                  <ChevronRight size={16} />
+                </button>
+              </>
+            )}
+            {effectiveState === 'RUNNING' && (
+              <span className={styles.topTipStatus}>In progress</span>
+            )}
+            {(effectiveState === 'STOPPED' || effectiveState === 'FAILED') && (
+              <button className={styles.runBtn} onClick={startAudit}>Run Audit</button>
+            )}
+          </div>
         </div>
 
         {effectiveState !== 'NOT_YET_RUN' && effectiveState !== 'COMPLETE' && (
@@ -360,36 +363,6 @@ export default function AuditPage() {
         {effectiveState === 'COMPLETE' && (
           <>
             <FindingsSummary findings={findingsToShow} onRerun={startAudit} />
-            
-            <div className={styles.readinessToggleWrap}>
-              <button 
-                onClick={() => setShowReadiness(!showReadiness)}
-                className={styles.readinessToggleBtn}
-              >
-                {showReadiness ? 'Hide readiness details' : 'View readiness details'}
-              </button>
-              
-              {showReadiness && (
-                <div className={styles.readinessInlineSection}>
-                  <span className={styles.readinessInlineLabel}>Pre-Audit Readiness</span>
-                  <div className={styles.readinessRowInline}>
-                    <div className={styles.readinessCard}>
-                      <span className={`${styles.readinessBadge} ${styles.badgeReady}`}>Ready</span>
-                      <span className={styles.readinessDesc}>Data Sources: {SOURCES.length} connected, {LIVE_COUNT} live, {FIX_COUNT} fix, {PENDING_COUNT} pending</span>
-                    </div>
-                    <div className={styles.readinessCard}>
-                      <span className={`${styles.readinessBadge} ${styles.badgeReady}`}>Ready</span>
-                      <span className={styles.readinessDesc}>Rules: {ACTIVE_RULES_COUNT} active across 3 sources</span>
-                    </div>
-                    <div className={styles.readinessCard}>
-                      <span className={`${styles.readinessBadge} ${styles.badgeReady}`}>{MOCK_AUDIT_RESULT.coverage}%</span>
-                      <span className={styles.readinessDesc}>Coverage: {MOCK_AUDIT_RESULT.recordsProcessed.toLocaleString()} eligible records</span>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-
             <FindingsTable findings={findingsToShow} onToast={showToast} />
           </>
         )}
@@ -439,22 +412,6 @@ export default function AuditPage() {
             )}
           </>
         )}
-
-        {/* Status widget after first audit */}
-        {(effectiveState === 'COMPLETE' || effectiveState === 'STOPPED' || effectiveState === 'FAILED') && (
-          <div className={styles.statusWidget}>
-            <div className={styles.widgetRow}>
-              <span className={styles.widgetDot} data-ok="true" />
-              <span className={styles.widgetLabel}>Sources</span>
-              <span className={styles.widgetValue}>{LIVE_COUNT} live / {FIX_COUNT} fix / {PENDING_COUNT} pending</span>
-            </div>
-            <div className={styles.widgetRow}>
-              <span className={styles.widgetDot} data-ok="true" />
-              <span className={styles.widgetLabel}>Rules</span>
-              <span className={styles.widgetValue}>{ACTIVE_RULES_COUNT} active</span>
-            </div>
-          </div>
-        )}
       </div>
 
       {/* FindingDetailOverlay renders here as nested route */}
@@ -499,6 +456,16 @@ function FindingsSummary({ findings, onRerun }: { findings: Finding[]; onRerun?:
         <span className={styles.summaryHeroSub}>
           Audit complete · {MOCK_AUDIT_RESULT.completedAt.split(' at ')[0]}
         </span>
+        {onRerun && (
+          <div className={styles.summaryHeroActions}>
+            <Link to="/app/reporting" className={styles.summaryPrimaryBtn}>
+              View report
+            </Link>
+            <button type="button" className={styles.summarySecondaryBtn} onClick={onRerun}>
+              Run new audit
+            </button>
+          </div>
+        )}
       </div>
 
       {/* 2. Black Findings Block */}
@@ -519,11 +486,6 @@ function FindingsSummary({ findings, onRerun }: { findings: Finding[]; onRerun?:
         <span className={styles.statValue}>{maxConf}%</span>
       </div>
 
-      {onRerun && (
-        <div className={styles.summaryActions}>
-          <Link to="/app/reporting" className={styles.viewReportBtn}>View Report</Link>
-        </div>
-      )}
     </div>
   );
 }

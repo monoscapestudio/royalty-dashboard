@@ -12,13 +12,15 @@ export default function AiSuggestionsSection({ suggestions, onReview }: Props) {
   return (
     <div className={styles.summaryBar}>
       <div className={styles.summaryTop}>
-        <div className={styles.summaryLeft}>
+        <div className={styles.summaryTitleRow}>
           <span className={styles.aiBadge}>AI</span>
+          <span className={styles.summaryLabel}>
+            Identified
+            <br />
+            rules
+          </span>
+          <span className={styles.summaryCount}>{suggestions.length}</span>
         </div>
-        <span className={styles.summaryCount}>{suggestions.length}</span>
-      </div>
-      <div className={styles.summaryMiddle}>
-        <span className={styles.summaryLabel}>AI-identified rules</span>
         <button className={styles.reviewBtn} onClick={onReview}>
           Review suggestions
         </button>

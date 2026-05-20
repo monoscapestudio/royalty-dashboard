@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import FormSelect from '../../../components/ui/FormSelect';
+import Modal from '../../../components/ui/Modal';
+import modalStyles from '../../../components/ui/Modal.module.css';
 import styles from './TeamPage.module.css';
 
 interface Member {
@@ -103,42 +105,42 @@ export default function TeamPage() {
       </div>
 
       {showInvite && (
-        <div className={styles.modalBackdrop} onClick={() => setShowInvite(false)}>
-          <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-            <div className={styles.modalHeader}>
-              <h2 className={styles.modalTitle}>Invite user</h2>
+        <Modal
+          contextLabel="Team"
+          title="Invite a new member to your organization."
+          onClose={() => setShowInvite(false)}
+          width={420}
+        >
+          <div className={styles.inviteFields}>
+            <div className={styles.field}>
+              <label className={styles.label}>Email address</label>
+              <input
+                className={styles.input}
+                type="email"
+                placeholder="name@company.com"
+                value={inviteEmail}
+                onChange={(e) => setInviteEmail(e.target.value)}
+                autoFocus
+              />
             </div>
-            <div className={styles.modalBody}>
-              <div className={styles.field}>
-                <label className={styles.label}>Email address</label>
-                <input
-                  className={styles.input}
-                  type="email"
-                  placeholder="name@company.com"
-                  value={inviteEmail}
-                  onChange={(e) => setInviteEmail(e.target.value)}
-                  autoFocus
-                />
-              </div>
-              <div className={styles.field}>
-                <FormSelect
-                  label="Role"
-                  value={inviteRole}
-                  onChange={setInviteRole}
-                  options={ROLE_OPTIONS}
-                />
-              </div>
-            </div>
-            <div className={styles.modalFooter}>
-              <button className={styles.btnSecondary} onClick={() => setShowInvite(false)}>
-                Cancel
-              </button>
-              <button className={styles.btnPrimary} onClick={handleInvite}>
+            <FormSelect
+              label="Role"
+              value={inviteRole}
+              onChange={setInviteRole}
+              options={ROLE_OPTIONS}
+            />
+          </div>
+          <div className={modalStyles.footer}>
+            <button type="button" className={modalStyles.btnCancel} onClick={() => setShowInvite(false)}>
+              Cancel
+            </button>
+            <div className={modalStyles.footerRight}>
+              <button type="button" className={modalStyles.btnPrimary} onClick={handleInvite}>
                 Send invite
               </button>
             </div>
           </div>
-        </div>
+        </Modal>
       )}
     </div>
   );

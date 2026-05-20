@@ -16,12 +16,23 @@
 }
 
 .main {
-  margin-left: calc(var(--sidebar-width) + 48px); /* 24px left + 240px width + 24px gap */
+  margin-left: calc(var(--sidebar-width) + 48px);
   flex: 1;
+  min-height: 0;
+  min-width: 0;
   background: transparent;
   display: flex;
   flex-direction: column;
   position: relative;
   height: 100%;
+  overflow: hidden;
+}
+
+.mainContent {
+  flex: 1;
+  min-height: 0;
   overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }

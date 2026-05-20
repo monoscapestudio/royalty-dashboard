@@ -982,7 +982,7 @@
 .modalBodyStack {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 16px;
 }
 
 .modalField {
@@ -1045,9 +1045,9 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding-top: 10px;
-  border-top: 1px solid var(--border-default);
-  margin-top: 2px;
+  padding-top: 8px;
+  border-top: none;
+  margin-top: 0;
 }
 
 .modalFooterRight {

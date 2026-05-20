@@ -12,12 +12,14 @@
   right: 0;
   bottom: 0;
   width: 480px;
-  background: var(--bg-white);
-  border-left: 1px solid var(--border-default);
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-left: 1px solid rgba(255, 255, 255, 0.5);
   z-index: 201;
   display: flex;
   flex-direction: column;
-  box-shadow: var(--shadow-soft);
+  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.04);
   animation: slideIn 0.2s ease;
 }
 
@@ -25,6 +27,13 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 32px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.04);
+  padding: 16px;
 }
 
 .pageIntro {
@@ -32,13 +41,14 @@
   flex-direction: column;
   gap: 6px;
   max-width: 920px;
+  padding: 0 16px;
 }
 
 .pageIntroTop {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
 }
 
 .pageEyebrow {
@@ -51,12 +61,18 @@
 }
 
 .pageCount {
-  font-family: var(--font-display);
-  font-size: var(--type-metric);
-  font-weight: var(--type-metric-weight);
-  letter-spacing: var(--type-metric-tracking);
-  line-height: var(--type-metric-lh);
-  color: var(--text-primary);
+  height: 20px;
+  padding: 0 8px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--radius-badge);
+  background: var(--bg-panel-muted);
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
+  color: var(--text-secondary);
 }
 
 .pageTitle {
@@ -70,16 +86,19 @@
 }
 
 .pageBody {
-  font-family: var(--font-display);
-  font-size: var(--type-body);
+  font-family: var(--glass-card-body-font);
+  font-size: var(--glass-card-body-size);
   font-weight: 400;
   color: var(--text-secondary);
-  line-height: var(--type-body-lh);
+  line-height: var(--glass-card-body-lh);
   margin: 0;
   max-width: 760px;
 }
 
 .pagePanel {
+  --suggestions-pad: var(--glass-card-pad);
+  --suggestions-content-x: calc(var(--glass-card-pad) * 2);
+
   background: var(--bg-white);
   border-radius: var(--radius-card);
   overflow: hidden;
@@ -95,52 +114,41 @@
 .panelHeader {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 10px;
-  padding: 0 14px;
-  height: 36px;
-  background: #010101;
-  border-bottom: 1px solid var(--border-default);
+  padding: 0 16px;
+  height: 48px;
+  background: transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
   flex-shrink: 0;
 }
 
-.panelTitleGroup {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex: 1;
-}
-
-.aiBadge {
-  display: inline-flex;
-  align-items: center;
-  height: 20px;
-  padding: 0 8px;
-  background: rgba(255, 255, 255, 0.15);
-  color: #FFFFFF;
-  font-family: var(--font-mono);
-  font-size: var(--type-label);
-  font-weight: var(--type-label-weight);
-  letter-spacing: var(--type-label-tracking);
-  text-transform: uppercase;
-  border-radius: var(--radius-badge);
-  white-space: nowrap;
-}
-
-.panelTitle {
-  font-family: var(--font-mono);
-  font-size: var(--type-label);
-  font-weight: var(--type-label-weight);
-  letter-spacing: var(--type-label-tracking);
-  text-transform: uppercase;
-  color: #FFFFFF;
+.panelHeaderPage {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  height: 56px;
+  padding: 0 var(--suggestions-pad) 0 var(--suggestions-content-x);
+  background: transparent;
 }
 
 .panelMeta {
+  flex: 1;
   font-family: var(--font-mono);
   font-size: var(--type-label);
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--text-secondary);
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.metaValue {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.metaLabel {
+  color: var(--text-secondary);
 }
 
 .closeBtn {
@@ -149,12 +157,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.04);
   border: none;
   cursor: pointer;
   font-family: var(--font-mono);
   font-size: var(--type-label);
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--text-primary);
   border-radius: 4px;
   transition: background 0.15s, color 0.15s;
   flex-shrink: 0;
@@ -163,14 +171,40 @@
 }
 
 .closeBtn:hover {
-  background: rgba(255, 255, 255, 0.16);
-  color: #FFFFFF;
+  background: rgba(0, 0, 0, 0.08);
+  color: var(--btn-primary-hover);
+}
+
+.closeBtnPage {
+  background: rgba(0, 0, 0, 0.04);
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: var(--type-data);
+  font-weight: 500;
+  color: var(--text-primary);
+  border-radius: 100px;
+  padding: 0 16px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+  text-decoration: none;
+}
+
+.closeBtnPage:hover {
+  background: rgba(0, 0, 0, 0.08);
 }
 
 /* ── Body ── */
 .panelBody {
   flex: 1;
   overflow-y: auto;
+  padding: var(--glass-card-pad);
+  display: flex;
+  flex-direction: column;
+  gap: var(--glass-card-gap);
 }
 
 .empty {
@@ -191,15 +225,22 @@
 
 /* ── Suggestion card ── */
 .card {
-  padding: 10px 14px;
-  border-bottom: 1px solid var(--border-default);
+  padding: var(--glass-card-pad);
+  background: var(--glass-card-bg);
+  border: var(--glass-card-border);
+  border-radius: var(--glass-card-radius);
+  box-shadow: var(--glass-card-shadow);
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  transition: background 0.15s;
+  gap: var(--glass-card-gap);
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
 }
 
-.card:hover { background: var(--row-hover); }
+.card:hover {
+  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
 
 .cardBody {
   display: flex;
@@ -217,10 +258,11 @@
 }
 
 .suggestionMeta {
-  font-family: var(--font-mono);
-  font-size: var(--type-label);
+  font-family: var(--glass-card-body-font);
+  font-size: var(--glass-card-body-size);
   font-weight: 400;
   color: var(--text-secondary);
+  line-height: var(--glass-card-body-lh);
 }
 
 .cardActions {
