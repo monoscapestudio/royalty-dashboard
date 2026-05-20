@@ -16,22 +16,15 @@
   overflow: hidden;
 }
 
-.tableHeader {
+/* ── Section header ── */
+.sectionHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 0 8px 16px 8px;
-  background: transparent;
+  padding: 8px 8px 16px 8px;
 }
 
-.tableHeaderLeft {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-}
-
-.tableTitle {
+.sectionTitle {
   font-family: var(--font-display);
   font-size: 15px;
   font-weight: 700;
@@ -41,11 +34,37 @@
   margin: 0;
 }
 
-.tableMeta {
+/* ── Utility bar ── */
+.utilityBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 8px 16px 8px;
+}
+
+.sectionMeta {
   font-family: var(--font-mono);
   font-size: var(--type-label);
   font-weight: 500;
   color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.metaValue {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.metaLabel {
+  color: var(--text-secondary);
+}
+
+.metaDivider {
+  color: var(--text-muted);
 }
 
 .filters {
@@ -115,6 +134,7 @@
   background: transparent;
   transition: background 0.15s;
   cursor: pointer;
+  min-height: 56px;
 }
 .findingCard:last-child {
   border-bottom: none;

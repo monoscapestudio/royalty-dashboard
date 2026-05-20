@@ -160,11 +160,18 @@ export default function FindingsTable({ findings, onToast }: Props) {
 
   return (
     <div className={styles.tableWrap}>
-      {/* Header row (Outside glass card) */}
-      <div className={styles.tableHeader}>
-        <div className={styles.tableHeaderLeft}>
-          <span className={styles.tableTitle}>Findings</span>
-          <span className={styles.tableMeta}>{filtered.length.toLocaleString()} found, ranked by discrepancy size</span>
+      {/* Section header */}
+      <div className={styles.sectionHeader}>
+        <span className={styles.sectionTitle}>Findings</span>
+      </div>
+
+      {/* Utility row (Outside glass card) */}
+      <div className={styles.utilityBar}>
+        <div className={styles.sectionMeta}>
+          <span className={styles.metaValue}>{filtered.length.toLocaleString()}</span>
+          <span className={styles.metaLabel}>found</span>
+          <span className={styles.metaDivider}>,</span>
+          <span>ranked by discrepancy size</span>
         </div>
         <div className={styles.filters}>
           <FormSelect
