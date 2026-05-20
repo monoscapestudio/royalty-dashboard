@@ -1,6 +1,12 @@
-/* ── Table wrap — Bento ── */
+/* ── Table wrap (transparent) ── */
 .tableWrap {
   margin: 0 var(--content-px);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Glass container for rows ── */
+.list {
   background: var(--glass-card-bg);
   border: var(--glass-card-border);
   border-radius: var(--glass-card-radius);
@@ -10,33 +16,36 @@
   overflow: hidden;
 }
 
-.list {
-  display: flex;
-  flex-direction: column;
-}
-
 .tableHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 20px 24px 16px;
+  gap: 16px;
+  padding: 0 8px 16px 8px;
   background: transparent;
 }
 
+.tableHeaderLeft {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
 .tableTitle {
-  font-family: var(--font-mono);
-  font-size: var(--type-label);
-  letter-spacing: var(--type-label-tracking);
-  font-weight: var(--type-label-weight);
-  color: var(--text-secondary);
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
+  color: var(--text-primary);
+  margin: 0;
 }
 
 .tableMeta {
   font-family: var(--font-mono);
-  font-size: var(--type-data);
-  color: var(--text-muted);
+  font-size: var(--type-label);
+  font-weight: 500;
+  color: var(--text-secondary);
 }
 
 .filters {
@@ -48,12 +57,12 @@
 }
 
 .filterSelect {
-  min-width: 160px;
+  min-width: 140px;
 }
 
 /* ── Bulk actions bar ── */
 .bulkBar {
-  padding: 8px 24px;
+  padding: 16px 24px;
   display: flex;
   align-items: center;
   gap: 12px;

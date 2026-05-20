@@ -160,10 +160,10 @@ export default function FindingsTable({ findings, onToast }: Props) {
 
   return (
     <div className={styles.tableWrap}>
-      {/* Header row */}
+      {/* Header row (Outside glass card) */}
       <div className={styles.tableHeader}>
-        <div>
-          <span className={styles.tableTitle}>Findings</span>{' '}
+        <div className={styles.tableHeaderLeft}>
+          <span className={styles.tableTitle}>Findings</span>
           <span className={styles.tableMeta}>{filtered.length.toLocaleString()} found, ranked by discrepancy size</span>
         </div>
         <div className={styles.filters}>
@@ -201,59 +201,59 @@ export default function FindingsTable({ findings, onToast }: Props) {
         </div>
       </div>
 
-      {/* Bulk actions */}
-      <div className={styles.bulkBar}>
-        <label className={styles.selectAll}>
-          <input type="checkbox" checked={allSelected} onChange={toggleAll} />
-          Select all
-        </label>
-        <span className={styles.bulkLabel}>Bulk actions:</span>
-        <button
-          type="button"
-          className={styles.bulkBtn}
-          onClick={() => {
-            if (selectedIds.size === 0) {
-              onToast('Select at least one finding first.');
-              return;
-            }
-            const eligible = bulkEligibleNew();
-            if (eligible.length === 0) {
-              onToast('Bulk recovery applies to findings in New status. No matching selections.');
-              return;
-            }
-            onToast(`${eligible.length.toLocaleString()} recovery draft${eligible.length === 1 ? '' : 's'} queued for review (wireframe).`);
-            setSelectedIds(new Set());
-          }}
-        >
-          Send recovery
-        </button>
-        <button
-          type="button"
-          className={styles.bulkBtnSecondary}
-          onClick={() => {
-            if (selectedIds.size === 0) {
-              onToast('Select at least one finding first.');
-              return;
-            }
-            onToast(`${selectedIds.size} finding${selectedIds.size === 1 ? '' : 's'} dismissed (wireframe demo).`);
-            setSelectedIds(new Set());
-          }}
-        >
-          Dismiss
-        </button>
-        <button
-          type="button"
-          className={styles.bulkBtnSecondary}
-          onClick={() => {
-            onToast(`Exported ${filtered.length.toLocaleString()} rows to CSV (wireframe).`);
-          }}
-        >
-          Export CSV
-        </button>
-      </div>
-
-      {/* Cards */}
+      {/* Glass card container */}
       <div className={styles.list}>
+        {/* Bulk actions */}
+        <div className={styles.bulkBar}>
+          <label className={styles.selectAll}>
+            <input type="checkbox" checked={allSelected} onChange={toggleAll} />
+            Select all
+          </label>
+          <span className={styles.bulkLabel}>Bulk actions:</span>
+          <button
+            type="button"
+            className={styles.bulkBtn}
+            onClick={() => {
+              if (selectedIds.size === 0) {
+                onToast('Select at least one finding first.');
+                return;
+              }
+              const eligible = bulkEligibleNew();
+              if (eligible.length === 0) {
+                onToast('Bulk recovery applies to findings in New status. No matching selections.');
+                return;
+              }
+              onToast(`${eligible.length.toLocaleString()} recovery draft${eligible.length === 1 ? '' : 's'} queued for review (wireframe).`);
+              setSelectedIds(new Set());
+            }}
+          >
+            Send recovery
+          </button>
+          <button
+            type="button"
+            className={styles.bulkBtnSecondary}
+            onClick={() => {
+              if (selectedIds.size === 0) {
+                onToast('Select at least one finding first.');
+                return;
+              }
+              onToast(`${selectedIds.size} finding${selectedIds.size === 1 ? '' : 's'} dismissed (wireframe demo).`);
+              setSelectedIds(new Set());
+            }}
+          >
+            Dismiss
+          </button>
+          <button
+            type="button"
+            className={styles.bulkBtnSecondary}
+            onClick={() => {
+              onToast(`Exported ${filtered.length.toLocaleString()} rows to CSV (wireframe).`);
+            }}
+          >
+            Export CSV
+          </button>
+        </div>
+
         {pageRows.map((row) => (
           <div
             key={row.id}
