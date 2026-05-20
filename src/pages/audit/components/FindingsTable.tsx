@@ -4,8 +4,6 @@ import type { Finding, FindingStatus } from '../../../types';
 import FormSelect from '../../../components/ui/FormSelect';
 import styles from './FindingsTable.module.css';
 
-const PAGE_SIZE = 9;
-
 interface Props {
   findings: Finding[];
   onToast: (msg: string) => void;
@@ -51,7 +49,6 @@ function matchesRuleGroup(f: Finding, rule: RuleFilter): boolean {
 
 export default function FindingsTable({ findings, onToast }: Props) {
   const navigate = useNavigate();
-  const [page, setPage] = useState(0);
   const [statusFilter, setStatusFilter] = useState('All');
   const [confidenceFilter, setConfidenceFilter] = useState<ConfidenceFilter>('');
   const [sourceFilter, setSourceFilter] = useState('All');
@@ -109,15 +106,6 @@ export default function FindingsTable({ findings, onToast }: Props) {
     return list;
   }, [findings, statusFilter, confidenceFilter, sourceFilter, ruleFilter]);
 
-  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
-  const safePage = Math.min(page, totalPages - 1);
-  const pageRows = filtered.slice(safePage * PAGE_SIZE, (safePage + 1) * PAGE_SIZE);
-
-  /* Reset paging when slice shrinks under current page */
-  useEffect(() => {
-    setPage((p) => Math.min(p, Math.max(0, totalPages - 1)));
-  }, [totalPages]);
-
   /* Drop selections that vanished from filtered set */
   useEffect(() => {
     const idSet = new Set(filtered.map((f) => f.id));
@@ -132,19 +120,19 @@ export default function FindingsTable({ findings, onToast }: Props) {
     });
   }, [filtered]);
 
-  const allSelected = pageRows.length > 0 && pageRows.every((r) => selectedIds.has(r.id));
+  const allSelected = filtered.length > 0 && filtered.every((r) => selectedIds.has(r.id));
 
   const toggleAll = () => {
     if (allSelected) {
       setSelectedIds((prev) => {
         const next = new Set(prev);
-        pageRows.forEach((r) => next.delete(r.id));
+        filtered.forEach((r) => next.delete(r.id));
         return next;
       });
     } else {
       setSelectedIds((prev) => {
         const next = new Set(prev);
-        pageRows.forEach((r) => next.add(r.id));
+        filtered.forEach((r) => next.add(r.id));
         return next;
       });
     }
@@ -262,7 +250,7 @@ export default function FindingsTable({ findings, onToast }: Props) {
           </button>
         </div>
 
-        {pageRows.map((row) => (
+        {filtered.map((row) => (
           <div
             key={row.id}
             className={`${styles.findingCard} ${selectedIds.has(row.id) ? styles.findingCardSelected : ''}`}
@@ -340,52 +328,6 @@ export default function FindingsTable({ findings, onToast }: Props) {
           </div>
         ))}
 
-        {/* Pagination (inside inner card) */}
-        <div className={styles.pagination}>
-          <span className={styles.paginationInfo}>
-            Showing {pageRows.length} of {filtered.length.toLocaleString()} findings
-          </span>
-          <div className={styles.paginationControls}>
-            <button
-              type="button"
-              className={styles.pageBtn}
-              disabled={safePage === 0}
-              onClick={() => setPage((p) => Math.max(0, p - 1))}
-            >
-              ← Previous
-            </button>
-            <div className={styles.pageNumbers}>
-              {[0, 1, 2].map((i) => (
-                <button
-                  type="button"
-                  key={i}
-                  className={`${styles.pageNumber} ${safePage === i ? styles.pageNumberActive : ''}`}
-                  onClick={() => setPage(i)}
-                >
-                  {i + 1}
-                </button>
-              ))}
-              {totalPages > 3 && <span className={styles.pageEllipsis}>...</span>}
-              {totalPages > 3 && (
-                <button
-                  type="button"
-                  className={styles.pageNumber}
-                  onClick={() => setPage(totalPages - 1)}
-                >
-                  {totalPages}
-                </button>
-              )}
-            </div>
-            <button
-              type="button"
-              className={styles.pageBtn}
-              disabled={safePage >= totalPages - 1}
-              onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
-            >
-              Next →
-            </button>
-          </div>
-        </div>
       </div>
     </div>
   );
