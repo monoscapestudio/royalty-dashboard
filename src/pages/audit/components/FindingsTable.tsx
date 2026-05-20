@@ -338,52 +338,52 @@ export default function FindingsTable({ findings, onToast }: Props) {
             </div>
           </div>
         ))}
-      </div>
 
-      {/* Pagination */}
-      <div className={styles.pagination}>
-        <span className={styles.paginationInfo}>
-          Showing {pageRows.length} of {filtered.length.toLocaleString()} findings
-        </span>
-        <div className={styles.paginationControls}>
-          <button
-            type="button"
-            className={styles.pageBtn}
-            disabled={safePage === 0}
-            onClick={() => setPage((p) => Math.max(0, p - 1))}
-          >
-            ← Previous
-          </button>
-          <div className={styles.pageNumbers}>
-            {[0, 1, 2].map((i) => (
-              <button
-                type="button"
-                key={i}
-                className={`${styles.pageNumber} ${safePage === i ? styles.pageNumberActive : ''}`}
-                onClick={() => setPage(i)}
-              >
-                {i + 1}
-              </button>
-            ))}
-            {totalPages > 3 && <span className={styles.pageEllipsis}>...</span>}
-            {totalPages > 3 && (
-              <button
-                type="button"
-                className={styles.pageNumber}
-                onClick={() => setPage(totalPages - 1)}
-              >
-                {totalPages}
-              </button>
-            )}
+        {/* Pagination (inside inner card) */}
+        <div className={styles.pagination}>
+          <span className={styles.paginationInfo}>
+            Showing {pageRows.length} of {filtered.length.toLocaleString()} findings
+          </span>
+          <div className={styles.paginationControls}>
+            <button
+              type="button"
+              className={styles.pageBtn}
+              disabled={safePage === 0}
+              onClick={() => setPage((p) => Math.max(0, p - 1))}
+            >
+              ← Previous
+            </button>
+            <div className={styles.pageNumbers}>
+              {[0, 1, 2].map((i) => (
+                <button
+                  type="button"
+                  key={i}
+                  className={`${styles.pageNumber} ${safePage === i ? styles.pageNumberActive : ''}`}
+                  onClick={() => setPage(i)}
+                >
+                  {i + 1}
+                </button>
+              ))}
+              {totalPages > 3 && <span className={styles.pageEllipsis}>...</span>}
+              {totalPages > 3 && (
+                <button
+                  type="button"
+                  className={styles.pageNumber}
+                  onClick={() => setPage(totalPages - 1)}
+                >
+                  {totalPages}
+                </button>
+              )}
+            </div>
+            <button
+              type="button"
+              className={styles.pageBtn}
+              disabled={safePage >= totalPages - 1}
+              onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
+            >
+              Next →
+            </button>
           </div>
-          <button
-            type="button"
-            className={styles.pageBtn}
-            disabled={safePage >= totalPages - 1}
-            onClick={() => setPage((p) => Math.min(totalPages - 1, p + 1))}
-          >
-            Next →
-          </button>
         </div>
       </div>
     </div>
