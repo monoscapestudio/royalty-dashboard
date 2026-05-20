@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { Finding, FindingStatus } from '../../../types';
+import FormSelect from '../../../components/ui/FormSelect';
 import styles from './FindingsTable.module.css';
 
 const PAGE_SIZE = 9;
@@ -46,68 +47,6 @@ function matchesRuleGroup(f: Finding, rule: RuleFilter): boolean {
   if (rule === 'recoupment') return t.includes('recoupment');
   if (rule === 'licensing') return t.includes('license') || t.includes('master') || t.includes('publishing');
   return true;
-}
-
-function FilterSelect({
-  value,
-  onChange,
-  options,
-  ariaLabel,
-}: {
-  value: string;
-  onChange: (value: string) => void;
-  options: FilterOption[];
-  ariaLabel: string;
-}) {
-  const [open, setOpen] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
-        setOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
-  const selectedLabel = options.find((option) => option.value === value)?.label ?? options[0].label;
-
-  return (
-    <div className={styles.filterSelectWrap} ref={containerRef}>
-      <button
-        type="button"
-        className={`${styles.filterTrigger} ${open ? styles.filterTriggerOpen : ''}`}
-        onClick={() => setOpen((prev) => !prev)}
-        aria-haspopup="listbox"
-        aria-expanded={open}
-        aria-label={ariaLabel}
-      >
-        <span className={styles.filterTriggerValue}>{selectedLabel}</span>
-        <span className={styles.filterChevron}>▼</span>
-      </button>
-
-      {open && (
-        <div className={styles.filterMenu} role="listbox">
-          {options.map((option) => (
-            <button
-              key={option.value}
-              type="button"
-              className={`${styles.filterOption} ${option.value === value ? styles.filterOptionSelected : ''}`}
-              onClick={() => {
-                onChange(option.value);
-                setOpen(false);
-              }}
-            >
-              {option.label}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  );
 }
 
 export default function FindingsTable({ findings, onToast }: Props) {
@@ -228,13 +167,13 @@ export default function FindingsTable({ findings, onToast }: Props) {
           <span className={styles.tableMeta}>{filtered.length.toLocaleString()} found, ranked by discrepancy size</span>
         </div>
         <div className={styles.filters}>
-          <FilterSelect
+          <FormSelect
             value={statusFilter}
             onChange={(value) => { setStatusFilter(value); setPage(0); }}
             options={statusOptions}
-            ariaLabel="Filter findings by status"
+            className={styles.filterSelect}
           />
-          <FilterSelect
+          <FormSelect
             value={confidenceFilter || 'all'}
             onChange={(value) => {
               const v = value === 'all' ? '' : (value as ConfidenceFilter);
@@ -242,22 +181,22 @@ export default function FindingsTable({ findings, onToast }: Props) {
               setPage(0);
             }}
             options={confidenceOptions}
-            ariaLabel="Filter findings by confidence"
+            className={styles.filterSelect}
           />
-          <FilterSelect
+          <FormSelect
             value={sourceFilter}
             onChange={(value) => { setSourceFilter(value); setPage(0); }}
             options={sourceFilterOptions}
-            ariaLabel="Filter findings by source"
+            className={styles.filterSelect}
           />
-          <FilterSelect
+          <FormSelect
             value={ruleFilter}
             onChange={(value) => {
               setRuleFilter(value as RuleFilter);
               setPage(0);
             }}
             options={ruleOptions}
-            ariaLabel="Filter findings by rule group"
+            className={styles.filterSelect}
           />
         </div>
       </div>
