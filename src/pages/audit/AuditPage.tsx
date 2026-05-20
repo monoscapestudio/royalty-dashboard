@@ -336,13 +336,7 @@ export default function AuditPage() {
               </div>
               <div className={styles.runningTrack}>
                 <div className={styles.runningFill} style={{ width: `${progress}%` }}>
-                  <div className={styles.runningHandle}>
-                    <div className={styles.runningDots}>
-                      <span />
-                      <span />
-                      <span />
-                    </div>
-                  </div>
+                  <div className={styles.runningHandle} />
                 </div>
               </div>
               <div className={styles.runningBottom}>

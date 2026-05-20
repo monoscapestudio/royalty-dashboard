@@ -282,22 +282,7 @@
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 50%;
   box-shadow: 0 4px 12px rgba(210, 255, 0, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   z-index: 2;
-}
-
-.runningDots {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.runningDots span {
-  width: 3px;
-  height: 3px;
-  background: #000;
-  border-radius: 50%;
 }
 
 .runningBottom {
