@@ -2,9 +2,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  justify-self: start;
-  height: 26px;
-  padding: 0 16px;
+  height: 20px;
+  padding: 0 8px;
   border-radius: var(--radius-badge);
   font-family: var(--font-mono);
   font-size: var(--type-label);
@@ -14,27 +13,8 @@
   white-space: nowrap;
 }
 
-.live {
-  background: var(--status-live-bg);
-  color: var(--status-live-text);
-}
-
-.fix {
-  background: var(--status-fix-bg);
-  color: var(--status-fix-text);
-}
-
-.pending {
-  background: var(--status-pending-bg);
-  color: var(--status-pending-text);
-}
-
-.inactive {
-  background: var(--status-inactive-bg);
-  color: var(--status-inactive-text);
-}
-
-.never-connected {
-  background: transparent;
-  color: var(--text-muted);
-}
+.live { background: var(--status-live-bg); color: var(--status-live-text); }
+.fix { background: var(--status-fix-bg); color: var(--status-fix-text); }
+.pending { background: var(--status-pending-bg); color: var(--status-pending-text); }
+.inactive { background: var(--status-inactive-bg); color: var(--status-inactive-text); }
+.never-connected { background: transparent; color: var(--text-muted); }

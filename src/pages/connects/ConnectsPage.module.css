@@ -1,65 +1,99 @@
-.pageHeader {
-  padding: 40px var(--content-px) 24px;
+/* ── Top Tip Strip ── */
+.topTipStrip {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 100px; /* Full pill shape */
+  padding: 8px; /* Padding for the inner white badge */
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 24px;
-  background: transparent;
-  border-bottom: none;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.04);
+  margin-top: 24px;
+  margin-bottom: 24px;
+  width: 100%;
 }
 
-.pageHeaderText {
+.topTipInner {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 100px;
+  padding: 12px 24px;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.topTipContent {
+  display: flex;
+  align-items: center;
   gap: 12px;
 }
 
-.pageTitle {
-  font-family: var(--font-display);
-  font-size: var(--type-hero);
-  font-weight: 500;
-  letter-spacing: var(--type-hero-tracking);
-  line-height: var(--type-hero-lh);
+.topTipControls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.topTipBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.05);
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.topTipBtn:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: var(--text-primary);
+}
+
+.topTipIcon {
   color: var(--text-primary);
   flex-shrink: 0;
 }
 
-.pageSubtitle {
+.topTipText {
   font-family: var(--font-display);
-  font-size: var(--type-subtitle);
-  font-weight: var(--type-subtitle-weight);
-  letter-spacing: var(--type-subtitle-tracking);
-  line-height: var(--type-subtitle-lh);
-  color: var(--text-secondary);
+  font-size: var(--type-body);
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: var(--type-body-lh);
 }
 
 .content {
-  padding: 40px var(--content-px) 56px;
+  padding: 16px var(--content-px) 32px;
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 16px;
 }
 
 .threeCol {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: start;
-  gap: 24px;
+  gap: 12px;
 }
 
 /* ── Reconnect modal ── */
 .reconnectBody {
-  padding: 24px 28px;
+  padding: 14px 20px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
 }
 
 .reconnectMessage {
   font-family: var(--font-display);
-  font-size: 15px;
-  line-height: 1.5;
+  font-size: var(--type-body);
+  line-height: 1.4;
   color: var(--text-secondary);
   margin: 0;
 }
@@ -74,24 +108,27 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: 18px 24px;
+  padding: 16px 24px;
   margin-bottom: 24px;
-  background: #E8F1E0;
-  border: 1px solid #C4D9B8;
-  border-radius: var(--radius-card);
+  background: rgba(210, 255, 0, 0.15); /* Soft neon tint */
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(210, 255, 0, 0.3);
+  border-radius: 100px; /* Pill shape */
+  box-shadow: 0 8px 32px rgba(210, 255, 0, 0.05);
 }
 
 .stepCompleteCheck {
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
-  background: var(--status-live-bg);
-  color: var(--status-live-text);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--status-live-bg); /* Neon */
+  color: var(--status-live-text); /* Black */
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
-  font-weight: 700;
+  font-size: var(--type-subtitle);
+  font-weight: 600;
   flex-shrink: 0;
 }
 
@@ -103,37 +140,42 @@
   line-height: var(--type-body-lh);
 }
 
+.stepCompleteText strong {
+  font-weight: 600;
+}
+
 .stepCompleteBtn {
-  height: 44px;
+  height: 48px;
   padding: 0 24px;
   background: var(--btn-primary-bg);
-  color: #fff;
-  font-family: var(--font-mono);
+  color: var(--btn-primary-text);
+  font-family: var(--font-display);
   font-size: var(--type-label);
-  font-weight: var(--type-label-weight);
-  letter-spacing: var(--type-label-tracking);
+  font-weight: 600;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
-  border-radius: var(--radius-btn);
+  border-radius: 100px; /* Perfect pill */
   border: none;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   white-space: nowrap;
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .stepCompleteBtn:hover {
-  background: var(--btn-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .reconnectMeta {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 16px;
+  gap: 4px;
+  padding: 10px;
   background: var(--bg-subtle, #f7f7f7);
-  border-radius: 6px;
+  border-radius: 4px;
 }
 
 .reconnectMetaRow {
@@ -144,7 +186,7 @@
 
 .reconnectMetaLabel {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: var(--type-label);
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--text-tertiary);
@@ -152,7 +194,7 @@
 
 .reconnectMetaValue {
   font-family: var(--font-display);
-  font-size: 14px;
+  font-size: var(--type-body);
   color: var(--text-primary);
   font-weight: 500;
 }

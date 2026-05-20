@@ -1,15 +1,15 @@
 .section {
-  margin-bottom: 28px;
+  margin-bottom: 14px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
 }
 
 .sectionHeader {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 20px;
+  gap: 10px;
 }
 
 .sectionLabel {
@@ -24,7 +24,7 @@
 
 .sectionHint {
   font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-size: var(--type-label);
   font-weight: 400;
   color: var(--text-secondary);
   text-align: right;
@@ -32,40 +32,39 @@
 
 /* ── Method cards ── */
 .methodCard {
-  padding: 24px;
-  border: 1px solid var(--border-default);
+  padding: 12px;
   border-radius: var(--radius-card);
   background: var(--bg-white);
-  box-shadow: var(--shadow-panel);
+  box-shadow: var(--shadow-card);
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 6px;
 }
 
 .methodTop {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 20px;
+  gap: 10px;
 }
 
 .methodTitleRow {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
 .methodLabel {
   font-family: var(--font-display);
-  font-size: var(--type-subtitle);
-  font-weight: var(--type-subtitle-weight);
-  letter-spacing: var(--type-subtitle-tracking);
+  font-size: var(--type-body);
+  font-weight: 500;
+  letter-spacing: var(--type-body-tracking);
   color: var(--text-primary);
 }
 
 .methodCount {
-  height: 26px;
-  padding: 0 12px;
+  height: 20px;
+  padding: 0 8px;
   display: inline-flex;
   align-items: center;
   border-radius: var(--radius-badge);
@@ -80,15 +79,15 @@
 
 .methodBody {
   font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-size: var(--type-label);
   font-weight: 400;
   color: var(--text-secondary);
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 .methodAction {
   font-family: var(--font-display);
-  font-size: var(--type-body);
+  font-size: var(--type-data);
   letter-spacing: var(--type-body-tracking);
   font-weight: 400;
   color: var(--text-primary);
@@ -97,7 +96,7 @@
   border: none;
   padding: 0;
   text-decoration: underline;
-  text-underline-offset: 4px;
+  text-underline-offset: 3px;
   text-decoration-thickness: 1px;
   transition: color 0.15s, text-decoration-color 0.15s;
   white-space: nowrap;
@@ -110,7 +109,7 @@
 
 /* ── Plain language input ── */
 .composer {
-  padding: 24px;
+  padding: 12px;
   border: 1px solid var(--border-default);
   border-radius: var(--radius-card);
   background: var(--bg-white);
@@ -125,23 +124,23 @@
   text-transform: uppercase;
   color: var(--text-secondary);
   display: block;
-  margin-bottom: 12px;
+  margin-bottom: 6px;
 }
 
 .inputRow {
   display: flex;
-  gap: 12px;
+  gap: 6px;
   align-items: stretch;
 }
 
 .ruleInput {
   flex: 1;
-  height: 52px;
+  height: 40px;
   background: var(--field-bg);
   border: none;
   border-bottom: 1px solid var(--field-border);
   border-radius: var(--radius-btn);
-  padding: 0 16px;
+  padding: 0 12px;
   font-family: var(--font-display);
   font-size: var(--type-body);
   color: var(--text-primary);
@@ -154,8 +153,8 @@
 .ruleInput:focus { background: #fff; border-bottom-color: var(--field-border-focus); }
 
 .addBtn {
-  height: 52px;
-  padding: 0 24px;
+  height: 40px;
+  padding: 0 16px;
   background: var(--btn-primary-bg);
   color: var(--btn-primary-text);
   font-family: var(--font-mono);
@@ -176,8 +175,8 @@
 
 /* ── Interpretation preview ── */
 .interpretation {
-  margin-top: -16px;
-  padding: 20px 24px;
+  margin-top: -8px;
+  padding: 10px 12px;
   background: var(--bg-panel);
   border-left: 3px solid var(--bg-ink);
   border-radius: 0 0 var(--radius-card) var(--radius-card);
@@ -191,39 +190,39 @@
   text-transform: uppercase;
   color: var(--text-secondary);
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 .interpretationRule {
   font-family: var(--font-display);
-  font-size: var(--type-subtitle);
-  font-weight: var(--type-subtitle-weight);
-  letter-spacing: var(--type-subtitle-tracking);
-  line-height: var(--type-subtitle-lh);
+  font-size: var(--type-body);
+  font-weight: 500;
+  letter-spacing: var(--type-body-tracking);
+  line-height: 1.4;
   color: var(--text-primary);
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 .interpretationMeta {
   font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-size: var(--type-label);
   font-weight: 400;
   color: var(--text-secondary);
   white-space: pre;
   display: block;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 
 .interpretationActions {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
 }
 
 .btnConfirm {
-  height: 36px;
-  padding: 0 18px;
+  height: 32px;
+  padding: 0 16px;
   background: var(--btn-primary-bg);
   color: var(--btn-primary-text);
   font-family: var(--font-mono);
@@ -241,7 +240,7 @@
 
 .btnEdit {
   font-family: var(--font-display);
-  font-size: var(--type-body);
+  font-size: var(--type-data);
   font-weight: 400;
   color: var(--text-primary);
   background: none;
@@ -249,7 +248,7 @@
   cursor: pointer;
   padding: 0;
   text-decoration: underline;
-  text-underline-offset: 4px;
+  text-underline-offset: 3px;
   transition: color 0.15s;
 }
 
@@ -257,7 +256,7 @@
 
 .btnDiscard {
   font-family: var(--font-display);
-  font-size: var(--type-body);
+  font-size: var(--type-data);
   font-weight: 400;
   color: var(--text-secondary);
   background: none;
@@ -271,8 +270,8 @@
 
 /* ── Duplicate warning ── */
 .duplicateWarning {
-  margin-top: -16px;
-  padding: 20px 24px;
+  margin-top: -8px;
+  padding: 10px 12px;
   background: var(--banner-warning-bg);
   border-left: 3px solid var(--status-pending-bg);
   border-radius: 0 0 var(--radius-card) var(--radius-card);
@@ -286,12 +285,12 @@
   text-transform: uppercase;
   color: var(--text-primary);
   display: block;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .duplicateRule {
   font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-size: var(--type-label);
   font-weight: 400;
   color: var(--text-primary);
   display: block;
@@ -299,22 +298,22 @@
 
 .duplicateExisting {
   font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-size: var(--type-label);
   font-weight: 400;
   color: var(--text-secondary);
   display: block;
-  margin-bottom: 14px;
+  margin-bottom: 8px;
 }
 
 .duplicateActions {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
 }
 
 .btnAddAnyway {
-  height: 36px;
-  padding: 0 18px;
+  height: 28px;
+  padding: 0 12px;
   background: var(--btn-primary-bg);
   color: var(--btn-primary-text);
   font-family: var(--font-mono);

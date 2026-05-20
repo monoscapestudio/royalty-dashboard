@@ -1,23 +1,23 @@
 .pageHeader {
-  padding: 40px var(--content-px) 24px;
+  padding: 16px var(--content-px) 10px;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
-  gap: 24px;
+  gap: 12px;
 }
 
 .pageHeaderText {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  align-items: baseline;
+  gap: 10px;
 }
 
 .pageTitle {
   font-family: var(--font-display);
-  font-size: var(--type-hero);
+  font-size: var(--type-subtitle);
   font-weight: 500;
-  letter-spacing: var(--type-hero-tracking);
-  line-height: var(--type-hero-lh);
+  letter-spacing: var(--type-subtitle-tracking);
+  line-height: var(--type-subtitle-lh);
   color: var(--text-primary);
   margin: 0;
   white-space: nowrap;
@@ -25,16 +25,20 @@
 
 .pageSubtitle {
   font-family: var(--font-display);
-  font-size: var(--type-subtitle);
-  font-weight: var(--type-subtitle-weight);
-  letter-spacing: var(--type-subtitle-tracking);
-  line-height: var(--type-subtitle-lh);
+  font-size: var(--type-body);
+  font-weight: 400;
+  letter-spacing: var(--type-body-tracking);
+  line-height: var(--type-body-lh);
   color: var(--text-secondary);
   margin: 0;
 }
 
 .content {
-  padding: 0 var(--content-px) 40px;
+  padding: 0 var(--content-px) 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  align-items: start;
 }
 
 /* ── Panel cards ── */
@@ -44,25 +48,20 @@
   border-radius: var(--radius-card);
   overflow: hidden;
   box-shadow: var(--shadow-panel);
-  margin-bottom: 24px;
-}
-
-.content > .panel:first-child {
-  margin-top: 140px;
 }
 
 .panelHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 24px 16px;
+  padding: 8px 14px;
   background: #010101;
   border-bottom: 1px solid var(--border-default);
 }
 
 .panelTitle {
   font-family: var(--font-mono);
-  font-size: var(--type-column-title);
+  font-size: var(--type-label);
   font-weight: var(--type-column-title-weight);
   letter-spacing: var(--type-column-title-tracking);
   line-height: var(--type-column-title-lh);
@@ -80,31 +79,32 @@
 }
 
 .panelBody {
-  padding: 24px;
+  padding: 12px;
 }
 
 /* ── First-audit step complete banner ── */
 .stepCompleteBanner {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 18px 24px;
-  margin-bottom: 24px;
+  gap: 10px;
+  padding: 10px 14px;
+  margin-bottom: 12px;
+  grid-column: 1 / -1;
   background: #E8F1E0;
   border: 1px solid #C4D9B8;
   border-radius: var(--radius-card);
 }
 
 .stepCompleteCheck {
-  width: 28px;
-  height: 28px;
-  border-radius: 6px;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
   background: var(--status-live-bg);
   color: var(--status-live-text);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  font-size: var(--type-data);
   font-weight: 700;
   flex-shrink: 0;
 }
@@ -118,8 +118,8 @@
 }
 
 .stepCompleteBtn {
-  height: 44px;
-  padding: 0 24px;
+  height: 28px;
+  padding: 0 14px;
   background: var(--btn-primary-bg);
   color: #fff;
   font-family: var(--font-mono);
@@ -144,7 +144,7 @@
 /* ── Toast ── */
 .toast {
   position: fixed;
-  bottom: 28px;
+  bottom: 16px;
   left: 50%;
   transform: translateX(-50%);
   background: var(--text-primary);
@@ -152,7 +152,7 @@
   font-family: var(--font-mono);
   font-size: var(--type-data);
   font-weight: 400;
-  padding: 10px 20px;
+  padding: 6px 14px;
   border-radius: var(--radius-btn);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
   z-index: 999;

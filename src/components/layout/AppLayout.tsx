@@ -1,13 +1,11 @@
 import { Outlet } from 'react-router-dom';
-import TopNav from './TopNav';
-import SubHeader from './SubHeader';
+import Sidebar from './Sidebar';
 import styles from './AppLayout.module.css';
 
 export default function AppLayout() {
   return (
     <div className={styles.shell}>
-      <TopNav />
-      {/* SubHeader hidden — not in Figma header design */}
+      <Sidebar />
       <main className={styles.main}>
         <Outlet />
       </main>

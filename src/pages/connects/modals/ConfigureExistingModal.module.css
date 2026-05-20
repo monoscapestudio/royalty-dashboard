@@ -1,40 +1,40 @@
 .fields {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
 }
 
 .syncInfo {
-  margin-top: -4px;
+  margin-top: 8px;
 }
 
 .syncLabel {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: var(--type-label);
-  letter-spacing: var(--type-label-tracking);
-  font-weight: var(--type-label-weight);
+  letter-spacing: 0.04em;
+  font-weight: 600;
   color: var(--text-secondary);
   text-transform: uppercase;
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .syncValue {
-  font-size: var(--type-data);
-  font-family: var(--font-mono);
-  font-weight: 400;
+  font-size: 14px;
+  font-family: var(--font-display);
+  font-weight: 500;
   color: var(--text-primary);
 }
 
 .syncHistory {
-  margin-top: 4px;
+  margin-top: 16px;
 }
 
 .syncHistoryLabel {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: var(--type-label);
-  letter-spacing: var(--type-label-tracking);
-  font-weight: var(--type-label-weight);
+  letter-spacing: 0.04em;
+  font-weight: 600;
   color: var(--text-secondary);
   text-transform: uppercase;
   display: block;
@@ -45,12 +45,15 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  background: rgba(0, 0, 0, 0.03);
+  padding: 12px;
+  border-radius: 16px;
 }
 
 .syncLogRow {
   font-family: var(--font-mono);
-  font-size: var(--type-data);
-  letter-spacing: var(--type-data-tracking);
+  font-size: 13px;
+  letter-spacing: 0.02em;
   font-weight: 400;
   color: var(--text-secondary);
   font-variant-numeric: tabular-nums;

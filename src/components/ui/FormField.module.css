@@ -5,12 +5,13 @@
 }
 
 .label {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: var(--type-label);
-  letter-spacing: var(--type-label-tracking);
-  font-weight: var(--type-label-weight);
+  letter-spacing: 0.04em;
+  font-weight: 600;
   color: var(--text-secondary);
   text-transform: uppercase;
+  padding-left: 16px;
 }
 
 .labelError {
@@ -24,62 +25,67 @@
 }
 
 .input {
-  height: 44px;
+  height: 48px;
   width: 100%;
-  background: var(--field-bg);
-  border: none;
-  border-bottom: 1px solid var(--field-border);
-  border-radius: var(--radius-btn);
-  padding: 0 14px;
-  font-size: var(--type-body);
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid transparent;
+  border-radius: 100px;
+  padding: 0 20px;
+  font-size: 16px;
   font-family: var(--font-display);
   color: var(--text-primary);
-  transition: border-color 0.15s, background 0.15s;
+  transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
 }
 
 .input::placeholder {
-  color: var(--field-placeholder);
+  color: var(--text-muted);
 }
 
 .input:hover {
-  background: var(--field-bg-hover);
+  background: rgba(0, 0, 0, 0.06);
 }
 
 .input:focus {
   outline: none;
-  background: #fff;
-  border-bottom-color: var(--field-border-focus);
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .inputError {
-  background: var(--field-error-bg);
-  border-bottom: 2px solid var(--status-fix-bg);
+  background: rgba(255, 0, 0, 0.04);
+  border-color: rgba(255, 0, 0, 0.2);
   color: var(--status-fix-bg);
 }
 
 .inputError::placeholder {
-  color: #D98080;
+  color: rgba(255, 0, 0, 0.4);
 }
 
 .rightAction {
   position: absolute;
   right: 12px;
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: var(--type-label);
-  letter-spacing: var(--type-label-tracking);
-  font-weight: var(--type-label-weight);
-  color: var(--type-badge-text);
-  background: none;
+  letter-spacing: 0.02em;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: rgba(0, 0, 0, 0.05);
   border: none;
   cursor: pointer;
-  padding: 0;
+  padding: 6px 12px;
+  border-radius: 100px;
   text-transform: uppercase;
+  transition: background 0.15s, color 0.15s;
+}
+.rightAction:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: var(--text-primary);
 }
 
 .errorMsg {
   font-family: var(--font-display);
-  font-size: var(--type-body);
-  font-weight: 400;
+  font-size: 13px;
   color: var(--status-fix-bg);
-  margin-top: 2px;
+  padding-left: 16px;
 }

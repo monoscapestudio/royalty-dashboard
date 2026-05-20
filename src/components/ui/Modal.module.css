@@ -1,224 +1,222 @@
 .scrim {
   position: fixed;
   inset: 0;
-  background: rgba(22, 22, 22, 0.34);
-  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   z-index: var(--modal-z, 300);
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding: 96px 32px 40px;
+  padding: 48px 24px 24px;
   overflow-y: auto;
 }
 
 .card {
-  background: var(--bg-white);
-  border: 1px solid var(--border-card);
-  border-radius: var(--radius-card);
-  width: min(560px, calc(100vw - 64px));
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 32px;
+  width: min(480px, calc(100vw - 48px));
   flex-shrink: 0;
   overflow: hidden;
-  box-shadow: var(--shadow-soft);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.1);
 }
 
-/* ── Modal header ── */
 .header {
-  padding: 24px 28px 18px;
-  border-bottom: 1px solid var(--border-default);
+  padding: 24px 24px 8px;
+  border-bottom: none;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 20px;
+  gap: 12px;
 }
 
 .headerMeta {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 .headerContext {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: var(--type-label);
-  letter-spacing: var(--type-label-tracking);
-  font-weight: var(--type-label-weight);
-  color: var(--text-secondary);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
   text-transform: uppercase;
 }
 
 .headerTitleRow {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
 .headerTitle {
   font-family: var(--font-display);
-  font-size: var(--type-subtitle);
-  font-weight: var(--type-subtitle-weight);
-  letter-spacing: var(--type-subtitle-tracking);
-  line-height: var(--type-subtitle-lh);
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   color: var(--text-primary);
 }
 
-/* ── Modal footer ── */
 .footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 24px;
-  border-top: 1px solid var(--border-default);
-  margin-top: 24px;
+  padding: 16px 24px 24px;
+  border-top: none;
+  margin-top: 0;
 }
 
 .footerRight {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
-/* ── Shared modal buttons ── */
 .btnCancel {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: var(--type-label);
-  letter-spacing: var(--type-label-tracking);
+  font-weight: 600;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
-  font-weight: 400;
   color: var(--text-secondary);
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0;
-  font-family: inherit;
-  transition: color 0.1s;
+  padding: 8px 16px;
+  border-radius: 100px; /* Full pill */
+  transition: background 0.15s, color 0.15s;
 }
-
 .btnCancel:hover {
   color: var(--text-primary);
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .btnPrimary {
-  height: 44px;
-  padding: 0 22px;
+  height: 48px;
+  padding: 0 24px;
   background: var(--btn-primary-bg);
   color: var(--btn-primary-text);
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: var(--type-label);
-  font-weight: var(--type-label-weight);
-  letter-spacing: var(--type-label-tracking);
+  font-weight: 600;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
-  border-radius: var(--radius-btn);
+  border-radius: 100px;
   border: none;
   cursor: pointer;
   white-space: nowrap;
-  transition: background 0.1s;
+  transition: transform 0.15s, box-shadow 0.15s;
 }
-
 .btnPrimary:hover {
-  background: var(--btn-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
-
 .btnPrimary:disabled {
   background: var(--btn-disabled-bg);
   color: var(--btn-disabled-text);
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 .btnSecondary {
-  height: 44px;
-  padding: 0 22px;
-  background: var(--btn-secondary-bg);
+  height: 48px;
+  padding: 0 24px;
+  background: rgba(255, 255, 255, 0.4);
   color: var(--text-primary);
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: var(--type-label);
-  font-weight: var(--type-label-weight);
-  letter-spacing: var(--type-label-tracking);
+  font-weight: 600;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
-  border-radius: var(--radius-btn);
-  border: 1px solid var(--btn-secondary-border);
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
   cursor: pointer;
   white-space: nowrap;
-  transition: background 0.1s;
+  transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
 }
-
 .btnSecondary:hover {
-  background: var(--btn-secondary-hover);
+  background: rgba(255, 255, 255, 0.8);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
 }
 
 .btnDanger {
-  height: 44px;
-  padding: 0 22px;
+  height: 48px;
+  padding: 0 24px;
   background: var(--status-fix-bg);
   color: #fff;
+  font-family: var(--font-display);
   font-size: var(--type-label);
-  font-family: var(--font-mono);
-  font-weight: var(--type-label-weight);
-  letter-spacing: var(--type-label-tracking);
+  font-weight: 600;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
-  border-radius: var(--radius-btn);
+  border-radius: 100px;
   border: none;
   cursor: pointer;
   white-space: nowrap;
-  transition: background 0.1s;
+  transition: transform 0.15s, box-shadow 0.15s;
 }
-
 .btnDanger:hover {
-  background: #cc3103;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
-/* Danger outlined — white bg, red border, red text (Delete rule) */
 .btnDangerOutlined {
-  height: 44px;
-  padding: 0 22px;
-  background: #fff;
+  height: 48px;
+  padding: 0 24px;
+  background: rgba(255, 255, 255, 0.4);
   color: var(--status-fix-bg);
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: var(--type-label);
-  font-weight: var(--type-label-weight);
-  letter-spacing: var(--type-label-tracking);
+  font-weight: 600;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
-  border-radius: var(--radius-btn);
-  border: 1px solid var(--border-default);
+  border-radius: 100px;
+  border: 1px solid rgba(255, 0, 0, 0.2);
   cursor: pointer;
   white-space: nowrap;
-  transition: background 0.1s, border-color 0.1s;
+  transition: transform 0.15s, background 0.15s, border-color 0.15s;
 }
-
 .btnDangerOutlined:hover {
-  background: #fff5f5;
+  background: rgba(255, 0, 0, 0.05);
   border-color: var(--status-fix-bg);
+  transform: translateY(-2px);
 }
 
-/* Large title variant (16px, for Implications modal) */
 .headerTitleLarge {
   font-family: var(--font-display);
-  font-size: var(--type-body);
-  font-weight: 400;
-  letter-spacing: var(--type-body-tracking);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
   color: var(--text-primary);
 }
 
 .closeBtn {
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bg-panel-muted);
+  background: rgba(0, 0, 0, 0.04);
   border: none;
   cursor: pointer;
   flex-shrink: 0;
-  font-size: var(--type-body);
+  font-size: var(--type-data);
   color: var(--text-secondary);
-  border-radius: var(--radius-btn);
-  transition: background 0.1s;
+  border-radius: 50%; /* Perfect circle */
+  transition: background 0.15s, color 0.15s;
 }
-
 .closeBtn:hover {
-  background: var(--bg-hover-strong);
+  background: rgba(0, 0, 0, 0.08);
+  color: var(--text-primary);
 }
 
-/* ── Modal body ── */
 .body {
-  padding: 24px 28px 28px;
+  padding: 12px 24px 24px;
 }

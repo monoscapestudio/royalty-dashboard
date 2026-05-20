@@ -1,63 +1,70 @@
 .page {
-  min-height: calc(100vh - var(--nav-height) + 120px);
-  padding-bottom: 120px;
+  --nav-height: 0px;
+  --content-px: 24px;
+  --type-body: 13px;
+  --type-data: 12px;
+  --type-label: 10px;
+  --type-subtitle: 16px;
+  --type-metric: 24px;
+  --type-hero: 36px;
+  min-height: calc(100vh - var(--nav-height));
+  padding-bottom: 48px;
 }
 
 .pageHeader {
-  padding: 40px var(--content-px) 24px;
+  padding: 16px var(--content-px) 10px;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 24px;
+  gap: 12px;
 }
 
 .pageHeaderText {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 4px;
 }
 
 .pageTitle {
   font-family: var(--font-display);
-  font-size: var(--type-hero);
+  font-size: var(--type-subtitle);
   font-weight: 500;
-  letter-spacing: var(--type-hero-tracking);
-  line-height: var(--type-hero-lh);
+  letter-spacing: -0.01em;
+  line-height: 1.25;
   color: var(--text-primary);
   margin: 0;
 }
 
 .pageSubtitle {
   font-family: var(--font-display);
-  font-size: var(--type-subtitle);
-  font-weight: var(--type-subtitle-weight);
-  letter-spacing: var(--type-subtitle-tracking);
-  line-height: var(--type-subtitle-lh);
+  font-size: var(--type-data);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.4;
   color: var(--text-secondary);
 }
 
 /* ── Empty state ── */
 .emptyStage {
-  margin: 120px var(--content-px) 0;
+  margin: 48px var(--content-px) 0;
   display: grid;
-  grid-template-columns: minmax(360px, 1.35fr) minmax(320px, 0.95fr);
-  gap: 32px;
+  grid-template-columns: minmax(300px, 1.35fr) minmax(260px, 0.95fr);
+  gap: 16px;
   align-items: start;
 }
 
 .emptyIntro,
 .emptyMetaCard {
   background: var(--bg-white);
-  border: 1px solid var(--border-default);
   border-radius: var(--radius-card);
-  box-shadow: var(--shadow-panel);
+  box-shadow: var(--shadow-card);
 }
 
 .emptyIntro {
-  padding: 40px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 10px;
 }
 
 .emptyEyebrow,
@@ -72,10 +79,10 @@
 
 .emptyHeroTitle {
   font-family: var(--font-display);
-  font-size: var(--type-metric);
-  font-weight: 400;
-  letter-spacing: var(--type-metric-tracking);
-  line-height: var(--type-metric-lh);
+  font-size: var(--type-subtitle);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
   color: var(--text-primary);
 }
 
@@ -83,9 +90,9 @@
 .emptyMetaBody {
   margin: 0;
   font-family: var(--font-display);
-  font-size: var(--type-body);
-  font-weight: var(--type-body-weight);
-  line-height: var(--type-body-lh);
+  font-size: var(--type-data);
+  font-weight: 400;
+  line-height: 1.5;
   color: var(--text-secondary);
   max-width: 620px;
 }
@@ -93,14 +100,14 @@
 .emptyActionRow {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 10px;
   flex-wrap: wrap;
-  padding-top: 8px;
+  padding-top: 4px;
 }
 
 .goToAuditBtn {
-  height: 52px;
-  padding: 0 32px;
+  height: 30px;
+  padding: 0 16px;
   background: var(--btn-primary-bg);
   color: #fff;
   font-family: var(--font-mono);
@@ -120,32 +127,32 @@
 
 .emptyActionNote {
   font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-size: var(--type-label);
   color: var(--text-muted);
 }
 
 .emptyMetaCard {
-  padding: 32px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 6px;
 }
 
 .emptyMetaTitle {
   font-family: var(--font-display);
-  font-size: var(--type-subtitle);
-  font-weight: var(--type-subtitle-weight);
-  letter-spacing: var(--type-subtitle-tracking);
-  line-height: var(--type-subtitle-lh);
+  font-size: var(--type-body);
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.4;
   color: var(--text-primary);
 }
 
 /* ── Main reporting layout ── */
 .panels {
   display: grid;
-  grid-template-columns: 280px minmax(0, 1fr) 320px;
-  gap: 24px;
-  padding: 120px var(--content-px) 40px;
+  grid-template-columns: 240px minmax(0, 1fr) 260px;
+  gap: 12px;
+  padding: 12px var(--content-px) 24px;
   align-items: start;
 }
 
@@ -153,17 +160,16 @@
 .centerPanel,
 .rightPanel {
   background: var(--bg-white);
-  border: 1px solid var(--border-default);
   border-radius: var(--radius-card);
-  box-shadow: var(--shadow-panel);
+  box-shadow: var(--shadow-card);
   overflow: hidden;
 }
 
 .leftPanel,
 .rightPanel {
   position: sticky;
-  top: 188px;
-  max-height: calc(100vh - 220px);
+  top: 48px;
+  max-height: calc(100vh - 64px);
   overflow-y: auto;
 }
 
@@ -172,53 +178,53 @@
 .canvasTopBar {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 18px 24px 16px;
-  background: #010101;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--bg-white);
   border-bottom: 1px solid var(--border-default);
 }
 
 .leftHeader {
   flex-direction: column;
   align-items: flex-start;
-  gap: 8px;
+  gap: 2px;
 }
 
 .leftHeaderTitle,
 .rightHeaderTitle,
 .canvasTopLabel {
   font-family: var(--font-mono);
-  font-size: var(--type-column-title);
+  font-size: var(--type-label);
   font-weight: var(--type-column-title-weight);
   letter-spacing: var(--type-column-title-tracking);
-  line-height: var(--type-column-title-lh);
+  line-height: 1.3;
   text-transform: uppercase;
-  color: #fff;
+  color: var(--text-primary);
 }
 
 .leftHeaderSub {
   font-family: var(--font-display);
-  font-size: var(--type-body);
-  font-weight: var(--type-body-weight);
-  line-height: var(--type-body-lh);
-  color: rgba(255, 255, 255, 0.72);
+  font-size: var(--type-label);
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--text-secondary);
 }
 
 .leftSection,
 .rightSection {
-  padding: 24px;
+  padding: 10px 12px;
 }
 
 .rightSectionForm {
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: 10px;
 }
 
 .propField {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
 }
 
 .sectionBreak {
@@ -227,13 +233,13 @@
 
 .historySection,
 .rightSectionActions {
-  padding-bottom: 24px;
+  padding-bottom: 12px;
 }
 
 .sectionLabel,
 .propLabel {
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 4px;
   font-family: var(--font-mono);
   font-size: var(--type-label);
   font-weight: var(--type-label-weight);
@@ -252,26 +258,26 @@
 }
 
 .templateConfirm {
-  margin-top: 16px;
-  padding: 16px 18px;
-  background: var(--bg-panel);
-  border: 1px solid var(--border-default);
+  margin-top: 8px;
+  padding: 8px 10px;
+  background: var(--bg-white);
   border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 4px;
 }
 
 .templateConfirmTitle {
   font-family: var(--font-display);
-  font-size: var(--type-body);
+  font-size: var(--type-data);
   font-weight: 500;
   color: var(--text-primary);
 }
 
 .templateConfirmBody {
   font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-size: var(--type-label);
   color: var(--text-secondary);
   line-height: 1.5;
 }
@@ -279,7 +285,7 @@
 .templateConfirmActions {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
 }
 
 .confirmReplaceBtn,
@@ -291,10 +297,10 @@
   cursor: pointer;
   padding: 0;
   font-family: var(--font-display);
-  font-size: var(--type-body);
+  font-size: var(--type-data);
   font-weight: 400;
   text-decoration: underline;
-  text-underline-offset: 4px;
+  text-underline-offset: 3px;
   transition: color 0.15s, text-decoration-color 0.15s;
 }
 
@@ -327,16 +333,16 @@
 
 .blockItem {
   width: 100%;
-  min-height: 52px;
+  min-height: 28px;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 0 16px;
+  gap: 6px;
+  padding: 0 8px;
   background: var(--bg-white);
-  border: 1px solid var(--border-default);
-  margin-bottom: 10px;
+  border-radius: var(--radius-option);
+  margin-bottom: 4px;
   font-family: var(--font-display);
-  font-size: var(--type-body);
+  font-size: var(--type-data);
   font-weight: 400;
   color: var(--text-primary);
   cursor: pointer;
@@ -346,7 +352,6 @@
 
 .blockItem:hover {
   background: var(--row-hover);
-  border-color: var(--border-strong);
 }
 
 .blockItemOnCanvas {
@@ -368,31 +373,31 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 14px 16px;
-  border: 1px solid var(--border-default);
-  margin-bottom: 10px;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: var(--radius-card);
+  margin-bottom: 6px;
   background: var(--bg-white);
   cursor: pointer;
-  transition: background 0.15s ease, border-color 0.15s ease;
+  transition: background 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: var(--shadow-card);
 }
 
 .historyItem:hover,
 .historyItemActive {
-  background: var(--bg-panel);
-  border-color: var(--border-strong);
+  background: var(--row-hover);
 }
 
 .historyText {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 1px;
 }
 
 .historyId,
 .historyIdInactive {
   font-family: var(--font-display);
-  font-size: var(--type-body);
+  font-size: var(--type-data);
 }
 
 .historyId {
@@ -405,7 +410,7 @@
 
 .historyMeta {
   font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-size: var(--type-label);
   color: var(--text-muted);
 }
 
@@ -417,8 +422,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 26px;
-  padding: 0 12px;
+  height: 20px;
+  padding: 0 8px;
   border-radius: var(--radius-badge);
   font-family: var(--font-mono);
   font-size: var(--type-label);
@@ -461,12 +466,12 @@
 }
 
 .centerPanel {
-  min-height: 880px;
+  min-height: 600px;
 }
 
 .canvasArea {
-  padding: 32px;
-  background: #ECEBE6;
+  padding: 16px;
+  background: var(--bg-page);
   display: flex;
   justify-content: center;
 }
@@ -474,16 +479,17 @@
 .reportPage {
   width: min(720px, 100%);
   background: var(--bg-white);
-  box-shadow: 0 12px 40px rgba(22, 22, 22, 0.12);
-  border: 1px solid rgba(22, 22, 22, 0.08);
+  box-shadow: var(--shadow-card);
+  border-radius: var(--radius-card);
   display: flex;
   flex-direction: column;
   position: relative;
+  overflow: hidden;
 }
 
 .finalizedBanner {
   background: #E8F1E0;
-  padding: 12px 18px 12px 20px;
+  padding: 6px 10px 6px 12px;
   border-bottom: 1px solid #C9D3BE;
   position: relative;
 }
@@ -500,33 +506,33 @@
 
 .finalizedBannerText {
   font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-size: var(--type-label);
   color: var(--text-primary);
 }
 
 .reportContent {
-  padding: 36px 40px 32px;
+  padding: 20px 24px 16px;
   display: flex;
   flex-direction: column;
-  min-height: 900px;
+  min-height: 500px;
 }
 
 .docHeader {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-bottom: 12px;
+  gap: 4px;
+  margin-bottom: 6px;
 }
 
 .docLogoRow {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .docLogoSquare {
-  width: 20px;
-  height: 20px;
+  width: 14px;
+  height: 14px;
   background: var(--text-primary);
   flex-shrink: 0;
 }
@@ -555,50 +561,50 @@
 
 .docTitle {
   font-family: var(--font-display);
-  font-size: var(--type-metric);
-  font-weight: 400;
-  letter-spacing: var(--type-metric-tracking);
-  line-height: var(--type-metric-lh);
+  font-size: var(--type-subtitle);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
   color: var(--text-primary);
 }
 
 .docMeta {
   font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-size: var(--type-label);
   color: var(--text-secondary);
 }
 
 .docSummary {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  padding: 20px 0 8px;
+  gap: 12px;
+  padding: 10px 0 4px;
 }
 
 .docSummaryHero {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
 }
 
 .docSummaryHeroValue {
   font-family: var(--font-display);
-  font-size: 112px;
+  font-size: var(--type-hero);
   font-weight: 300;
-  letter-spacing: -0.04em;
-  line-height: 0.92;
+  letter-spacing: -0.03em;
+  line-height: 1;
   color: #010101;
 }
 
 .docSummaryRow {
   display: flex;
-  gap: 48px;
+  gap: 24px;
 }
 
 .docSummaryItem {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 2px;
 }
 
 .docSummaryLabel {
@@ -612,16 +618,16 @@
 
 .docSummaryValue {
   font-family: var(--font-display);
-  font-size: 56px;
+  font-size: var(--type-metric);
   font-weight: 300;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   line-height: 1;
   color: #010101;
 }
 
 .docSummarySub {
   font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-size: var(--type-label);
   color: var(--text-muted);
   line-height: 1.4;
 }
@@ -633,30 +639,30 @@
 }
 
 .docDivider {
-  margin: 12px 0;
+  margin: 6px 0;
 }
 
 .dropZone {
-  min-height: 220px;
+  min-height: 120px;
   border: 1px dashed var(--border-strong);
   background: #FAFAFA;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 4px;
 }
 
 .dropZoneTitle {
   font-family: var(--font-display);
-  font-size: var(--type-subtitle);
-  font-weight: var(--type-subtitle-weight);
+  font-size: var(--type-body);
+  font-weight: 500;
   color: var(--text-primary);
 }
 
 .dropZoneText {
   font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-size: var(--type-label);
   color: var(--text-secondary);
 }
 
@@ -664,9 +670,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 8px;
   margin-top: auto;
-  padding-top: 14px;
+  padding-top: 8px;
   border-top: 1px solid var(--border-default);
 }
 
@@ -676,7 +682,7 @@
 
 .block {
   position: relative;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .block:hover .blockControls {
@@ -685,10 +691,10 @@
 
 .blockControls {
   position: absolute;
-  top: 10px;
+  top: 4px;
   right: 0;
   display: flex;
-  gap: 8px;
+  gap: 4px;
   opacity: 0;
   transition: opacity 0.15s ease;
   z-index: 1;
@@ -700,8 +706,8 @@
 
 .blockDragHandle,
 .blockRemoveBtn {
-  width: 28px;
-  height: 28px;
+  width: 22px;
+  height: 22px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -718,7 +724,7 @@
 }
 
 .blockRemoveBtn {
-  font-size: var(--type-data);
+  font-size: var(--type-label);
 }
 
 .blockRemoveBtn:hover {
@@ -727,8 +733,8 @@
 }
 
 .blockHeader {
-  margin-bottom: 12px;
-  padding: 12px 14px 10px;
+  margin-bottom: 6px;
+  padding: 6px 8px 5px;
   background: #010101;
 }
 
@@ -744,14 +750,14 @@
 .metricsGrid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
-  padding: 8px 0 18px;
+  gap: 12px;
+  padding: 4px 0 10px;
 }
 
 .metricItem {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 2px;
 }
 
 .metricLabel {
@@ -788,8 +794,8 @@
 .findingDetail,
 .revertBannerText {
   font-family: var(--font-mono);
-  font-size: var(--type-data);
-  line-height: 1.6;
+  font-size: var(--type-label);
+  line-height: 1.5;
   color: var(--text-secondary);
 }
 
@@ -801,7 +807,7 @@
 
 .miniTable th,
 .recoveryTable th {
-  padding: 8px 0;
+  padding: 4px 0;
   text-align: left;
   font-family: var(--font-mono);
   font-size: var(--type-label);
@@ -814,21 +820,21 @@
 
 .miniTable td,
 .recoveryTable td {
-  padding: 10px 0;
+  padding: 4px 0;
   border-bottom: 1px solid #EEEEEE;
   font-family: var(--font-display);
-  font-size: var(--type-body);
+  font-size: var(--type-data);
   color: var(--text-primary);
   white-space: nowrap;
 }
 
 .miniTableFooter {
   display: block;
-  margin-top: 10px;
+  margin-top: 4px;
 }
 
 .chartPlaceholder {
-  min-height: 120px;
+  min-height: 72px;
   background: #F7F7F7;
   border: 1px dashed var(--border-default);
   display: flex;
@@ -838,44 +844,44 @@
 
 .chartPlaceholderText {
   font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-size: var(--type-label);
   color: var(--text-muted);
 }
 
 .coverageGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px 20px;
+  gap: 4px 12px;
 }
 
 .ruleRefList {
-  padding-left: 18px;
+  padding-left: 14px;
   margin: 0;
 }
 
 .findingDetail {
-  background: #F7F7F7;
-  padding: 14px 16px;
-  border: 1px solid var(--border-default);
+  background: var(--bg-page);
+  padding: 8px 10px;
+  border-radius: var(--radius-card);
 }
 
 .rightSectionCompact {
-  padding-top: 20px;
+  padding-top: 10px;
 }
 
 .propInput,
 .modalTextInput,
 .linkInput {
   width: 100%;
-  height: 44px;
+  height: 30px;
   background: var(--field-bg);
   border: none;
   border-bottom: 1px solid var(--field-border);
   border-radius: var(--radius-btn);
-  padding: 0 14px;
+  padding: 0 8px;
   box-sizing: border-box;
   font-family: var(--font-display);
-  font-size: var(--type-body);
+  font-size: var(--type-data);
   color: var(--text-primary);
 }
 
@@ -893,36 +899,36 @@
 
 .propValue {
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 2px;
   font-family: var(--font-mono);
   font-size: var(--type-data);
   color: var(--text-primary);
 }
 
 .propValueTight {
-  margin-bottom: 18px;
+  margin-bottom: 8px;
 }
 
 .propMeta {
   display: block;
   margin-bottom: 0;
   font-family: var(--font-display);
-  font-size: var(--type-body);
+  font-size: var(--type-label);
   color: var(--text-secondary);
-  line-height: var(--type-body-lh);
+  line-height: 1.4;
 }
 
 .rightDivider {
-  margin: 0 24px;
+  margin: 0 12px;
 }
 
 .actionBtn {
   width: 100%;
-  height: 44px;
+  height: 36px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 10px;
+  margin-bottom: 4px;
   border-radius: var(--radius-btn);
   font-family: var(--font-mono);
   font-size: var(--type-label);
@@ -965,24 +971,24 @@
 
 .actionDisclaimer {
   width: 100%;
-  margin: 8px 0 0;
+  margin: 2px 0 0;
   font-family: var(--font-display);
-  font-size: var(--type-body);
+  font-size: var(--type-label);
   color: var(--text-secondary);
-  line-height: var(--type-body-lh);
+  line-height: 1.4;
 }
 
 /* ── Modal styles ── */
 .modalBodyStack {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 10px;
 }
 
 .modalField {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
 }
 
 .modalFieldLabel {
@@ -996,9 +1002,9 @@
 
 .modalFieldHint {
   font-family: var(--font-display);
-  font-size: var(--type-body);
+  font-size: var(--type-data);
   color: var(--text-secondary);
-  line-height: var(--type-body-lh);
+  line-height: 1.4;
 }
 
 .modalSelect {
@@ -1008,13 +1014,13 @@
 .linkFieldRow {
   display: flex;
   align-items: stretch;
-  gap: 10px;
+  gap: 6px;
 }
 
 .copyBtn,
 .modalPrimaryBtn {
-  height: 44px;
-  padding: 0 22px;
+  height: 30px;
+  padding: 0 14px;
   background: var(--btn-primary-bg);
   color: var(--btn-primary-text);
   border: none;
@@ -1038,22 +1044,22 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
-  padding-top: 18px;
+  gap: 12px;
+  padding-top: 10px;
   border-top: 1px solid var(--border-default);
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
 .modalFooterRight {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
 }
 
 .revertBanner {
   position: relative;
   overflow: hidden;
-  padding: 16px 18px 16px 20px;
+  padding: 8px 10px 8px 12px;
   background: #FFF5EB;
   border: 1px solid #F3D8BE;
   border-radius: var(--radius-card);
@@ -1071,7 +1077,7 @@
 
 .revertBannerBold {
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 2px;
   font-family: var(--font-mono);
   font-size: var(--type-label);
   font-weight: var(--type-label-weight);
@@ -1083,9 +1089,9 @@
 .revertMeta {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 2px;
   font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-size: var(--type-label);
   color: var(--text-secondary);
 }
 
@@ -1096,15 +1102,15 @@
 /* ── Toast ── */
 .toast {
   position: fixed;
-  bottom: 28px;
+  bottom: 16px;
   left: 50%;
   transform: translateX(-50%);
   background: var(--text-primary);
   color: #fff;
-  font-size: var(--type-data);
+  font-size: var(--type-label);
   font-family: var(--font-mono);
   font-weight: 400;
-  padding: 10px 20px;
+  padding: 6px 14px;
   border-radius: var(--radius-btn);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
   z-index: 999;
@@ -1120,18 +1126,18 @@
 /* ── Dev toggle ── */
 .devToggle {
   position: fixed;
-  bottom: 16px;
-  right: 16px;
+  bottom: 8px;
+  right: 8px;
   background: #292929;
   color: #fff;
-  padding: 8px 12px;
-  border-radius: 8px;
-  font-size: var(--type-data);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: var(--type-label);
   font-family: monospace;
   z-index: 9999;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .devToggle select {
@@ -1139,8 +1145,8 @@
   color: #fff;
   border: none;
   border-radius: 4px;
-  padding: 2px 6px;
-  font-size: var(--type-data);
+  padding: 2px 4px;
+  font-size: var(--type-label);
   font-family: monospace;
   cursor: pointer;
 }

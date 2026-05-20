@@ -31,70 +31,68 @@
 }
 
 :root {
-  /* ── TYPE SYSTEM (Strict 5-tier scale) ── */
+  /* ── TYPE SYSTEM (Harmonized) ── */
   
   /* Font stacks */
   --font-display: 'Helvetica Now Display', 'Helvetica Neue', 'Arial', sans-serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', 'Courier New', monospace;
 
-  /* 96px — Hero (Helvetica 300) */
-  --type-hero: 96px;
+  /* Display Font: Headings & UI */
+  --type-hero: 48px;
   --type-hero-weight: 300;
-  --type-hero-tracking: -0.04em;
+  --type-hero-tracking: -0.03em;
   --type-hero-lh: 1;
 
-  /* 48px — Metric / State (Helvetica 300) */
-  --type-metric: 48px;
-  --type-metric-weight: 300;
-  --type-metric-tracking: -0.02em;
-  --type-metric-lh: 1.1;
-
-  /* 24px — Subtitle (Helvetica 400/700) */
-  --type-subtitle: 24px;
-  --type-subtitle-weight: 700;
+  --type-subtitle: 20px;
+  --type-subtitle-weight: 500;
   --type-subtitle-tracking: -0.01em;
   --type-subtitle-lh: 1.3;
 
-  /* 18px — Column Title (JetBrains Mono) */
-  --type-column-title: 18px;
-  --type-column-title-weight: 500;
-  --type-column-title-tracking: 0.10em;
-  --type-column-title-lh: 1.5;
-
-  /* 16px — Body / Titles (Helvetica 400) */
-  --type-body: 16px;
+  --type-body: 15px;
   --type-body-weight: 400;
   --type-body-tracking: 0;
   --type-body-lh: 1.5;
 
-  /* 14px — Data (JetBrains 400) */
+  /* UI Labels (Display font, usually uppercase) */
+  --type-label: 12px;
+  --type-label-weight: 600;
+  --type-label-tracking: 0.04em;
+  --type-label-lh: 1.5;
+  --type-label-font: var(--font-display);
+
+  --type-column-title: 13px;
+  --type-column-title-weight: 500;
+  --type-column-title-tracking: 0.02em;
+  --type-column-title-lh: 1.5;
+  --type-column-title-font: var(--font-display);
+
+  /* Mono Font: Data & Numbers ONLY */
+  --type-metric: 36px;
+  --type-metric-weight: 300;
+  --type-metric-tracking: -0.02em;
+  --type-metric-lh: 1.1;
+
   --type-data: 14px;
   --type-data-weight: 400;
   --type-data-tracking: 0;
   --type-data-lh: 1.5;
 
-  /* 12px — Label (JetBrains 500, Uppercase, 0.10em) */
-  --type-label: 12px;
-  --type-label-weight: 500;
-  --type-label-tracking: 0.10em;
-  --type-label-lh: 1.5;
-
   /* Spacing */
-  --space-section: 80px;
-  --space-gutter: 48px;
-  --space-hero-above: 64px;
-  --space-hero-below: 48px;
-  --space-hero-between: 32px;
+  --space-section: 40px;
+  --space-gutter: 24px;
+  --space-hero-above: 32px;
+  --space-hero-below: 24px;
+  --space-hero-between: 16px;
 
   /* ── Backgrounds ── */
-  --bg-page:         #F6F6F6;
+  --bg-page:         #F3F3F3; /* Slightly darker to make white cards pop */
   --bg-nav:          #161616;
   --bg-white:        #FFFFFF;
-  --bg-table-header: #EFEFEF;
+  --bg-table-header: transparent;
   --bg-panel:        #FBFBFB;
   --bg-panel-muted:  #F0F0F0;
-  --bg-hover:        #ECECEC;
-  --bg-hover-strong: #E3E3E3;
+  --bg-hover:        #F7F7F7;
+  --bg-hover-strong: #EEEEEE;
   --bg-ink:          #161616;
   --bg-header-dark:  #58594C;
 
@@ -105,52 +103,63 @@
   --text-nav-active:   #FFFFFF;
   --text-nav-inactive: #C6C6C6;
 
-  /* ── Borders ── */
-  --border-default: #DEDEDE;
-  --border-card:    #D3D3D3;
-  --border-strong:  #A8A8A8;
+  /* ── Borders (Eliminating hard lines for Bento) ── */
+  --border-default: transparent; /* No hard borders */
+  --border-card:    transparent;
+  --border-strong:  #E0E0E0; /* Kept for inputs/specific lines */
+
+  /* ── Shadows (Bento depth) ── */
+  --shadow-soft:         0 8px 30px rgba(0, 0, 0, 0.04);
+  --shadow-panel:        0 4px 20px rgba(0, 0, 0, 0.03);
+  --shadow-card:         0 2px 12px rgba(0, 0, 0, 0.02); /* New soft shadow for cards */
+
+  /* ── Accent Colors (High Contrast) ── */
+  --accent-neon:         #D2FF00; /* Neon yellow/green from reference */
+  --accent-neon-text:    #161616;
+  --accent-black:        #161616;
+  --accent-black-text:   #FFFFFF;
 
   /* ── Status: Live ── */
-  --status-live-bg:   #929D85;
-  --status-live-text: #FFFFFF;
+  --status-live-bg:   var(--accent-neon);
+  --status-live-text: var(--accent-neon-text);
 
   /* ── Status: Fix ── */
-  --status-fix-bg:   #FF3D04;
-  --status-fix-text: #FFFFFF;
+  --status-fix-bg:   var(--accent-black);
+  --status-fix-text: var(--accent-black-text);
 
   /* ── Status: Pending ── */
-  --status-pending-bg:   #9C9E93;
-  --status-pending-text: #FFFFFF;
+  --status-pending-bg:   #E0E0E0;
+  --status-pending-text: #5C5C5C;
 
   /* ── Status: Inactive ── */
   --status-inactive-bg:   #F4F4F4;
-  --status-inactive-text: #525252;
+  --status-inactive-text: #8C8C8C;
 
   /* ── Banners ── */
-  --banner-error-bg:      #FF3D04;
-  --banner-error-text:    #FFFFFF;
-  --banner-error-body:    #FFFFFF;
-  --banner-error-accent:  #FF3D04;
-  --banner-info-bg:       #F2F7FF;
-  --banner-info-border:   #CCDEFF;
-  --banner-info-accent:   #0054C4;
-  --banner-warning-bg:    #9C9E93;
-  --banner-warning-accent:#FFFFFF;
-  --banner-success-bg:    #929D85;
-  --banner-success-border:#929D85;
-  --banner-success-accent:#FFFFFF;
+  --banner-error-bg:      var(--accent-black);
+  --banner-error-text:    var(--accent-black-text);
+  --banner-error-body:    #DEDEDE;
+  --banner-error-accent:  var(--accent-neon);
+  
+  --banner-success-bg:    var(--accent-neon);
+  --banner-success-border:transparent;
+  --banner-success-accent:var(--accent-black);
 
   /* ── Buttons ── */
-  --btn-primary-bg:       #A5AD8B;
-  --btn-primary-hover:    #8F9776;
-  --btn-primary-text:     #F8F7F2;
-  --btn-success-bg:       #A5AD8B;
-  --btn-success-hover:    #8F9776;
+  --btn-primary-bg:       var(--accent-black);
+  --btn-primary-hover:    #333333;
+  --btn-primary-text:     #FFFFFF;
+  
+  --btn-success-bg:       var(--accent-neon);
+  --btn-success-hover:    #BFE600;
+  
   --btn-secondary-bg:     #FFFFFF;
-  --btn-secondary-hover:  #F3EEE5;
-  --btn-secondary-border: #A8A8A8;
-  --btn-disabled-bg:      #C6C1B6;
-  --btn-disabled-text:    #7E786D;
+  --btn-secondary-hover:  #F7F7F7;
+  --btn-secondary-border: transparent;
+  --btn-secondary-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  --btn-disabled-bg:      #E0E0E0;
+  --btn-disabled-text:    #8C8C8C;
 
   /* ── Type-badge (modal option cards) ── */
   --type-badge-bg:   #E4E9D9;
@@ -160,12 +169,10 @@
   --field-bg:            #F1F1F1;
   --field-bg-hover:      #ECECEC;
   --field-border:        #A8A8A8;
-  --field-border-focus:  #8F9776;
+  --field-border-focus:  var(--accent-black);
   --field-placeholder:   #A1A1A1;
   --field-error-bg:      #FFF2F2;
-  --row-hover:           #F2F2F2;
-  --shadow-soft:         0 10px 30px rgba(22, 22, 22, 0.08);
-  --shadow-panel:        0 2px 12px rgba(22, 22, 22, 0.06);
+  --row-hover:           #F7F7F7;
 
   /* ── Silo dropdown (dark) ── */
   --silo-dropdown-bg:    #262626;
@@ -182,18 +189,20 @@
   --silo-label:          #999999;
 
   /* ── Shell dimensions ── */
-  --nav-height:          160px;
+  --sidebar-width:       240px;
+  --bg-sidebar:          rgba(255, 255, 255, 0.5);
+  --nav-height:          0px;
   --subheader-height:    0px;
   --page-header-height:  64px;
-  --content-px:          32px;
+  --content-px:          40px;
   --table-row-height:    48px;
-  --table-header-height: 32px;
+  --table-header-height: 40px;
 
-  /* ── Border radii ── */
-  --radius-btn:    3px;
-  --radius-card:   6px;
+  /* ── Border radii (Bento super rounded) ── */
+  --radius-btn:    100px; /* Pill */
+  --radius-card:   24px;  /* Bento box */
   --radius-badge:  100px;
-  --radius-option: 4px;
-  --radius-banner: 2px;
+  --radius-option: 16px;
+  --radius-banner: 20px;
 
 }

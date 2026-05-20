@@ -3,8 +3,8 @@
   align-items: center;
   justify-content: center;
   justify-self: start;
-  height: 26px;
-  padding: 0 14px;
+  height: 18px;
+  padding: 0 8px;
   border-radius: var(--radius-badge);
   font-family: var(--font-mono);
   font-size: var(--type-label);

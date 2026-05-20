@@ -2,37 +2,34 @@
 
 .pageTitle {
   font-family: var(--font-display);
-  font-size: var(--type-hero);
+  font-size: var(--type-subtitle);
   font-weight: 500;
-  letter-spacing: var(--type-hero-tracking);
-  line-height: var(--type-hero-lh);
+  letter-spacing: var(--type-subtitle-tracking);
   color: var(--text-primary);
   margin: 0;
 }
 
 .pageSubtitle {
   font-family: var(--font-display);
-  font-size: var(--type-subtitle);
+  font-size: var(--type-body);
   font-weight: var(--type-subtitle-weight);
   letter-spacing: var(--type-subtitle-tracking);
   color: var(--text-secondary);
-  margin: 12px 0 56px;
+  margin: 6px 0 28px;
 }
 
 /* ── Card ── */
 .card {
   background: var(--bg-white);
-  border: 1px solid var(--border-default);
   border-radius: var(--radius-card);
   overflow: hidden;
-  margin-bottom: 24px;
-  box-shadow: var(--shadow-panel);
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-card);
 }
 
 .cardHeader {
-  padding: 20px 28px 18px;
-  border-bottom: 1px solid var(--border-default);
-  background: var(--bg-panel);
+  padding: 10px 16px 8px;
+  background: var(--bg-white);
 }
 
 .cardTitle {
@@ -41,7 +38,7 @@
   font-weight: var(--type-subtitle-weight);
   letter-spacing: var(--type-subtitle-tracking);
   color: var(--text-primary);
-  margin: 0 0 4px;
+  margin: 0 0 2px;
 }
 
 .cardDesc {
@@ -61,17 +58,17 @@
 .gridHead { display: contents; }
 
 .gridHeadCell {
-  padding: 0 24px;
-  height: var(--table-header-height);
-  font-family: var(--font-mono);
+  padding: 0 16px;
+  height: 48px;
+  font-family: var(--font-display);
   font-size: var(--type-label);
-  letter-spacing: var(--type-label-tracking);
-  font-weight: var(--type-label-weight);
+  letter-spacing: 0.04em;
+  font-weight: 600;
   text-transform: uppercase;
-  color: #FFFFFF;
+  color: var(--text-secondary);
   text-align: center;
-  background: #010101;
-  border-bottom: 1px solid var(--border-default);
+  background: transparent;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -79,13 +76,13 @@
 
 .gridHeadCell:first-child {
   justify-content: flex-start;
-  padding-left: 28px;
+  padding-left: 24px;
 }
 
 .permRow { display: contents; }
 
 .permCell {
-  padding: 18px 24px;
+  padding: 16px;
   border-bottom: 1px solid var(--border-default);
   display: flex;
   align-items: center;
@@ -93,20 +90,20 @@
 
 .permRow:last-child .permCell { border-bottom: none; }
 
-.permCell:first-child { padding-left: 28px; }
+.permCell:first-child { padding-left: 24px; }
 
 .permName {
   font-family: var(--font-display);
-  font-size: var(--type-body);
-  font-weight: 400;
+  font-size: 16px;
+  font-weight: 500;
   color: var(--text-primary);
   display: block;
-  margin-bottom: 3px;
+  margin-bottom: 4px;
 }
 
 .permDesc {
-  font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-family: var(--font-display);
+  font-size: 14px;
   color: var(--text-secondary);
 }
 
@@ -115,19 +112,20 @@
 .check {
   width: 20px;
   height: 20px;
-  border-radius: 3px;
+  border-radius: 6px;
   background: var(--btn-primary-bg);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .check::after {
   content: '';
   display: block;
-  width: 10px;
-  height: 6px;
+  width: 8px;
+  height: 5px;
   border-left: 2px solid #fff;
   border-bottom: 2px solid #fff;
   transform: rotate(-45deg) translate(1px, -1px);
@@ -136,32 +134,31 @@
 .nocheck {
   width: 20px;
   height: 20px;
-  border-radius: 3px;
-  background: var(--bg-panel-muted);
-  border: 1px solid var(--border-default);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   flex-shrink: 0;
 }
 
 /* ── Info card ── */
 .infoCard {
-  background: var(--banner-info-bg);
-  border: 1px solid var(--banner-info-border);
-  border-radius: var(--radius-card);
-  padding: 20px 24px;
+  background: rgba(10, 100, 255, 0.05);
+  border-radius: 24px;
+  padding: 16px 20px;
   display: flex;
-  gap: 14px;
+  gap: 12px;
   align-items: flex-start;
 }
 
 .infoIcon {
-  font-size: var(--type-body);
+  font-size: 20px;
   flex-shrink: 0;
   margin-top: 2px;
 }
 
 .infoText {
   font-family: var(--font-display);
-  font-size: var(--type-body);
+  font-size: 15px;
   color: var(--text-primary);
-  line-height: 1.6;
+  line-height: 1.5;
 }

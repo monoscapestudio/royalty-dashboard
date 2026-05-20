@@ -2,17 +2,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 64px;
+  padding-top: 32px;
 }
 
 .heading {
   font-family: var(--font-display);
-  font-size: var(--type-hero);
-  font-weight: var(--type-hero-weight);
-  letter-spacing: var(--type-hero-tracking);
-  line-height: var(--type-hero-lh);
+  font-size: var(--type-subtitle);
+  font-weight: 600;
+  letter-spacing: var(--type-subtitle-tracking);
+  line-height: var(--type-subtitle-lh);
   color: var(--text-primary);
-  margin: 0 0 18px;
+  margin: 0 0 8px;
   text-align: center;
   max-width: 680px;
 }
@@ -24,28 +24,27 @@
   color: var(--text-secondary);
   text-align: center;
   max-width: 640px;
-  line-height: 1.5;
-  margin: 0 0 40px;
+  line-height: 1.4;
+  margin: 0 0 20px;
 }
 
 .cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 12px;
   width: 100%;
-  margin-bottom: 32px;
+  margin-bottom: 16px;
 }
 
 .card {
-  background: var(--bg-panel);
-  border: 1px solid var(--border-default);
+  background: var(--bg-white);
   border-radius: var(--radius-card);
-  padding: 24px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 0;
-  min-height: 280px;
-  box-shadow: var(--shadow-panel);
+  min-height: 180px;
+  box-shadow: var(--shadow-card);
 }
 
 .cardLabel {
@@ -55,7 +54,7 @@
   font-weight: var(--type-label-weight);
   color: var(--text-secondary);
   text-transform: uppercase;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 
 .cardQuestion {
@@ -65,7 +64,7 @@
   letter-spacing: var(--type-body-tracking);
   line-height: var(--type-body-lh);
   color: var(--text-primary);
-  margin-bottom: 12px;
+  margin-bottom: 6px;
 }
 
 .cardDescription {
@@ -73,14 +72,14 @@
   font-family: var(--font-mono);
   font-weight: 400;
   color: var(--text-secondary);
-  line-height: 1.5;
+  line-height: 1.4;
   flex: 1;
-  margin-bottom: 28px;
+  margin-bottom: 14px;
 }
 
 .cardCta {
-  height: 44px;
-  padding: 0 18px;
+  height: 36px;
+  padding: 0 16px;
   background: var(--btn-primary-bg);
   color: var(--btn-primary-text);
   font-size: var(--type-label);
@@ -105,7 +104,7 @@
   font-family: var(--font-mono);
   color: var(--text-secondary);
   text-align: center;
-  line-height: 1.5;
+  line-height: 1.4;
 }
 
 .requestLink strong {
@@ -113,7 +112,7 @@
   font-weight: 600;
   cursor: pointer;
   text-decoration: underline;
-  text-underline-offset: 4px;
+  text-underline-offset: 3px;
   text-decoration-thickness: 1px;
   transition: color 0.15s, text-decoration-color 0.15s;
 }

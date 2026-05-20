@@ -2,9 +2,9 @@
 .sourceMeta {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 24px;
-  padding-bottom: 20px;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
   border-bottom: 1px solid var(--border-default);
 }
 
@@ -20,21 +20,21 @@
 
 .sourceValueUser {
   font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-size: var(--type-label);
   font-weight: 400;
   color: var(--status-pending-bg);
 }
 
 .sourceValueAi {
   font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-size: var(--type-label);
   font-weight: 400;
   color: var(--text-primary);
 }
 
 .sourceTimestamp {
   font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-size: var(--type-label);
   font-weight: 400;
   color: var(--text-secondary);
   margin-left: auto;
@@ -44,8 +44,8 @@
 .fieldGroup {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-bottom: 20px;
+  gap: 4px;
+  margin-bottom: 12px;
 }
 
 .fieldLabel {
@@ -59,12 +59,12 @@
 
 .textarea {
   width: 100%;
-  min-height: 72px;
+  min-height: 56px;
   background: var(--field-bg);
   border: none;
   border-bottom: 1px solid var(--field-border);
   border-radius: var(--radius-btn);
-  padding: 12px 14px;
+  padding: 8px 10px;
   font-family: var(--font-display);
   font-size: var(--type-body);
   color: var(--text-primary);
@@ -83,62 +83,62 @@
   margin-bottom: 4px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
 }
 
 .interpretationPanel {
   background: var(--bg-panel);
   border-left: 3px solid var(--bg-ink);
-  padding: 14px 16px;
+  padding: 8px 10px;
   border-radius: 0 var(--radius-btn) var(--radius-btn) 0;
 }
 
 .interpRuleLine {
   font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-size: var(--type-label);
   font-weight: 400;
   color: var(--text-primary);
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 .interpMeta {
   font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-size: var(--type-label);
   font-weight: 400;
   color: var(--text-secondary);
   display: block;
-  line-height: 1.7;
+  line-height: 1.6;
 }
 
 .reinterpretNote {
   font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-size: var(--type-label);
   font-weight: 400;
   color: var(--text-muted);
   display: block;
-  margin-bottom: 24px;
-  margin-top: 8px;
+  margin-bottom: 14px;
+  margin-top: 4px;
 }
 
 /* ── Status toggle ── */
 .statusGroup {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-bottom: 24px;
+  gap: 6px;
+  margin-bottom: 14px;
 }
 
 .statusRow {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
 .toggle {
   position: relative;
-  width: 44px;
-  height: 24px;
+  width: 36px;
+  height: 20px;
   cursor: pointer;
   flex-shrink: 0;
 }
@@ -168,8 +168,8 @@
   position: absolute;
   top: 3px;
   left: 3px;
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   background: var(--text-secondary);
   border-radius: 50%;
   transition: transform 0.2s, background 0.2s;
@@ -177,27 +177,27 @@
 
 .toggle input:checked ~ .toggleKnob {
   background: #FFFFFF;
-  transform: translateX(20px);
+  transform: translateX(16px);
 }
 
 .statusActive {
   font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-size: var(--type-label);
   font-weight: 400;
   color: var(--status-live-bg);
 }
 
 .statusInactive {
   font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-size: var(--type-label);
   font-weight: 400;
   color: var(--text-secondary);
 }
 
 /* ── Delete confirm (inline) ── */
 .deleteConfirm {
-  margin-bottom: 20px;
-  padding: 16px 20px;
+  margin-bottom: 12px;
+  padding: 10px 12px;
   background: #FFF5F5;
   border-left: 3px solid var(--status-fix-bg);
   border-radius: 0 var(--radius-btn) var(--radius-btn) 0;
@@ -211,20 +211,20 @@
   text-transform: uppercase;
   color: var(--status-fix-bg);
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .deleteConfirmBody {
   font-family: var(--font-display);
-  font-size: var(--type-body);
+  font-size: var(--type-data);
   font-weight: 400;
   color: var(--text-secondary);
   display: block;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 
 .deleteConfirmActions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }

@@ -11,7 +11,7 @@
   top: 0;
   right: 0;
   bottom: 0;
-  width: 560px;
+  width: 480px;
   background: var(--bg-white);
   border-left: 1px solid var(--border-default);
   z-index: 201;
@@ -24,13 +24,13 @@
 .pageShell {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 16px;
 }
 
 .pageIntro {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 6px;
   max-width: 920px;
 }
 
@@ -38,7 +38,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 24px;
+  gap: 12px;
 }
 
 .pageEyebrow {
@@ -81,10 +81,9 @@
 
 .pagePanel {
   background: var(--bg-white);
-  border: 1px solid var(--border-default);
   border-radius: var(--radius-card);
   overflow: hidden;
-  box-shadow: var(--shadow-panel);
+  box-shadow: var(--shadow-card);
 }
 
 @keyframes slideIn {
@@ -96,9 +95,9 @@
 .panelHeader {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 0 24px;
-  height: var(--table-header-height);
+  gap: 10px;
+  padding: 0 14px;
+  height: 36px;
   background: #010101;
   border-bottom: 1px solid var(--border-default);
   flex-shrink: 0;
@@ -107,15 +106,15 @@
 .panelTitleGroup {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   flex: 1;
 }
 
 .aiBadge {
   display: inline-flex;
   align-items: center;
-  height: 26px;
-  padding: 0 12px;
+  height: 20px;
+  padding: 0 8px;
   background: rgba(255, 255, 255, 0.15);
   color: #FFFFFF;
   font-family: var(--font-mono);
@@ -138,15 +137,15 @@
 
 .panelMeta {
   font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-size: var(--type-label);
   font-weight: 400;
   color: rgba(255, 255, 255, 0.5);
   white-space: nowrap;
 }
 
 .closeBtn {
-  min-width: 32px;
-  height: 32px;
+  min-width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -154,12 +153,12 @@
   border: none;
   cursor: pointer;
   font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-size: var(--type-label);
   color: rgba(255, 255, 255, 0.7);
   border-radius: 4px;
   transition: background 0.15s, color 0.15s;
   flex-shrink: 0;
-  padding: 0 10px;
+  padding: 0 8px;
   white-space: nowrap;
 }
 
@@ -179,8 +178,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 80px 24px;
-  gap: 8px;
+  padding: 40px 14px;
+  gap: 6px;
 }
 
 .empty p {
@@ -192,11 +191,11 @@
 
 /* ── Suggestion card ── */
 .card {
-  padding: 24px;
+  padding: 10px 14px;
   border-bottom: 1px solid var(--border-default);
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 6px;
   transition: background 0.15s;
 }
 
@@ -205,21 +204,21 @@
 .cardBody {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
 }
 
 .suggestionText {
   font-family: var(--font-display);
-  font-size: var(--type-subtitle);
-  font-weight: var(--type-subtitle-weight);
-  letter-spacing: var(--type-subtitle-tracking);
-  line-height: var(--type-subtitle-lh);
+  font-size: var(--type-body);
+  font-weight: 400;
+  letter-spacing: var(--type-body-tracking);
+  line-height: 1.4;
   color: var(--text-primary);
 }
 
 .suggestionMeta {
   font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-size: var(--type-label);
   font-weight: 400;
   color: var(--text-secondary);
 }
@@ -227,14 +226,13 @@
 .cardActions {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
   flex-wrap: wrap;
-  margin-top: 2px;
 }
 
 .btnApprove {
-  height: 36px;
-  padding: 0 18px;
+  height: 28px;
+  padding: 0 12px;
   background: var(--btn-primary-bg);
   color: var(--btn-primary-text);
   font-family: var(--font-mono);
@@ -253,7 +251,7 @@
 
 .btnEdit {
   font-family: var(--font-display);
-  font-size: var(--type-body);
+  font-size: var(--type-data);
   letter-spacing: var(--type-body-tracking);
   font-weight: 400;
   color: var(--text-primary);
@@ -262,7 +260,7 @@
   cursor: pointer;
   padding: 0;
   text-decoration: underline;
-  text-underline-offset: 4px;
+  text-underline-offset: 3px;
   transition: color 0.15s;
   white-space: nowrap;
 }
@@ -271,7 +269,7 @@
 
 .btnDismiss {
   font-family: var(--font-display);
-  font-size: var(--type-body);
+  font-size: var(--type-data);
   letter-spacing: var(--type-body-tracking);
   font-weight: 400;
   color: var(--text-primary);
@@ -280,7 +278,7 @@
   cursor: pointer;
   padding: 0;
   text-decoration: underline;
-  text-underline-offset: 4px;
+  text-underline-offset: 3px;
   transition: color 0.15s, text-decoration-color 0.15s;
   white-space: nowrap;
 }

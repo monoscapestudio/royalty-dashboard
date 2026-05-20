@@ -1,13 +1,15 @@
 .panel {
-  position: absolute;
-  top: var(--nav-height);
-  right: 0;
-  width: 536px;
-  max-height: calc(100vh - var(--nav-height));
-  background: var(--bg-white);
-  border-left: 1px solid var(--border-default);
-  border-bottom: 1px solid var(--border-default);
-  box-shadow: var(--shadow-soft);
+  position: fixed;
+  bottom: 24px;
+  left: calc(var(--sidebar-width) + 48px);
+  width: 440px;
+  max-height: calc(100vh - 48px);
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 32px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   z-index: 1000;
@@ -16,122 +18,127 @@
 
 /* ── Header ── */
 .header {
-  height: 64px;
+  height: 72px;
   display: flex;
   align-items: center;
   padding: 0 24px;
   gap: 12px;
-  border-bottom: 1px solid var(--border-default);
+  border-bottom: none;
   flex-shrink: 0;
-  background: var(--bg-white);
+  background: transparent;
 }
 
 .headerTitle {
   font-family: var(--font-display);
-  font-size: var(--type-subtitle);
-  font-weight: var(--type-subtitle-weight);
-  letter-spacing: var(--type-subtitle-tracking);
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   color: var(--text-primary);
 }
 
 .unreadCount {
   font-family: var(--font-mono);
-  font-size: var(--type-label);
-  font-weight: var(--type-label-weight);
-  color: var(--text-secondary);
-  background: var(--bg-panel-muted);
-  padding: 2px 8px;
-  border-radius: var(--radius-badge);
+  font-size: var(--type-data);
+  font-weight: 500;
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.8);
+  padding: 4px 10px;
+  border-radius: 100px;
 }
 
 .markAllBtn {
   margin-left: auto;
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: var(--type-label);
-  letter-spacing: var(--type-label-tracking);
-  font-weight: var(--type-label-weight);
+  letter-spacing: 0.02em;
+  font-weight: 600;
   text-transform: uppercase;
   color: var(--text-secondary);
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0;
-  transition: color 0.15s;
+  padding: 8px 12px;
+  border-radius: 100px;
+  transition: background 0.15s, color 0.15s;
 }
 
 .markAllBtn:hover {
   color: var(--text-primary);
+  background: rgba(0, 0, 0, 0.05);
 }
 
 /* ── Filter tabs ── */
 .tabs {
-  height: 48px;
   display: flex;
-  align-items: stretch;
-  padding: 0 16px;
-  background: var(--bg-panel);
-  border-bottom: 1px solid var(--border-default);
-  gap: 8px;
+  align-items: center;
+  padding: 4px;
+  margin: 16px 24px;
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: 100px;
+  gap: 4px;
   flex-shrink: 0;
 }
 
 .tab {
-  height: 100%;
+  flex: 1;
+  height: 32px;
   padding: 0 12px;
-  font-family: var(--font-mono);
+  border-radius: 100px;
+  font-family: var(--font-display);
   font-size: var(--type-label);
-  letter-spacing: var(--type-label-tracking);
-  font-weight: var(--type-label-weight);
+  letter-spacing: 0.02em;
+  font-weight: 600;
   text-transform: uppercase;
   color: var(--text-secondary);
-  background: none;
+  background: transparent;
   border: none;
   cursor: pointer;
-  position: relative;
-  transition: color 0.15s;
+  transition: all 0.15s ease;
 }
 
 .tab:hover {
   color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.4);
 }
 
 .tabActive {
   color: var(--text-primary);
-}
-
-.tabActive::after {
-  content: '';
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--text-primary);
+  background: var(--bg-white);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 /* ── List ── */
 .list {
   flex: 1;
   overflow-y: auto;
+  padding: 0 12px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 /* ── Row ── */
 .row {
   display: flex;
   align-items: flex-start;
-  padding: 20px 24px;
-  border-bottom: 1px solid var(--border-default);
+  padding: 16px;
+  border-radius: 20px;
   cursor: pointer;
-  transition: background 0.15s;
-  background: var(--bg-white);
+  transition: background 0.15s, transform 0.15s, box-shadow 0.15s;
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .rowUnread {
-  background: var(--bg-panel);
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
 }
 
 .row:hover {
-  background: var(--row-hover);
+  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
 }
 
 .dotWrap {
@@ -169,10 +176,10 @@
   height: 24px;
   padding: 0 10px;
   border-radius: var(--radius-badge);
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: var(--type-label);
-  letter-spacing: var(--type-label-tracking);
-  font-weight: var(--type-label-weight);
+  letter-spacing: 0.02em;
+  font-weight: 600;
   text-transform: uppercase;
   white-space: nowrap;
 }
@@ -189,16 +196,17 @@
 
 .rowTitle {
   font-family: var(--font-display);
-  font-size: var(--type-body);
-  font-weight: 400;
+  font-size: 16px;
+  font-weight: 500;
   color: var(--text-primary);
   margin: 0 0 4px;
   line-height: 1.4;
+  letter-spacing: -0.01em;
 }
 
 .rowDesc {
-  font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-family: var(--font-display);
+  font-size: 14px;
   font-weight: 400;
   color: var(--text-secondary);
   margin: 0;
@@ -213,21 +221,23 @@
 
 .actionLink {
   font-family: var(--font-display);
-  font-size: var(--type-body);
-  font-weight: 400;
-  color: var(--text-primary);
-  background: none;
+  font-size: var(--type-label);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  background: rgba(0, 0, 0, 0.04);
   border: none;
   cursor: pointer;
-  padding: 0;
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  transition: color 0.15s, text-decoration-color 0.15s;
+  padding: 6px 12px;
+  border-radius: 100px; /* Small pills */
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s;
 }
 
 .actionLink:hover {
-  color: var(--btn-primary-hover);
-  text-decoration-color: var(--btn-primary-hover);
+  background: rgba(0, 0, 0, 0.08);
+  color: var(--text-primary);
 }
 
 /* ── Empty state ── */

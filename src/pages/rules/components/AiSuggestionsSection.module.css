@@ -1,8 +1,8 @@
 .summaryBar {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  padding: 24px;
+  gap: 8px;
+  padding: 12px;
   background: var(--bg-white);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-card);
@@ -13,27 +13,27 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
+  gap: 10px;
 }
 
 .summaryMiddle {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
+  gap: 10px;
 }
 
 .summaryLeft {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
 .aiBadge {
   display: inline-flex;
   align-items: center;
-  height: 26px;
-  padding: 0 12px;
+  height: 20px;
+  padding: 0 8px;
   background: var(--bg-ink);
   color: #FFFFFF;
   font-family: var(--font-mono);
@@ -47,31 +47,31 @@
 
 .summaryCount {
   font-family: var(--font-display);
-  font-size: var(--type-subtitle);
-  font-weight: var(--type-subtitle-weight);
-  letter-spacing: var(--type-subtitle-tracking);
+  font-size: var(--type-body);
+  font-weight: 500;
+  letter-spacing: var(--type-body-tracking);
   color: var(--text-primary);
 }
 
 .summaryLabel {
   font-family: var(--font-display);
-  font-size: var(--type-subtitle);
-  font-weight: var(--type-subtitle-weight);
-  letter-spacing: var(--type-subtitle-tracking);
+  font-size: var(--type-body);
+  font-weight: 500;
+  letter-spacing: var(--type-body-tracking);
   color: var(--text-primary);
 }
 
 .summaryText {
   font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-size: var(--type-label);
   font-weight: 400;
   color: var(--text-secondary);
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 .reviewBtn {
   font-family: var(--font-display);
-  font-size: var(--type-body);
+  font-size: var(--type-data);
   font-weight: 400;
   color: var(--text-primary);
   background: none;
@@ -79,7 +79,7 @@
   cursor: pointer;
   padding: 0;
   text-decoration: underline;
-  text-underline-offset: 4px;
+  text-underline-offset: 3px;
   transition: color 0.15s;
 }
 

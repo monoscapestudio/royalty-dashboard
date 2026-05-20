@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
+import { Idea, ChevronLeft, ChevronRight } from '@carbon/icons-react';
 import { useAppStore } from '../../store/app';
 import { mockSources } from '../../data/mock';
 import type { DataSource, SourceCategory, ConnectionType } from '../../types';
@@ -16,6 +17,13 @@ import ConfigureExistingModal from './modals/ConfigureExistingModal';
 import RequestIntegrationModal from './modals/RequestIntegrationModal';
 import RemoveConfirmationDialog from './modals/RemoveConfirmationDialog';
 import styles from './ConnectsPage.module.css';
+
+const TIPS = [
+  'Connect at least one source in each column — contracts in, recovery out.',
+  'Data flows left to right: contracts are compared against billing records.',
+  'Recovery channels are never triggered without your explicit approval.',
+  'Click on any live connection to configure its specific sync rules.',
+];
 
 type ModalState =
   | { type: 'connection-type-selector'; category: SourceCategory }
@@ -54,6 +62,19 @@ export default function ConnectsPage() {
 
   const [modal, setModal] = useState<ModalState>(null);
   const closeModal = () => setModal(null);
+
+  const [currentTip, setCurrentTip] = useState(0);
+
+  useEffect(() => {
+    if (firstAuditMode) return;
+    const interval = setInterval(() => {
+      setCurrentTip((prev) => (prev + 1) % TIPS.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [firstAuditMode]);
+
+  const nextTip = () => setCurrentTip((prev) => (prev + 1) % TIPS.length);
+  const prevTip = () => setCurrentTip((prev) => (prev - 1 + TIPS.length) % TIPS.length);
 
   const handleTypeSelected = (connectionType: ConnectionType) => {
     if (!modal || modal.type !== 'connection-type-selector') return;
@@ -138,19 +159,31 @@ export default function ConnectsPage() {
 
   return (
     <>
-      <div className={styles.pageHeader}>
-        <div className={styles.pageHeaderText}>
-          <h1 className={styles.pageTitle}>Connects</h1>
-        <span className={styles.pageSubtitle}>
-          {firstAuditMode
-            ? 'Step 1 of 2: add a contract source to unlock your first audit.'
-            : 'Add data sources and configure recovery pipeline.'}
-        </span>
-        </div>
-      </div>
-
       <div className={styles.content}>
-        {firstAuditMode && contracts.length > 0 && (
+        <div className={styles.topTipStrip}>
+          <div className={styles.topTipInner}>
+            <div className={styles.topTipContent}>
+              <Idea size={20} className={styles.topTipIcon} />
+              <span className={styles.topTipText}>
+                {firstAuditMode
+                  ? 'Step 1 of 2: add a contract source to unlock your first audit.'
+                  : TIPS[currentTip]}
+              </span>
+            </div>
+            {!firstAuditMode && (
+              <div className={styles.topTipControls}>
+                <button onClick={prevTip} className={styles.topTipBtn} aria-label="Previous tip">
+                  <ChevronLeft size={16} />
+                </button>
+                <button onClick={nextTip} className={styles.topTipBtn} aria-label="Next tip">
+                  <ChevronRight size={16} />
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+
+      {firstAuditMode && contracts.length > 0 && (
           <div className={styles.stepCompleteBanner}>
             <span className={styles.stepCompleteCheck}>✓</span>
             <div className={styles.stepCompleteText}>
@@ -170,18 +203,6 @@ export default function ConnectsPage() {
           />
         ) : (
           <>
-            {failedSources.length > 0 && (
-              <Banner
-                variant="error"
-                title="Action required."
-                body={
-                  failedSources.length === 1
-                    ? `${failedSources[0].name} connection has failed. Reconnect before running audit.`
-                    : `${failedSources.length} connections have failed. Reconnect before running audit.`
-                }
-              />
-            )}
-
             <div className={styles.threeCol}>
               <SourceSection
                 category="contracts"

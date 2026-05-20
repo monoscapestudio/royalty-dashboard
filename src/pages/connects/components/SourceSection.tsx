@@ -4,11 +4,11 @@ import styles from './SourceSection.module.css';
 
 const CATEGORY_META: Record<
   SourceCategory,
-  { label: string; addLabel: string }
+  { label: string; addLabel: string; hint: string }
 > = {
-  contracts: { label: 'Contract', addLabel: '+ Add source' },
-  billing: { label: 'Billing', addLabel: '+ Add source' },
-  recovery: { label: 'Recovery', addLabel: '+ Connect channel' },
+  contracts: { label: 'Contract', addLabel: '+ Add source', hint: 'Where your deal terms live' },
+  billing: { label: 'Billing', addLabel: '+ Add source', hint: 'Where payments are tracked' },
+  recovery: { label: 'Recovery', addLabel: '+ Connect channel', hint: 'How you reach out to collect' },
 };
 
 interface Props {
@@ -41,11 +41,7 @@ export default function SourceSection({
         <span className={styles.columnCount}>{sources.length}</span>
       </div>
 
-      {category === 'recovery' && (
-        <div className={styles.disclaimer}>
-          Emails are never sent without your explicit approval.
-        </div>
-      )}
+      <div className={styles.columnHint}>{meta.hint}</div>
 
       <div className={styles.list}>
         {sources.map((src) => (

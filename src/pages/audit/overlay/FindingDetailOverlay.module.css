@@ -6,13 +6,14 @@
   z-index: 200;
 }
 
-/* ── Panel — expanded to 900px ── */
+/* ── Panel — 760px, offset for sidebar ── */
 .panel {
+  --sidebar-width: 220px;
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
-  width: 1040px;
+  width: 760px;
   background: var(--bg-white);
   border-left: 1px solid var(--border-default);
   z-index: 201;
@@ -27,11 +28,11 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  padding: 20px 24px 18px;
+  padding: 10px 14px 10px;
   border-bottom: 1px solid var(--border-default);
   background: #010101;
   flex-shrink: 0;
-  gap: 16px;
+  gap: 8px;
 }
 
 .panelHeaderLeft {
@@ -39,7 +40,7 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 3px;
 }
 
 .findingTitle {
@@ -55,18 +56,18 @@
 .nav {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
 .navCounter {
   font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-size: var(--type-label);
   color: rgba(255, 255, 255, 0.55);
 }
 
 .navBtn {
   font-family: var(--font-display);
-  font-size: var(--type-body);
+  font-size: var(--type-data);
   font-weight: 400;
   color: #FFFFFF;
   background: none;
@@ -74,13 +75,13 @@
   cursor: pointer;
   padding: 0;
   text-decoration: underline;
-  text-underline-offset: 4px;
+  text-underline-offset: 3px;
 }
 .navBtn:disabled { color: rgba(255, 255, 255, 0.35); cursor: default; }
 
 .closeBtn {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -88,7 +89,7 @@
   border: none;
   cursor: pointer;
   font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-size: var(--type-label);
   color: rgba(255, 255, 255, 0.7);
   border-radius: 4px;
   flex-shrink: 0;
@@ -106,19 +107,19 @@
 
 .colLeft {
   overflow-y: auto;
-  padding: 24px;
+  padding: 12px 14px;
   border-right: 1px solid var(--border-default);
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
 }
 
 .colRight {
   overflow-y: auto;
-  padding: 24px;
+  padding: 12px 14px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
 }
 
 .colLabel {
@@ -135,7 +136,7 @@
 .metaGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px 16px;
+  gap: 6px 10px;
 }
 
 .metaItem {}
@@ -148,7 +149,7 @@
   color: var(--text-muted);
   text-transform: uppercase;
   display: block;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .metaValue {
@@ -159,7 +160,7 @@
 
 .discrepancyValue {
   font-family: var(--font-display);
-  font-size: calc(var(--type-metric) * 2);
+  font-size: var(--type-hero);
   font-weight: var(--type-metric-weight);
   color: var(--text-primary);
   letter-spacing: var(--type-metric-tracking);
@@ -172,12 +173,12 @@
 .confRow {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 5px;
 }
 
 .confBar {
-  width: 70px;
-  height: 4px;
+  width: 56px;
+  height: 3px;
   background: var(--border-default);
   border-radius: 2px;
   overflow: hidden;
@@ -198,8 +199,8 @@
 .statusBadge {
   display: inline-flex;
   align-items: center;
-  height: 26px;
-  padding: 0 12px;
+  height: 20px;
+  padding: 0 8px;
   border-radius: var(--radius-badge);
   font-family: var(--font-mono);
   font-size: var(--type-label);
@@ -212,6 +213,34 @@
 .statusRecovered { background: var(--status-live-bg); color: var(--status-live-text); }
 .statusDismissed { background: var(--bg-table-header); color: var(--text-secondary); }
 .statusDisputed  { background: var(--banner-error-bg); color: var(--status-fix-text); }
+
+/* ── Discrepancy description — promoted in hierarchy ── */
+.discrepancyDesc {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-card);
+  padding: 10px 12px;
+  order: -1;
+}
+
+.descLabel {
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  letter-spacing: var(--type-label-tracking);
+  font-weight: var(--type-label-weight);
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.descText {
+  font-size: var(--type-body);
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+  line-height: 1.5;
+}
 
 /* ── PDF mock ── */
 .evidenceLabel {
@@ -232,7 +261,7 @@
 
 .pdfHeader {
   background: var(--bg-panel);
-  padding: 10px 12px;
+  padding: 6px 8px;
   border-bottom: 1px solid var(--border-default);
 }
 
@@ -247,64 +276,41 @@
 
 .pdfPage {
   background: #f5f5f5;
-  padding: 12px 14px;
+  padding: 8px 10px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  min-height: 120px;
+  gap: 4px;
+  min-height: 80px;
 }
 
 .pdfLine {
-  height: 6px;
+  height: 5px;
   background: #d0d0d0;
   border-radius: 2px;
 }
 
 .pdfHighlight {
   background: #fff9c4;
-  border-left: 3px solid #f4c800;
-  padding: 5px 8px;
+  border-left: 2px solid #f4c800;
+  padding: 3px 6px;
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  margin: 2px 0;
+  gap: 3px;
+  margin: 1px 0;
 }
 
 .pdfLineDark {
-  height: 6px;
+  height: 5px;
   background: #bba000;
   border-radius: 2px;
   opacity: 0.5;
-}
-
-/* ── Discrepancy description ── */
-.discrepancyDesc {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.descLabel {
-  font-family: var(--font-mono);
-  font-size: var(--type-label);
-  letter-spacing: var(--type-label-tracking);
-  font-weight: var(--type-label-weight);
-  color: var(--text-secondary);
-  text-transform: uppercase;
-}
-
-.descText {
-  font-size: var(--type-data);
-  font-family: var(--font-mono);
-  color: var(--text-primary);
-  line-height: 1.6;
 }
 
 /* ── Recovery column ── */
 .recoveryDummy {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 }
 
 .emailPreviewLabel {
@@ -320,19 +326,19 @@
 .emailPreview {
   background: var(--bg-panel);
   border: 1px solid var(--border-default);
-  padding: 16px;
+  padding: 10px;
   border-radius: var(--radius-card);
 }
 
 .emailLine {
-  font-size: var(--type-body);
+  font-size: var(--type-data);
   letter-spacing: var(--type-data-tracking);
   color: var(--text-secondary);
   display: block;
 }
 
 .emailSubject {
-  font-size: var(--type-body);
+  font-size: var(--type-data);
   letter-spacing: var(--type-data-tracking);
   color: var(--text-primary);
   display: block;
@@ -342,35 +348,34 @@
 .emailDivider {
   border: none;
   border-top: 1px solid var(--border-default);
-  margin: 8px 0;
+  margin: 5px 0;
 }
 
 .emailBody {
-  font-size: var(--type-body);
+  font-size: var(--type-data);
   letter-spacing: var(--type-data-tracking);
   color: var(--text-secondary);
   display: block;
-  line-height: 1.6;
+  line-height: 1.5;
   white-space: pre-line;
 }
 
 .recoveryActions {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 6px;
   align-items: center;
 }
 
 .sendBtn {
-  height: 44px;
-  padding: 0 20px;
+  height: 36px;
+  padding: 0 16px;
   background: var(--btn-primary-bg);
   color: #fff;
   font-family: var(--font-mono);
   font-size: var(--type-label);
   letter-spacing: var(--type-label-tracking);
   text-transform: uppercase;
-  font-family: var(--font-mono);
   font-weight: var(--type-label-weight);
   border-radius: var(--radius-btn);
   border: none;
@@ -382,7 +387,7 @@
 
 .editBtn {
   font-family: var(--font-display);
-  font-size: var(--type-body);
+  font-size: var(--type-data);
   letter-spacing: var(--type-body-tracking);
   font-weight: 400;
   color: var(--text-primary);
@@ -391,12 +396,12 @@
   cursor: pointer;
   padding: 0;
   text-decoration: underline;
-  text-underline-offset: 4px;
+  text-underline-offset: 3px;
 }
 
 .botBtn {
   font-family: var(--font-display);
-  font-size: var(--type-body);
+  font-size: var(--type-data);
   letter-spacing: var(--type-body-tracking);
   font-weight: 400;
   color: var(--text-primary);
@@ -405,12 +410,12 @@
   cursor: pointer;
   padding: 0;
   text-decoration: underline;
-  text-underline-offset: 4px;
+  text-underline-offset: 3px;
 }
 
 .cancelBtn {
   font-family: var(--font-display);
-  font-size: var(--type-body);
+  font-size: var(--type-data);
   letter-spacing: var(--type-body-tracking);
   font-weight: 400;
   color: var(--text-primary);
@@ -419,7 +424,7 @@
   cursor: pointer;
   padding: 0;
   text-decoration: underline;
-  text-underline-offset: 4px;
+  text-underline-offset: 3px;
 }
 
 .editBtn:hover,
@@ -435,8 +440,8 @@
 .statusInfo {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 18px;
+  gap: 5px;
+  padding: 10px;
   border: 1px solid var(--border-default);
   border-radius: var(--radius-card);
   background: var(--bg-panel);
@@ -454,7 +459,7 @@
   font-size: var(--type-data);
   font-family: var(--font-mono);
   color: var(--text-secondary);
-  line-height: 1.5;
+  line-height: 1.4;
 }
 
 .statusInfoBodyPositive {
@@ -468,17 +473,17 @@
 /* ── Toast ── */
 .toast {
   position: fixed;
-  bottom: 32px;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  padding: 10px 20px;
+  padding: 6px 14px;
   background: var(--text-primary);
   color: #fff;
   font-size: var(--type-data);
   font-family: var(--font-mono);
-  border-radius: 8px;
+  border-radius: 6px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
   z-index: 400;
-  max-width: min(420px, 92vw);
+  max-width: min(380px, 92vw);
   text-align: center;
 }

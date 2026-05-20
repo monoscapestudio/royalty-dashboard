@@ -2,155 +2,152 @@
 
 .pageTitle {
   font-family: var(--font-display);
-  font-size: var(--type-hero);
-  font-weight: 500;
-  letter-spacing: var(--type-hero-tracking);
-  line-height: var(--type-hero-lh);
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   color: var(--text-primary);
   margin: 0;
 }
 
 .pageSubtitle {
   font-family: var(--font-display);
-  font-size: var(--type-subtitle);
-  font-weight: var(--type-subtitle-weight);
-  letter-spacing: var(--type-subtitle-tracking);
+  font-size: 15px;
+  font-weight: 400;
   color: var(--text-secondary);
-  margin: 12px 0 56px;
+  margin: 6px 0 28px;
 }
 
 /* ── Card ── */
 .card {
-  background: var(--bg-white);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-card);
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: 32px;
   overflow: hidden;
   margin-bottom: 24px;
-  box-shadow: var(--shadow-panel);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.05);
 }
 
 .cardHeader {
-  padding: 20px 28px 18px;
-  border-bottom: 1px solid var(--border-default);
-  background: var(--bg-panel);
+  padding: 24px 24px 8px;
+  background: transparent;
 }
 
 .cardTitle {
   font-family: var(--font-display);
-  font-size: var(--type-subtitle);
-  font-weight: var(--type-subtitle-weight);
-  letter-spacing: var(--type-subtitle-tracking);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   color: var(--text-primary);
   margin: 0;
 }
 
-.cardBody { padding: 28px; }
+.cardBody { padding: 16px 24px 24px; }
 
 /* ── Contact form ── */
-.fields { display: flex; flex-direction: column; gap: 20px; }
+.fields { display: flex; flex-direction: column; gap: 16px; }
 
 .field { display: flex; flex-direction: column; gap: 8px; }
 
 .label {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: var(--type-label);
-  letter-spacing: var(--type-label-tracking);
-  font-weight: var(--type-label-weight);
+  letter-spacing: 0.04em;
+  font-weight: 600;
   text-transform: uppercase;
   color: var(--text-secondary);
+  padding-left: 16px;
 }
 
 .input {
-  height: 44px;
+  height: 48px;
   width: 100%;
-  background: var(--field-bg);
-  border: none;
-  border-bottom: 1px solid var(--field-border);
-  border-radius: var(--radius-btn);
-  padding: 0 14px;
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid transparent;
+  border-radius: 100px;
+  padding: 0 20px;
   font-family: var(--font-display);
-  font-size: var(--type-body);
+  font-size: 16px;
   color: var(--text-primary);
   outline: none;
-  transition: border-color 0.15s, background 0.15s;
+  transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
 }
 
-.input::placeholder { color: var(--field-placeholder); }
-.input:hover { background: var(--field-bg-hover); }
-.input:focus { background: #fff; border-bottom-color: var(--field-border-focus); }
+.input::placeholder { color: var(--text-muted); }
+.input:hover { background: rgba(0, 0, 0, 0.06); }
+.input:focus { background: rgba(255, 255, 255, 0.8); border-color: rgba(0, 0, 0, 0.1); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
 
 .textarea {
   width: 100%;
   min-height: 120px;
-  padding: 14px;
-  background: var(--field-bg);
-  border: none;
-  border-bottom: 1px solid var(--field-border);
-  border-radius: var(--radius-btn);
+  padding: 16px 20px;
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid transparent;
+  border-radius: 24px;
   font-family: var(--font-display);
-  font-size: var(--type-body);
+  font-size: 16px;
   color: var(--text-primary);
   outline: none;
   resize: vertical;
-  transition: border-color 0.15s, background 0.15s;
+  transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
 }
 
-.textarea::placeholder { color: var(--field-placeholder); }
-.textarea:hover { background: var(--field-bg-hover); }
-.textarea:focus { background: #fff; border-bottom-color: var(--field-border-focus); }
+.textarea::placeholder { color: var(--text-muted); }
+.textarea:hover { background: rgba(0, 0, 0, 0.06); }
+.textarea:focus { background: rgba(255, 255, 255, 0.8); border-color: rgba(0, 0, 0, 0.1); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); }
 
 /* ── Actions ── */
 .actions {
   display: flex;
   justify-content: flex-end;
-  padding-top: 8px;
+  padding-top: 16px;
 }
 
 .btnPrimary {
-  height: 44px;
-  padding: 0 28px;
+  height: 48px;
+  padding: 0 24px;
   background: var(--btn-primary-bg);
   color: var(--btn-primary-text);
   border: none;
-  border-radius: var(--radius-btn);
-  font-family: var(--font-mono);
+  border-radius: 100px;
+  font-family: var(--font-display);
   font-size: var(--type-label);
-  letter-spacing: var(--type-label-tracking);
-  font-weight: var(--type-label-weight);
+  letter-spacing: 0.02em;
+  font-weight: 600;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: transform 0.15s, box-shadow 0.15s;
 }
 
-.btnPrimary:hover { background: var(--btn-primary-hover); }
+.btnPrimary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); }
 
 /* ── FAQ ── */
 .faqItem {
-  border-bottom: 1px solid var(--border-default);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   cursor: pointer;
   transition: background 0.15s;
 }
 
 .faqItem:last-child { border-bottom: none; }
-.faqItem:hover { background: var(--row-hover); }
+.faqItem:hover { background: rgba(0, 0, 0, 0.02); }
 
 .faqQuestion {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 28px;
+  padding: 16px 24px;
   font-family: var(--font-display);
-  font-size: var(--type-body);
-  font-weight: 400;
+  font-size: 16px;
+  font-weight: 500;
   color: var(--text-primary);
   user-select: none;
-  gap: 16px;
+  gap: 12px;
 }
 
 .faqChevron {
-  font-family: var(--font-mono);
-  font-size: var(--type-data);
-  color: var(--text-muted);
+  font-size: 12px;
+  color: var(--text-secondary);
   transition: transform 0.2s;
   flex-shrink: 0;
 }
@@ -158,9 +155,9 @@
 .faqChevronOpen { transform: rotate(180deg); }
 
 .faqAnswer {
-  padding: 0 28px 20px;
+  padding: 0 24px 20px;
   font-family: var(--font-display);
-  font-size: var(--type-body);
+  font-size: 15px;
   color: var(--text-secondary);
-  line-height: 1.6;
+  line-height: 1.5;
 }

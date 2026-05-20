@@ -1,0 +1,200 @@
+.sidebar {
+  position: absolute; /* Relative to .shell */
+  top: 24px;
+  left: 24px;
+  bottom: 24px;
+  width: var(--sidebar-width);
+  background: var(--bg-sidebar);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 32px; /* Large radius for a floating panel */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* Stretch to fill width */
+  z-index: 100;
+  padding: 24px 16px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.06);
+}
+
+.sidebar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 110px; /* Produženo za još 10px za onaj "vrlo vrlo malo" efekat */
+  background: url('/bg-eye.png') center center / cover no-repeat;
+  opacity: 1;
+  /* Linearan fade out koji sada ide mrvicu dublje */
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+  z-index: -1;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+
+/* ── Brand Section ── */
+.brandSection {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 109px; /* Još 20px na gore */
+  margin-bottom: 48px; /* Pushes nav further down */
+  width: 100%;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+}
+
+.brandMark {
+  width: 48px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.industryBadge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 8px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: var(--radius-badge);
+}
+
+.industryLabel {
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+/* ── Navigation ── */
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.sectionLabel {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.4);
+  padding: 0 12px;
+  margin-bottom: 8px;
+  margin-top: 8px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 100px; /* Full pill shape */
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.01em; /* Tighter, more solid look */
+  color: var(--text-primary);
+  opacity: 0.65; /* Dimmed instead of grey */
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+
+.navItem span {
+  display: block; /* Restore text */
+}
+
+.navItem:hover {
+  background: rgba(255, 255, 255, 0.6);
+  opacity: 1;
+  transform: translateX(4px);
+}
+
+.navItemActive {
+  background: var(--bg-white);
+  color: var(--text-primary);
+  font-weight: 600;
+  opacity: 1;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+
+.logoutBtn {
+  margin-top: 8px;
+  color: var(--status-fix-bg);
+  opacity: 1;
+}
+
+.logoutBtn:hover {
+  background: rgba(255, 0, 0, 0.04);
+  color: var(--status-fix-bg);
+  opacity: 1;
+}
+
+/* ── Spacer ── */
+.spacer {
+  flex: 1;
+}
+
+/* ── Bottom section ── */
+.bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  padding-top: 24px;
+  width: 100%;
+}
+
+/* ── Notification badge ── */
+.bellWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+}
+
+.badge {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--status-fix-bg);
+  border: 1.5px solid var(--bg-white);
+}
+
+/* ── Notification panel anchor ── */
+.panelAnchor {
+  position: fixed;
+  left: calc(var(--sidebar-width) + 32px);
+  bottom: 24px;
+  z-index: 1001;
+}
+
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+}

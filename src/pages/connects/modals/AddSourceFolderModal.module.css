@@ -1,7 +1,7 @@
 .typeMeta {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   margin-bottom: 24px;
 }
 
@@ -11,19 +11,19 @@
   justify-content: center;
   height: 24px;
   padding: 0 10px;
-  background: var(--type-badge-bg);
-  color: var(--type-badge-text);
-  font-family: var(--font-mono);
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--text-primary);
+  font-family: var(--font-display);
   font-size: var(--type-label);
-  letter-spacing: var(--type-label-tracking);
-  font-weight: var(--type-label-weight);
+  letter-spacing: 0.02em;
+  font-weight: 600;
   text-transform: uppercase;
-  border-radius: var(--radius-badge);
+  border-radius: 100px;
 }
 
 .typeHint {
-  font-size: var(--type-data);
-  font-family: var(--font-mono);
+  font-size: 14px;
+  font-family: var(--font-display);
   font-weight: 400;
   color: var(--text-secondary);
 }
@@ -31,13 +31,13 @@
 .fields {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
 }
 
 .pathRow {
   display: flex;
   align-items: flex-end;
-  gap: 10px;
+  gap: 12px;
 }
 
 .pathInput {
@@ -45,52 +45,40 @@
 }
 
 .browseBtn {
-  height: 44px;
-  padding: 0 14px;
-  background: var(--bg-panel-muted);
-  border: 1px solid var(--border-default);
-  border-radius: var(--radius-btn);
+  height: 48px;
+  padding: 0 20px;
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid transparent;
+  border-radius: 100px;
   font-size: var(--type-label);
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
+  font-weight: 600;
   color: var(--text-primary);
   cursor: pointer;
   white-space: nowrap;
-  letter-spacing: var(--type-label-tracking);
+  letter-spacing: 0.02em;
   text-transform: uppercase;
   flex-shrink: 0;
   align-self: flex-end;
-  transition: background 0.1s;
+  transition: background 0.15s;
 }
 
 .browseBtn:hover {
-  background: var(--bg-hover);
+  background: rgba(0, 0, 0, 0.08);
 }
 
 .disclaimer {
   display: flex;
   align-items: center;
-  min-height: 32px;
-  padding: 6px 12px 6px 14px;
-  background: var(--bg-panel-muted);
-  position: relative;
-  overflow: hidden;
-  border-radius: var(--radius-banner);
-  margin-top: 16px;
-}
-
-.disclaimer::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: var(--text-primary);
+  padding: 12px 16px;
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 20px;
+  margin-top: 8px;
 }
 
 .disclaimerText {
-  font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-family: var(--font-display);
+  font-size: 14px;
   font-weight: 400;
   color: var(--text-secondary);
 }

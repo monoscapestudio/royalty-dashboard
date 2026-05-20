@@ -492,36 +492,38 @@ function FindingsSummary({ findings, onRerun }: { findings: Finding[]; onRerun?:
 
   return (
     <div className={styles.findingsSummary}>
-      <div className={styles.summaryTop}>
-        <div className={styles.summaryHeroRow}>
-          <div className={styles.summaryHero}>
-            <span className={styles.summaryHeroLabel}>Findings identified</span>
-            <span className={styles.summaryHeroValue}>{findings.length.toLocaleString()}</span>
-          </div>
-          <div className={styles.summaryHero}>
-            <span className={styles.summaryHeroLabel}>Potential recovery</span>
-            <span className={styles.summaryHeroValue}>{fmtValue}</span>
-          </div>
-        </div>
+      {/* 1. Neon Hero Block (Large) */}
+      <div className={styles.summaryBentoCard} data-variant="neon">
+        <span className={styles.summaryHeroLabel}>Potential recovery</span>
+        <span className={`${styles.summaryHeroValue} ${styles.summaryHeroValueLarge}`}>{fmtValue}</span>
+        <span className={styles.summaryHeroSub}>
+          Audit complete · {MOCK_AUDIT_RESULT.completedAt.split(' at ')[0]}
+        </span>
+      </div>
+
+      {/* 2. Black Findings Block */}
+      <div className={styles.summaryBentoCard} data-variant="black">
+        <span className={styles.summaryHeroLabel}>Findings identified</span>
+        <span className={styles.summaryHeroValue}>{findings.length.toLocaleString()}</span>
+      </div>
+
+      {/* 3. Small Info Block 1 */}
+      <div className={styles.summaryBentoCard}>
+        <span className={styles.summaryHeroLabel}>Coverage</span>
+        <span className={styles.statValue}>{MOCK_AUDIT_RESULT.coverage}%</span>
+      </div>
+
+      {/* 4. Small Info Block 2 */}
+      <div className={styles.summaryBentoCard}>
+        <span className={styles.summaryHeroLabel}>Max Confidence</span>
+        <span className={styles.statValue}>{maxConf}%</span>
+      </div>
+
+      {onRerun && (
         <div className={styles.summaryActions}>
-          {onRerun && (
-            <Link to="/app/reporting" className={styles.viewReportBtn}>View Report</Link>
-          )}
+          <Link to="/app/reporting" className={styles.viewReportBtn}>View Report</Link>
         </div>
-      </div>
-      <span className={styles.summaryHeroSub}>
-        Audit complete · {MOCK_AUDIT_RESULT.completedAt.split(' at ')[0]} · {MOCK_AUDIT_RESULT.recordsProcessed.toLocaleString()} records processed
-      </span>
-      <div className={styles.summaryMeta}>
-        <div className={styles.statItem}>
-          <span className={styles.statLabel}>Coverage</span>
-          <span className={styles.statValue}>{MOCK_AUDIT_RESULT.coverage}%</span>
-        </div>
-        <div className={styles.statItem}>
-          <span className={styles.statLabel}>Max Confidence</span>
-          <span className={styles.statValue}>{maxConf}%</span>
-        </div>
-      </div>
+      )}
     </div>
   );
 }
