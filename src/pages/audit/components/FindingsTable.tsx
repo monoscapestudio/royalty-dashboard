@@ -296,43 +296,44 @@ export default function FindingsTable({ findings, onToast }: Props) {
                 </div>
 
                 <div className={styles.cardMeta}>
-                  <span className={styles.billing}>{row.billingRecord}</span>
-                  <span className={styles.metaDot}>·</span>
-                  <span className={styles.source}>{sourceBucket(row.contract)}</span>
-                  <span className={styles.metaDot}>·</span>
-                  <div className={styles.confidenceCell}>
-                    <div className={styles.confBar}>
-                      <div className={styles.confFill} style={{ width: `${row.confidence}%` }} />
+                  <div className={styles.cardMetaLeft}>
+                    <span className={styles.billing}>{row.billingRecord}</span>
+                    <span className={styles.metaDot}>·</span>
+                    <span className={styles.source}>{sourceBucket(row.contract)}</span>
+                    <span className={styles.metaDot}>·</span>
+                    <div className={styles.confidenceCell}>
+                      <div className={styles.confBar}>
+                        <div className={styles.confFill} style={{ width: `${row.confidence}%` }} />
+                      </div>
+                      <span className={styles.confPct}>{row.confidence}% confidence</span>
                     </div>
-                    <span className={styles.confPct}>{row.confidence}% confidence</span>
                   </div>
-                </div>
-
-                <div className={styles.actions} onClick={(e) => e.stopPropagation()}>
-                  <button type="button" className={styles.actionLink} onClick={() => openFinding(row.id)}>
-                    Audit Trail
-                  </button>
-                  {row.status === 'New' && (
-                    <button
-                      type="button"
-                      className={styles.actionLinkBlue}
-                      onClick={() => {
-                        onToast('Recovery email draft opened from finding (wireframe).');
-                        openFinding(row.id);
-                      }}
-                    >
-                      Send Recovery
+                  <div className={styles.actions} onClick={(e) => e.stopPropagation()}>
+                    <button type="button" className={styles.actionLink} onClick={() => openFinding(row.id)}>
+                      Audit Trail
                     </button>
-                  )}
-                  {row.status === 'Recovery' && (
-                    <button
-                      type="button"
-                      className={styles.actionLinkRed}
-                      onClick={() => onToast('Recovery cancelled for this finding (wireframe).')}
-                    >
-                      Cancel
-                    </button>
-                  )}
+                    {row.status === 'New' && (
+                      <button
+                        type="button"
+                        className={styles.actionLink}
+                        onClick={() => {
+                          onToast('Recovery email draft opened from finding (wireframe).');
+                          openFinding(row.id);
+                        }}
+                      >
+                        Send Recovery
+                      </button>
+                    )}
+                    {row.status === 'Recovery' && (
+                      <button
+                        type="button"
+                        className={styles.actionLink}
+                        onClick={() => onToast('Recovery cancelled for this finding (wireframe).')}
+                      >
+                        Cancel
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

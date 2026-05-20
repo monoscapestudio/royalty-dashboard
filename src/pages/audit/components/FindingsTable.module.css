@@ -188,7 +188,7 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 4px;
 }
 
 .cardHeader {
@@ -235,7 +235,15 @@
 .cardMeta {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.cardMetaLeft {
+  display: flex;
+  align-items: center;
   gap: 6px;
+  min-width: 0;
 }
 
 .metaDot {
@@ -300,24 +308,31 @@
 .actions {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 12px;
+  flex-shrink: 0;
 }
 
-.actionLink,
-.actionLinkBlue,
-.actionLinkRed {
-  font-size: var(--type-data);
-  color: var(--text-secondary);
+.actionLink {
   background: none;
   border: none;
   cursor: pointer;
+  font-family: var(--font-display);
+  font-size: var(--type-data);
+  letter-spacing: var(--type-body-tracking);
+  font-weight: 400;
+  color: var(--text-primary);
   padding: 0;
   text-decoration: underline;
   text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color 0.15s, text-decoration-color 0.15s;
 }
-.actionLink:hover,
-.actionLinkBlue:hover { color: var(--btn-primary-hover); }
-.actionLinkRed:hover { color: var(--status-fix-bg); }
+
+.actionLink:hover {
+  color: var(--btn-primary-hover);
+  text-decoration-color: var(--btn-primary-hover);
+}
 
 /* ── Pagination ── */
 .pagination {
