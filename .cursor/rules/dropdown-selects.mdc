@@ -1,0 +1,33 @@
+---
+description: Use FormSelect for all dropdown menus — shared typography and portal behavior
+globs: src/**/*.{tsx,ts,css}
+alwaysApply: false
+---
+
+# Dropdown / select menus
+
+Use the shared `FormSelect` component (`src/components/ui/FormSelect.tsx`) for every dropdown or filter select. Do not add one-off `FilterSelect` implementations with custom CSS.
+
+## Typography (from `FormSelect.module.css`)
+
+- **Selected value** (trigger): `font-family: var(--font-display)`, `font-size: 16px`, `color: var(--text-primary)`. Sentence case in labels (e.g. "All sources", "CFO") — no `text-transform: uppercase` on the value.
+- **Field label** (when shown): display font, uppercase label styling — only on the external `.label`, not on the selected value.
+- **Menu options**: `font-size: 15px`, display font, normal casing.
+- **Chevron**: `10px`, `var(--text-secondary)`.
+
+## Usage
+
+- Full field: pass `label="Role"` (or similar).
+- Inline filter bar (label rendered separately): omit `label` or pass empty string; wrap with `className` for width only.
+- Dropdown menu renders via portal to `document.body` (required inside glass / `backdrop-filter` panels).
+
+## Example (filter bar)
+
+```tsx
+<FormSelect
+  value={filter}
+  onChange={(v) => setFilter(v)}
+  options={[{ value: 'all', label: 'All sources' }, ...]}
+  className={styles.filterSelect}
+/>
+```

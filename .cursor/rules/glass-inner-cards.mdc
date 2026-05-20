@@ -1,0 +1,39 @@
+---
+description: Spacing and typography for inner glass/floating pill cards
+globs: src/**/*.{tsx,css}
+alwaysApply: false
+---
+
+# Glass inner cards (floating pills)
+
+Use design tokens from `src/styles/tokens.css` for every inner card inside a glass panel (Rules method cards, AI summary, Connects connection cards, etc.).
+
+## Layout tokens
+
+- `--glass-card-pad`: **20px** — inner padding (not 16px)
+- `--glass-card-gap`: **16px** — vertical gap between header row and body copy
+- `--glass-card-radius`: **20px**
+- `--glass-card-bg`, `--glass-card-border`, `--glass-card-shadow` — shared surface
+
+## Header row
+
+- Grid: `grid-template-columns: minmax(0, 1fr) auto` — title block left, action link right (no overlap)
+- `align-items: start`
+- Label: mono, `--type-label`, uppercase, `--text-secondary`
+- Count badge: **24px** height, pill, `--bg-panel-muted`
+- Action link: display, `--type-data`, underlined, `white-space: nowrap`
+
+## Body / description copy
+
+- **Not** mono at 12px — too cramped vertically
+- Use tokens: `--glass-card-body-font`, `--glass-card-body-size`, `--glass-card-body-lh`, `color: var(--text-secondary)`, `font-weight: 400`
+- Or global class `.glassCardBody` from `globals.css` on `<p>` / `<span>` description elements
+- `margin: 0` on paragraph spans
+
+Apply to: method bodies, section hints, column hints, summary text, empty-state descriptions, modal helper paragraphs — anywhere with multi-line explanatory copy (not labels, badges, or mono data metadata).
+
+## Section spacing (between cards)
+
+- `--space-gutter` (24px) between sibling cards in a panel body
+
+When adding new inner cards on other pages, reference these tokens — do not hardcode `padding: 16px` or `gap: 12px` for this pattern.
