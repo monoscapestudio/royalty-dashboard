@@ -35,7 +35,7 @@
 
 .columnTitle {
   font-family: var(--font-display);
-  font-size: 18px; /* Povećano sa 15px za još jači stav */
+  font-size: 15px; /* Povećano sa 12px (--type-label) za jači stav */
   font-weight: 700; /* Čvrst bold */
   letter-spacing: 0.02em; /* Malo zbijenije jer je font veći */
   text-transform: uppercase;
@@ -155,7 +155,7 @@
 
 .cardName {
   font-family: var(--font-display);
-  font-size: 16px; /* Smanjeno sa subtitle na 16px po zahtevu */
+  font-size: var(--type-subtitle); /* Increased from body (15px) to subtitle (20px) */
   font-weight: 600; /* Bolder */
   letter-spacing: -0.01em; /* Tighter tracking for display text */
   color: var(--text-primary);

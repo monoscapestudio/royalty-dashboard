@@ -173,9 +173,9 @@ export default function CurrentRulesTable({
         </div>
       </div>
 
-      <RuleGroup label="AI-Approved Rules" rules={ai} onToggle={onToggle} onDuplicate={onDuplicate} onEdit={onEdit} onRemove={onRemove} />
       <RuleGroup label="Library Rules" rules={library} onToggle={onToggle} onDuplicate={onDuplicate} onEdit={onEdit} onRemove={onRemove} />
       <RuleGroup label="User-Defined Rules" rules={user} onToggle={onToggle} onDuplicate={onDuplicate} onEdit={onEdit} onRemove={onRemove} />
+      <RuleGroup label="AI-Approved Rules" rules={ai} onToggle={onToggle} onDuplicate={onDuplicate} onEdit={onEdit} onRemove={onRemove} />
     </div>
   );
 }

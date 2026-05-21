@@ -171,24 +171,6 @@ export default function AddRulesSection({
       <div className={styles.methodCard}>
         <div className={styles.methodTop}>
           <div className={styles.methodTitleRow}>
-            <span className={styles.methodLabel}>AI-Identified Rules</span>
-            <span className={styles.methodCount}>12</span>
-          </div>
-          <button
-            className={styles.methodAction}
-            onClick={() => {}}
-          >
-            Review AI suggestions
-          </button>
-        </div>
-        <span className={styles.methodBody}>
-          AuditGraph AI has scanned your recent contracts and statements to propose these custom rules tailored to your agreements.
-        </span>
-      </div>
-
-      <div className={styles.methodCard}>
-        <div className={styles.methodTop}>
-          <div className={styles.methodTitleRow}>
             <span className={styles.methodLabel}>Library Rules</span>
             {showLibraryBanner && <span className={styles.methodCount}>{libraryCount}</span>}
           </div>

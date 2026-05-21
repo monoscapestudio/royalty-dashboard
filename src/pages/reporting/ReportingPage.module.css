@@ -415,10 +415,10 @@
   cursor: not-allowed;
 }
 
-.blockItemCheck {
-  margin: 0;
-  accent-color: var(--btn-primary-bg);
-  pointer-events: none; /* Let the button handle the click */
+.blockItemHandle {
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  color: var(--text-muted);
 }
 
 .historyItem {
@@ -641,11 +641,11 @@
 
 .docSummaryHeroValue {
   font-family: var(--font-display);
-  font-size: 42px;
+  font-size: 42px; /* Increased slightly for impact */
   font-weight: 300;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.04em; /* Tighter letter spacing for display fonts */
   line-height: 1;
-  color: #6a9b40; /* Accent sage/olive color */
+  color: #010101;
 }
 
 .docSummaryRow {

@@ -7,8 +7,8 @@ import modalStyles from '../../../components/ui/Modal.module.css';
 import styles from './AddSourceFolderModal.module.css';
 
 const CONTEXT_LABELS: Record<SourceCategory, string> = {
-  contracts: 'Add Contracts Source',
-  billing: 'Add Statements Source',
+  contracts: 'Add Contract Source',
+  billing: 'Add Billing Source',
   recovery: 'Add Recovery Source',
 };
 
