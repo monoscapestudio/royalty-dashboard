@@ -18,7 +18,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0;
+  padding: 0 0 0 24px;
   background: transparent;
   border-bottom: none;
   flex-shrink: 0;
@@ -27,7 +27,7 @@
 
 .panelTitle {
   font-family: var(--font-display);
-  font-size: 15px;
+  font-size: 24px;
   font-weight: 700;
   letter-spacing: 0.02em;
   text-transform: uppercase;
@@ -57,7 +57,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 0 8px 16px 8px;
+  padding: 0 8px 16px 24px;
 }
 
 /* ── Glass container for rows ── */
@@ -171,7 +171,7 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: 16px 24px;
+  padding: 12px 20px;
 }
 
 .rowCheck {
@@ -206,7 +206,7 @@
 
 .contract {
   font-family: var(--font-display);
-  font-size: var(--type-body);
+  font-size: 14px;
   font-weight: 500;
   color: var(--text-primary);
   flex: 1;
@@ -217,13 +217,13 @@
 
 .billing {
   font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-size: 12px;
   color: var(--text-secondary);
 }
 
 .discrepancy {
   font-family: var(--font-display);
-  font-size: var(--type-body);
+  font-size: 14px;
   font-weight: 500;
   color: var(--text-primary);
   font-variant-numeric: tabular-nums;

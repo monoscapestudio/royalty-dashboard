@@ -28,7 +28,7 @@ export default function ConnectsEmptyState({ onAddSource, onRequestIntegration }
         </div>
 
         <div className={styles.card}>
-          <span className={styles.cardLabel}>Billing</span>
+          <span className={styles.cardLabel}>Statements</span>
           <span className={styles.cardQuestion}>Where are your invoices?</span>
           <span className={styles.cardDescription}>
             Connect systems that hold your billing records and payment data.

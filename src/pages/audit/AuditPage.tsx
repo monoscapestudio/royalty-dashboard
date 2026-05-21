@@ -240,11 +240,6 @@ export default function AuditPage() {
               <div className={styles.todoIntro}>
                 <span className={styles.todoEyebrow}>First audit</span>
                 <span className={styles.todoHeroTitle}>Two steps to first findings.</span>
-                <p className={styles.todoHeroBody}>
-                  Connect contract data and apply rules. That is all you need before AuditGraph
-                  can start reviewing your records.
-                </p>
-                <span className={styles.todoOrderNote}>You can do them in any order.</span>
               </div>
 
               <div className={styles.todoAction}>
@@ -467,11 +462,13 @@ function FindingsSummary({ findings, onRerun }: { findings: Finding[]; onRerun?:
     <div className={styles.findingsSummary}>
       {/* 1. Neon Hero Block (Large) */}
       <div className={styles.summaryBentoCard} data-variant="neon">
-        <span className={styles.summaryHeroLabel}>Potential recovery</span>
-        <span className={`${styles.summaryHeroValue} ${styles.summaryHeroValueLarge}`}>{fmtValue}</span>
-        <span className={styles.summaryHeroSub}>
-          Audit complete · {MOCK_AUDIT_RESULT.completedAt.split(' at ')[0]}
-        </span>
+        <div className={styles.neonContent}>
+          <span className={styles.summaryHeroLabel}>Potential recovery</span>
+          <span className={`${styles.summaryHeroValue} ${styles.summaryHeroValueLarge}`}>{fmtValue}</span>
+          <span className={styles.summaryHeroSub}>
+            Audit complete · {MOCK_AUDIT_RESULT.completedAt.split(' at ')[0]}
+          </span>
+        </div>
         {onRerun && (
           <div className={styles.summaryHeroActions}>
             <Link to="/app/reporting" className={styles.summaryPrimaryBtn}>
@@ -484,22 +481,20 @@ function FindingsSummary({ findings, onRerun }: { findings: Finding[]; onRerun?:
         )}
       </div>
 
-      {/* 2. Black Findings Block */}
+      {/* 2. Black Stats Block (Combined) */}
       <div className={styles.summaryBentoCard} data-variant="black">
-        <span className={styles.summaryHeroLabel}>Findings identified</span>
-        <span className={styles.summaryHeroValue}>{findings.length.toLocaleString()}</span>
-      </div>
-
-      {/* 3. Small Info Block 1 */}
-      <div className={styles.summaryBentoCard}>
-        <span className={styles.summaryHeroLabel}>Coverage</span>
-        <span className={styles.statValue}>{MOCK_AUDIT_RESULT.coverage}%</span>
-      </div>
-
-      {/* 4. Small Info Block 2 */}
-      <div className={styles.summaryBentoCard}>
-        <span className={styles.summaryHeroLabel}>Max Confidence</span>
-        <span className={styles.statValue}>{maxConf}%</span>
+        <div className={styles.statColumn}>
+          <span className={styles.summaryHeroLabel}>Coverage</span>
+          <span className={styles.statValue}>{MOCK_AUDIT_RESULT.coverage}%</span>
+        </div>
+        <div className={styles.statColumn}>
+          <span className={styles.summaryHeroLabel}>Findings identified</span>
+          <span className={styles.statValue}>{findings.length.toLocaleString()}</span>
+        </div>
+        <div className={styles.statColumn}>
+          <span className={styles.summaryHeroLabel}>Max Confidence</span>
+          <span className={styles.statValue}>{maxConf}%</span>
+        </div>
       </div>
 
     </div>

@@ -8,7 +8,7 @@ import styles from './RequestIntegrationModal.module.css';
 const CATEGORY_OPTIONS = [
   { value: '', label: 'Select category…' },
   { value: 'contracts', label: 'Contracts' },
-  { value: 'billing', label: 'Billing' },
+  { value: 'billing', label: 'Statements' },
   { value: 'both', label: 'Both' },
 ];
 

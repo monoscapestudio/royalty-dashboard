@@ -137,13 +137,13 @@
 
 .ruleInput {
   flex: 1;
-  height: 40px;
+  height: 48px;
   background: rgba(255, 255, 255, 0.8);
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: var(--radius-btn);
-  padding: 0 12px;
+  padding: 0 16px;
   font-family: var(--font-display);
-  font-size: var(--type-body);
+  font-size: 16px;
   color: var(--text-primary);
   outline: none;
   transition: border-color 0.15s, background 0.15s;

@@ -681,7 +681,12 @@ export default function ReportingPage() {
                   disabled={isFinalized || onCanvas}
                   title={onCanvas ? 'Already on canvas' : `Add ${block} to canvas`}
                 >
-                  <span className={styles.blockItemHandle}>≡</span>
+                  <input 
+                    type="checkbox" 
+                    checked={onCanvas} 
+                    className={styles.blockItemCheck} 
+                    readOnly 
+                  />
                   <span>{block}</span>
                 </button>
               );
