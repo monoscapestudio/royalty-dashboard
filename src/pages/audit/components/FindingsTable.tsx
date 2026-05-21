@@ -165,7 +165,7 @@ export default function FindingsTable({ findings, onToast }: Props) {
         <div className={styles.filters}>
           <FormSelect
             value={statusFilter}
-            onChange={(value) => { setStatusFilter(value); setPage(0); }}
+            onChange={(value) => { setStatusFilter(value); }}
             options={statusOptions}
             className={styles.filterSelect}
           />
@@ -174,14 +174,13 @@ export default function FindingsTable({ findings, onToast }: Props) {
             onChange={(value) => {
               const v = value === 'all' ? '' : (value as ConfidenceFilter);
               setConfidenceFilter(v);
-              setPage(0);
             }}
             options={confidenceOptions}
             className={styles.filterSelect}
           />
           <FormSelect
             value={sourceFilter}
-            onChange={(value) => { setSourceFilter(value); setPage(0); }}
+            onChange={(value) => { setSourceFilter(value); }}
             options={sourceFilterOptions}
             className={styles.filterSelect}
           />
@@ -189,7 +188,6 @@ export default function FindingsTable({ findings, onToast }: Props) {
             value={ruleFilter}
             onChange={(value) => {
               setRuleFilter(value as RuleFilter);
-              setPage(0);
             }}
             options={ruleOptions}
             className={styles.filterSelect}
