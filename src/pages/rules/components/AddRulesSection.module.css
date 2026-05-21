@@ -154,28 +154,31 @@
 .ruleInput:focus { background: rgba(255, 255, 255, 1); border-color: rgba(255, 255, 255, 1); }
 
 .addBtn {
-  height: 40px;
-  padding: 0 20px;
-  background: var(--btn-primary-bg);
-  color: var(--btn-primary-text);
   font-family: var(--font-display);
-  font-size: var(--type-label);
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
+  font-size: var(--type-data);
+  letter-spacing: var(--type-body-tracking);
+  font-weight: 500;
+  color: var(--text-primary);
+  background: none;
   border: none;
-  border-radius: 100px;
   cursor: pointer;
-  flex-shrink: 0;
-  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+  padding: 0 16px;
   white-space: nowrap;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color 0.15s, text-decoration-color 0.15s, opacity 0.15s;
+  flex-shrink: 0;
+  height: 40px;
+  display: flex;
+  align-items: center;
 }
 
 .addBtn:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  color: var(--btn-primary-hover);
+  text-decoration-color: var(--btn-primary-hover);
 }
-.addBtn:disabled { background: var(--btn-disabled-bg); cursor: not-allowed; }
+.addBtn:disabled { opacity: 0.3; cursor: not-allowed; text-decoration: none; }
 
 /* ── Interpretation preview ── */
 .interpretation {

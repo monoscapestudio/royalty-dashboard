@@ -17,8 +17,8 @@
 }
 
 .summaryTop {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  display: flex;
+  justify-content: space-between;
   align-items: start;
   gap: 12px;
 }
@@ -26,9 +26,8 @@
 .summaryTitleRow {
   display: flex;
   align-items: flex-start;
+  flex-wrap: wrap;
   gap: 8px;
-  flex: 1;
-  min-width: 0;
 }
 
 .aiBadge {

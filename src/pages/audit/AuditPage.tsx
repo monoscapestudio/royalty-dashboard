@@ -229,8 +229,8 @@ export default function AuditPage() {
 
         {/* NOT_YET_RUN: to-do checklist */}
         {effectiveState === 'NOT_YET_RUN' && (
-          <>
-            <div className={styles.todoStage}>
+          <div className={styles.todoWrapper}>
+            <div className={styles.todoLeft}>
               <div className={styles.todoIntro}>
                 <span className={styles.todoEyebrow}>First audit</span>
                 <span className={styles.todoHeroTitle}>Two steps to first findings.</span>
@@ -239,62 +239,6 @@ export default function AuditPage() {
                   can start reviewing your records.
                 </p>
                 <span className={styles.todoOrderNote}>You can do them in any order.</span>
-              </div>
-
-              <div className={styles.todoGrid}>
-                <div
-                  className={`${styles.todoCard} ${contractStepDone ? styles.todoCardDone : styles.todoCardPending}`}
-                >
-                  <div className={styles.todoCardTop}>
-                    <span className={styles.todoStepIndex}>01</span>
-                    <span
-                      className={`${styles.todoCheck} ${contractStepDone ? styles.todoCheckDone : styles.todoCheckPending}`}
-                      aria-hidden
-                    >
-                    {contractStepDone ? '✓' : null}
-                    </span>
-                  </div>
-                  <span className={styles.todoCardTitle}>Connect a contract source</span>
-                  <span className={styles.todoCardBody}>
-                    Add the contract system you want the audit to read from.
-                  </span>
-                  <div className={styles.todoCardAction}>
-                    {contractStepDone ? (
-                      <span className={styles.todoCardDoneText}>Complete</span>
-                    ) : (
-                      <Link to="/app/connects?first-audit=1" className={styles.todoStepBtn}>
-                        Go to Connects
-                      </Link>
-                    )}
-                  </div>
-                </div>
-
-                <div
-                  className={`${styles.todoCard} ${rulesStepDone ? styles.todoCardDone : styles.todoCardPending}`}
-                >
-                  <div className={styles.todoCardTop}>
-                    <span className={styles.todoStepIndex}>02</span>
-                    <span
-                      className={`${styles.todoCheck} ${rulesStepDone ? styles.todoCheckDone : styles.todoCheckPending}`}
-                      aria-hidden
-                    >
-                    {rulesStepDone ? '✓' : null}
-                    </span>
-                  </div>
-                  <span className={styles.todoCardTitle}>Apply audit rules</span>
-                  <span className={styles.todoCardBody}>
-                    Review library, AI, or plain-language rules for this audit run.
-                  </span>
-                  <div className={styles.todoCardAction}>
-                    {rulesStepDone ? (
-                      <span className={styles.todoCardDoneText}>Complete</span>
-                    ) : (
-                      <Link to="/app/rules?first-audit=1" className={styles.todoStepBtn}>
-                        Go to Rules
-                      </Link>
-                    )}
-                  </div>
-                </div>
               </div>
 
               <div className={styles.todoAction}>
@@ -309,11 +253,68 @@ export default function AuditPage() {
                   <p className={styles.todoBlocked}>Complete both steps first.</p>
                 )}
               </div>
+              
+              <div className={styles.emptyFindings}>
+                <span className={styles.emptyFindingsText}>No findings yet. Your first audit will populate this workspace.</span>
+              </div>
             </div>
-            <div className={styles.emptyFindings} style={{ marginTop: 24 }}>
-              <span className={styles.emptyFindingsText}>No findings yet. Your first audit will populate this workspace.</span>
+
+            <div className={styles.todoGrid}>
+              <div
+                className={`${styles.todoCard} ${contractStepDone ? styles.todoCardDone : styles.todoCardPending}`}
+              >
+                <div className={styles.todoCardTop}>
+                  <span className={styles.todoStepIndex}>01</span>
+                  <span
+                    className={`${styles.todoCheck} ${contractStepDone ? styles.todoCheckDone : styles.todoCheckPending}`}
+                    aria-hidden
+                  >
+                  {contractStepDone ? '✓' : null}
+                  </span>
+                </div>
+                <span className={styles.todoCardTitle}>Connect a contract source</span>
+                <span className={styles.todoCardBody}>
+                  Add the contract system you want the audit to read from.
+                </span>
+                <div className={styles.todoCardAction}>
+                  {contractStepDone ? (
+                    <span className={styles.todoCardDoneText}>Complete</span>
+                  ) : (
+                    <Link to="/app/connects?first-audit=1" className={styles.todoStepBtn}>
+                      Go to Connects
+                    </Link>
+                  )}
+                </div>
+              </div>
+
+              <div
+                className={`${styles.todoCard} ${rulesStepDone ? styles.todoCardDone : styles.todoCardPending}`}
+              >
+                <div className={styles.todoCardTop}>
+                  <span className={styles.todoStepIndex}>02</span>
+                  <span
+                    className={`${styles.todoCheck} ${rulesStepDone ? styles.todoCheckDone : styles.todoCheckPending}`}
+                    aria-hidden
+                  >
+                  {rulesStepDone ? '✓' : null}
+                  </span>
+                </div>
+                <span className={styles.todoCardTitle}>Apply audit rules</span>
+                <span className={styles.todoCardBody}>
+                  Review library, AI, or plain-language rules for this audit run.
+                </span>
+                <div className={styles.todoCardAction}>
+                  {rulesStepDone ? (
+                    <span className={styles.todoCardDoneText}>Complete</span>
+                  ) : (
+                    <Link to="/app/rules?first-audit=1" className={styles.todoStepBtn}>
+                      Go to Rules
+                    </Link>
+                  )}
+                </div>
+              </div>
             </div>
-          </>
+          </div>
         )}
 
         {/* RUNNING: hero progress + partial findings */}

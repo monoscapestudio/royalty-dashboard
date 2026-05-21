@@ -132,7 +132,7 @@
   text-transform: uppercase;
   color: var(--text-muted);
   display: block;
-  padding: 8px var(--content-px) 6px;
+  padding: 8px 0 6px;
 }
 
 /* ── Readiness cards — Bento ── */
@@ -140,7 +140,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
-  padding: 0 var(--content-px);
+  padding: 0;
   margin-bottom: 12px;
 }
 
@@ -416,56 +416,65 @@
 }
 
 /* ── First-run onboarding (NOT_YET_RUN) ── */
-.todoStage {
+.todoWrapper {
   display: grid;
-  grid-template-columns: 1fr 1.6fr;
-  gap: 24px;
-  align-items: start;
-  padding: 20px 0;
-  border-bottom: 1px solid var(--border-default);
+  grid-template-columns: minmax(300px, 1.2fr) minmax(400px, 2fr);
+  gap: 80px;
+  align-items: flex-start;
+  padding: 40px 0;
+  flex: 1;
+}
+
+.todoLeft {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .todoIntro {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 16px;
 }
 
 .todoEyebrow {
   font-family: var(--font-mono);
-  font-size: var(--type-label);
-  font-weight: var(--type-label-weight);
-  letter-spacing: var(--type-label-tracking);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--text-secondary);
 }
 
 .todoHeroTitle {
   font-family: var(--font-display);
-  font-size: var(--type-metric);
+  font-size: 48px;
   font-weight: 400;
-  letter-spacing: var(--type-metric-tracking);
-  line-height: var(--type-metric-lh);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
   color: var(--text-primary);
 }
 
 .todoHeroBody {
   margin: 0;
-  font-size: var(--type-body);
+  font-size: 16px;
+  font-family: var(--font-display);
   color: var(--text-secondary);
-  line-height: var(--type-body-lh);
+  line-height: 1.5;
 }
 
 .todoOrderNote {
   font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-size: 13px;
   color: var(--text-muted);
+  margin-top: 8px;
+  display: block;
 }
 
 .todoGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  gap: 24px;
 }
 
 .todoCard {
@@ -473,16 +482,28 @@
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(255, 255, 255, 0.6);
-  border-radius: var(--radius-card);
-  padding: 24px;
+  border-radius: 24px;
+  padding: 32px 24px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+  gap: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.02);
+  transition: transform 0.2s, box-shadow 0.2s;
+  min-height: 280px;
 }
 
-.todoCardPending { background: rgba(255, 255, 255, 0.6); }
-.todoCardDone { background: rgba(255, 255, 255, 0.2); border-color: rgba(255, 255, 255, 0.3); }
+.todoCardPending { 
+  background: rgba(255, 255, 255, 0.7); 
+}
+.todoCardDone { 
+  background: rgba(255, 255, 255, 0.3); 
+  border-color: rgba(255, 255, 255, 0.5); 
+}
+
+.todoCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.04);
+}
 
 .todoCardTop {
   display: flex;
@@ -492,25 +513,25 @@
 
 .todoStepIndex {
   font-family: var(--font-mono);
-  font-size: var(--type-label);
-  font-weight: var(--type-label-weight);
-  letter-spacing: var(--type-label-tracking);
-  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
   color: var(--text-muted);
 }
 
 .todoCardTitle {
   font-family: var(--font-display);
-  font-size: var(--type-body);
+  font-size: 18px;
   font-weight: 500;
   color: var(--text-primary);
+  letter-spacing: -0.01em;
 }
 
 .todoCardBody {
   font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-size: 13px;
   color: var(--text-secondary);
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .todoCardAction {
@@ -518,100 +539,107 @@
 }
 
 .todoCardDoneText {
-  font-size: var(--type-data);
+  font-size: 13px;
+  font-family: var(--font-mono);
+  font-weight: 500;
   color: var(--status-live-bg);
 }
 
 .todoCheck {
-  width: 20px;
-  height: 20px;
-  border-radius: 4px;
-  border: 2px solid var(--border-default);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--border-default);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: var(--type-data);
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 600;
   color: transparent;
   flex-shrink: 0;
 }
 .todoCheckPending { display: none; }
 .todoCheckDone {
-  background: var(--status-live-bg);
-  border-color: var(--status-live-text);
-  color: var(--status-live-text);
+  background: var(--accent-neon);
+  border-color: var(--accent-neon);
+  color: var(--accent-neon-text);
 }
 
 .todoStepBtn {
   display: inline-flex;
   align-items: center;
-  height: 40px;
+  height: 48px;
   padding: 0 24px;
-  background: var(--btn-primary-bg);
-  color: #fff;
+  background: var(--accent-black);
+  color: #ffffff;
   font-family: var(--font-display);
-  font-size: var(--type-label);
+  font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  border-radius: var(--radius-btn);
+  border-radius: 100px;
   text-decoration: none;
-  white-space: nowrap;
-  transition: background 0.1s;
+  transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
 }
-.todoStepBtn:hover { background: var(--btn-primary-hover); }
+.todoStepBtn:hover {
+  background: #333333;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
 
 .todoAction {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 12px 0 0;
-  border-top: 1px solid var(--border-default);
+  flex-direction: column;
+  gap: 16px;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .todoReady {
-  font-size: var(--type-body);
+  font-family: var(--font-display);
+  font-size: 24px;
   font-weight: 500;
   color: var(--text-primary);
 }
 
 .todoBlocked {
   font-family: var(--font-display);
-  font-size: var(--type-body);
+  font-size: 14px;
   color: var(--text-secondary);
   margin: 0;
 }
 
 .runAuditBtn {
-  height: 48px;
-  padding: 0 24px;
-  background: var(--btn-primary-bg);
-  color: #fff;
-  font-family: var(--font-display);
-  font-size: var(--type-label);
+  height: 56px;
+  padding: 0 40px;
+  background: var(--accent-neon);
+  color: var(--accent-neon-text);
+  font-family: var(--font-mono);
+  font-size: 13px;
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  border-radius: var(--radius-btn);
+  border-radius: 100px;
   border: none;
   cursor: pointer;
-  transition: background 0.1s, transform 0.1s;
+  align-self: flex-start;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 8px 32px rgba(210, 255, 0, 0.15);
 }
-.runAuditBtn:hover { background: var(--btn-primary-hover); transform: translateY(-2px); }
+.runAuditBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(210, 255, 0, 0.25);
+}
 
 /* ── Empty findings ── */
 .emptyFindings {
-  border-top: 1px solid var(--border-default);
-  min-height: 60px;
-  display: flex;
-  align-items: center;
-  padding: 16px 0;
+  margin-top: auto;
+  padding-bottom: 24px;
 }
 
 .emptyFindingsText {
   font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-size: 13px;
   color: var(--text-secondary);
 }
 

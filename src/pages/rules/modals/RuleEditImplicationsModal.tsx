@@ -45,7 +45,7 @@ export default function RuleEditImplicationsModal({ rule, onEditAnyway, onCancel
         <span className={styles.fieldLabel}>Last Audit Using This Rule</span>
         <div className={styles.auditMeta}>
           <span className={styles.auditDate}>April 21, 2026 at 14:32 UTC</span>
-          <span className={styles.auditStat}>1,390 findings</span>
+          <span className={styles.auditStat}>5 findings</span>
           <span className={styles.auditStat}>Rule set v321</span>
         </div>
       </div>

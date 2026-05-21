@@ -13,6 +13,16 @@
   gap: 16px;
 }
 
+/* Dim other elements in the column when a card is hovered */
+.column:has(.card:hover) .columnHeader,
+.column:has(.card:hover) .columnHint,
+.column:has(.card:hover) .addBtn,
+.column:has(.card:hover) .requestRow,
+.column:has(.card:hover) .card:not(:hover) {
+  opacity: 0.3;
+  filter: blur(2px);
+}
+
 .columnHeader {
   display: flex;
   align-items: center;
@@ -20,6 +30,7 @@
   padding: 8px 8px 0;
   background: transparent;
   border-bottom: none;
+  transition: opacity 0.3s, filter 0.3s;
 }
 
 .columnTitle {
@@ -55,6 +66,7 @@
   color: var(--text-secondary);
   line-height: var(--glass-card-body-lh);
   margin-top: -8px;
+  transition: opacity 0.3s, filter 0.3s;
 }
 
 /* ── List of connections ── */
@@ -75,14 +87,63 @@
   display: flex;
   flex-direction: column;
   gap: var(--glass-card-gap);
-  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s, background 0.3s, opacity 0.3s, filter 0.3s;
   box-shadow: var(--glass-card-shadow);
+  position: relative;
 }
 
 .card:hover {
   background: rgba(255, 255, 255, 0.95);
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+}
+
+.tooltip {
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translate(-50%, -100%) scale(0.95);
+  width: max-content;
+  max-width: 260px;
+  padding: 10px 16px;
+  background: rgba(30, 30, 30, 0.85);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 500;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.4;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+  z-index: 999;
+}
+
+.tooltip::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 10px;
+  height: 10px;
+  background: rgba(30, 30, 30, 0.85);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.card:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -100%) scale(1);
 }
 
 .cardTop {

@@ -11,6 +11,17 @@ const CATEGORY_META: Record<
   recovery: { label: 'Recovery', addLabel: '+ Connect channel', hint: 'How you reach out to collect' },
 };
 
+function getTooltipText(name: string): string {
+  const lower = name.toLowerCase();
+  if (lower.includes('soundexchange')) return "Syncs monthly royalty statements and tracks deduplication automatically.";
+  if (lower.includes('google drive')) return "Scans uploaded PDFs for key terms and payout obligations.";
+  if (lower.includes('quickbooks')) return "Reads inbound payment invoices and maps them against contract payouts.";
+  if (lower.includes('spotify')) return "Pulls direct streaming data to cross-reference against payouts.";
+  if (lower.includes('netsuite')) return "Connects to your general ledger to verify recorded receipts.";
+  if (lower.includes('gmail')) return "Drafts recovery emails directly to licensors (requires your approval).";
+  return "Connects to this system to read your records and verify payouts.";
+}
+
 interface Props {
   category: SourceCategory;
   sources: DataSource[];
@@ -46,6 +57,10 @@ export default function SourceSection({
       <div className={styles.list}>
         {sources.map((src) => (
           <div key={src.id} className={styles.card}>
+            <div className={styles.tooltip}>
+              {getTooltipText(src.name)}
+            </div>
+
             <div className={styles.cardTop}>
               <span className={styles.cardName}>{src.name}</span>
               <StatusBadge status={src.status} />

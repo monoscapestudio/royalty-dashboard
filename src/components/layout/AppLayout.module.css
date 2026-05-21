@@ -35,5 +35,26 @@
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  padding-right: 8px;
+  padding-right: 24px;
+  margin-right: 8px;
+  scrollbar-gutter: stable;
+}
+
+.mainContent::-webkit-scrollbar {
+  width: 6px;
+}
+
+.mainContent::-webkit-scrollbar-track {
+  background: transparent;
+  margin-top: 240px;
+  margin-bottom: 32px;
+}
+
+.mainContent::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+}
+
+.mainContent::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.25);
 }

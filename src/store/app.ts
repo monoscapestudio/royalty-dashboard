@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { MOCK_AUDIT_RESULT } from '../data/mockAudit';
 import type { AuditState } from '../types';
 
 export type NotificationCategory = 'Audit' | 'Connection' | 'Recovery' | 'Rules';
@@ -19,7 +20,7 @@ const INITIAL_NOTIFICATIONS: AppNotification[] = [
     id: 'n1',
     category: 'Audit',
     title: 'Audit complete',
-    desc: 'Music & Royalty audit finished. 1,390 findings, $12.45M potential recovery.',
+    desc: `Music & Royalty audit finished. ${MOCK_AUDIT_RESULT.findingsCount.toLocaleString()} findings, ${MOCK_AUDIT_RESULT.totalValueFormatted} potential recovery.`,
     actionLabel: 'View findings',
     actionRoute: '/app/audit',
     timestamp: '2 minutes ago',
