@@ -467,11 +467,13 @@ function FindingsSummary({ findings, onRerun }: { findings: Finding[]; onRerun?:
     <div className={styles.findingsSummary}>
       {/* 1. Neon Hero Block (Large) */}
       <div className={styles.summaryBentoCard} data-variant="neon">
-        <span className={styles.summaryHeroLabel}>Potential recovery</span>
-        <span className={`${styles.summaryHeroValue} ${styles.summaryHeroValueLarge}`}>{fmtValue}</span>
-        <span className={styles.summaryHeroSub}>
-          Audit complete · {MOCK_AUDIT_RESULT.completedAt.split(' at ')[0]}
-        </span>
+        <div className={styles.neonTop}>
+          <span className={styles.summaryHeroLabel}>Potential recovery</span>
+          <span className={`${styles.summaryHeroValue} ${styles.summaryHeroValueLarge}`}>{fmtValue}</span>
+          <span className={styles.summaryHeroSub}>
+            Audit complete · {MOCK_AUDIT_RESULT.completedAt.split(' at ')[0]}
+          </span>
+        </div>
         {onRerun && (
           <div className={styles.summaryHeroActions}>
             <Link to="/app/reporting" className={styles.summaryPrimaryBtn}>
