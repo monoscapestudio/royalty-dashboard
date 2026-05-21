@@ -124,11 +124,12 @@
 
 .panelTitle {
   font-family: var(--font-display);
-  font-size: 15px;
+  font-size: 24px;
   font-weight: 700;
   letter-spacing: 0.02em;
   text-transform: uppercase;
   color: var(--text-primary);
+  margin: 0;
 }
 
 .panelCount {

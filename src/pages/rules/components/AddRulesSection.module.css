@@ -4,16 +4,6 @@
   gap: 16px;
 }
 
-.sectionHint {
-  font-family: var(--glass-card-body-font);
-  font-size: var(--glass-card-body-size);
-  font-weight: 400;
-  color: var(--text-secondary);
-  line-height: var(--glass-card-body-lh);
-  margin: 0;
-  padding: 0 8px;
-}
-
 /* ── Method cards ── */
 .methodCard {
   padding: var(--glass-card-pad);

@@ -200,52 +200,55 @@ export default function FindingsTable({ findings, onToast }: Props) {
         {/* Bulk actions */}
         <div className={styles.bulkBar}>
           <label className={styles.selectAll}>
-            <input type="checkbox" checked={allSelected} onChange={toggleAll} />
+            <span className={styles.rowCheck}>
+              <input type="checkbox" checked={allSelected} onChange={toggleAll} />
+            </span>
             Select all
           </label>
-          <span className={styles.bulkLabel}>Bulk actions:</span>
-          <button
-            type="button"
-            className={styles.bulkBtn}
-            onClick={() => {
-              if (selectedIds.size === 0) {
-                onToast('Select at least one finding first.');
-                return;
-              }
-              const eligible = bulkEligibleNew();
-              if (eligible.length === 0) {
-                onToast('Bulk recovery applies to findings in New status. No matching selections.');
-                return;
-              }
-              onToast(`${eligible.length.toLocaleString()} recovery draft${eligible.length === 1 ? '' : 's'} queued for review (wireframe).`);
-              setSelectedIds(new Set());
-            }}
-          >
-            Send recovery
-          </button>
-          <button
-            type="button"
-            className={styles.bulkBtnSecondary}
-            onClick={() => {
-              if (selectedIds.size === 0) {
-                onToast('Select at least one finding first.');
-                return;
-              }
-              onToast(`${selectedIds.size} finding${selectedIds.size === 1 ? '' : 's'} dismissed (wireframe demo).`);
-              setSelectedIds(new Set());
-            }}
-          >
-            Dismiss
-          </button>
-          <button
-            type="button"
-            className={styles.bulkBtnSecondary}
-            onClick={() => {
-              onToast(`Exported ${filtered.length.toLocaleString()} rows to CSV (wireframe).`);
-            }}
-          >
-            Export CSV
-          </button>
+          <div className={styles.bulkActions}>
+            <button
+              type="button"
+              className={styles.bulkBtn}
+              onClick={() => {
+                if (selectedIds.size === 0) {
+                  onToast('Select at least one finding first.');
+                  return;
+                }
+                const eligible = bulkEligibleNew();
+                if (eligible.length === 0) {
+                  onToast('Bulk recovery applies to findings in New status. No matching selections.');
+                  return;
+                }
+                onToast(`${eligible.length.toLocaleString()} recovery draft${eligible.length === 1 ? '' : 's'} queued for review (wireframe).`);
+                setSelectedIds(new Set());
+              }}
+            >
+              Send recovery
+            </button>
+            <button
+              type="button"
+              className={styles.bulkBtnSecondary}
+              onClick={() => {
+                if (selectedIds.size === 0) {
+                  onToast('Select at least one finding first.');
+                  return;
+                }
+                onToast(`${selectedIds.size} finding${selectedIds.size === 1 ? '' : 's'} dismissed (wireframe demo).`);
+                setSelectedIds(new Set());
+              }}
+            >
+              Dismiss
+            </button>
+            <button
+              type="button"
+              className={styles.bulkBtnSecondary}
+              onClick={() => {
+                onToast(`Exported ${filtered.length.toLocaleString()} rows to CSV (wireframe).`);
+              }}
+            >
+              Export CSV
+            </button>
+          </div>
         </div>
 
         {filtered.map((row) => (
@@ -270,57 +273,48 @@ export default function FindingsTable({ findings, onToast }: Props) {
                 />
               </label>
 
-              <div className={styles.cardMain}>
-                <div className={styles.cardHeader}>
-                  <span className={styles.contract}>{row.contract}</span>
-                  <div className={styles.cardHeaderRight}>
-                    <span className={styles.discrepancy}>{row.discrepancy}</span>
-                    <span className={`${styles.statusBadge} ${statusClass(row.status)}`}>
-                      {row.status}
-                    </span>
-                  </div>
-                </div>
+              <span className={styles.contract} title={row.contract}>
+                {row.contract}
+              </span>
 
-                <div className={styles.cardMeta}>
-                  <div className={styles.cardMetaLeft}>
-                    <span className={styles.billing}>{row.billingRecord}</span>
-                    <span className={styles.metaDot}>·</span>
-                    <span className={styles.source}>{sourceBucket(row.contract)}</span>
-                    <span className={styles.metaDot}>·</span>
-                    <div className={styles.confidenceCell}>
-                      <div className={styles.confBar}>
-                        <div className={styles.confFill} style={{ width: `${row.confidence}%` }} />
-                      </div>
-                      <span className={styles.confPct}>{row.confidence}% confidence</span>
-                    </div>
-                  </div>
-                  <div className={styles.actions} onClick={(e) => e.stopPropagation()}>
-                    <button type="button" className={styles.actionLink} onClick={() => openFinding(row.id)}>
-                      Audit Trail
-                    </button>
-                    {row.status === 'New' && (
-                      <button
-                        type="button"
-                        className={styles.actionLink}
-                        onClick={() => {
-                          onToast('Recovery email draft opened from finding (wireframe).');
-                          openFinding(row.id);
-                        }}
-                      >
-                        Send Recovery
-                      </button>
-                    )}
-                    {row.status === 'Recovery' && (
-                      <button
-                        type="button"
-                        className={styles.actionLink}
-                        onClick={() => onToast('Recovery cancelled for this finding (wireframe).')}
-                      >
-                        Cancel
-                      </button>
-                    )}
-                  </div>
+              <span className={styles.discrepancy}>{row.discrepancy}</span>
+
+              <div className={styles.confidenceCell} title={`${row.confidence}% confidence`}>
+                <div className={styles.confBar}>
+                  <div className={styles.confFill} style={{ width: `${row.confidence}%` }} />
                 </div>
+                <span className={styles.confPct}>{row.confidence}%</span>
+              </div>
+
+              <span className={`${styles.statusBadge} ${statusClass(row.status)}`}>
+                {row.status}
+              </span>
+
+              <div className={styles.actions} onClick={(e) => e.stopPropagation()}>
+                <button type="button" className={styles.actionLink} onClick={() => openFinding(row.id)}>
+                  Audit Trail
+                </button>
+                {row.status === 'New' && (
+                  <button
+                    type="button"
+                    className={styles.actionLink}
+                    onClick={() => {
+                      onToast('Recovery email draft opened from finding (wireframe).');
+                      openFinding(row.id);
+                    }}
+                  >
+                    Send Recovery
+                  </button>
+                )}
+                {row.status === 'Recovery' && (
+                  <button
+                    type="button"
+                    className={styles.actionLink}
+                    onClick={() => onToast('Recovery cancelled for this finding (wireframe).')}
+                  >
+                    Cancel
+                  </button>
+                )}
               </div>
             </div>
           </div>

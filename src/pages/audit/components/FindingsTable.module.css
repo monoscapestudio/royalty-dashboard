@@ -18,7 +18,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0;
+  padding: 0 20px;
   background: transparent;
   border-bottom: none;
   flex-shrink: 0;
@@ -27,12 +27,12 @@
 
 .panelTitle {
   font-family: var(--font-display);
-  font-size: 15px;
+  font-size: 24px;
   font-weight: 700;
   letter-spacing: 0.02em;
   text-transform: uppercase;
   color: var(--text-primary);
-  margin: 0;
+  margin: 0 0 0 3.5px;
 }
 
 .panelCount {
@@ -57,18 +57,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 0 8px 16px 8px;
-}
-
-/* ── Glass container for rows ── */
-.list {
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  border-radius: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+  padding: 0 20px 16px;
 }
 
 .sectionMeta {
@@ -80,6 +69,18 @@
   align-items: center;
   gap: 6px;
   white-space: nowrap;
+  margin-left: 3.5px;
+}
+
+/* ── Glass container for rows ── */
+.list {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .metaValue {
@@ -105,9 +106,10 @@
 
 /* ── Bulk actions bar ── */
 .bulkBar {
-  padding: 16px 24px;
+  padding: 12px 20px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 12px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
@@ -118,21 +120,16 @@
   color: var(--text-primary);
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 16px;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
-.selectAll input {
-  margin: 0;
-  accent-color: var(--btn-primary-bg);
-}
-
-.bulkLabel {
-  font-family: var(--font-mono);
-  font-size: var(--type-label);
-  letter-spacing: var(--type-label-tracking);
-  color: var(--text-muted);
-  text-transform: uppercase;
+.bulkActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
 }
 
 .bulkBtn,
@@ -152,13 +149,12 @@
   color: var(--btn-primary-hover);
 }
 
-/* ── Rows (compact single-line) ── */
+/* ── Rows (compact single-line grid) ── */
 .findingCard {
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   background: transparent;
   transition: background 0.15s;
   cursor: pointer;
-  min-height: 56px;
 }
 .findingCard:last-child {
   border-bottom: none;
@@ -168,13 +164,19 @@
 .findingCardSelected:hover { background: rgba(0, 0, 0, 0.03); }
 
 .cardTop {
-  display: flex;
+  display: grid;
+  grid-template-columns: 20px 1fr 90px 72px 80px 160px;
   align-items: center;
-  gap: 16px;
-  padding: 16px 24px;
+  column-gap: 16px;
+  padding: 0 20px;
+  height: 44px;
 }
 
 .rowCheck {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
   flex-shrink: 0;
 }
 .rowCheck input {
@@ -182,43 +184,15 @@
   accent-color: var(--btn-primary-bg);
 }
 
-.cardMain {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.cardHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.cardHeaderRight {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-}
-
 .contract {
+  min-width: 0;
   font-family: var(--font-display);
   font-size: var(--type-body);
   font-weight: 500;
   color: var(--text-primary);
-  flex: 1;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.billing {
-  font-family: var(--font-mono);
-  font-size: var(--type-data);
-  color: var(--text-secondary);
 }
 
 .discrepancy {
@@ -229,45 +203,22 @@
   font-variant-numeric: tabular-nums;
   font-feature-settings: 'tnum';
   white-space: nowrap;
-}
-
-.cardMeta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.cardMetaLeft {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  min-width: 0;
-}
-
-.metaDot {
-  font-size: var(--type-data);
-  color: var(--text-muted);
-}
-
-.source {
-  font-family: var(--font-mono);
-  font-size: var(--type-data);
-  color: var(--text-secondary);
+  text-align: right;
 }
 
 .confidenceCell {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
 }
 
 .confBar {
-  width: 40px;
+  width: 28px;
   height: 3px;
-  background: var(--border-default);
+  background: rgba(0, 0, 0, 0.08);
   border-radius: 2px;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .confFill {
@@ -278,24 +229,28 @@
 
 .confPct {
   font-family: var(--font-mono);
-  font-size: var(--type-data);
+  font-size: 12px;
   color: var(--text-secondary);
   white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
 }
 
 /* ── Status badges ── */
 .statusBadge {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   height: 20px;
   padding: 0 8px;
   border-radius: var(--radius-badge);
   font-family: var(--font-mono);
-  font-size: var(--type-label);
+  font-size: 10px;
   font-weight: var(--type-label-weight);
   letter-spacing: var(--type-label-tracking);
   text-transform: uppercase;
   white-space: nowrap;
+  justify-self: start;
 }
 .statusNew { background: var(--bg-table-header); color: var(--text-primary); }
 .statusRecovery { background: var(--type-badge-bg); color: var(--type-badge-text); }
@@ -309,7 +264,6 @@
   align-items: center;
   justify-content: flex-end;
   gap: 12px;
-  flex-shrink: 0;
 }
 
 .actionLink {
@@ -317,14 +271,14 @@
   border: none;
   cursor: pointer;
   font-family: var(--font-display);
-  font-size: var(--type-data);
-  letter-spacing: var(--type-body-tracking);
+  font-size: 13px;
   font-weight: 400;
   color: var(--text-primary);
   padding: 0;
   text-decoration: underline;
-  text-underline-offset: 3px;
+  text-underline-offset: 2px;
   text-decoration-thickness: 1px;
+  white-space: nowrap;
   transition: color 0.15s, text-decoration-color 0.15s;
 }
 

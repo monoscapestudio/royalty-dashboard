@@ -6,8 +6,8 @@ const CATEGORY_META: Record<
   SourceCategory,
   { label: string; addLabel: string; hint: string }
 > = {
-  contracts: { label: 'Contract', addLabel: '+ Add source', hint: 'Where your deal terms live' },
-  billing: { label: 'Billing', addLabel: '+ Add source', hint: 'Where payments are tracked' },
+  contracts: { label: 'Contracts', addLabel: '+ Add source', hint: 'Where your deal terms live' },
+  billing: { label: 'Statements', addLabel: '+ Add source', hint: 'Where payments are tracked' },
   recovery: { label: 'Recovery', addLabel: '+ Connect channel', hint: 'How you reach out to collect' },
 };
 
@@ -51,8 +51,6 @@ export default function SourceSection({
         <span className={styles.columnTitle}>{meta.label}</span>
         <span className={styles.columnCount}>{sources.length}</span>
       </div>
-
-      <div className={styles.columnHint}>{meta.hint}</div>
 
       <div className={styles.list}>
         {sources.map((src) => (

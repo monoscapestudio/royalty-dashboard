@@ -10,7 +10,7 @@
   min-width: 0;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.04);
   padding: 16px;
-  gap: 16px;
+  gap: 10px;
 }
 
 /* Dim other elements in the column when a card is hovered */
@@ -35,11 +35,11 @@
 
 .columnTitle {
   font-family: var(--font-display);
-  font-size: 15px; /* Povećano sa 12px (--type-label) za jači stav */
-  font-weight: 700; /* Čvrst bold */
-  letter-spacing: 0.02em; /* Malo zbijenije jer je font veći */
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
-  color: var(--text-primary); /* Pun crni kontrast umesto "prigušene" sive */
+  color: var(--text-primary);
 }
 
 .columnCount {
@@ -75,18 +75,18 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 12px; /* Gap replaces borders */
+  gap: 8px;
 }
 
 /* ── Individual Connection Card (Floating Pill) ── */
 .card {
-  padding: var(--glass-card-pad);
+  padding: 14px 16px;
   border-radius: var(--glass-card-radius);
   background: var(--glass-card-bg);
   border: var(--glass-card-border);
   display: flex;
   flex-direction: column;
-  gap: var(--glass-card-gap);
+  gap: 6px;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s, background 0.3s, opacity 0.3s, filter 0.3s;
   box-shadow: var(--glass-card-shadow);
   position: relative;
@@ -155,9 +155,9 @@
 
 .cardName {
   font-family: var(--font-display);
-  font-size: var(--type-subtitle); /* Increased from body (15px) to subtitle (20px) */
-  font-weight: 600; /* Bolder */
-  letter-spacing: -0.01em; /* Tighter tracking for display text */
+  font-size: var(--type-body);
+  font-weight: 600;
+  letter-spacing: -0.01em;
   color: var(--text-primary);
 }
 
@@ -169,13 +169,13 @@
 }
 
 .cardType, .cardSync, .cardDot {
-  font-size: var(--type-data);
+  font-size: 12px;
   font-family: var(--font-mono);
   color: var(--text-secondary);
 }
 
 .cardSyncFailed {
-  font-size: var(--type-data);
+  font-size: 12px;
   font-family: var(--font-mono);
   color: var(--status-fix-bg);
   font-weight: 600;
@@ -186,7 +186,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
 .actionLink {

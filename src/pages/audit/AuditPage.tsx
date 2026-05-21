@@ -21,28 +21,35 @@ const LIVE_COUNT = SOURCES.filter((s) => s.status === 'live').length;
 const FIX_COUNT = SOURCES.filter((s) => s.status === 'fix').length;
 const PENDING_COUNT = SOURCES.filter((s) => s.status === 'pending').length;
 
-const TIPS = [
-  'Use the table below to triage findings, or open the full report from the summary card.',
-  'Bulk select findings to send multiple recovery drafts at once.',
-  'Dismissed findings will not be included in the final recovery export.',
-  'Click any finding row to view its complete audit trail and evidence.'
-];
+const TIPS_BY_STATE: Record<string, string[]> = {
+  NOT_YET_RUN: [
+    'Complete the two setup steps below, then run your first audit.',
+    'You can connect sources and apply rules in any order.',
+    'AuditGraph checks every record against your rules automatically.',
+  ],
+  RUNNING: [
+    'Audit in progress — findings appear below as they are identified.',
+    'You can stop the audit at any time and review partial results.',
+    'Higher-confidence findings surface first.',
+  ],
+  COMPLETE: [
+    'Use the table below to triage findings, or open the full report from the summary card.',
+    'Bulk select findings to send multiple recovery drafts at once.',
+    'Dismissed findings will not be included in the final recovery export.',
+    'Click any finding row to view its complete audit trail and evidence.',
+  ],
+  STOPPED: [
+    'Audit was stopped early — review partial results or start a new run.',
+    'Partial results may not reflect the full picture.',
+  ],
+  FAILED: [
+    'The last run failed — fix your connection, then try again.',
+    'Check the Connects page to verify your data sources are live.',
+  ],
+};
 
-function auditTipMessage(state: AuditState, tipIdx: number): string {
-  switch (state) {
-    case 'NOT_YET_RUN':
-      return 'Complete the two setup steps below, then run your first audit.';
-    case 'RUNNING':
-      return 'Audit in progress — findings appear below as they are identified.';
-    case 'COMPLETE':
-      return TIPS[tipIdx];
-    case 'STOPPED':
-      return 'Audit was stopped early — review partial results or start a new run from the banner above.';
-    case 'FAILED':
-      return 'The last run failed — fix your connection, then try again.';
-    default:
-      return 'Review readiness, run audit, inspect findings.';
-  }
+function getTips(state: AuditState): string[] {
+  return TIPS_BY_STATE[state] ?? ['Review readiness, run audit, inspect findings.'];
 }
 
 export default function AuditPage() {
@@ -72,18 +79,23 @@ export default function AuditPage() {
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   /* Tip Carousel */
+  const tips = getTips(effectiveState);
   const [currentTip, setCurrentTip] = useState(0);
 
   useEffect(() => {
-    if (effectiveState !== 'COMPLETE') return;
-    const interval = setInterval(() => {
-      setCurrentTip((prev) => (prev + 1) % TIPS.length);
-    }, 6000);
-    return () => clearInterval(interval);
+    setCurrentTip(0);
   }, [effectiveState]);
 
-  const nextTip = () => setCurrentTip((prev) => (prev + 1) % TIPS.length);
-  const prevTip = () => setCurrentTip((prev) => (prev - 1 + TIPS.length) % TIPS.length);
+  useEffect(() => {
+    if (tips.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentTip((prev) => (prev + 1) % tips.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [tips]);
+
+  const nextTip = () => setCurrentTip((prev) => (prev + 1) % tips.length);
+  const prevTip = () => setCurrentTip((prev) => (prev - 1 + tips.length) % tips.length);
 
   /* Toast */
   const [toast, setToast] = useState<string | null>(null);
@@ -185,26 +197,16 @@ export default function AuditPage() {
           <div className={styles.topTipInner}>
             <div className={styles.topTipContent}>
               <Idea size={20} className={styles.topTipIcon} />
-              <span className={styles.topTipText}>{auditTipMessage(effectiveState, currentTip)}</span>
+              <span className={styles.topTipText}>{tips[currentTip % tips.length]}</span>
             </div>
           </div>
           <div className={styles.topTipControls}>
-            {effectiveState === 'COMPLETE' && (
-              <>
-                <button onClick={prevTip} className={styles.topTipBtn} aria-label="Previous tip">
-                  <ChevronLeft size={16} />
-                </button>
-                <button onClick={nextTip} className={styles.topTipBtn} aria-label="Next tip">
-                  <ChevronRight size={16} />
-                </button>
-              </>
-            )}
-            {effectiveState === 'RUNNING' && (
-              <span className={styles.topTipStatus}>In progress</span>
-            )}
-            {(effectiveState === 'STOPPED' || effectiveState === 'FAILED') && (
-              <button className={styles.runBtn} onClick={startAudit}>Run Audit</button>
-            )}
+            <button onClick={prevTip} className={styles.topTipBtn} aria-label="Previous tip">
+              <ChevronLeft size={16} />
+            </button>
+            <button onClick={nextTip} className={styles.topTipBtn} aria-label="Next tip">
+              <ChevronRight size={16} />
+            </button>
           </div>
         </div>
 
@@ -244,25 +246,16 @@ export default function AuditPage() {
                   Connect contract data and apply rules. That is all you need before AuditGraph
                   can start reviewing your records.
                 </p>
-                <span className={styles.todoOrderNote}>You can do them in any order.</span>
               </div>
 
+              {allStepsDone && (
               <div className={styles.todoAction}>
-                {allStepsDone ? (
-                  <>
-                    <span className={styles.todoReady}>You&apos;re all set.</span>
-                    <button type="button" className={styles.runAuditBtn} onClick={startAudit}>
-                      Run Audit
-                    </button>
-                  </>
-                ) : (
-                  <p className={styles.todoBlocked}>Complete both steps first.</p>
-                )}
+                <span className={styles.todoReady}>You&apos;re all set.</span>
+                <button type="button" className={styles.runAuditBtn} onClick={startAudit}>
+                  Run Audit
+                </button>
               </div>
-              
-              <div className={styles.emptyFindings}>
-                <span className={styles.emptyFindingsText}>No findings yet. Your first audit will populate this workspace.</span>
-              </div>
+              )}
             </div>
 
             <div className={styles.todoGrid}>
@@ -465,7 +458,6 @@ function FindingsSummary({ findings, onRerun }: { findings: Finding[]; onRerun?:
 
   return (
     <div className={styles.findingsSummary}>
-      {/* 1. Neon Hero Block (Large) */}
       <div className={styles.summaryBentoCard} data-variant="neon">
         <div className={styles.neonTop}>
           <span className={styles.summaryHeroLabel}>Potential recovery</span>
@@ -486,24 +478,20 @@ function FindingsSummary({ findings, onRerun }: { findings: Finding[]; onRerun?:
         )}
       </div>
 
-      {/* 2. Black Findings Block */}
       <div className={styles.summaryBentoCard} data-variant="black">
-        <span className={styles.summaryHeroLabel}>Findings identified</span>
-        <span className={styles.summaryHeroValue}>{findings.length.toLocaleString()}</span>
+        <div className={styles.summaryMetric}>
+          <span className={styles.summaryHeroLabel}>Coverage</span>
+          <span className={styles.summaryStatValue}>{MOCK_AUDIT_RESULT.coverage}%</span>
+        </div>
+        <div className={styles.summaryMetric}>
+          <span className={styles.summaryHeroLabel}>Findings<br />Identified</span>
+          <span className={styles.summaryStatValue}>{MOCK_AUDIT_RESULT.findingsCount.toLocaleString()}</span>
+        </div>
+        <div className={styles.summaryMetric}>
+          <span className={styles.summaryHeroLabel}>Max<br />Confidence</span>
+          <span className={styles.summaryStatValue}>{maxConf}%</span>
+        </div>
       </div>
-
-      {/* 3. Small Info Block 1 */}
-      <div className={styles.summaryBentoCard}>
-        <span className={styles.summaryHeroLabel}>Coverage</span>
-        <span className={styles.statValue}>{MOCK_AUDIT_RESULT.coverage}%</span>
-      </div>
-
-      {/* 4. Small Info Block 2 */}
-      <div className={styles.summaryBentoCard}>
-        <span className={styles.summaryHeroLabel}>Max Confidence</span>
-        <span className={styles.statValue}>{maxConf}%</span>
-      </div>
-
     </div>
   );
 }

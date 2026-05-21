@@ -117,6 +117,8 @@
   padding: 0;
   display: flex;
   justify-content: center;
+  background: #fff;
+  border-radius: 16px;
 }
 
 .colRight {
@@ -135,14 +137,12 @@
 .reportPage {
   width: 100%;
   background: #fff;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
-  border-radius: 16px;
   display: flex;
   flex-direction: column;
 }
 
 .reportContent {
-  padding: 20px 24px 16px;
+  padding: 20px 24px 40px;
   display: flex;
   flex-direction: column;
   min-height: 500px;

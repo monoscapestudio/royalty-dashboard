@@ -108,10 +108,6 @@ export default function AddRulesSection({
 
   return (
     <div className={styles.section}>
-      <p className={styles.sectionHint}>
-        Write a rule in plain language and confirm the interpretation.
-      </p>
-
       <div className={styles.composer}>
         <label className={styles.inputLabel}>Add a rule in plain language</label>
         <div className={styles.inputRow}>
