@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import type { FindingStatus } from '../../../types';
-import { ALL_FINDINGS } from '../../../data/mockAudit';
+import { ALL_FINDINGS, MOCK_AUDIT_RESULT } from '../../../data/mockAudit';
 import styles from './FindingDetailOverlay.module.css';
 
 function statusClass(s: FindingStatus): string {
@@ -12,71 +12,6 @@ function statusClass(s: FindingStatus): string {
     case 'Dismissed': return styles.statusDismissed;
     case 'Disputed': return styles.statusDisputed;
   }
-}
-
-function ContractPdf({ contract, billingRecord, discrepancy }: { contract: string; billingRecord: string; discrepancy: string }) {
-  return (
-    <div className={styles.pdfEmbed}>
-      <div className={styles.pdfBar}>
-        <span className={styles.pdfBarTitle}>Contract: {contract}</span>
-        <span className={styles.pdfBarPage}>Page 4 of 12</span>
-      </div>
-      <div className={styles.pdfBody}>
-        <p className={styles.pdfParagraph}>
-          <strong>Section 7.2 — Mechanical Royalty Rate</strong>
-        </p>
-        <p className={styles.pdfParagraph}>
-          Licensee shall pay to Licensor a per-stream mechanical royalty rate of no less than
-          <strong> $0.005 USD </strong> per stream for all territories covered under this agreement.
-          Rates are subject to annual CPI adjustment per Section 12.1.
-        </p>
-        <div className={styles.pdfHighlightBlock}>
-          <p className={styles.pdfHighlightText}>
-            Billing record <strong>{billingRecord}</strong> reports a rate of $0.0031 — {discrepancy} below the contractual minimum.
-          </p>
-        </div>
-        <p className={styles.pdfParagraph} style={{ opacity: 0.5 }}>
-          Section 7.3 — Performance royalties shall be calculated separately per the terms of Exhibit B…
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function BillingPdf({ billingRecord, discrepancy }: { billingRecord: string; discrepancy: string }) {
-  return (
-    <div className={styles.pdfEmbed}>
-      <div className={styles.pdfBar}>
-        <span className={styles.pdfBarTitle}>Billing: {billingRecord}</span>
-        <span className={styles.pdfBarPage}>Invoice</span>
-      </div>
-      <div className={styles.pdfBody}>
-        <div className={styles.pdfTable}>
-          <div className={styles.pdfTableRow}>
-            <span className={styles.pdfTableLabel}>Invoice</span>
-            <span className={styles.pdfTableValue}>{billingRecord}</span>
-          </div>
-          <div className={styles.pdfTableRow}>
-            <span className={styles.pdfTableLabel}>Period</span>
-            <span className={styles.pdfTableValue}>Mar 1 – Mar 31, 2026</span>
-          </div>
-          <div className={styles.pdfTableRow}>
-            <span className={styles.pdfTableLabel}>Rate Applied</span>
-            <span className={styles.pdfTableValue}>$0.0031 / stream</span>
-          </div>
-          <div className={styles.pdfTableRow}>
-            <span className={styles.pdfTableLabel}>Streams</span>
-            <span className={styles.pdfTableValue}>1,354,839</span>
-          </div>
-        </div>
-        <div className={styles.pdfHighlightBlock}>
-          <p className={styles.pdfHighlightText}>
-            Shortfall: <strong>{discrepancy}</strong> (rate delta × stream count)
-          </p>
-        </div>
-      </div>
-    </div>
-  );
 }
 
 export default function FindingDetailOverlay() {
@@ -140,53 +75,123 @@ export default function FindingDetailOverlay() {
 
         {/* Body */}
         <div className={styles.body}>
-          {/* ── LEFT: Audit Trail as PDF document ── */}
+          {/* ── LEFT: Audit Trail — identical to Report PDF canvas ── */}
           <div className={styles.colLeft}>
-            <div className={styles.glassDoc}>
-              {/* Document header */}
-              <div className={styles.docHead}>
-                <span className={styles.docHeadLabel}>Audit Trail</span>
-                <span className={styles.docHeadId}>{finding.id.toUpperCase()}</span>
-              </div>
-
-              {/* Discrepancy description at top per Speaker A */}
-              <div className={styles.descBlock}>
-                <span className={styles.sectionLabel}>Discrepancy Description</span>
-                <p className={styles.descBody}>
-                  The contract specifies a minimum rate of $0.005 per stream for mechanical royalties.
-                  Billing record {finding.billingRecord} reports a rate of $0.0031 — a shortfall of {finding.discrepancy}.
-                  This affects all streams processed between March 1 and March 31, 2026.
-                </p>
-              </div>
-
-              {/* Key metrics */}
-              <div className={styles.metricsRow}>
-                <div className={styles.metricCell}>
-                  <span className={styles.metricLabel}>Discrepancy</span>
-                  <span className={styles.metricHero}>{finding.discrepancy}</span>
-                </div>
-                <div className={styles.metricCell}>
-                  <span className={styles.metricLabel}>Status</span>
-                  <span className={`${styles.statusBadge} ${statusClass(finding.status)}`}>{finding.status}</span>
-                </div>
-                <div className={styles.metricCell}>
-                  <span className={styles.metricLabel}>Confidence</span>
-                  <div className={styles.confRow}>
-                    <div className={styles.confBar}><div className={styles.confFill} style={{ width: `${finding.confidence}%` }} /></div>
-                    <span className={styles.confVal}>{finding.confidence}%</span>
+            <div className={styles.reportPage}>
+              <div className={styles.reportContent}>
+                {/* Document header — mirrors Report PDF */}
+                <div className={styles.docHeader}>
+                  <div className={styles.docLogoRow}>
+                    <img src="/header/brand-mark.png" alt="Revorion" className={styles.docLogoImg} />
                   </div>
-                </div>
-                <div className={styles.metricCell}>
-                  <span className={styles.metricLabel}>Billing</span>
-                  <span className={styles.metricMono}>{finding.billingRecord}</span>
-                </div>
-              </div>
+                  <span className={styles.docReportLabel}>Finding Audit Trail</span>
+                  <span className={styles.docTitle}>{finding.contract}</span>
+                  <span className={styles.docMeta}>
+                    Finding: {finding.id.toUpperCase()} | Invoice: {finding.billingRecord} | Confidence: {finding.confidence}%
+                  </span>
+                  <hr className={styles.docDivider} />
 
-              {/* Evidence — real PDF-style content */}
-              <div className={styles.evidenceBlock}>
-                <span className={styles.sectionLabel}>Evidence</span>
-                <ContractPdf contract={finding.contract} billingRecord={finding.billingRecord} discrepancy={finding.discrepancy} />
-                <BillingPdf billingRecord={finding.billingRecord} discrepancy={finding.discrepancy} />
+                  {/* Summary hero — matches Report PDF */}
+                  <div className={styles.docSummary}>
+                    <div className={styles.docSummaryHero}>
+                      <span className={styles.docSummaryLabel}>Discrepancy Amount</span>
+                      <span className={styles.docSummaryHeroValue}>{finding.discrepancy}</span>
+                      <span className={styles.docSummarySub}>Shortfall identified against contractual terms</span>
+                    </div>
+                    <div className={styles.docSummaryRow}>
+                      <div className={styles.docSummaryItem}>
+                        <span className={styles.docSummaryLabel}>Status</span>
+                        <span className={`${styles.statusBadge} ${statusClass(finding.status)}`}>{finding.status}</span>
+                      </div>
+                      <div className={styles.docSummaryItem}>
+                        <span className={styles.docSummaryLabel}>Confidence</span>
+                        <span className={styles.docSummaryValue}>{finding.confidence}%</span>
+                      </div>
+                    </div>
+                  </div>
+                  <hr className={styles.docDivider} />
+                </div>
+
+                {/* Discrepancy Description — block section */}
+                <div className={styles.blockSection}>
+                  <span className={styles.blockLabel}>Discrepancy Description</span>
+                  <p className={styles.blockText}>
+                    The contract specifies a minimum rate of $0.005 per stream for mechanical royalties.
+                    Billing record {finding.billingRecord} reports a rate of $0.0031 — a shortfall of {finding.discrepancy}.
+                    This affects all streams processed between March 1 and March 31, 2026.
+                  </p>
+                </div>
+
+                <hr className={styles.docDivider} />
+
+                {/* Contract Evidence — table block */}
+                <div className={styles.blockSection}>
+                  <span className={styles.blockLabel}>Contract Evidence</span>
+                  <table className={styles.miniTable}>
+                    <thead>
+                      <tr>
+                        <th>Clause</th>
+                        <th>Contractual Rate</th>
+                        <th>Applied Rate</th>
+                        <th>Delta</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>§7.2 Mechanical Royalty</td>
+                        <td>$0.0050 / stream</td>
+                        <td>$0.0031 / stream</td>
+                        <td>−$0.0019</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <span className={styles.blockCaption}>
+                    Source: {finding.contract} — Page 4 of 12, Section 7.2
+                  </span>
+                </div>
+
+                <hr className={styles.docDivider} />
+
+                {/* Billing Record — table block */}
+                <div className={styles.blockSection}>
+                  <span className={styles.blockLabel}>Billing Record</span>
+                  <table className={styles.miniTable}>
+                    <thead>
+                      <tr>
+                        <th>Field</th>
+                        <th>Value</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>Invoice</td><td>{finding.billingRecord}</td></tr>
+                      <tr><td>Period</td><td>Mar 1 – Mar 31, 2026</td></tr>
+                      <tr><td>Rate Applied</td><td>$0.0031 / stream</td></tr>
+                      <tr><td>Stream Count</td><td>1,354,839</td></tr>
+                      <tr><td>Shortfall</td><td>{finding.discrepancy}</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <hr className={styles.docDivider} />
+
+                {/* Audit Context */}
+                <div className={styles.blockSection}>
+                  <span className={styles.blockLabel}>Audit Context</span>
+                  <table className={styles.miniTable}>
+                    <thead>
+                      <tr>
+                        <th>Parameter</th>
+                        <th>Value</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>Audit Completed</td><td>{MOCK_AUDIT_RESULT.completedAt}</td></tr>
+                      <tr><td>Duration</td><td>{MOCK_AUDIT_RESULT.duration}</td></tr>
+                      <tr><td>Records Processed</td><td>{MOCK_AUDIT_RESULT.recordsProcessed.toLocaleString()}</td></tr>
+                      <tr><td>Overall Coverage</td><td>{MOCK_AUDIT_RESULT.coverage}%</td></tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>

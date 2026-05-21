@@ -114,11 +114,9 @@
 
 .colLeft {
   overflow-y: auto;
-  padding: 24px;
-  background: rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  border-radius: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  padding: 0;
+  display: flex;
+  justify-content: center;
 }
 
 .colRight {
@@ -129,28 +127,223 @@
   gap: 24px;
 }
 
-/* ── Shared label ── */
-.sectionLabel {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  display: block;
-  margin-bottom: 12px;
-}
-
 /* ═══════════════════════════════════════
-   LEFT: Glass document (PDF feel)
+   LEFT: Report-style PDF document
+   Identical to Reporting page canvas
    ═══════════════════════════════════════ */
 
-.glassDoc {
+.reportPage {
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+  border-radius: 16px;
   display: flex;
   flex-direction: column;
+}
+
+.reportContent {
+  padding: 20px 24px 16px;
+  display: flex;
+  flex-direction: column;
+  min-height: 500px;
+}
+
+/* ── Document header ── */
+.docHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.docLogoRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.docLogoImg {
+  height: 36px;
+  width: auto;
+  display: block;
+}
+
+.docReportLabel {
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.docTitle {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--text-primary);
+  margin-top: 4px;
+  margin-bottom: 6px;
+}
+
+.docMeta {
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.docDivider {
+  border: none;
+  border-top: 1px solid var(--border-default);
+  margin: 16px 0;
+}
+
+/* ── Summary section ── */
+.docSummary {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 12px 0 8px;
+}
+
+.docSummaryHero {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.docSummaryHeroValue {
+  font-family: var(--font-display);
+  font-size: 42px;
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: #010101;
+  font-variant-numeric: tabular-nums;
+}
+
+.docSummaryRow {
+  display: flex;
   gap: 24px;
 }
 
+.docSummaryItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.docSummaryLabel {
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.docSummaryValue {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: #010101;
+  font-variant-numeric: tabular-nums;
+}
+
+.docSummarySub {
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* ── Block sections ── */
+.blockSection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.blockLabel {
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.blockText {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-primary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.blockCaption {
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* ── Mini table (identical to Report PDF) ── */
+.miniTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.miniTable th {
+  padding: 4px 0;
+  text-align: left;
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-default);
+}
+
+.miniTable td {
+  padding: 6px 0;
+  border-bottom: 1px solid #EEEEEE;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-primary);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Status badge ── */
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 10px;
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.statusNew       { background: rgba(0, 0, 0, 0.06); color: var(--text-primary); }
+.statusRecovery  { background: var(--type-badge-bg); color: var(--type-badge-text); }
+.statusRecovered { background: var(--accent-neon); color: var(--accent-neon-text); }
+.statusDismissed { background: rgba(0, 0, 0, 0.06); color: var(--text-secondary); }
+.statusDisputed  { background: var(--accent-black); color: var(--accent-black-text); }
+
+/* ── Right-column card header (recovery cards) ── */
 .docHead {
   display: flex;
   align-items: center;
@@ -172,210 +365,6 @@
   font-family: var(--font-mono);
   font-size: 12px;
   color: var(--text-muted);
-}
-
-/* ── Description block ── */
-.descBlock {
-  display: flex;
-  flex-direction: column;
-}
-
-.descBody {
-  font-family: var(--font-display);
-  font-size: 14px;
-  font-weight: 400;
-  color: var(--text-primary);
-  line-height: 1.6;
-  margin: 0;
-}
-
-/* ── Metrics row ── */
-.metricsRow {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px 16px;
-  padding: 20px 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-}
-
-.metricCell {}
-
-.metricLabel {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  display: block;
-  margin-bottom: 6px;
-}
-
-.metricHero {
-  font-family: var(--font-display);
-  font-size: 32px;
-  font-weight: 300;
-  letter-spacing: -0.02em;
-  color: var(--text-primary);
-  line-height: 1;
-  font-variant-numeric: tabular-nums;
-}
-
-.metricMono {
-  font-family: var(--font-mono);
-  font-size: 14px;
-  color: var(--text-primary);
-}
-
-.statusBadge {
-  display: inline-flex;
-  align-items: center;
-  height: 24px;
-  padding: 0 10px;
-  border-radius: 100px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.04em;
-  font-weight: 500;
-  text-transform: uppercase;
-}
-.statusNew       { background: rgba(0, 0, 0, 0.06); color: var(--text-primary); }
-.statusRecovery  { background: var(--type-badge-bg); color: var(--type-badge-text); }
-.statusRecovered { background: var(--accent-neon); color: var(--accent-neon-text); }
-.statusDismissed { background: rgba(0, 0, 0, 0.06); color: var(--text-secondary); }
-.statusDisputed  { background: var(--accent-black); color: var(--accent-black-text); }
-
-.confRow {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.confBar {
-  width: 56px;
-  height: 3px;
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.confFill {
-  height: 100%;
-  background: var(--text-primary);
-  border-radius: 2px;
-}
-
-.confVal {
-  font-family: var(--font-mono);
-  font-size: 14px;
-  color: var(--text-primary);
-}
-
-/* ── Evidence ── */
-.evidenceBlock {
-  display: flex;
-  flex-direction: column;
-}
-
-/* ── PDF embed ── */
-.pdfEmbed {
-  border-radius: 12px;
-  overflow: hidden;
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  margin-bottom: 16px;
-}
-
-.pdfBar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 16px;
-  background: #fafaf9;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-}
-
-.pdfBarTitle {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.04em;
-  font-weight: 500;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-}
-
-.pdfBarPage {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--text-muted);
-}
-
-.pdfBody {
-  padding: 16px;
-}
-
-.pdfParagraph {
-  font-family: var(--font-display);
-  font-size: 13px;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  margin: 0 0 10px 0;
-}
-
-.pdfParagraph strong {
-  color: var(--text-primary);
-  font-weight: 500;
-}
-
-.pdfHighlightBlock {
-  background: rgba(210, 255, 0, 0.15);
-  border-left: 3px solid var(--accent-neon);
-  padding: 10px 14px;
-  border-radius: 0 8px 8px 0;
-  margin: 12px 0;
-}
-
-.pdfHighlightText {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--text-primary);
-  line-height: 1.5;
-  margin: 0;
-}
-
-.pdfHighlightText strong {
-  font-weight: 600;
-}
-
-.pdfTable {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  margin-bottom: 12px;
-}
-
-.pdfTableRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 6px 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
-}
-
-.pdfTableRow:last-child { border-bottom: none; }
-
-.pdfTableLabel {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--text-muted);
-}
-
-.pdfTableValue {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--text-primary);
-  font-weight: 500;
 }
 
 /* ═══════════════════════════════════════
