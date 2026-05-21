@@ -495,13 +495,13 @@
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: 24px;
-  padding: 32px 24px;
+  padding: 20px 24px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.02);
   transition: transform 0.2s, box-shadow 0.2s;
-  min-height: 280px;
+  min-height: 0;
 }
 
 .todoCardPending { 

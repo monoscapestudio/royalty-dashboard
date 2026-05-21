@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Idea, ChevronLeft, ChevronRight } from '@carbon/icons-react';
 import Modal from '../../components/ui/Modal';
-import InlineBanner from '../../components/ui/InlineBanner';
+
 import FormSelect from '../../components/ui/FormSelect';
 import { useAppStore } from '../../store/app';
 import { MOCK_AUDIT_RESULT } from '../../data/mockAudit';
@@ -28,11 +28,11 @@ const ALL_BLOCKS = [
 
 type BlockName = (typeof ALL_BLOCKS)[number];
 
-type TemplateKey = 'executive' | 'technical' | 'blank';
+type TemplateKey = 'executive' | 'full' | 'recovery' | 'custom';
 
 const TEMPLATE_BLOCKS: Record<TemplateKey, BlockName[]> = {
   executive: ['Findings Table', 'Variance Chart', 'Custom Text'],
-  technical: [
+  full: [
     'Findings Table',
     'Variance Chart',
     'Coverage Stats',
@@ -40,19 +40,22 @@ const TEMPLATE_BLOCKS: Record<TemplateKey, BlockName[]> = {
     'Recovery Status',
     'Custom Text',
   ],
-  blank: [],
+  recovery: ['Findings Table', 'Recovery Status', 'Custom Text'],
+  custom: [],
 };
 
 const TEMPLATE_LABELS: Record<TemplateKey, string> = {
   executive: 'Executive Summary',
-  technical: 'Detailed Technical',
-  blank: 'Blank Canvas',
+  full: 'Full Audit Report',
+  recovery: 'Recovery Notice',
+  custom: 'Custom',
 };
 
 const TEMPLATE_OPTIONS = [
   { value: 'executive', label: 'Executive Summary' },
-  { value: 'technical', label: 'Detailed Technical' },
-  { value: 'blank', label: 'Blank Canvas' },
+  { value: 'full', label: 'Full Audit Report' },
+  { value: 'recovery', label: 'Recovery Notice' },
+  { value: 'custom', label: 'Custom' },
 ] as const;
 
 const PAGE_FORMAT_OPTIONS = [
@@ -81,6 +84,7 @@ const REPORT_HISTORY = [
     findings: MOCK_AUDIT_RESULT.findingsCount,
     coverage: MOCK_AUDIT_RESULT.coverage,
     records: MOCK_AUDIT_RESULT.recordsProcessed,
+    maxConfidence: MOCK_AUDIT_RESULT.maxConfidence,
     ruleSet: 'v321 (April 21, 2026)',
     template: 'executive' as TemplateKey,
   },
@@ -92,6 +96,7 @@ const REPORT_HISTORY = [
     findings: 4,
     coverage: 94,
     records: 1_280_440,
+    maxConfidence: 89,
     ruleSet: 'v318 (April 1, 2026)',
     template: 'executive' as TemplateKey,
   },
@@ -103,8 +108,9 @@ const REPORT_HISTORY = [
     findings: 3,
     coverage: 91,
     records: 980_112,
+    maxConfidence: 84,
     ruleSet: 'v305 (March 15, 2026)',
-    template: 'technical' as TemplateKey,
+    template: 'full' as TemplateKey,
   },
   {
     id: 'REV-2026-0001', label: 'REV-2026-0001', meta: 'Mar 12', isCurrent: false,
@@ -114,6 +120,7 @@ const REPORT_HISTORY = [
     findings: 2,
     coverage: 87,
     records: 720_300,
+    maxConfidence: 76,
     ruleSet: 'v298 (March 1, 2026)',
     template: 'executive' as TemplateKey,
   },
@@ -430,8 +437,6 @@ export default function ReportingPage() {
   }
 
   /* Inline banners — session-dismissed */
-  const [dismissedBanners, setDismissedBanners] = useState<string[]>([]);
-  const dismissBanner = (id: string) => setDismissedBanners((prev) => [...prev, id]);
 
   /* Tip Carousel */
   const [currentTip, setCurrentTip] = useState(0);
@@ -597,20 +602,7 @@ export default function ReportingPage() {
   }
 
   /* Reporting page inline banner */
-  const reportingBanner = (() => {
-    if (isFinalized && !dismissedBanners.includes('report-finalized')) {
-      return (
-        <InlineBanner
-          id="report-finalized"
-          variant="amber"
-          title="Report finalized."
-          body="This report is locked and cannot be edited. To make changes, revert to draft first."
-          onDismiss={dismissBanner}
-        />
-      );
-    }
-    return null;
-  })();
+  const reportingBanner = null;
 
   /* ── Render: POPULATED ── */
   return (
@@ -674,16 +666,20 @@ export default function ReportingPage() {
             {ALL_BLOCKS.map((block) => {
               const onCanvas = canvasBlocks.includes(block);
               return (
-                <button
+                <label
                   key={block}
                   className={`${styles.blockItem} ${onCanvas ? styles.blockItemOnCanvas : ''}`}
-                  onClick={() => !isFinalized && !onCanvas && addBlock(block)}
-                  disabled={isFinalized || onCanvas}
                   title={onCanvas ? 'Already on canvas' : `Add ${block} to canvas`}
                 >
-                  <span className={styles.blockItemHandle}>≡</span>
+                  <input
+                    type="checkbox"
+                    className={styles.blockCheckbox}
+                    checked={onCanvas}
+                    disabled={isFinalized}
+                    onChange={() => !isFinalized && !onCanvas && addBlock(block)}
+                  />
                   <span>{block}</span>
-                </button>
+                </label>
               );
             })}
           </div>
@@ -745,14 +741,16 @@ export default function ReportingPage() {
                     </div>
                     <div className={styles.docSummaryRow}>
                       <div className={styles.docSummaryItem}>
-                        <span className={styles.docSummaryLabel}>Findings</span>
-                        <span className={styles.docSummaryValue}>{activeReport.findings.toLocaleString()}</span>
-                        <span className={styles.docSummarySub}>Across {activeReport.isCurrent ? '9' : Math.max(2, activeReport.findings + 1)} contract sources</span>
-                      </div>
-                      <div className={styles.docSummaryItem}>
                         <span className={styles.docSummaryLabel}>Coverage</span>
                         <span className={styles.docSummaryValue}>{activeReport.coverage}%</span>
-                        <span className={styles.docSummarySub}>Of {activeReport.records.toLocaleString()} eligible records</span>
+                      </div>
+                      <div className={styles.docSummaryItem}>
+                        <span className={styles.docSummaryLabel}>Findings Identified</span>
+                        <span className={styles.docSummaryValue}>{activeReport.findings.toLocaleString()}</span>
+                      </div>
+                      <div className={styles.docSummaryItem}>
+                        <span className={styles.docSummaryLabel}>Max Confidence</span>
+                        <span className={styles.docSummaryValue}>{activeReport.maxConfidence}%</span>
                       </div>
                     </div>
                   </div>
@@ -762,30 +760,26 @@ export default function ReportingPage() {
                 {/* Canvas blocks */}
                 {canvasBlocks.length === 0 ? (
                   <div className={styles.dropZone}>
-                    <span className={styles.dropZoneTitle}>Drop Zone</span>
-                    <span className={styles.dropZoneText}>Drag and drop report blocks here</span>
-                    <span className={styles.dropZoneText}>from the left pane</span>
+                    <span className={styles.dropZoneTitle}>No blocks selected</span>
+                    <span className={styles.dropZoneText}>Check blocks from the left panel to add them to the report. They appear here in the order you select them.</span>
                   </div>
                 ) : (
                   canvasBlocks.map((blockName) => (
                     <div key={blockName} className={styles.block}>
-                      {!isFinalized && (
-                        <div className={styles.blockControls}>
-                          <span className={styles.blockDragHandle} title="Drag to reorder">≡</span>
+                      <div className={styles.blockHeader}>
+                        <span className={styles.blockHeaderLabel}>{blockName}</span>
+                        {!isFinalized && (
                           <button
                             className={styles.blockRemoveBtn}
                             onClick={() => removeBlock(blockName)}
                             title="Remove block"
                           >
-                            ✕
+                            Remove
                           </button>
-                        </div>
-                      )}
-                      <div className={styles.blockHeader}>
-                        <span className={styles.blockHeaderLabel}>Block: {blockName}</span>
+                        )}
                       </div>
                       <BlockContent name={blockName} />
-                      <hr className={styles.docDivider} />
+                      <hr className={styles.blockDivider} />
                     </div>
                   ))
                 )}
@@ -853,14 +847,10 @@ export default function ReportingPage() {
             )}
           </div>
 
-          <hr className={styles.rightDivider} />
-
           <div className={`${styles.rightSection} ${styles.rightSectionCompact}`}>
             <span className={styles.propLabel}>Rule Set Version</span>
             <span className={`${styles.propValue} ${styles.propValueTight}`}>{activeReport.ruleSet}</span>
           </div>
-
-          <hr className={styles.rightDivider} />
 
           <div className={`${styles.rightSection} ${styles.rightSectionActions}`}>
             <span className={styles.propLabel}>Actions</span>
@@ -868,7 +858,7 @@ export default function ReportingPage() {
             <button
               className={`${styles.actionBtn} ${styles.actionBtnPrimary}`}
               onClick={handleExportPdf}
-              disabled={exportPdfState === 'loading'}
+              disabled={!isFinalized || exportPdfState === 'loading'}
             >
               {exportPdfState === 'loading' ? 'Generating PDF…' : 'Export PDF'}
             </button>
@@ -876,7 +866,7 @@ export default function ReportingPage() {
             <button
               className={`${styles.actionBtn} ${styles.actionBtnSecondary}`}
               onClick={handleExportCsv}
-              disabled={exportCsvState === 'loading'}
+              disabled={!isFinalized || exportCsvState === 'loading'}
             >
               {exportCsvState === 'loading' ? 'Generating CSV…' : 'Export CSV'}
             </button>

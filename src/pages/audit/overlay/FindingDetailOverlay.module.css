@@ -15,7 +15,7 @@
   justify-content: stretch;
   padding: 0;
   box-sizing: border-box;
-  border-radius: 0 32px 32px 0; /* Match shell radius on right */
+  border-radius: 0 32px 32px 0;
   overflow: hidden;
 }
 
@@ -46,7 +46,7 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 }
 
 .findingTitle {
@@ -56,6 +56,42 @@
   letter-spacing: -0.01em;
   color: var(--text-primary);
   line-height: 1.35;
+}
+
+.headerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* ── Tabs ── */
+.tabs {
+  display: flex;
+  gap: 0;
+}
+
+.tab {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 20px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+
+.tab:hover {
+  color: var(--text-primary);
+}
+
+.tabActive {
+  color: var(--text-primary);
+  border-bottom-color: var(--text-primary);
 }
 
 .nav {
@@ -130,19 +166,20 @@
 }
 
 /* ═══════════════════════════════════════
-   LEFT: Report-style PDF document
+   Report-style PDF document
    Identical to Reporting page canvas
    ═══════════════════════════════════════ */
 
 .reportPage {
   width: 100%;
+  max-width: 680px;
   background: #fff;
   display: flex;
   flex-direction: column;
 }
 
 .reportContent {
-  padding: 20px 24px 40px;
+  padding: 32px 40px 48px;
   display: flex;
   flex-direction: column;
   min-height: 500px;
@@ -152,15 +189,15 @@
 .docHeader {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-bottom: 16px;
+  gap: 6px;
+  margin-bottom: 8px;
 }
 
 .docLogoRow {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
 .docLogoImg {
@@ -185,29 +222,29 @@
   letter-spacing: -0.02em;
   line-height: 1.2;
   color: var(--text-primary);
-  margin-top: 4px;
-  margin-bottom: 6px;
+  margin-top: 2px;
+  margin-bottom: 2px;
 }
 
 .docMeta {
   font-family: var(--font-mono);
   font-size: var(--type-label);
   color: var(--text-secondary);
-  margin-bottom: 4px;
+  margin-bottom: 0;
 }
 
 .docDivider {
   border: none;
-  border-top: 1px solid var(--border-default);
-  margin: 16px 0;
+  border-top: 2px solid #111;
+  margin: 10px 0;
 }
 
 /* ── Summary section ── */
 .docSummary {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 12px 0 8px;
+  gap: 12px;
+  padding: 6px 0 4px;
 }
 
 .docSummaryHero {
@@ -324,6 +361,16 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* ── Rule reference list ── */
+.ruleRefList {
+  margin: 0;
+  padding: 0 0 0 20px;
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: var(--text-primary);
+  line-height: 1.8;
+}
+
 /* ── Status badge ── */
 .statusBadge {
   display: inline-flex;
@@ -343,7 +390,7 @@
 .statusDismissed { background: rgba(0, 0, 0, 0.06); color: var(--text-secondary); }
 .statusDisputed  { background: var(--accent-black); color: var(--accent-black-text); }
 
-/* ── Right-column card header (recovery cards) ── */
+/* ── Right-column card header ── */
 .docHead {
   display: flex;
   align-items: center;
@@ -367,21 +414,54 @@
   color: var(--text-muted);
 }
 
-/* ═══════════════════════════════════════
-   RIGHT: Recovery
-   ═══════════════════════════════════════ */
-
+/* ── Recovery block ── */
 .recoveryBlock {
   display: flex;
   flex-direction: column;
 }
 
+/* ── Email card ── */
 .emailCard {
   background: rgba(255, 255, 255, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.9);
   border-radius: 20px;
   padding: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+}
+
+/* ── Actions ── */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* ── Status card (non-New states) ── */
+.statusCard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+}
+
+.statusCardTitle {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.statusCardBody {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.5;
 }
 
 .emailMeta {
@@ -415,12 +495,12 @@
   display: block;
 }
 
-.actions {
+/* ── Recovery actions ── */
+.recoveryActions {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
   align-items: center;
-  margin-top: 20px;
 }
 
 .primaryBtn {
@@ -457,32 +537,6 @@
   transition: color 0.15s;
 }
 .linkBtn:hover { color: var(--text-muted); }
-
-/* ── Status card (non-New states) ── */
-.statusCard {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  border-radius: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
-}
-
-.statusCardTitle {
-  font-family: var(--font-display);
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--text-primary);
-}
-
-.statusCardBody {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  color: var(--text-secondary);
-  line-height: 1.5;
-}
 
 .positive { color: #4a7a20; }
 .negative { color: #a03030; }

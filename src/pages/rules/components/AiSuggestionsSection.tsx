@@ -13,20 +13,21 @@ export default function AiSuggestionsSection({ suggestions, onReview }: Props) {
     <div className={styles.summaryBar}>
       <div className={styles.summaryTop}>
         <div className={styles.summaryTitleRow}>
-          <span className={styles.aiBadge}>AI</span>
           <span className={styles.summaryLabel}>
-            Identified
+            AI Identified
             <br />
             rules
           </span>
-          <span className={styles.summaryCount}>{suggestions.length}</span>
         </div>
         <button className={styles.reviewBtn} onClick={onReview}>
           Review suggestions
         </button>
       </div>
       <span className={styles.summaryText}>
-        AI identified new candidate rules based on recent audit patterns and source anomalies.
+        {suggestions.length} new candidate rules were detected by cross-referencing
+        recent audit findings with your contract terms and historical billing
+        patterns. Review each suggestion to approve, edit, or dismiss before
+        it becomes active.
       </span>
     </div>
   );

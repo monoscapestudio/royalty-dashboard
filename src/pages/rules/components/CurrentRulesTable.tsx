@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import type { Rule, RuleSource } from '../../../types';
-import FormSelect from '../../../components/ui/FormSelect';
 import RuleBadge from './RuleBadge';
 import styles from './CurrentRulesTable.module.css';
 
@@ -23,7 +22,6 @@ interface Props {
   onEdit: (rule: Rule) => void;
   onRemove: (rule: Rule) => void;
   filter: 'all' | RuleSource;
-  onFilterChange: (filter: 'all' | RuleSource) => void;
 }
 
 function RuleRow({
@@ -132,13 +130,6 @@ function RuleGroup({
   );
 }
 
-const FILTER_OPTIONS: { value: 'all' | RuleSource; label: string }[] = [
-  { value: 'all', label: 'All sources' },
-  { value: 'Library', label: 'Library' },
-  { value: 'User', label: 'User-defined' },
-  { value: 'AI', label: 'AI-approved' },
-];
-
 export default function CurrentRulesTable({
   rules,
   onToggle,
@@ -146,7 +137,6 @@ export default function CurrentRulesTable({
   onEdit,
   onRemove,
   filter,
-  onFilterChange,
 }: Props) {
   const filtered = filter === 'all' ? rules : rules.filter((r) => r.source === filter);
 
@@ -156,26 +146,9 @@ export default function CurrentRulesTable({
 
   return (
     <div className={styles.section}>
-        <div className={styles.utilityBar}>
-          <div className={styles.sectionMeta}>
-            <span className={styles.metaValue}>{filtered.length}</span>
-            <span className={styles.metaLabel}>visible rules</span>
-            <span className={styles.metaDivider}>/</span>
-            <span>{rules.length} total</span>
-          </div>
-        <div className={styles.filterGroup}>
-          <FormSelect
-            value={filter}
-            onChange={(v) => onFilterChange(v as 'all' | RuleSource)}
-            options={FILTER_OPTIONS}
-            className={styles.filterSelect}
-          />
-        </div>
-      </div>
-
-      <RuleGroup label="Library Rules" rules={library} onToggle={onToggle} onDuplicate={onDuplicate} onEdit={onEdit} onRemove={onRemove} />
       <RuleGroup label="User-Defined Rules" rules={user} onToggle={onToggle} onDuplicate={onDuplicate} onEdit={onEdit} onRemove={onRemove} />
       <RuleGroup label="AI-Approved Rules" rules={ai} onToggle={onToggle} onDuplicate={onDuplicate} onEdit={onEdit} onRemove={onRemove} />
+      <RuleGroup label="Library Rules" rules={library} onToggle={onToggle} onDuplicate={onDuplicate} onEdit={onEdit} onRemove={onRemove} />
     </div>
   );
 }

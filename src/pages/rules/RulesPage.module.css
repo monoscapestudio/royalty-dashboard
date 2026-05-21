@@ -114,7 +114,7 @@
 
 .panelHeader {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   padding: 0;
   background: transparent;
@@ -130,22 +130,12 @@
   text-transform: uppercase;
   color: var(--text-primary);
   margin: 0;
+  line-height: 36px;
 }
 
-.panelCount {
-  font-family: var(--font-mono);
-  font-size: var(--type-label);
-  font-weight: 500;
-  color: var(--text-secondary);
-  background: rgba(255, 255, 255, 0.6);
-  border: none;
-  border-radius: var(--radius-badge);
-  padding: 0 8px;
-  height: 24px;
-  display: inline-flex;
-  align-items: center;
-  font-variant-numeric: tabular-nums;
-  font-feature-settings: 'tnum';
+.panelFilterSelect {
+  min-width: 160px;
+  flex-shrink: 0;
 }
 
 .panelBody {

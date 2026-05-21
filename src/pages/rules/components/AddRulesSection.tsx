@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import type { Rule } from '../../../types';
+import type { AiSuggestion, Rule } from '../../../types';
+import AiSuggestionsSection from './AiSuggestionsSection';
 import styles from './AddRulesSection.module.css';
 
 interface Interpretation {
@@ -13,9 +14,11 @@ interface Props {
   siloLabel: string;
   libraryCount: number;
   existingRules: Rule[];
+  suggestions: AiSuggestion[];
   onAddRule: (rule: Rule) => void;
   onReviewLibrary: () => void;
   onLoadLibrary: () => void;
+  onReviewSuggestions: () => void;
 }
 
 /* Generates a mock NL interpretation from free text input */
@@ -60,9 +63,11 @@ export default function AddRulesSection({
   siloLabel,
   libraryCount,
   existingRules,
+  suggestions,
   onAddRule,
   onReviewLibrary,
   onLoadLibrary,
+  onReviewSuggestions,
 }: Props) {
   const [inputValue, setInputValue] = useState('');
   const [interpretation, setInterpretation] = useState<Interpretation | null>(null);
@@ -111,20 +116,27 @@ export default function AddRulesSection({
       <div className={styles.composer}>
         <label className={styles.inputLabel}>Add a rule in plain language</label>
         <div className={styles.inputRow}>
-          <input
-            className={styles.ruleInput}
-            type="text"
-            value={inputValue}
-            onChange={(e) => {
-              setInputValue(e.target.value);
-              if (interpretation) {
-                setInterpretation(null);
-                setDuplicate(null);
-              }
-            }}
-            onKeyDown={(e) => e.key === 'Enter' && handleAdd()}
-            placeholder='e.g. "Min. $0.005 per stream"'
-          />
+          <div className={styles.inputWrap}>
+            <textarea
+              className={styles.ruleInput}
+              value={inputValue}
+              maxLength={300}
+              onChange={(e) => {
+                setInputValue(e.target.value);
+                if (interpretation) {
+                  setInterpretation(null);
+                  setDuplicate(null);
+                }
+              }}
+              onKeyDown={(e) => {
+                if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+                  handleAdd();
+                }
+              }}
+              placeholder='e.g. "Min. $0.005 per stream"'
+            />
+            <span className={styles.charCounter}>{inputValue.length}/300</span>
+          </div>
           <button
             className={styles.addBtn}
             onClick={handleAdd}
@@ -134,6 +146,11 @@ export default function AddRulesSection({
           </button>
         </div>
       </div>
+
+      <AiSuggestionsSection
+        suggestions={suggestions}
+        onReview={onReviewSuggestions}
+      />
 
       {interpretation && !duplicate && (
         <div className={styles.interpretation}>
@@ -168,7 +185,6 @@ export default function AddRulesSection({
         <div className={styles.methodTop}>
           <div className={styles.methodTitleRow}>
             <span className={styles.methodLabel}>Library Rules</span>
-            {showLibraryBanner && <span className={styles.methodCount}>{libraryCount}</span>}
           </div>
           <button
             className={styles.methodAction}

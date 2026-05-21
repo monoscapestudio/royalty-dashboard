@@ -138,8 +138,8 @@ export default function FindingsTable({ findings, onToast }: Props) {
     }
   };
 
-  const openFinding = (id: string) => {
-    navigate(`/app/audit/finding/${id}`);
+  const openFinding = (id: string, tab: 'trail' | 'recovery' = 'trail') => {
+    navigate(`/app/audit/finding/${id}?tab=${tab}`);
   };
 
   function bulkEligibleNew() {
@@ -291,17 +291,14 @@ export default function FindingsTable({ findings, onToast }: Props) {
               </span>
 
               <div className={styles.actions} onClick={(e) => e.stopPropagation()}>
-                <button type="button" className={styles.actionLink} onClick={() => openFinding(row.id)}>
+                <button type="button" className={styles.actionLink} onClick={() => openFinding(row.id, 'trail')}>
                   Audit Trail
                 </button>
                 {row.status === 'New' && (
                   <button
                     type="button"
                     className={styles.actionLink}
-                    onClick={() => {
-                      onToast('Recovery email draft opened from finding (wireframe).');
-                      openFinding(row.id);
-                    }}
+                    onClick={() => openFinding(row.id, 'recovery')}
                   >
                     Send Recovery
                   </button>

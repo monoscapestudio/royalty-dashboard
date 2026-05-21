@@ -3,6 +3,7 @@
   flex-direction: column;
   gap: var(--glass-card-gap);
   padding: var(--glass-card-pad);
+  min-height: 187px;
   background: var(--glass-card-bg);
   border: var(--glass-card-border);
   border-radius: var(--glass-card-radius);
@@ -28,38 +29,6 @@
   align-items: flex-start;
   flex-wrap: wrap;
   gap: 8px;
-}
-
-.aiBadge {
-  display: inline-flex;
-  align-items: center;
-  height: 24px;
-  padding: 0 8px;
-  background: rgba(210, 255, 0, 0.15); /* Soft neon tint */
-  border: 1px solid rgba(210, 255, 0, 0.3);
-  color: var(--text-primary);
-  font-family: var(--font-mono);
-  font-size: var(--type-label);
-  font-weight: 500;
-  text-transform: uppercase;
-  border-radius: var(--radius-badge);
-  white-space: nowrap;
-}
-
-.summaryCount {
-  height: 24px;
-  padding: 0 8px;
-  display: inline-flex;
-  align-items: center;
-  flex-shrink: 0;
-  border-radius: var(--radius-badge);
-  background: var(--bg-panel-muted);
-  font-family: var(--font-mono);
-  font-size: var(--type-label);
-  font-weight: var(--type-label-weight);
-  letter-spacing: var(--type-label-tracking);
-  text-transform: uppercase;
-  color: var(--text-secondary);
 }
 
 .summaryLabel {

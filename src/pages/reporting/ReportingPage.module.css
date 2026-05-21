@@ -387,7 +387,7 @@
   min-height: 28px;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   padding: 4px 8px;
   background: transparent;
   border-radius: 8px;
@@ -400,6 +400,15 @@
   transition: all 0.15s ease;
   text-align: left;
   border: none;
+}
+
+.blockCheckbox {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--btn-primary-bg);
+  cursor: pointer;
+  flex-shrink: 0;
 }
 
 .blockItem:hover {
@@ -415,11 +424,6 @@
   cursor: not-allowed;
 }
 
-.blockItemHandle {
-  font-family: var(--font-mono);
-  font-size: var(--type-label);
-  color: var(--text-muted);
-}
 
 .historyItem {
   display: flex;
@@ -574,15 +578,15 @@
 .docHeader {
   display: flex;
   flex-direction: column;
-  gap: 12px; /* Increased from 8px for more breathing room */
-  margin-bottom: 16px; /* Increased from 12px */
+  gap: 6px;
+  margin-bottom: 8px;
 }
 
 .docLogoRow {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 8px; /* More space before Report Label */
+  margin-bottom: 4px;
 }
 
 .docLogoImg {
@@ -610,27 +614,27 @@
 
 .docTitle {
   font-family: var(--font-display);
-  font-size: 28px; /* Increased for stronger hierarchy */
+  font-size: 28px;
   font-weight: 500;
   letter-spacing: -0.02em;
   line-height: 1.2;
   color: var(--text-primary);
-  margin-top: 4px;
-  margin-bottom: 6px;
+  margin-top: 2px;
+  margin-bottom: 2px;
 }
 
 .docMeta {
   font-family: var(--font-mono);
   font-size: var(--type-label);
   color: var(--text-secondary);
-  margin-bottom: 4px;
+  margin-bottom: 0;
 }
 
 .docSummary {
   display: flex;
   flex-direction: column;
-  gap: 20px; /* Increased from 12px */
-  padding: 12px 0 8px; /* Increased vertical padding */
+  gap: 12px;
+  padding: 6px 0 4px;
 }
 
 .docSummaryHero {
@@ -687,11 +691,17 @@
 .docDivider,
 .rightDivider {
   border: none;
-  border-top: 1px solid var(--border-default);
+  border-top: 2px solid #111;
 }
 
 .docDivider {
-  margin: 16px 0; /* Increased from 6px */
+  margin: 10px 0;
+}
+
+.blockDivider {
+  border: none;
+  border-top: 1px solid var(--border-default);
+  margin: 10px 0;
 }
 
 .dropZone {
@@ -716,6 +726,9 @@
   font-family: var(--font-mono);
   font-size: var(--type-label);
   color: var(--text-secondary);
+  max-width: 280px;
+  text-align: center;
+  line-height: 1.5;
 }
 
 .docFooter {
@@ -734,8 +747,9 @@
 
 .block {
   position: relative;
-  margin-bottom: 12px;
-  border-radius: 10px;
+  margin-bottom: 16px;
+  padding: 0 0 8px;
+  border-radius: 0;
   overflow: hidden;
   transition: box-shadow 0.2s ease;
 }
@@ -744,54 +758,33 @@
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
 }
 
-.block:hover .blockControls {
-  opacity: 1;
-}
-
 .blockControls {
-  position: absolute;
-  top: 6px;
-  right: 8px;
   display: flex;
   gap: 6px;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-  z-index: 2;
+  opacity: 1;
 }
 
 .blockControlsFinalized {
   display: none;
 }
 
-.blockDragHandle,
 .blockRemoveBtn {
-  width: 26px;
-  height: 26px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 50%;
+  height: 24px;
+  padding: 0 8px;
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  border-radius: 100px;
   color: var(--text-secondary);
   cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.blockDragHandle:hover {
-  background: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
-
-.blockDragHandle {
   font-family: var(--font-mono);
-  font-size: 11px;
-}
-
-.blockRemoveBtn {
-  font-size: 11px;
+  font-size: var(--type-label);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
+  text-transform: uppercase;
+  transition: all 0.15s ease;
 }
 
 .blockRemoveBtn:hover {
@@ -804,20 +797,21 @@
 .blockHeader {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 8px;
-  margin-bottom: 8px;
-  padding: 8px 12px;
-  background: rgba(0, 0, 0, 0.03);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  margin-bottom: 10px;
+  padding: 9px 0 7px;
+  background: transparent;
+  border-bottom: 1px solid #111;
 }
 
 .blockHeaderLabel {
   font-family: var(--font-mono);
-  font-size: var(--type-label);
+  font-size: 12px;
   font-weight: var(--type-label-weight);
   letter-spacing: var(--type-label-tracking);
   text-transform: uppercase;
-  color: var(--text-secondary);
+  color: var(--text-primary);
 }
 
 .metricsGrid {
@@ -880,27 +874,28 @@
 
 .miniTable th,
 .recoveryTable th {
-  padding: 4px 0;
+  padding: 6px 8px;
   text-align: left;
   font-family: var(--font-mono);
   font-size: var(--type-label);
   font-weight: var(--type-label-weight);
   letter-spacing: var(--type-label-tracking);
   text-transform: uppercase;
-  color: var(--text-secondary);
-  border-bottom: 1px solid var(--border-default);
+  color: var(--text-primary);
+  background: rgba(0, 0, 0, 0.035);
+  border-bottom: 1px solid #111;
 }
 
 .miniTable td,
 .recoveryTable td {
-  padding: 6px 0; /* Slightly more padding for breathing room */
+  padding: 7px 8px;
   border-bottom: 1px solid #EEEEEE;
   font-family: var(--font-display);
-  font-size: 14px; /* Increased from type-data (12px) */
+  font-size: 13px;
   font-weight: 400;
   color: var(--text-primary);
   white-space: nowrap;
-  font-variant-numeric: tabular-nums; /* Added for alignment */
+  font-variant-numeric: tabular-nums;
 }
 
 .miniTableFooter {
@@ -1257,20 +1252,10 @@
 .revertBanner {
   position: relative;
   overflow: hidden;
-  padding: 8px 10px 8px 12px;
-  background: #FFF5EB;
-  border: 1px solid #F3D8BE;
-  border-radius: var(--radius-card);
-}
-
-.revertBanner::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: var(--status-pending-bg);
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
 }
 
 .revertBannerBold {

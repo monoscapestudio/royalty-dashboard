@@ -1,7 +1,7 @@
 .section {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 51px;
 }
 
 /* ── Method cards ── */
@@ -37,22 +37,6 @@
 }
 
 .methodLabel {
-  font-family: var(--font-mono);
-  font-size: var(--type-label);
-  font-weight: var(--type-label-weight);
-  letter-spacing: var(--type-label-tracking);
-  text-transform: uppercase;
-  color: var(--text-secondary);
-}
-
-.methodCount {
-  height: 24px;
-  padding: 0 8px;
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  border-radius: var(--radius-badge);
-  background: var(--bg-panel-muted);
   font-family: var(--font-mono);
   font-size: var(--type-label);
   font-weight: var(--type-label-weight);
@@ -121,21 +105,29 @@
 
 .inputRow {
   display: flex;
-  gap: 6px;
+  flex-direction: column;
+  gap: 12px;
   align-items: stretch;
 }
 
+.inputWrap {
+  position: relative;
+  width: 100%;
+}
+
 .ruleInput {
-  flex: 1;
-  height: 40px;
+  width: 100%;
+  min-height: 134px;
   background: rgba(255, 255, 255, 0.8);
   border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: var(--radius-btn);
-  padding: 0 12px;
+  border-radius: 8px;
+  padding: 12px 12px 28px;
   font-family: var(--font-display);
   font-size: var(--type-body);
+  line-height: 1.35;
   color: var(--text-primary);
   outline: none;
+  resize: none;
   transition: border-color 0.15s, background 0.15s;
 }
 
@@ -143,32 +135,49 @@
 .ruleInput:hover { background: rgba(255, 255, 255, 0.9); }
 .ruleInput:focus { background: rgba(255, 255, 255, 1); border-color: rgba(255, 255, 255, 1); }
 
+.charCounter {
+  position: absolute;
+  right: 12px;
+  bottom: 9px;
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
+  color: var(--text-secondary);
+  opacity: 0.32;
+  pointer-events: none;
+  transition: opacity 0.15s;
+}
+
+.ruleInput:not(:placeholder-shown) + .charCounter {
+  opacity: 0.72;
+}
+
 .addBtn {
   font-family: var(--font-display);
   font-size: var(--type-data);
   letter-spacing: var(--type-body-tracking);
   font-weight: 500;
-  color: var(--text-primary);
-  background: none;
+  color: var(--btn-primary-text);
+  background: var(--btn-primary-bg);
   border: none;
   cursor: pointer;
   padding: 0 16px;
   white-space: nowrap;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-thickness: 1px;
-  transition: color 0.15s, text-decoration-color 0.15s, opacity 0.15s;
-  flex-shrink: 0;
+  text-decoration: none;
+  transition: background 0.15s, opacity 0.15s;
+  width: 100%;
   height: 40px;
   display: flex;
   align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-btn);
 }
 
 .addBtn:hover:not(:disabled) {
-  color: var(--btn-primary-hover);
-  text-decoration-color: var(--btn-primary-hover);
+  background: var(--btn-primary-hover);
 }
-.addBtn:disabled { opacity: 0.3; cursor: not-allowed; text-decoration: none; }
+.addBtn:disabled { opacity: 0.3; cursor: not-allowed; }
 
 /* ── Interpretation preview ── */
 .interpretation {

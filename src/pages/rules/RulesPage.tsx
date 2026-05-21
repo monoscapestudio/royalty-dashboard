@@ -9,16 +9,23 @@ import {
   ALL_LIBRARY_RULES,
 } from '../../data/mockRules';
 import AddRulesSection from './components/AddRulesSection';
-import AiSuggestionsSection from './components/AiSuggestionsSection';
 import AiSuggestionsPanel from './components/AiSuggestionsPanel';
 import CurrentRulesTable from './components/CurrentRulesTable';
 import RulesEmptyState from './RulesEmptyState';
 import RuleEditModal from './modals/RuleEditModal';
 import RuleEditImplicationsModal from './modals/RuleEditImplicationsModal';
 import ConfirmDialog from '../../components/ui/ConfirmDialog';
+import FormSelect from '../../components/ui/FormSelect';
 import styles from './RulesPage.module.css';
 
 let _newId = 4000;
+
+const CURRENT_RULES_FILTER_OPTIONS: { value: 'all' | RuleSource; label: string }[] = [
+  { value: 'all', label: 'All sources' },
+  { value: 'Library', label: 'Library' },
+  { value: 'User', label: 'User-defined' },
+  { value: 'AI', label: 'AI-approved' },
+];
 
 const TIPS = [
   'Define what the audit looks for. Add rules, review AI suggestions, manage your rule set.',
@@ -295,13 +302,11 @@ export default function RulesPage() {
                   siloLabel={siloLabel}
                   libraryCount={libraryRules.length}
                   existingRules={rules}
+                  suggestions={suggestions}
                   onAddRule={handleAddRule}
                   onReviewLibrary={handleReviewLibrary}
                   onLoadLibrary={handleLoadLibrary}
-                />
-                <AiSuggestionsSection
-                  suggestions={suggestions}
-                  onReview={() => setAiReviewMode(true)}
+                  onReviewSuggestions={() => setAiReviewMode(true)}
                 />
               </div>
             </div>
@@ -310,7 +315,12 @@ export default function RulesPage() {
             <div className={`${styles.panel} ${styles.panelRight}`} ref={currentRulesPanelRef}>
               <div className={styles.panelHeader}>
                 <span className={styles.panelTitle}>Current Rules</span>
-                <span className={styles.panelCount}>{rules.length} rule{rules.length !== 1 ? 's' : ''}</span>
+                <FormSelect
+                  value={currentRulesFilter}
+                  onChange={(v) => setCurrentRulesFilter(v as 'all' | RuleSource)}
+                  options={CURRENT_RULES_FILTER_OPTIONS}
+                  className={styles.panelFilterSelect}
+                />
               </div>
               <div className={styles.panelScroll}>
                 <CurrentRulesTable
@@ -320,7 +330,6 @@ export default function RulesPage() {
                   onEdit={handleEdit}
                   onRemove={(r) => setRulePendingDelete(r)}
                   filter={currentRulesFilter}
-                  onFilterChange={setCurrentRulesFilter}
                 />
               </div>
             </div>
