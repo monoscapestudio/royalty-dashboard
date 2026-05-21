@@ -150,9 +150,11 @@ function BlockContent({ name }: { name: BlockName }) {
 
     case 'Variance Chart': {
       const sources = [
-        { label: 'SoundExchange #4401', value: 240400, share: 66.1 },
-        { label: 'Spotify Recoupment',  value: 88800,  share: 24.4 },
-        { label: 'BMI License #8827',   value: 34800,  share: 9.5 },
+        { label: 'SoundExchange #4401', value: 252800, share: 59.1 },
+        { label: 'Spotify Recoupment',  value: 96400,  share: 22.5 },
+        { label: 'BMI License #8827',   value: 44600,  share: 10.4 },
+        { label: 'Warner Chappell',     value: 18900,  share: 4.4 },
+        { label: 'ASCAP Performance',   value: 15200,  share: 3.6 },
       ];
       const total = sources.reduce((s, b) => s + b.value, 0);
       const max = Math.max(...sources.map(s => s.value));

@@ -9,11 +9,11 @@ import FindingsTable from './components/FindingsTable';
 import { Idea, ChevronLeft, ChevronRight, ChevronDown } from '@carbon/icons-react';
 import styles from './AuditPage.module.css';
 
-const TICK_MS = 2000;
-const INCREMENT_MIN = 4;
-const INCREMENT_MAX = 8;
-const FINDINGS_PER_TICK = 3;
-const FINDINGS_TICK_EVERY = 2;
+const TICK_MS = 1200;
+const INCREMENT_MIN = 5;
+const INCREMENT_MAX = 9;
+const FINDINGS_PER_TICK = 1;
+const FINDINGS_TICK_EVERY = 1;
 
 const ACTIVE_RULES_COUNT = mockRulesPopulated.filter((r) => r.status === 'Active').length;
 const SOURCES = mockSources['music-royalty'] ?? [];
@@ -67,6 +67,7 @@ export default function AuditPage() {
   /* Running simulation state */
   const [progress, setProgress] = useState(0);
   const [visibleFindings, setVisibleFindings] = useState<Finding[]>([]);
+  const [runningTotal, setRunningTotal] = useState(0);
   const tickRef = useRef(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -101,6 +102,7 @@ export default function AuditPage() {
     }
     setProgress(0);
     setVisibleFindings([]);
+    setRunningTotal(0);
     tickRef.current = 0;
 
     intervalRef.current = setInterval(() => {
@@ -114,15 +116,18 @@ export default function AuditPage() {
         if (newP >= 100) {
           clearInterval(intervalRef.current!);
           setAuditState(activeSiloId, 'COMPLETE');
-          showToast(`Audit complete. ${MOCK_AUDIT_RESULT.findingsCount.toLocaleString()} findings identified.`);
+          showToast(`Audit complete. ${MOCK_AUDIT_RESULT.findingsCount.toLocaleString()} findings, ${MOCK_AUDIT_RESULT.totalValueFormatted} potential recovery.`);
         }
         return newP;
       });
 
       if (tick % FINDINGS_TICK_EVERY === 0) {
         setVisibleFindings((prev) => {
-          const nextCount = prev.length + FINDINGS_PER_TICK;
-          return ALL_FINDINGS.slice(0, nextCount);
+          const nextCount = Math.min(prev.length + FINDINGS_PER_TICK, ALL_FINDINGS.length);
+          const nextFindings = ALL_FINDINGS.slice(0, nextCount);
+          const total = nextFindings.reduce((s, f) => s + f.discrepancyValue, 0);
+          setRunningTotal(total);
+          return nextFindings;
         });
       }
     }, TICK_MS);
@@ -134,6 +139,7 @@ export default function AuditPage() {
   useEffect(() => {
     setProgress(0);
     setVisibleFindings([]);
+    setRunningTotal(0);
     tickRef.current = 0;
   }, [activeSiloId]);
 
@@ -341,11 +347,18 @@ export default function AuditPage() {
                 </div>
               </div>
               <div className={styles.runningBottom}>
-                {visibleFindings.length > 0 && (
-                  <span className={styles.runningFindings}>
-                    {visibleFindings.length} finding{visibleFindings.length !== 1 ? 's' : ''} identified so far
-                  </span>
-                )}
+                <div className={styles.runningStats}>
+                  {visibleFindings.length > 0 && (
+                    <>
+                      <span className={styles.runningFindings}>
+                        {visibleFindings.length} finding{visibleFindings.length !== 1 ? 's' : ''} identified
+                      </span>
+                      <span className={styles.runningTotalValue}>
+                        ${runningTotal.toLocaleString()} potential recovery
+                      </span>
+                    </>
+                  )}
+                </div>
                 <button className={styles.stopBtn} onClick={stopAudit}>Stop audit</button>
               </div>
             </div>

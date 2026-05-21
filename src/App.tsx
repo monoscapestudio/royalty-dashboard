@@ -53,9 +53,9 @@ export default function App() {
               <Route index element={<Navigate to="profile" replace />} />
             </Route>
 
-            <Route index element={<Navigate to="audit" replace />} />
+            <Route index element={<Navigate to="audit?audit-state=COMPLETE" replace />} />
           </Route>
-          <Route path="*" element={<Navigate to="/app/audit" replace />} />
+          <Route path="*" element={<Navigate to="/app/audit?audit-state=COMPLETE" replace />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>
