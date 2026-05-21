@@ -1,11 +1,19 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { Idea, ChevronLeft, ChevronRight } from '@carbon/icons-react';
 import Modal from '../../components/ui/Modal';
 import InlineBanner from '../../components/ui/InlineBanner';
 import FormSelect from '../../components/ui/FormSelect';
 import { useAppStore } from '../../store/app';
 import { MOCK_AUDIT_RESULT } from '../../data/mockAudit';
 import styles from './ReportingPage.module.css';
+
+const TIPS = [
+  'Generate, finalize, and share audit reports.',
+  'Finalizing a report locks the contents to prevent accidental changes.',
+  'Use the Draft mode to freely explore and adjust the report layout.',
+  'Shared links dynamically reflect the latest finalized version of the report.',
+];
 
 /* ── Constants ── */
 const ALL_BLOCKS = [
@@ -65,10 +73,50 @@ const SHARE_EXPIRATION_OPTIONS = [
 ];
 
 const REPORT_HISTORY = [
-  { id: 'REV-2026-0004', label: 'REV-2026-0004', meta: 'Draft', isCurrent: true },
-  { id: 'REV-2026-0003', label: 'REV-2026-0003', meta: 'Apr 15', isCurrent: false },
-  { id: 'REV-2026-0002', label: 'REV-2026-0002', meta: 'Mar 28', isCurrent: false },
-  { id: 'REV-2026-0001', label: 'REV-2026-0001', meta: 'Mar 12', isCurrent: false },
+  {
+    id: 'REV-2026-0004', label: 'REV-2026-0004', meta: 'Draft', isCurrent: true,
+    name: 'Q3 Royalties Analytics',
+    batch: '8482-A9B', generated: '2026-04-21',
+    recovery: MOCK_AUDIT_RESULT.totalValueFormatted,
+    findings: MOCK_AUDIT_RESULT.findingsCount,
+    coverage: MOCK_AUDIT_RESULT.coverage,
+    records: MOCK_AUDIT_RESULT.recordsProcessed,
+    ruleSet: 'v321 (April 21, 2026)',
+    template: 'executive' as TemplateKey,
+  },
+  {
+    id: 'REV-2026-0003', label: 'REV-2026-0003', meta: 'Apr 15', isCurrent: false,
+    name: 'Q2 Royalties Analytics',
+    batch: '7301-B4C', generated: '2026-04-15',
+    recovery: '$0.28M',
+    findings: 4,
+    coverage: 94,
+    records: 1_280_440,
+    ruleSet: 'v318 (April 1, 2026)',
+    template: 'executive' as TemplateKey,
+  },
+  {
+    id: 'REV-2026-0002', label: 'REV-2026-0002', meta: 'Mar 28', isCurrent: false,
+    name: 'Q1 Mechanical Audit',
+    batch: '6540-D2E', generated: '2026-03-28',
+    recovery: '$0.19M',
+    findings: 3,
+    coverage: 91,
+    records: 980_112,
+    ruleSet: 'v305 (March 15, 2026)',
+    template: 'technical' as TemplateKey,
+  },
+  {
+    id: 'REV-2026-0001', label: 'REV-2026-0001', meta: 'Mar 12', isCurrent: false,
+    name: 'Initial Baseline Audit',
+    batch: '5200-F1A', generated: '2026-03-12',
+    recovery: '$0.08M',
+    findings: 2,
+    coverage: 87,
+    records: 720_300,
+    ruleSet: 'v298 (March 1, 2026)',
+    template: 'executive' as TemplateKey,
+  },
 ] as const;
 
 const SHARE_URL = 'https://audit.revorion.ai/reports/REV-2026-0004/s/a8f2...';
@@ -89,23 +137,58 @@ function BlockContent({ name }: { name: BlockName }) {
               </tr>
             </thead>
             <tbody>
-              <tr><td>SoundExchange #4401</td><td>INV-2026-0892</td><td>$4,200</td><td>98%</td></tr>
-              <tr><td>SoundExchange #4401</td><td>INV-2026-0756</td><td>$3,800</td><td>97%</td></tr>
-              <tr><td>Spotify Recoupment</td><td>INV-2026-1102</td><td>$1,200</td><td>95%</td></tr>
-              <tr><td>BMI License #8827</td><td>INV-2026-0445</td><td>$999</td><td>92%</td></tr>
-              <tr><td>Spotify Recoupment</td><td>INV-2026-0981</td><td>$980</td><td>91%</td></tr>
+              <tr><td>SoundExchange #4401</td><td>INV-2026-0892</td><td>$142,000</td><td>98%</td></tr>
+              <tr><td>SoundExchange #4401</td><td>INV-2026-0756</td><td>$98,400</td><td>97%</td></tr>
+              <tr><td>Spotify Recoupment</td><td>INV-2026-1102</td><td>$67,200</td><td>95%</td></tr>
+              <tr><td>BMI License #8827</td><td>INV-2026-0445</td><td>$34,800</td><td>92%</td></tr>
+              <tr><td>Spotify Recoupment</td><td>INV-2026-0981</td><td>$21,600</td><td>91%</td></tr>
             </tbody>
           </table>
           <span className={styles.miniTableFooter}>... and {(MOCK_AUDIT_RESULT.findingsCount - 5).toLocaleString()} more findings. See full export for details.</span>
         </>
       );
 
-    case 'Variance Chart':
+    case 'Variance Chart': {
+      const sources = [
+        { label: 'SoundExchange #4401', value: 240400, share: 66.1 },
+        { label: 'Spotify Recoupment',  value: 88800,  share: 24.4 },
+        { label: 'BMI License #8827',   value: 34800,  share: 9.5 },
+      ];
+      const total = sources.reduce((s, b) => s + b.value, 0);
+      const max = Math.max(...sources.map(s => s.value));
       return (
-        <div className={styles.chartPlaceholder}>
-          <span className={styles.chartPlaceholderText}>[Chart visualization]</span>
+        <div className={styles.vc}>
+          <div className={styles.vcHead}>
+            <div className={styles.vcHeadLeft}>
+              <span className={styles.vcLabel}>Variance Distribution</span>
+              <span className={styles.vcSubLabel}>by contract source · Q1 2026</span>
+            </div>
+            <div className={styles.vcHeadRight}>
+              <span className={styles.vcTotalLabel}>Total</span>
+              <span className={styles.vcTotalValue}>${total.toLocaleString()}</span>
+            </div>
+          </div>
+          <div className={styles.vcBody}>
+            {sources.map((s, i) => (
+              <div key={s.label} className={styles.vcItem}>
+                <div className={styles.vcItemHead}>
+                  <span className={styles.vcItemIndex}>{String(i + 1).padStart(2, '0')}</span>
+                  <span className={styles.vcItemName}>{s.label}</span>
+                  <span className={styles.vcItemAmount}>${s.value.toLocaleString()}</span>
+                </div>
+                <div className={styles.vcBar}>
+                  <div
+                    className={styles.vcBarInner}
+                    style={{ width: `${(s.value / max) * 100}%` }}
+                  />
+                </div>
+                <span className={styles.vcItemShare}>{s.share}% of total variance</span>
+              </div>
+            ))}
+          </div>
         </div>
       );
+    }
 
     case 'Coverage Stats': {
       const matched = Math.round(MOCK_AUDIT_RESULT.recordsProcessed * MOCK_AUDIT_RESULT.coverage / 100);
@@ -152,9 +235,9 @@ function BlockContent({ name }: { name: BlockName }) {
             <tr><th>Finding</th><th>Status</th><th>Amount</th></tr>
           </thead>
           <tbody>
-            <tr><td>SoundExchange #4401</td><td>Recovery Sent</td><td>$4,200</td></tr>
-            <tr><td>Spotify Recoupment</td><td>Disputed</td><td>$1,200</td></tr>
-            <tr><td>BMI License #8827</td><td>Recovered</td><td>$999</td></tr>
+            <tr><td>SoundExchange #4401</td><td>Recovery Sent</td><td>$142,000</td></tr>
+            <tr><td>Spotify Recoupment</td><td>Disputed</td><td>$67,200</td></tr>
+            <tr><td>BMI License #8827</td><td>Recovered</td><td>$34,800</td></tr>
           </tbody>
         </table>
       );
@@ -331,9 +414,35 @@ export default function ReportingPage() {
   const [selectedHistory, setSelectedHistory] = useState('REV-2026-0004');
   const [toast, setToast] = useState<string | null>(null);
 
+  const activeReport = REPORT_HISTORY.find((r) => r.id === selectedHistory) ?? REPORT_HISTORY[0];
+
+  function selectHistoryItem(id: string) {
+    setSelectedHistory(id);
+    const report = REPORT_HISTORY.find((r) => r.id === id);
+    if (report) {
+      setReportName(report.name);
+      setCanvasBlocks(TEMPLATE_BLOCKS[report.template]);
+      setActiveTemplate(report.template);
+      setIsFinalized(!report.isCurrent);
+    }
+  }
+
   /* Inline banners — session-dismissed */
   const [dismissedBanners, setDismissedBanners] = useState<string[]>([]);
   const dismissBanner = (id: string) => setDismissedBanners((prev) => [...prev, id]);
+
+  /* Tip Carousel */
+  const [currentTip, setCurrentTip] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTip((prev) => (prev + 1) % TIPS.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const nextTip = () => setCurrentTip((prev) => (prev + 1) % TIPS.length);
+  const prevTip = () => setCurrentTip((prev) => (prev - 1 + TIPS.length) % TIPS.length);
 
   /* Sync dev param for finalized */
   useEffect(() => {
@@ -349,8 +458,8 @@ export default function ReportingPage() {
 
   /* Template change */
   function handleTemplateChange(key: TemplateKey) {
-    if (key === activeTemplate) return;
-    if (canvasBlocks.length > 0) {
+    if (key === activeTemplate && canvasBlocks.length === TEMPLATE_BLOCKS[key].length) return;
+    if (canvasBlocks.length > 0 && key !== activeTemplate) {
       setPendingTemplate(key);
     } else {
       applyTemplate(key);
@@ -361,6 +470,8 @@ export default function ReportingPage() {
     setActiveTemplate(key);
     setCanvasBlocks([...TEMPLATE_BLOCKS[key]]);
     setPendingTemplate(null);
+    if (!REPORT_HISTORY.find(r => r.id === selectedHistory)?.isCurrent) return;
+    setIsFinalized(false);
   }
 
   /* Block management */
@@ -421,14 +532,25 @@ export default function ReportingPage() {
   if (!effectiveHasAudit) {
     return (
       <div className={styles.page}>
-        <div className={styles.pageHeader}>
-          <div className={styles.pageHeaderText}>
-            <h1 className={styles.pageTitle}>Reporting</h1>
-            <span className={styles.pageSubtitle}>Generate, finalize, and share audit reports.</span>
+        <div className={styles.content}>
+          <div className={styles.topTipStrip}>
+            <div className={styles.topTipInner}>
+              <div className={styles.topTipContent}>
+                <Idea size={20} className={styles.topTipIcon} />
+                <span className={styles.topTipText}>{TIPS[currentTip]}</span>
+              </div>
+            </div>
+            <div className={styles.topTipControls}>
+              <button onClick={prevTip} className={styles.topTipBtn} aria-label="Previous tip">
+                <ChevronLeft size={16} />
+              </button>
+              <button onClick={nextTip} className={styles.topTipBtn} aria-label="Next tip">
+                <ChevronRight size={16} />
+              </button>
+            </div>
           </div>
-        </div>
 
-        <div className={styles.emptyStage}>
+          <div className={styles.emptyStage}>
           <div className={styles.emptyIntro}>
             <span className={styles.emptyEyebrow}>First report</span>
             <span className={styles.emptyHeroTitle}>Reporting starts when the first audit completes.</span>
@@ -452,6 +574,7 @@ export default function ReportingPage() {
               and delivery controls for your stakeholders.
             </span>
           </div>
+        </div>
         </div>
 
         {/* Simulate state toggle */}
@@ -484,17 +607,6 @@ export default function ReportingPage() {
         />
       );
     }
-    if (!isFinalized && !dismissedBanners.includes('report-autogenerated')) {
-      return (
-        <InlineBanner
-          id="report-autogenerated"
-          variant="blue"
-          title="Report auto-generated."
-          body="Draft report created from audit completed at 14:32 UTC. Review and finalize when ready."
-          onDismiss={dismissBanner}
-        />
-      );
-    }
     return null;
   })();
 
@@ -502,15 +614,25 @@ export default function ReportingPage() {
   return (
     <div className={styles.page}>
       {reportingBanner}
-      {/* Page header */}
-      <div className={styles.pageHeader}>
-        <div className={styles.pageHeaderText}>
-          <h1 className={styles.pageTitle}>Reporting</h1>
-          <span className={styles.pageSubtitle}>Generate, finalize, and share audit reports.</span>
+      <div className={styles.content}>
+        <div className={styles.topTipStrip}>
+          <div className={styles.topTipInner}>
+            <div className={styles.topTipContent}>
+              <Idea size={20} className={styles.topTipIcon} />
+              <span className={styles.topTipText}>{TIPS[currentTip]}</span>
+            </div>
+          </div>
+          <div className={styles.topTipControls}>
+            <button onClick={prevTip} className={styles.topTipBtn} aria-label="Previous tip">
+              <ChevronLeft size={16} />
+            </button>
+            <button onClick={nextTip} className={styles.topTipBtn} aria-label="Next tip">
+              <ChevronRight size={16} />
+            </button>
+          </div>
         </div>
-      </div>
 
-      <div className={styles.panels}>
+        <div className={styles.panels}>
         {/* ── Left panel ── */}
         <div className={styles.leftPanel}>
           <div className={styles.leftHeader}>
@@ -571,7 +693,7 @@ export default function ReportingPage() {
               <div
                 key={item.id}
                 className={`${styles.historyItem} ${selectedHistory === item.id ? styles.historyItemActive : ''}`}
-                onClick={() => setSelectedHistory(item.id)}
+                onClick={() => selectHistoryItem(item.id)}
               >
                 <div className={styles.historyText}>
                   <span className={selectedHistory === item.id ? styles.historyId : styles.historyIdInactive}>
@@ -579,7 +701,7 @@ export default function ReportingPage() {
                   </span>
                   <span className={styles.historyMeta}>{item.meta}</span>
                 </div>
-                {(selectedHistory === item.id || item.isCurrent) && <span className={styles.currentBadge}>Current</span>}
+                {item.isCurrent && <span className={styles.currentBadge}>Current</span>}
               </div>
             ))}
           </div>
@@ -589,12 +711,6 @@ export default function ReportingPage() {
         <div className={styles.centerPanel}>
           <div className={styles.canvasTopBar}>
             <span className={styles.canvasTopLabel}>Report Canvas</span>
-            <span className={styles.canvasTopMeta}>{pageFormat} · 216 × 279</span>
-            <span className={isFinalized ? styles.canvasStatusFinal : styles.canvasStatusDraft}>
-              {isFinalized ? 'Final' : 'Draft'}
-            </span>
-            <span className={styles.canvasId}>REV-2026-0004</span>
-            <span className={styles.canvasPage}>01 / 01</span>
           </div>
 
           <div className={styles.canvasArea}>
@@ -612,31 +728,29 @@ export default function ReportingPage() {
                 {/* Page document header (permanent — not removable) */}
                 <div className={styles.docHeader}>
                   <div className={styles.docLogoRow}>
-                    <div className={styles.docLogoSquare} />
-                    <span className={styles.docBrand}>REVORION</span>
+                    <img src="/header/brand-mark.png" alt="Revorion" className={styles.docLogoImg} />
                   </div>
                   <span className={styles.docReportLabel}>Audit Execution Report</span>
                   <span className={styles.docTitle}>{reportName}</span>
-                  <span className={styles.docMeta}>Batch: 8482-A9B | Silo: Music &amp; Royalty | Generated: 2026-04-21</span>
+                  <span className={styles.docMeta}>Batch: {activeReport.batch} | Silo: Music &amp; Royalty | Generated: {activeReport.generated}</span>
                   <hr className={styles.docDivider} />
 
-                  {/* Permanent summary metrics — derived from MOCK_AUDIT_RESULT */}
                   <div className={styles.docSummary}>
                     <div className={styles.docSummaryHero}>
                       <span className={styles.docSummaryLabel}>Potential Recovery</span>
-                      <span className={styles.docSummaryHeroValue}>{MOCK_AUDIT_RESULT.totalValueFormatted}</span>
+                      <span className={styles.docSummaryHeroValue}>{activeReport.recovery}</span>
                       <span className={styles.docSummarySub}>Total variance across all findings</span>
                     </div>
                     <div className={styles.docSummaryRow}>
                       <div className={styles.docSummaryItem}>
                         <span className={styles.docSummaryLabel}>Findings</span>
-                        <span className={styles.docSummaryValue}>{MOCK_AUDIT_RESULT.findingsCount.toLocaleString()}</span>
-                        <span className={styles.docSummarySub}>Across 9 contract sources</span>
+                        <span className={styles.docSummaryValue}>{activeReport.findings.toLocaleString()}</span>
+                        <span className={styles.docSummarySub}>Across {activeReport.isCurrent ? '9' : Math.max(2, activeReport.findings + 1)} contract sources</span>
                       </div>
                       <div className={styles.docSummaryItem}>
                         <span className={styles.docSummaryLabel}>Coverage</span>
-                        <span className={styles.docSummaryValue}>{MOCK_AUDIT_RESULT.coverage}%</span>
-                        <span className={styles.docSummarySub}>Of {MOCK_AUDIT_RESULT.recordsProcessed.toLocaleString()} eligible records</span>
+                        <span className={styles.docSummaryValue}>{activeReport.coverage}%</span>
+                        <span className={styles.docSummarySub}>Of {activeReport.records.toLocaleString()} eligible records</span>
                       </div>
                     </div>
                   </div>
@@ -741,10 +855,7 @@ export default function ReportingPage() {
 
           <div className={`${styles.rightSection} ${styles.rightSectionCompact}`}>
             <span className={styles.propLabel}>Rule Set Version</span>
-            <span className={`${styles.propValue} ${styles.propValueTight}`}>v321 (April 21, 2026)</span>
-
-            <span className={styles.propLabel}>Silo</span>
-            <span className={`${styles.propValue} ${styles.propValueTight}`}>Music &amp; Royalty</span>
+            <span className={`${styles.propValue} ${styles.propValueTight}`}>{activeReport.ruleSet}</span>
           </div>
 
           <hr className={styles.rightDivider} />
@@ -797,6 +908,7 @@ export default function ReportingPage() {
               </p>
             )}
           </div>
+        </div>
         </div>
       </div>
 

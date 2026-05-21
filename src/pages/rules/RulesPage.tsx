@@ -47,7 +47,7 @@ export default function RulesPage() {
   /* ── AI review flow ── */
   const [aiReviewMode, setAiReviewMode] = useState(false);
   const [currentRulesFilter, setCurrentRulesFilter] = useState<'all' | RuleSource>('all');
-  const currentRulesScrollRef = useRef<HTMLDivElement | null>(null);
+  const currentRulesPanelRef = useRef<HTMLDivElement | null>(null);
 
   /* ── Toast ── */
   const [toast, setToast] = useState<string | null>(null);
@@ -219,7 +219,7 @@ export default function RulesPage() {
 
   const handleReviewLibrary = () => {
     setCurrentRulesFilter('Library');
-    currentRulesScrollRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+    currentRulesPanelRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   return (
@@ -306,12 +306,12 @@ export default function RulesPage() {
             </div>
 
             {/* Current Rules panel */}
-            <div className={`${styles.panel} ${styles.panelRight}`}>
+            <div className={`${styles.panel} ${styles.panelRight}`} ref={currentRulesPanelRef}>
               <div className={styles.panelHeader}>
                 <span className={styles.panelTitle}>Current Rules</span>
                 <span className={styles.panelCount}>{rules.length} rule{rules.length !== 1 ? 's' : ''}</span>
               </div>
-              <div className={styles.panelScroll} ref={currentRulesScrollRef}>
+              <div className={styles.panelScroll}>
                 <CurrentRulesTable
                   rules={rules}
                   onToggle={handleToggle}

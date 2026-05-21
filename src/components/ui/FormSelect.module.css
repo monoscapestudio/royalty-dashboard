@@ -10,10 +10,10 @@
 }
 
 .label {
-  font-family: var(--font-display);
+  font-family: var(--font-mono);
   font-size: var(--type-label);
-  letter-spacing: 0.04em;
-  font-weight: 600;
+  font-weight: var(--type-label-weight);
+  letter-spacing: var(--type-label-tracking);
   color: var(--text-secondary);
   text-transform: uppercase;
   padding-left: 16px;

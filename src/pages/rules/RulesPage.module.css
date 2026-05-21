@@ -72,9 +72,6 @@
 }
 
 .content {
-  flex: 1;
-  min-height: 0;
-  height: 100%;
   padding: 24px var(--content-px) 32px;
   display: flex;
   flex-direction: column;
@@ -83,13 +80,10 @@
 }
 
 .columns {
-  flex: 1;
-  min-height: 0;
-  overflow: hidden;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
   gap: 24px;
-  align-items: stretch;
+  align-items: start;
 }
 
 /* ── Panel cards ── */
@@ -112,16 +106,10 @@
   align-self: start;
 }
 
-.panelRight {
-  overflow: hidden;
-}
-
 .panelScroll {
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .panelHeader {

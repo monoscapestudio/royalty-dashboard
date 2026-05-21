@@ -68,28 +68,28 @@
 }
 
 .groupHeader {
-  display: grid;
-  grid-template-columns: var(--rule-row-grid);
+  display: flex;
   align-items: center;
-  gap: var(--rule-row-gap);
+  justify-content: space-between;
+  gap: 12px;
   min-height: 24px;
   padding: 0 var(--rule-row-pad-x);
   background: transparent;
 }
 
 .groupLabel {
-  grid-column: 1;
   font-family: var(--font-mono);
   font-size: var(--type-label);
   font-weight: var(--type-label-weight);
   letter-spacing: var(--type-label-tracking);
   text-transform: uppercase;
   color: var(--text-secondary);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .groupCount {
-  grid-column: 5;
-  justify-self: end;
+  flex-shrink: 0;
   font-family: var(--font-mono);
   font-size: var(--type-label);
   font-weight: var(--type-label-weight);
