@@ -114,6 +114,7 @@ export default function RulesPage() {
       lastModified: 'Just now',
     };
     handleAddRule(copy);
+    showToast(`Rule duplicated as user-defined rule.`);
   };
 
   const handleRemove = (rule: Rule) => {
